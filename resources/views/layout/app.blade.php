@@ -37,10 +37,16 @@ $navItems = [
 </head>
 <body>
     <header class="header conteiner-fluid">
-        <a href="" class="header-title">
-            <h1 id="header-title-default" class="header-title-content">Escola de Futebol Astro Sports</h1>
-        </a>
-        <nav class="navbar header-nav">
+        <div class="row">
+        <div id="header-title-default" class="header-title header-title-default col-sm-12">
+            <h1 class="header-title-content">
+                <div class="header-title-text">Escola de Futebol Astro Sports</div>
+                <div class="header-title-subtitle">Descobrindo valores</div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <nav class="navbar header-nav col-sm-12">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle header-nav-toggle collapsed" data-toggle="collapse" data-target="#header-nav" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -48,9 +54,11 @@ $navItems = [
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                </button>
-               <a id="header-title-collapsed" class="navbar-brand header-title-content" href="#">E. F. Astro Sports</a>
+               <a id="header-title-collapsed" class="header-title navbar-brand" href="#">
+                   <span class="header-title-text">E. F. Astro Sports</span>
+               </a>
             </div>
-            <div id="header-nav" class="collapse navbar-collapse">
+            <div id="header-nav" class="header-nav-list collapse navbar-collapse">
                 <ul class="nav nav-pills nav-justified">
                     @foreach( $navItems as $uri => $title )
                         <li class="nav-item header-nav-item">
@@ -60,22 +68,37 @@ $navItems = [
                 </ul>
             </div>
         </nav>
+    </div>
     </header>
-    <section class="content">
-        @yield('content')
-    </section>
-    <footer class="footer">
-        <div class="footer-wrapper">
-            <nav class="footer-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    @foreach( $navItems as $uri => $title )
-                        <li class="nav-item footer-nav-item">
-                            <a class="nav-item-content" href="{{ $uri }}">{{ $title }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </nav>
+    <section class="content conteiner-fluid">
+        <div class="row">
+            @include('layout.sidebar-left')
+            @yield('content')
+            @include('layout.sidebar-right')
         </div>
+    </section>
+    <footer class="footer conteiner-fluid">
+        <section class="row">
+            <ul class="footer-contact list-inline col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
+                <li class="footer-item col-xs-12 col-sm-3 col-lg-2">
+                    <div class="footer-content">(00) 0000-0000</div>
+                </li>
+                <li class="footer-item col-xs-12 col-sm-1">
+                    <div class="footer-content footer-content--separator visible-xs">...</div>
+                    <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
+                </li>
+                <li class="footer-item col-xs-12 col-sm-3 col-lg-3">
+                    <div class="footer-content">exemple@exemple.com</div>
+                </li>
+                <li class="footer-item col-xs-12 col-sm-1">
+                    <div class="footer-content footer-content--separator visible-xs">...</div>
+                    <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
+                </li>
+                <li class="footer-item col-xs-12 col-sm-4 col-lg-5">
+                    <div class="footer-content">Rua exemplo, 000 - bairro exemplo - cidade/UF</div>
+                </li>
+            </ul>
+        </section>
     </footer>
 
     <script src="/js/manifest.js"></script>

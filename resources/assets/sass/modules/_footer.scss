@@ -1,0 +1,42 @@
+.footer {
+    background-color: rgba(0, 0, 0, .8);
+    &-contact {
+        padding: 25px 0;
+    }
+
+    &-content {
+        font-size: 16px;
+        color: #fff;
+        text-align: center;
+
+        &--separator {
+            font-weight: bolder;
+            letter-spacing: 10px;
+        }
+    }
+
+    @media (max-width: $screen-xs-max) {
+        &-item + &-item {
+            margin-top: 10px;
+        }
+    }
+
+    @media (min-width: $screen-sm-min) {
+        /*&-item + &-item {
+            border-left: 1px solid #fff;
+        }*/
+    }
+
+
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        &-content {
+            font-size: 12px;
+        }
+    }
+
+    @media (min-width: $screen-md-min) {
+        &-contact {
+            margin-top: 10px;
+        }
+    }
+}

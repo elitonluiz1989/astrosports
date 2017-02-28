@@ -1,0 +1,22 @@
+.content {
+    background-color: #fff;
+    min-height: 300px;
+
+    .sidebar {
+        border-right: 1px solid blue;
+        padding-top: 5px;
+
+        &-wrap {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        &-schedule {
+            border: 1px solid red;
+
+            @media (min-width: $screen-lg-min) {
+                width: 95%;
+            }
+        }
+    }
+}
