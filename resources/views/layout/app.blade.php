@@ -74,7 +74,6 @@ $navItems = [
         <div class="row">
             @include('layout.sidebar-left')
             @yield('content')
-            @include('layout.sidebar-right')
         </div>
     </section>
     <footer class="footer conteiner-fluid">

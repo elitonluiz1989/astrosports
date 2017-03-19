@@ -1,7 +1,7 @@
 {
-    "name": "astrosports",
-    "description": "Escola de futebol Astro Sports.",
-    "keywords": ["futebol", "escola"],
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
