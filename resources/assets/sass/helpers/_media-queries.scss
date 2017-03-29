@@ -1,0 +1,25 @@
+$breakpoints: (
+    "sm": $screen-sm-min,
+    "sm-max": $screen-sm-max,
+    "md": $screen-md-min,
+    "md-max": $screen-md-max,
+    "lg": $screen-lg-min
+
+);
+
+@mixin media-query($min, $max: false) {
+    $min-width: map_get($breakpoints, $min);
+
+    @if $max == false {
+        @media (min-width: $min-width) {
+            @content;
+        }
+    } @else {
+        $maxKey: "#{$min}-max";
+        $max-width: map_get($breakpoints, $maxKey);
+
+        @media (min-width: $min-width) and (max-width: $max-width) {
+            @content;
+        }
+    }
+}
