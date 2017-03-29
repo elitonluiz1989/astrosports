@@ -1,21 +1,15 @@
-// Mixins
-@import "mixins/base";
-
-
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
-// Partials
-@import "partials/variables";
-
-@import "partials/base";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-// Modules
-@import "modules/header";
+// Helpers
+@import "helpers/variables";
+@import "helpers/media-queries";
+@import "helpers/gradients";
+@import "helpers/placeholders";
 
-@import "modules/content";
-
-@import "modules/footer";
+// Components
+@import "base/index";
+@import "home";

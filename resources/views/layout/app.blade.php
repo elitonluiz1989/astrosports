@@ -73,7 +73,11 @@ $navItems = [
     <section class="content conteiner-fluid">
         <div class="row">
             @include('layout.sidebar-left')
-            @yield('content')
+            <section class="content-main col-xs-12 col-sm-8 col-md-9">
+              <div class="content-wrap">
+              @yield('content')
+            </div>
+            </section>
         </div>
     </section>
     <footer class="footer conteiner-fluid">
