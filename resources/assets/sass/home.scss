@@ -2,13 +2,18 @@
     background-color: #fff;
     padding: 5px;
 
+    %home-shadow {
+        box-shadow: 2px 2px 4px #333;
+    }
+
     &-wrapper {
         margin-bottom: 10px;
     }
 
     &-title {
-        background-color: #555;
+        background-color: #333;
         width: 95%;
+        @extend %home-shadow;
 
         &__text {
             margin: 0;
@@ -45,36 +50,41 @@
 
     &-news {
         $homeNewsColor: #333;
-        background-color: #efefef;
+        background-color: #285;
         display: table;
         padding: 5px;
-
-        @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-            $homeNewsMargin: 5%;
-            & {
-                width: 90%;
-                margin-right: $homeNewsMargin;
-                margin-left: $homeNewsMargin;
-            }
-        }
+        width: 100%;
 
         &__title {
             width: 100%;
         }
 
         &__wrapper {
+            background-color: #fff;
             border: 1px solid $homeNewsColor;
-            height: 150px;
+            @extend %home-shadow;
             margin-top: 10px;
+
+            &--has-news {
+                height: 150px;
+            }
 
             &:last-child() {
                 margin-bottom: 5px;
             }
 
-            @include media-query("sm", true) {
-                $homeNewsContentMargin: 5%;
+            @include media-query("lm", true) {
                 & {
                     width: 100%;
+                }
+            }
+
+            @include media-query("md") {
+                $homeNewsContentMargin: 5%;
+                & {
+                    width: 90%;
+                    margin-right: $homeNewsContentMargin;
+                    margin-left: $homeNewsContentMargin;
                 }
             }
         }
@@ -85,19 +95,56 @@
 
         &__cover {
             border-right: 1px solid $homeNewsColor;
-            width: 25%;
             @extend %news-pieces;
             @extend %left;
+
+            @include media-query("lm", true) {
+                &{
+                    width: 40%;
+                }
+            }
+
+            @include media-query("xs") {
+                &{
+                    width: 25%;
+                }
+            }
         }
 
         &__content {
             @extend %news-pieces;
             @extend %left;
             @extend %hidden;
+            padding: 5px;
+            text-align: justify;
 
             &--withcover {
                 width: 75%;
+
+                @include media-query("lm", true) {
+                    & {
+                        width: 60%;
+                    }
+                }
             }
+
+            &-title {
+                background-color: #1e5b3c;
+                padding: 5px 0;
+                color: #fff;
+                text-align: center;
+            }
+        }
+
+        &__no-news {
+            padding: 10px 0;
+            color: #666;
+            text-align: center;
+        }
+
+        &__btn-more {
+            width: 100%;
+            border-radius: 0;
         }
     }
 }

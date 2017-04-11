@@ -53,24 +53,32 @@
             <header class="home-title home-news__title">
                 <h1 class="home-title__text">Últimas Notícias</h1>
             </header>
-            @if (count($news) > 0)
             <ul class="list">
-                @foreach ($news as $current)
-                    <li class="list-item home-news__wrapper">
-                        @php $newsContentClass = "home-news__content"; @endphp
-                        @if (!empty($current[ 'cover' ]))
-                            @php $newsContentClass .= " home-news__content--withcover"; @endphp
-                            <div class="home-news__cover">
-                                <img class="img" src="{{ $current[ 'cover' ] }}" alt="cover">
+                @if (count($news) > 0)
+                    @foreach ($news as $current)
+                        <li class="list-item home-news__wrapper home-news__wrapper--has-news">
+                            @php $newsContentClass = "home-news__content"; @endphp
+                            @if (!empty($current[ 'cover' ]))
+                                @php $newsContentClass .= " home-news__content--withcover"; @endphp
+                                <div class="home-news__cover">
+                                    <img class="img" src="{{ $current[ 'cover' ] }}" alt="cover">
+                                </div>
+                            @endif
+                            <div class="{{ $newsContentClass }}">
+                                <div class="home-news__content-title">{{ $current[ 'title' ] }}</div>
+                                <div>{!! $current[ 'content' ] !!}</div>
                             </div>
-                        @endif
-                        <div class="{{ $newsContentClass }}">
-                            <div>{{ $current[ 'title' ] }}</div>
-                            <div>{!! $current[ 'content' ] !!}</div>
+                        </li>
+                    @endforeach
+                    <li class="list-item home-news__wrapper">
+                        <a class=" home-news__btn-more btn btn-default" href="/noticias">Mais Notícias</a>
                     </li>
-                @endforeach
+                @else
+                    <li class="list-item home-news__wrapper">
+                        <div class="home-news__no-news">Sem resgistros.</div>
+                    </li>
+                @endif
             </ul>
-            @endif
         </div>
     </div>
 @endsection
