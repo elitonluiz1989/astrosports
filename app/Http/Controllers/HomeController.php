@@ -37,12 +37,8 @@ class HomeController extends Controller
         $data = [
             'history' => $this->history->get("history"),
             'photos' => $this->photos->all(),
-            'news' => $this->news->get("news"),
-            'schedules' => $this->schedules->all(),
-            'videos' => $this->videos->all()
+            'news' => $this->news->get("news")
         ];
-
-        //echo "<pre>"; echo var_dump($data); echo "</pre>";
 
         return view("home", $data);
     }
