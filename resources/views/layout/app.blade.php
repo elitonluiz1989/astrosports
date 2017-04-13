@@ -38,30 +38,30 @@ $navItems = [
 <body>
     <header class="header conteiner-fluid">
         <div class="row">
-            <div id="header-title-default" class="header-title header-title-default col-sm-12">
-                <h1 class="header-title-content">
-                    <div class="header-title-text">Escola de Futebol Astro Sports</div>
-                    <div class="header-title-subtitle">Descobrindo valores</div>
+            <div id="header-title-default" class="header__title header__title--default col-sm-12">
+                <h1 class="header__title-content">
+                    <div class="header__title-text">Escola de Futebol Astro Sports</div>
+                    <div class="header__title-subtitle">Descobrindo valores</div>
                 </h1>
             </div>
         </div>
         <div class="row">
-            <nav class="navbar header-nav col-sm-12">
+            <nav class="navbar header__nav col-sm-12">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle header-nav-toggle collapsed" data-toggle="collapse" data-target="#header-nav" aria-expanded="false">
+                    <button type="button" class="navbar-toggle header__nav-toggle collapsed" data-toggle="collapse" data-target="#header-nav" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                    </button>
-                   <a id="header-title-collapsed" class="header-title navbar-brand" href="#">
-                       <span class="header-title-text">E. F. Astro Sports</span>
+                   <a id="header-title-collapsed" class="header__title navbar-brand" href="#">
+                       <span class="header__title-text">E. F. Astro Sports</span>
                    </a>
                 </div>
-                <div id="header-nav" class="header-nav-list collapse navbar-collapse">
+                <div id="header-nav" class="header__nav-list collapse navbar-collapse">
                     <ul class="nav nav-pills nav-justified">
                         @foreach( $navItems as $uri => $title )
-                            <li class="nav-item header-nav-item">
+                            <li class="nav-item header__nav-item">
                                 <a class="nav-item-content" href="{{ $uri }}">{{ $title }}</a>
                             </li>
                         @endforeach

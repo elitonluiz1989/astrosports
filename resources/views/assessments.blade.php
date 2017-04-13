@@ -16,7 +16,7 @@
                     <label class="col-sm-3 control-label" for="imc-weight">Peso</label>
                     <div class="col-sm-9">
                         <input id="imc-weight" class="form-control input-lg" name="imc-weight" type="text" placeholder="0.000">
-                    </div>
+                    </div>                    
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="imc-height">Altura</label>

@@ -37,7 +37,7 @@ class HomeController extends Controller
         $data = [
             'history' => $this->history->get("history"),
             'photos' => $this->photos->all(),
-            'news' => $this->news->get("news")
+            'news' => $this->news->get()
         ];
 
         return view("home", $data);

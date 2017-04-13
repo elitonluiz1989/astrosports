@@ -1,15 +1,13 @@
 body {
-    background-color: #222;
-    @include mainGradient(90deg, 50%, #222);
+    @include mainGradient(left, 50%, #222);
     font-style: 14px;
 }
 
-$header-title-color: #ecdb00;
 .header {
     margin: 0;
     padding: 0;
 
-    &-title {
+    &__title {
         text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
 
         &-content {
@@ -22,7 +20,7 @@ $header-title-color: #ecdb00;
         &-text {
             @extend %left;
             width: 100%;
-            color: $header-title-color;
+            color: $themeGolden;
             @extend %bolder;
         }
 
@@ -32,14 +30,46 @@ $header-title-color: #ecdb00;
             @extend %bolder;
         }
 
-        &-default {
+        &--default {
             float: left;
             width: 100%;
+        }
+
+        @include media-query("sm") {
+            & {
+                margin-bottom: 10px;
+            }
+        }
+
+        @include media-query("sm", true) {
+            & {
+                &-text {
+                    font-size: 40px;
+                }
+
+                &-subtitle {
+                    font-size: 20px;
+                    margin-right: 8%;
+                }
+            }
+        }
+
+        @include media-query("md") {
+            & {
+                &-text {
+                    font-size: 55px;
+                }
+
+                &-subtitle {
+                    font-size: 24px;
+                    margin-right: 10%;
+                }
+            }
         }
     }
 
 
-    &-nav {
+    &__nav {
         margin-bottom: 0;
 
         &-toggle {
@@ -58,41 +88,21 @@ $header-title-color: #ecdb00;
                 color: #0a7701;
             }
         }
-    }
-}
 
-@media (max-width: 767px) {
-    .header-title-text {
-        font-size: 28px;
-    }
+        @include media-query("sm") {
+            & {
+                background-color: rgba(0, 0, 0, .4);
 
-    #header-title-default {
-        display: none;
-    }
+                &-list.collapse {
+                    margin-top: 5px;
+                    .nav {
+                        display: inline-block;
+                        &-item-content {
+                            text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
 
-    #header-nav {
-        background-color: #111;
-    }
-}
-
-@media (min-width: $screen-sm-min) {
-    .header {
-        &-title {
-            margin-bottom: 10px;
-        }
-
-        &-nav{
-            background-color: rgba(0, 0, 0, .4);
-
-            &-list.collapse {
-                margin-top: 5px;
-                .nav {
-                    display: inline-block;
-                    &-item-content {
-                        text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
-
-                        &:hover {
-                            text-shadow: none;
+                            &:hover {
+                                text-shadow: none;
+                            }
                         }
                     }
                 }
@@ -100,42 +110,30 @@ $header-title-color: #ecdb00;
         }
     }
 
-    #header-title-collapsed {
-        display: none;
-    }
-}
-
-@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-    .header {
-        &-title {
-            &-text {
-                font-size: 40px;
-            }
-
-            &-subtitle {
-                font-size: 20px;
-                margin-right: 8%;
-            }
+    @media (max-width: 767px) {
+        .header-title-text {
+            font-size: 28px;
         }
-    }
-}
 
-@media (min-width: $screen-md-min) {
-    .header {
-        &-title {
-            &-text {
-                font-size: 55px;
-            }
+        #header-title-default {
+            display: none;
+        }
 
-            &-subtitle {
-                font-size: 24px;
-                margin-right: 10%;
-            }
+        #header-nav {
+            background-color: #111;
         }
     }
 
-    .nav-item-content {
-        font-size: 18px;
-        padding: 6px !important;
+    @include media-query("sm") {
+        #header-title-collapsed {
+            display: none;
+        }
+    }
+
+    @include media-query("md") {
+        .nav-item-content {
+            font-size: 18px;
+            padding: 6px !important;
+        }
     }
 }

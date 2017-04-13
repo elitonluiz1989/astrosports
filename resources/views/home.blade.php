@@ -56,7 +56,7 @@
             <ul class="list">
                 @if (count($news) > 0)
                     @foreach ($news as $current)
-                        <li class="list-item home-news__wrapper home-news__wrapper--has-news">
+                        <li class="list__item home-news__wrapper home-news__wrapper--has-news">
                             @php $newsContentClass = "home-news__content"; @endphp
                             @if (!empty($current[ 'cover' ]))
                                 @php $newsContentClass .= " home-news__content--withcover"; @endphp
@@ -70,11 +70,11 @@
                             </div>
                         </li>
                     @endforeach
-                    <li class="list-item home-news__wrapper">
+                    <li class="list__item home-news__wrapper">
                         <a class=" home-news__btn-more btn btn-default" href="/noticias">Mais Notícias</a>
                     </li>
                 @else
-                    <li class="list-item home-news__wrapper">
+                    <li class="list__item home-news__wrapper">
                         <div class="home-news__no-news">Sem resgistros.</div>
                     </li>
                 @endif

@@ -1,4 +1,4 @@
-@mixin mainGradient($deg, $init, $bg) {
+@mixin mainGradient($dir, $init, $bg) {
     $colorWidth: (
         10%, /* green */
         5%, /* white */
@@ -16,14 +16,31 @@
         $breakpoints: append($breakpoints, $val);
     }
 
-    background: linear-gradient(
-        $deg,
-        nth($colors, 1) 0, nth($colors, 1) nth($breakpoints, 1), /* transparent */
-        nth($colors, 2) nth($breakpoints, 1), nth($colors, 2) nth($breakpoints, 2), /* green */
-        nth($colors, 3) nth($breakpoints, 2), nth($colors, 3) nth($breakpoints, 3), /* white */
-        nth($colors, 1) nth($breakpoints, 3), nth($colors, 1) nth($breakpoints, 4), /* transparent */
-        nth($colors, 3) nth($breakpoints, 4), nth($colors, 3) nth($breakpoints, 5), /* white */
-        nth($colors, 2) nth($breakpoints, 5), nth($colors, 2) nth($breakpoints, 6), /* green */
-        nth($colors, 1) nth($breakpoints, 6) /* transparent */
-    ) center center no-repeat fixed $bg;
+    $firstLine: nth($colors, 1) 0, nth($colors, 1) nth($breakpoints, 1);
+
+    $secondLine: nth($colors, 2) nth($breakpoints, 1), nth($colors, 2) nth($breakpoints, 2);
+
+    $thirdLine: nth($colors, 3) nth($breakpoints, 2), nth($colors, 3) nth($breakpoints, 3);
+
+    $fourthLine: nth($colors, 1) nth($breakpoints, 3), nth($colors, 1) nth($breakpoints, 4);
+
+    $fifthLine: nth($colors, 3) nth($breakpoints, 4), nth($colors, 3) nth($breakpoints, 5);
+
+    $sixthLine: nth($colors, 2) nth($breakpoints, 5), nth($colors, 2) nth($breakpoints, 6);
+
+    $seventhLine: nth($colors, 1) nth($breakpoints, 6);
+
+    background-color: $bg;
+    background-image: linear-gradient(
+        $dir,
+        $firstLine, /* transparent */
+        $secondLine, /* green */
+        $thirdLine, /* white */
+        $fourthLine, /* transparent */
+        $fifthLine, /* white */
+        $sixthLine, /* green */
+        $seventhLine /* transparent */
+    );
+    background-repeat: no-repeat;
+    background-position: fixed;
 }

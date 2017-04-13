@@ -7,9 +7,8 @@
 
     &__wrap {
         background-color: #fff;
-
-        @include media-query('sm') {
-            min-height: 800px;
-        }
+        @extend %left;
+        width: 100%;
+        overflow-x: hidden;
     }
 }

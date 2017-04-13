@@ -80,17 +80,17 @@ $days = [
                 @php $videos = $videosRepository->all(); @endphp
                 @if (count($videos) > 0)
                     @foreach ($videos as $video)
-                        <li class="list-item">
+                        <li class="list__item">
                             <div class="sidebar__videos-item">
                                 <iframe class="sidebar__videos-video" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </li>
                     @endforeach
-                    <li class="list-item">
+                    <li class="list__item">
                         <a class="sidebar__videos-more btn btn-default" href="/videos">Mais vídeos</a>
                     </li>
                 @else
-                    <li class="list-item">
+                    <li class="list__item">
                         <div class="sidebar__videos-novideos">Sem vídeos<br>...</div>
                     </li>
                 @endif
