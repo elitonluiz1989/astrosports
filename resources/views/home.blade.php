@@ -5,7 +5,7 @@
 @php $photosQty = count($photos); @endphp
 
 @section('content')
-    <div class="home">
+    <div class="home page">
         <!-- Photos -->
         <div id="home-photos" class="home-photos home-wrapper carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -24,7 +24,7 @@
                 @foreach ($photos as $p => $photo)
                     @php $class = ($p == 0) ? 'home-photos__photo item active' : 'home-photo item'; @endphp
                     <div class="{{ $class }}">
-                        <img src="{{ $photo[ 'src' ] }}" alt="foto {{ $p }}">
+                        <img src="{{ $photo[ 'src' ] }}?w=600&h=400" alt="foto {{ $p }}">
                         @if ( $photo[ 'description' ] )
                             <div class="carousel-caption">{{ $photo[ 'description' ] }}</div>
                         @endif
@@ -61,7 +61,7 @@
                             @if (!empty($current[ 'cover' ]))
                                 @php $newsContentClass .= " home-news__content--withcover"; @endphp
                                 <div class="home-news__cover">
-                                    <img class="img" src="{{ $current[ 'cover' ] }}" alt="cover">
+                                    <img class="img" src="{{ $current[ 'cover' ] }}?w=300&h=250" alt="cover">
                                 </div>
                             @endif
                             <div class="{{ $newsContentClass }}">

@@ -3,7 +3,7 @@
 @section('title', 'Avaliações')
 
 @section('content')
-    <div class="assessments">
+    <div class="assessments page">
         <form id="form-imc" class="imc form-horizontal" action="/avaliacoes/imc" method="post">
             <legend class="imc__title">IMC</legend>
             <div class="col-xs-12 col-sm-12 col-md-6 imc__wrapper">
@@ -16,7 +16,7 @@
                     <label class="col-sm-3 control-label" for="imc-weight">Peso</label>
                     <div class="col-sm-9">
                         <input id="imc-weight" class="form-control input-lg" name="imc-weight" type="text" placeholder="0.000">
-                    </div>                    
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="imc-height">Altura</label>

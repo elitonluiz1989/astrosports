@@ -17,6 +17,7 @@ $navItems = [
     <meta id="app-token" name="app-token" value="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Astro Sports - @yield('title')</title>
 
@@ -72,20 +73,15 @@ $navItems = [
     </header>
     <section class="content conteiner-fluid">
         <div class="row">
-            @php
-                $withSidebar = $layoutSidebar ?? true;
-                $contentClass = "content__main col-xs-12";
-            @endphp
+            @php $contentClass = "content__main col-xs-12"; @endphp
 
-            @if ( $withSidebar )
+            @if ( $showSidebar )
                 @include('layout.sidebar-left')
                 @php $contentClass .= " col-sm-8 col-md-9"; @endphp
             @endif
 
             <section class="{{ $contentClass }}">
-                <div class="content__wrap">
-                    @yield('content')
-                </div>
+                @yield('content')
             </section>
         </div>
     </section>

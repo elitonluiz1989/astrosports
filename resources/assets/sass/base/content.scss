@@ -5,10 +5,22 @@
         padding: 5px 5px 0;
     }
 
-    &__wrap {
+    .page {
         background-color: #fff;
         @extend %left;
         width: 100%;
         overflow-x: hidden;
+
+        @include media-query("lm") {
+            & {
+                min-height: 300px;
+            }
+        }
+
+        @include media-query("sm") {
+            & {
+                min-height: 800px;
+            }
+        }
     }
 }

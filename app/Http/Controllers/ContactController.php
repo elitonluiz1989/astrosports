@@ -9,18 +9,23 @@ use App\Repositories\ContactRepository;
 class ContactController extends Controller
 {
     private $contacts;
+    private $view;
 
-    public function __construct(ContactRepository $contacts) {
+    public function __construct(
+        ContactRepository $contacts,
+        ViewHelper $view
+    ) {
         $this->contacts = $contacts;
+        $this->view = $view;
+
+        $this->view->setVar('view', 'contact');
     }
 
     public function index() {
-        $data = [
-            'telephones' => $this->contacts->get("telephone"),
-            'emails' => $this->contacts->get("email"),
-            'localization' => $this->contacts->get("localization"),
-        ];
+        $this->view->setVar('telephones', $this->contacts->get("telephone"));
+        $this->view->setVar('emails', $this->contacts->get("email"));
+        $this->view->setVar('localization', $this->contacts->get("localization"));
 
-        return view("contact", $data);
+        return $this->view->render();
     }
 }

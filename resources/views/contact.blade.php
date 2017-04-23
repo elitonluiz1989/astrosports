@@ -3,7 +3,7 @@
 @section('title', 'Contato')
 
 @section('content')
-    <div class="contact">
+    <div class="contact page">
         <div class="contact__wrapper">
             <h2 class="contact__title">Fale conosco</h2>
             <ul class="list">
@@ -25,14 +25,14 @@
             <h2 class="contact__title">Envie-nos uma mensagem</h2>
             <form id="send-email" class="send-email" action="/contato/enviar" >
                 <div class="send-email__group">
-                    <label class="control-label col-xs-5 col-sm-4 col-md-3" for="send-email__name">Nome</label>
-                    <div class="col-xs-7 col-sm-6 col-md-7">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-3" for="send-email__name">Nome</label>
+                    <div class="col-xs-12 col-sm-6 col-md-7">
                         <input id="send-email__name" class="form-control input-lg" type="text" name="send-email__name">
                     </div>
                 </div>
                 <div class="send-email__group">
-                    <label class="control-label col-xs-5 col-sm-4 col-md-3" for="send-email__email">E-mail</label>
-                    <div class="col-xs-7 col-sm-6 col-md-7">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-3" for="send-email__email">E-mail</label>
+                    <div class="col-xs-12 col-sm-6 col-md-7">
                         <input id="send-email__email" class="form-control input-lg" type="text" name="send-email__email">
                     </div>
                 </div>
