@@ -9,6 +9,7 @@ use App\Repositories\ContactRepository;
 class ContactController extends Controller
 {
     private $contacts;
+    private $view;
 
     public function __construct(ContactRepository $contacts) {
         $this->contacts = $contacts;

@@ -9,12 +9,10 @@ Route::get('/fotos/albuns/{page?}', 'PhotosController@displayAlbums')->where('pa
 Route::get('/fotos/album/{id}/{page?}', 'PhotosController@displayAlbum')->where('page', '[0-9]+');
 Route::get('storage/photos/{file}', 'PhotosController@getPhoto');
 
+// Schedules module
 Route::get('/horarios', 'SchedulesController@schedules');
 Route::get('/horarios/polos', 'SchedulesController@poles');
 Route::get('/horarios/categorias', 'SchedulesController@categories');
-
-Route::get('/videos', 'VideosController@index');
-Route::get('/sobre', 'AboutController@index');
 
 Route::get('json/{model}', function($model) {
     $class = 'App\\Models\\' . $model;
