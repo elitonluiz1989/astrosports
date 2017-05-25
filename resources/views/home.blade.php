@@ -1,11 +1,11 @@
-@extends('layout.app')
+@extends('template.app')
 
 @section('title', 'Início')
 
 @php $photosQty = count($photos); @endphp
 
 @section('content')
-    <div class="home">
+    <div class="home page">
         <!-- Photos -->
         <div id="home-photos" class="home-photos home-wrapper carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -22,9 +22,9 @@
             <!-- wrapperper for slides -->
             <div class="carousel-inner" role="listbox">
                 @foreach ($photos as $p => $photo)
-                    @php $class = ($p == 0) ? 'home-photos__photo item active' : 'home-photo item'; @endphp
+                    @php $class = ($p == 0) ? 'home-photos-photo item active' : 'home-photo item'; @endphp
                     <div class="{{ $class }}">
-                        <img src="{{ $photo[ 'src' ] }}" alt="foto {{ $p }}">
+                        <img src="{{ $photo[ 'src' ] }}?w=600&h=400" alt="foto {{ $p }}">
                         @if ( $photo[ 'description' ] )
                             <div class="carousel-caption">{{ $photo[ 'description' ] }}</div>
                         @endif
@@ -43,39 +43,39 @@
         </div>
         <!-- History -->
         <div class="home-history home-wrapper">
-            <header class="home-title home-history__title">
-                <h1 class="home-title__text">A Escola</h1>
+            <header class="home-title home-history-title">
+                <h1 class="home-title-text">A Escola</h1>
             </header>
-            <article class="home-history__content">{!! $history !!}</article>
+            <article class="home-history-content">{!! $history !!}</article>
         </div>
         <!-- News -->
         <div class="home-news home-wrapper">
-            <header class="home-title home-news__title">
-                <h1 class="home-title__text">Últimas Notícias</h1>
+            <header class="home-title home-news-title">
+                <h1 class="home-title-text">Últimas Notícias</h1>
             </header>
             <ul class="list">
                 @if (count($news) > 0)
                     @foreach ($news as $current)
-                        <li class="list__item home-news__wrapper home-news__wrapper--has-news">
-                            @php $newsContentClass = "home-news__content"; @endphp
+                        <li class="list-item home-news-wrapper home-news-wrapper--has-news">
+                            @php $newsContentClass = "home-news-content"; @endphp
                             @if (!empty($current[ 'cover' ]))
-                                @php $newsContentClass .= " home-news__content--withcover"; @endphp
-                                <div class="home-news__cover">
-                                    <img class="img" src="{{ $current[ 'cover' ] }}" alt="cover">
+                                @php $newsContentClass .= " home-news-content--withcover"; @endphp
+                                <div class="home-news-cover">
+                                    <img class="img" src="{{ $current[ 'cover' ] }}?w=300&h=250" alt="cover">
                                 </div>
                             @endif
                             <div class="{{ $newsContentClass }}">
-                                <div class="home-news__content-title">{{ $current[ 'title' ] }}</div>
+                                <div class="home-news-content-title">{{ $current[ 'title' ] }}</div>
                                 <div>{!! $current[ 'content' ] !!}</div>
                             </div>
                         </li>
                     @endforeach
-                    <li class="list__item home-news__wrapper">
-                        <a class=" home-news__btn-more btn btn-default" href="/noticias">Mais Notícias</a>
+                    <li class="list-item home-news-wrapper">
+                        <a class=" home-news-btn-more btn btn-default" href="/noticias">Mais Notícias</a>
                     </li>
                 @else
-                    <li class="list__item home-news__wrapper">
-                        <div class="home-news__no-news">Sem resgistros.</div>
+                    <li class="list-item home-news-wrapper">
+                        <div class="home-news-no-news">Sem resgistros.</div>
                     </li>
                 @endif
             </ul>

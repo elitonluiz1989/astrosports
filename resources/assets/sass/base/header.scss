@@ -1,14 +1,24 @@
-body {
-    @include mainGradient(left, 50%, #222);
-    font-style: 14px;
-}
-
 .header {
     margin: 0;
     padding: 0;
 
-    &__title {
+    @include media-query('lg') {
+        background-image: url('../images/header-lg.jpg');
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        height: 250px;
+    }
+
+    &-logo {
+
+    }
+
+    &-title {
         text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
+
+        @include media-query("sm") {
+            height: 200px;
+        }
 
         &-content {
             @extend %left;
@@ -33,12 +43,6 @@ body {
         &--default {
             float: left;
             width: 100%;
-        }
-
-        @include media-query("sm") {
-            & {
-                margin-bottom: 10px;
-            }
         }
 
         @include media-query("sm", true) {
@@ -69,7 +73,7 @@ body {
     }
 
 
-    &__nav {
+    &-nav {
         margin-bottom: 0;
 
         &-toggle {
@@ -90,19 +94,17 @@ body {
         }
 
         @include media-query("sm") {
-            & {
-                background-color: rgba(0, 0, 0, .4);
+            background-color: rgba(0, 0, 0, .8);
 
-                &-list.collapse {
-                    margin-top: 5px;
-                    .nav {
-                        display: inline-block;
-                        &-item-content {
-                            text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
+            &-list.collapse {
+                margin-top: 5px;
+                .nav {
+                    display: inline-block;
+                    &-item-content {
+                        text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
 
-                            &:hover {
-                                text-shadow: none;
-                            }
+                        &:hover {
+                            text-shadow: none;
                         }
                     }
                 }

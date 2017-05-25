@@ -19,7 +19,7 @@
             }
         }
 
-        &__title {
+        &-title {
             background-color: $themeGreen;
             border: 0;
             margin: 0;
@@ -28,7 +28,7 @@
             text-align: center;
         }
 
-        &__wrapper {
+        &-wrapper {
             border-top: 1px solid $imcColor;
             @extend %hidden;
             padding: 0;
@@ -47,14 +47,14 @@
             }
         }
 
-        &__text {
+        &-text {
             background-color: #fafafa;
             margin: 0;
             padding: 5px;
             text-indent: 20px;
         }
 
-        &__submit {
+        &-submit {
             background-color: $imcColor;
             border: 0;
             width: 100%;

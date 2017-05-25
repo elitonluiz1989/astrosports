@@ -15,7 +15,7 @@
         width: 95%;
         @extend %home-shadow;
 
-        &__text {
+        &-text {
             margin: 0;
             padding: 10px 0 10px 15px;
             color: #fff;
@@ -28,7 +28,7 @@
         height: 350px;
         overflow: hidden;
 
-        &__photo {
+        &-photo {
             img {
                 margin: 0 auto;
             }
@@ -39,11 +39,11 @@
         max-height: 400px;
         overflow: hidden;
 
-        &__title {
+        &-title {
             width: 40%;
         }
 
-        &__content {
+        &-content {
             padding: 5px 10px;
         }
     }
@@ -55,11 +55,11 @@
         padding: 5px;
         width: 100%;
 
-        &__title {
+        &-title {
             width: 100%;
         }
 
-        &__wrapper {
+        &-wrapper {
             background-color: #fff;
             border: 1px solid $homeNewsColor;
             @extend %home-shadow;
@@ -93,7 +93,7 @@
             height: 100%;
         }
 
-        &__cover {
+        &-cover {
             border-right: 1px solid $homeNewsColor;
             @extend %news-pieces;
             @extend %left;
@@ -111,7 +111,7 @@
             }
         }
 
-        &__content {
+        &-content {
             @extend %news-pieces;
             @extend %left;
             @extend %hidden;
@@ -136,13 +136,13 @@
             }
         }
 
-        &__no-news {
+        &-no-news {
             padding: 10px 0;
             color: #666;
             text-align: center;
         }
 
-        &__btn-more {
+        &-btn-more {
             width: 100%;
             border-radius: 0;
         }

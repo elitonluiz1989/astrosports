@@ -1,3 +1,9 @@
+body {
+    //@include mainGradient(to left, 50%, #222);
+    background: url(../images/background-lg.png) top left repeat-y #222;
+    font-style: 14px;
+}
+
 .row {
     margin: 0 !important;
 }
@@ -6,7 +12,7 @@
   list-style: none;
   padding: 0;
 
-  &__item {
+  &-item {
     @extend %left;
     width: 100%;
   }

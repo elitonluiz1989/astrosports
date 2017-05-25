@@ -16,11 +16,11 @@ class ContactController extends Controller
 
     public function index() {
         $data = [
-            'telephones' => $this->contacts->get("telephone"),
-            'emails' => $this->contacts->get("email"),
-            'localization' => $this->contacts->get("localization"),
+            'telephones'    => $this->contacts->get("telephone"),
+            'emails'        => $this->contacts->get("email"),
+            'localization'  => $this->contacts->get("localization")
         ];
 
-        return view("contact", $data);
+        return view('contact', $data);
     }
 }

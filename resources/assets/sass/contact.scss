@@ -1,11 +1,11 @@
 .contact {
-    &__wrapper {
+    &-wrapper {
         @extend %left;
         width: 80%;
         margin: 0 10% 20px;
     }
 
-    &__title {
+    &-title {
         background-color: $themeGreen;
         padding: 8px 0;
         width: 70%;
@@ -17,7 +17,7 @@
     .contacts {
         padding-right: 10px;
 
-        &__subtitle {
+        &-subtitle {
             background-color: #333;
             @extend %left;
             width: 30%;
@@ -27,26 +27,26 @@
             text-align: center;
         }
 
-        &__item {
+        &-item {
             padding: 5px 0 5px 20px
         }
     }
 
     .send-email {
-        &__group {
+        &-group {
             @extend %left;
             padding: 10px 0;
             width: 100%;
         }
 
-        &__text {
+        &-text {
             width: 100%;
             height: 250px;
         }
     }
 
     .localization {
-        &__map {
+        &-map {
             border: 1px solid $themeGreen;
             width: 100%;
             height: 400px;

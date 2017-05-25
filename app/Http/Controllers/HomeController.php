@@ -7,39 +7,56 @@ use Illuminate\Http\Request;
 use App\Repositories\HistoryRepository;
 use App\Repositories\PhotosRepository;
 use App\Repositories\NewsRepository;
-use App\Repositories\SchedulesRepository;
-use App\Repositories\VideosRepository;
 
 class HomeController extends Controller
 {
+    /**
+     * @var string
+     */
+    private $view;
+
+    /**
+     * @var string
+     */
+    private $data;
+
+    /**
+     * @var HistoryRepository
+     */
     private $history;
+
+    /**
+     * @var PhotosRepository
+     */
     private $photos;
+
+    /**
+     * @var NewsRepository
+     */
     private $news;
-    private $schedules;
-    private $videos;
 
     public function __construct(
         HistoryRepository $history,
         PhotosRepository $photos,
-        NewsRepository $news,
-        SchedulesRepository $schedules,
-        VideosRepository $videos
+        NewsRepository $news
     ) {
         $this->history = $history;
         $this->photos = $photos;
         $this->news = $news;
-        $this->schedules = $schedules;
-        $this->videos = $videos;
+
+        $this->view = 'home';
+        $this->data = [];
     }
 
-
+    /**
+     * HomeController index
+     * @return view
+     */
     public function index() {
-        $data = [
-            'history' => $this->history->get("history"),
-            'photos' => $this->photos->all(),
-            'news' => $this->news->get()
-        ];
+        $this->data['history']  =  $this->history->get('history');
+        $this->data['photos']   =  $this->photos->get('photos');
+        $this->data['news']     =  $this->news->get();
 
-        return view("home", $data);
+        return view($this->view, $this->data);
     }
 }
