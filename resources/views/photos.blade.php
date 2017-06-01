@@ -4,6 +4,9 @@
 
 @section('content')
     <div class="photos page">
+        <header class="row">
+            <h2 class="page-title photos-title">Vídeos</h2>
+        </header>
         @if ($albums)
             <div class="row">
                 <ul class="photos-display-by nav nav-tabs">

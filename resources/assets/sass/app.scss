@@ -4,12 +4,16 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Font-Awesome
+@import "font-awesome/scss/font-awesome";
+
 // Helpers
 @import "helpers/variables";
-@import "helpers/display-tab";
+@import "helpers/tabs";
 @import "helpers/media-queries";
 @import "helpers/gradients";
 @import "helpers/placeholders";
+@import "helpers/shadows";
 
 // Components
 @import "base/index";

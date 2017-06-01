@@ -684,7 +684,7 @@ __webpack_require__(31);
 /* 12 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \n    @include tabs($selector, darken($about-color, 3%));\r\n            ^\n      Wrong number of arguments (2 for 1) for `tabs'\n      in /home/app/resources/assets/sass/about.scss (line 4, column 14)\n    at runLoaders (/home/app/node_modules/webpack/lib/NormalModule.js:192:19)\n    at /home/app/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /home/app/node_modules/loader-runner/lib/LoaderRunner.js:230:18\n    at context.callback (/home/app/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (/home/app/node_modules/sass-loader/lib/loader.js:51:13)\n    at Object.<anonymous> (/home/app/node_modules/async/dist/async.js:2262:31)\n    at apply (/home/app/node_modules/async/dist/async.js:20:25)\n    at Object.<anonymous> (/home/app/node_modules/async/dist/async.js:56:12)\n    at Object.callback (/home/app/node_modules/async/dist/async.js:944:16)\n    at options.error (/home/app/node_modules/node-sass/lib/index.js:294:32)");
 
 /***/ }),
 /* 13 */

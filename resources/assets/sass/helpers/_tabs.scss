@@ -1,0 +1,22 @@
+@mixin tabs($displayByColor) {
+    $displayByBorderColor: darken($displayByColor, 4%);
+    $displayByItemHoverBg: lighten($displayByColor, 20%);
+
+    &-tabs {
+        background-color: $displayByColor;
+        border-color: $displayByBorderColor;
+
+        .tabs-item {
+            &:not(.active) > a:hover {
+                background-color: $displayByItemHoverBg !important;
+                border-color: $displayByItemHoverBg !important;
+                border-bottom-color: $displayByBorderColor !important;
+            }
+
+            &.active > a {
+                border-color: $displayByBorderColor !important;
+                border-bottom-color: transparent !important;
+            }
+        }
+    }
+}

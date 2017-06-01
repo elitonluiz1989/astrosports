@@ -1,15 +1,20 @@
 .photos {
     $selector: &;
-    $photosColor: #ecbd46;
-    @include display-tab($selector, $photosColor);
+    $photos-color: $theme-golden;
+    //@include display-tab($selector, darken($photos-color, 5%));
+
+    &-title {
+        background-color: $photos-color;
+        border-bottom-color: darken($photos-color, 10%);
+    }
 
     &-navigation {
         text-align: center;
     }
 
     &-album-title {
-        background-color: lighten($photosColor, 5%);
-        border: 1px solid darken($photosColor, 30%);
+        background-color: lighten($photos-color, 5%);
+        border: 1px solid darken($photos-color, 30%);
         padding: 10px 0;
         text-align: center;
     }

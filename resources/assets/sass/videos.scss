@@ -1,3 +1,29 @@
 .videos {
+    &-title {
+        $color: #d00;
+        background-color: $color;
+        border-bottom-color: darken($color, 10%);
+    }
 
+    &-list {
+        margin: 10px 0 5px;
+        @extend .list;
+    }
+
+    &-item{
+        $videos-item-height: 230px;
+        height: $videos-item-height;
+        margin-bottom: 5px;
+
+        @include media-query('sm') {
+            &:first-child {
+                height: $videos-item-height * 2;
+            }
+        }
+
+        &-content {
+            border: 2px solid #d00;
+            @extend %full;
+        }
+    }
 }

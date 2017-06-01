@@ -38,13 +38,32 @@ $navItems = [
 </head>
 <body>
     <header class="header conteiner-fluid">
-        <div class="row">
-            <div class="header-logo col-sm-4 hidden-xs"></div>
-            <div id="header-title-default" class="header-title header-title--default col-sm-8 hidden-xs">
-                <h1 class="header-title-content">
-                    <div class="header-title-text">Escola de Futebol Astro Sports</div>
-                    <div class="header-title-subtitle">Descobrindo valores</div>
-                </h1>
+        <div class="row hidden-xs">
+            <div class="header-logo col-sm-2"></div>
+            <div id="header-title-default" class="header-title col-sm-10">
+                <div class="header-title-content">
+                    <h1 class="header-title-text">Escola de Futebol Astro Sports</h1>
+                    <h2 class="header-title-subtitle">#Descobrindo valores</h2>
+                </div>
+                <div class="header-contact col-sm-6 col-sm-offset-6">
+                    @inject('contactsRepo', 'App\Repositories\ContactRepository')
+                    @php $social = $contactsRepo->get('social'); @endphp
+
+                    <ul class="header-contact-list">
+                        @foreach ($social as $icon => $url)
+                            <li class="header-contact-item">
+                                <a href="{{ $url }}" class="header-contact-icon header-contact-icon--{{ $icon }}">
+                                    @php
+                                        if ($icon == 'youtube') {
+                                            $icon = 'youtube-play';
+                                        }
+                                    @endphp
+                                    <i class="fa fa-{{ $icon }}"></i>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -56,7 +75,7 @@ $navItems = [
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                    </button>
-                   <a id="header-title-collapsed" class="header-title navbar-brand" href="#">
+                   <a id="header-title-collapsed" class="header-title navbar-brand visible-xs" href="#">
                        <span class="header-title-text">E. F. Astro Sports</span>
                    </a>
                 </div>

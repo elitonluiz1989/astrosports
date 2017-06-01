@@ -111,14 +111,14 @@
     }
 
     &-videos {
-        $sidebarVideosColor: #d00;
+        $sidebar-videos-color: darken($theme-golden, 5%);
 
-        border: 1px solid $sidebarVideosColor;
+        border: 1px solid $sidebar-videos-color;
         background-color: #e3e3e3;
         display: table;
 
         &-title {
-            background-color: $sidebarVideosColor;
+            background-color: $sidebar-videos-color;
         }
 
         %videos-item {

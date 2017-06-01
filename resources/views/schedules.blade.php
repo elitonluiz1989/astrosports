@@ -38,6 +38,9 @@ $poles = [
 
 @section('content')
     <div class="schedules page">
+        <header class="row">
+            <h2 class="page-title schedules-title">Horários</h2>
+        </header>
         <div class="row">
             <ul class="schedules-display-by nav nav-tabs">
                 <li role="presentation" class="{{ $schedulesClass }}">
@@ -52,12 +55,12 @@ $poles = [
             </ul>
         </div>
         <div class="row">
-            <table class="schedules-listing">
+            <table class="schedules-list">
                 <thead>
                     <tr>
-                        <th class="schedules-title"></th>
+                        <th class="schedules-list-title"></th>
                         @foreach ($days as $day)
-                            <th class="schedules-item schedules-title">{{ $day }}</th>
+                            <th class="schedules-list-title">{{ $day }}</th>
                         @endforeach
                     </tr>
                 </thead>
@@ -73,7 +76,7 @@ $poles = [
                             }
                         @endphp
                         <tr>
-                            <td class="schedules-title">{{ $target }}</td>
+                            <td class="schedules-list-title">{{ $target }}</td>
                             @foreach ($schedules as $day => $schedule)
                                 @if (null == $schedule)
                                     <td class="schedules-item">

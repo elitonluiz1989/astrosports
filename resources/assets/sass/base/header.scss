@@ -1,87 +1,194 @@
 .header {
+    $header-height-sm: 200px;
+    $header-height-md: 200px;
+    $header-height-lg: 250px;
+
+    background-image: url('../images/header-xs.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
     margin: 0;
     padding: 0;
 
+    @include media-query('sm') {
+        background-image: url('../images/header-sm.jpg');
+        height: $header-height-sm;
+    }
+
+    @include media-query('md') {
+        background-image: url('../images/header-md.jpg');
+        height: $header-height-md;
+    }
+
     @include media-query('lg') {
         background-image: url('../images/header-lg.jpg');
-        background-position: center bottom;
-        background-repeat: no-repeat;
-        height: 250px;
+        height: $header-height-lg;
     }
 
     &-logo {
+        background: url('../images/logo.png') center center no-repeat;
+        height: $header-height-sm - 60;
+        margin-top: 4px;
+        margin-bottom: 4px;
 
+        @include media-query('md', true) {
+            height: $header-height-md - 58;
+        }
+
+        @include media-query('lg') {
+            height: $header-height-lg - 58;
+        }
     }
 
     &-title {
-        text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
-
-        @include media-query("sm") {
-            height: 200px;
+        %header-text-shadow {
+            text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
         }
 
         &-content {
-            @extend %left;
-            width: 80%;
-            margin: 0;
-            padding: 0;
+            height: $header-height-sm - 100;
+
+            @include media-query('md', true) {
+                height: $header-height-md - 98;
+            }
+
+            @include media-query('lg') {
+                height: $header-height-lg - 98;
+            }
         }
 
         &-text {
             @extend %left;
             width: 100%;
-            color: $themeGolden;
+            @extend %reseted;
+            color: $theme-golden;
+            font-size: 28px;
             @extend %bolder;
+            @extend %header-text-shadow;
         }
 
         &-subtitle {
             float: right;
+            @extend %reseted;
             color: #fff;
             @extend %bolder;
-        }
-
-        &--default {
-            float: left;
-            width: 100%;
+            @extend %header-text-shadow;
         }
 
         @include media-query("sm", true) {
-            & {
-                &-text {
-                    font-size: 40px;
-                }
+            &-text {
+                margin-top: 10px;
+                font-size: 40px;
+            }
 
-                &-subtitle {
-                    font-size: 20px;
-                    margin-right: 8%;
-                }
+            &-subtitle {
+                font-size: 20px;
+                margin-right: 8%;
             }
         }
 
-        @include media-query("md") {
-            & {
-                &-text {
-                    font-size: 55px;
-                }
+        @include media-query("md", true) {
+            &-text {
+                font-size: 55px;
+            }
 
-                &-subtitle {
-                    font-size: 24px;
-                    margin-right: 10%;
-                }
+            &-subtitle {
+                font-size: 24px;
+                margin-right: 10%;
+            }
+        }
+
+        @include media-query("lg") {
+            &-text {
+                margin-top: 20px;
+                font-size: 55px;
+            }
+
+            &-subtitle {
+                font-size: 26px;
+                margin-right: 15%;
             }
         }
     }
 
+    &-contact {
+        &-list {
+            @extend %right;
+            margin: 0;
+            @extend .list;
+        }
+
+        &-item {
+            @extend %left;
+
+            & + & {
+                margin-left: 10px;
+            }
+        }
+
+        &-icon {
+            background-color: white;
+            border-radius: 15px;
+            display: block;
+            width: 30px;
+            padding: 5px 0;
+            color: #444;
+            text-align: center;
+
+            @include media-query('sm', true) {
+                color: white;
+            }
+
+            &:hover {
+                color: white;
+            }
+
+            @mixin icon-bg($color) {
+                @include media-query('sm', true) {
+                    background-color: $color;
+                }
+
+                &:hover {
+                    background-color: $color;
+                }
+            }
+
+            &--facebook {
+                @include icon-bg(#2153b5);
+            }
+
+            &--google-plus {
+                @include icon-bg(#e00);
+            }
+
+            &--twitter {
+                @include icon-bg(#00a6d2);
+            }
+
+            &--youtube {
+                @include icon-bg(#c00);
+            }
+
+            &--whatsapp {
+                @include icon-bg(#00bb34);
+            }
+        }
+    }
 
     &-nav {
         margin-bottom: 0;
+        padding: 0;
+
+        @include media-query("sm") {
+            background-color: rgba(0, 0, 0, .8);
+        }
 
         &-toggle {
-            $headerToggleColor: #ccc;
-            border-color: $headerToggleColor;
+            $header-toggle-color: white;
+            background-color: rgba(0, 0, 0, .5);
+            border-color: $header-toggle-color;
 
             .icon-bar {
-                background-color: $headerToggleColor;
+                background-color: $header-toggle-color;
             }
         }
 
@@ -93,11 +200,14 @@
             }
         }
 
-        @include media-query("sm") {
-            background-color: rgba(0, 0, 0, .8);
+        &-list {
+            background-color: #111;
+            border: 0;
 
-            &-list.collapse {
+            @include media-query('sm') {
+                background-color: transparent;
                 margin-top: 5px;
+
                 .nav {
                     display: inline-block;
                     &-item-content {
@@ -110,32 +220,12 @@
                 }
             }
         }
-    }
 
-    @media (max-width: 767px) {
-        .header-title-text {
-            font-size: 28px;
-        }
-
-        #header-title-default {
-            display: none;
-        }
-
-        #header-nav {
-            background-color: #111;
-        }
-    }
-
-    @include media-query("sm") {
-        #header-title-collapsed {
-            display: none;
-        }
-    }
-
-    @include media-query("md") {
-        .nav-item-content {
-            font-size: 18px;
-            padding: 6px !important;
+        @include media-query("md") {
+            .nav-item-content {
+                font-size: 18px;
+                padding: 6px !important;
+            }
         }
     }
 }

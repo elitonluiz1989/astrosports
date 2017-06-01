@@ -1,7 +1,10 @@
 body {
-    //@include mainGradient(to left, 50%, #222);
-    background: url(../images/background-lg.png) top left repeat-y #222;
+    background: url('../images/background-lg.png') left bottom no-repeat #222;
     font-style: 14px;
+
+    @include media-query('lg') {
+        background-image: url('../images/background-lg.png');
+    }
 }
 
 .row {
@@ -21,4 +24,22 @@ body {
 .img {
     height: 100%;
     width: 100%;
+}
+
+.tabs {
+    padding-top: 5px;
+    padding-left: 5px;
+
+    &-item {
+        width: 100px;
+
+        & > a {
+            color: #fff;
+            text-align: center;
+        }
+
+        &:not(.active) > a:hover {
+            color: $navbar-default-link-hover-color;
+        }
+    }
 }

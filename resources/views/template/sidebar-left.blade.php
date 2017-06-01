@@ -86,28 +86,36 @@ $polesList = [
             @endif
             </table>
         </div>
-        <div class="sidebar-videos sidebar-wrap">
-            <header>
-                <h1 class="sidebar-videos-title sidebar-title">Últimos Vídeos</h1>
-            </header>
-            <ul class="list">
-                @php $videos = $videosRepository->all(); @endphp
-                @if (count($videos) > 0)
-                    @foreach ($videos as $video)
+
+        <!-- Videos -->
+        @php $showVideos = $showSidebarVideos ?? true; @endphp
+        @if ($showVideos)
+            <div class="sidebar-videos sidebar-wrap">
+                <header>
+                    <h1 class="sidebar-videos-title sidebar-title">Últimos Vídeos</h1>
+                </header>
+                <ul class="list">
+                    @php
+                    $temp = $videosRepository->all();
+                    $videos = [$temp[0], $temp[1]]
+                    @endphp
+                    @if (count($videos) > 0)
+                        @foreach ($videos as $video)
+                            <li class="list-item">
+                                <div class="sidebar-videos-item">
+                                    <iframe class="sidebar-videos-video" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </li>
+                        @endforeach
                         <li class="list-item">
-                            <div class="sidebar-videos-item">
-                                <iframe class="sidebar-videos-video" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
-                            </div>
+                            <a class="sidebar-videos-more btn btn-default" href="/videos">Mais vídeos</a>
                         </li>
-                    @endforeach
-                    <li class="list-item">
-                        <a class="sidebar-videos-more btn btn-default" href="/videos">Mais vídeos</a>
-                    </li>
-                @else
-                    <li class="list-item">
-                        <div class="sidebar-videos-novideos">Sem vídeos<br>...</div>
-                    </li>
-                @endif
-            </ul>
-        </div>
+                    @else
+                        <li class="list-item">
+                            <div class="sidebar-videos-novideos">Sem vídeos<br>...</div>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        @endif
     </section>

@@ -1,11 +1,11 @@
 .schedules {
     $selector: &;
-    $photosColor: #0085ff;
-    @include display-tab($selector, $photosColor);
+    $schedules-color: #0085ff;
+    //@include display-tab($selector, darken($schedules-color, 3%));
 
     @include media-query('sm') {
         &-conteiner {
-            border-bottom: 1px solid $themeGreen;
+            border-bottom: 1px solid $theme-green;
             display: table;
             width: 100%;
             padding: 0;
@@ -24,26 +24,31 @@
         padding-right: 0;
         border-width: 0 1px 1px 0;
         border-style: solid;
-        border-color: $themeGreen;
+        border-color: $theme-green;
         text-align: center;
     }
 
-    &-listing {
-        margin: 10px 0 0 0;
-        padding: 0;
+    &-title {
+        background-color: $schedules-color;
+        border-bottom-color: darken($schedules-color, 10%);
     }
 
     $schedules-title-width: 10%;
-    &-title {
-        background-color: $themeGreen;
-        @extend %schedules-item;
-        width: $schedules-title-width;
-        padding: 10px 0;
-        color: #fff;
-        font-weight: bolder;
+    &-list {
+        margin: 10px 0 0 0;
+        padding: 0;
 
-        @include media-query('sm', true) {
-            font-size: 0.8em;
+        &-title {
+            background-color: $theme-green;
+            @extend %schedules-item;
+            width: $schedules-title-width;
+            padding: 10px 0;
+            color: #fff;
+            font-weight: bolder;
+
+            @include media-query('sm', true) {
+                font-size: 0.8em;
+            }
         }
     }
 
@@ -58,7 +63,7 @@
             width: 100%;
 
             &--bordered {
-                border-left: 1px solid $themeGreen;
+                border-left: 1px solid $theme-green;
             }
 
             &--xs-up {

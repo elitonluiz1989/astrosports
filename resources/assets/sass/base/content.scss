@@ -11,6 +11,14 @@
         width: 100%;
         overflow-x: hidden;
 
+        &-title {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            margin: 0;
+            padding: 10px 0 10px 10%;
+            color: white;
+        }
+
         @include media-query("lm") {
             & {
                 min-height: 300px;
