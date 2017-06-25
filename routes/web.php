@@ -12,9 +12,8 @@ Route::get('/fotos/album/{id}/{page?}', 'PhotosController@displayAlbum')->where(
 Route::get('storage/photos/{file}', 'PhotosController@getPhoto');
 
 // Schedules module
-Route::get('/horarios', 'SchedulesController@schedules');
-Route::get('/horarios/polos', 'SchedulesController@poles');
-Route::get('/horarios/categorias', 'SchedulesController@categories');
+Route::get('/horarios', 'SchedulesController@index');
+Route::get('/horarios/{display?}', 'SchedulesController@index');
 
 Route::get('/videos', 'VideosController@index');
 

@@ -34,39 +34,34 @@ class SchedulesController extends Controller
         $this->view = 'schedules';
 
         $this->data['sidebar'] = false;
-        $this->data['display'] = 'schedules';
     }
 
     /**
-     * SchedulesController schedules
+     * SchedulesController index
      * @return View
      */
-    public function schedules() {
-        $this->data['content'] = $this->repo->get('categories');
-
-        return view($this->view, $this->data);
-    }
-
-
-    /**
-     * SchedulesController poles
-     * @return View
-     */
-    public function poles() {
-        $this->data['display'] = 'poles';
-        $this->data['content'] = $this->repo->get('poles');
+    public function index($display = 'schedules') {
+        $this->data['display'] = ($display == 'schedules') ? $display : $this->validateDisplayChoice($display);
+        
+        $this->data['poles'] = $this->repo->getBy('pole');
+        $this->data['categories'] = $this->repo->getBy('category');
+        $this->data['schedules'] = $this->repo->getBy('hour');
 
         return view($this->view, $this->data);
     }
 
     /**
-     * SchedulesController categories
-     * @return View
+     * SchedulesController validateDisplayChoice
+     * @param string $display
+     * @return string
      */
-    public function categories() {
-        $this->data['display'] = 'categories';
-        $this->data['content'] = $this->repo->get('categories');
+    private function validateDisplayChoice($display) {
+        $validatedDisplay = str_replace(
+            ['polos', 'categorias'],
+            ['poles', 'categories'],
+            $display
+        );
 
-        return view($this->view, $this->data);
+        return $validatedDisplay;
     }
 }

@@ -1,3 +1,7 @@
 .about {
+    $about-color: #444;
 
+    @include titles($about-color);
+
+    @include tabs($about-color);
 }

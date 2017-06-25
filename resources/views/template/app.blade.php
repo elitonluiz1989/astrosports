@@ -94,7 +94,7 @@ $navItems = [
     <section class="content conteiner-fluid">
         <div class="row">
             @php
-            $contentClass = "content-main col-xs-12";
+            $contentClass = "content__main col-xs-12";
             $showSidebar = $sidebar ?? true;
             @endphp
 

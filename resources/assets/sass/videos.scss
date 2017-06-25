@@ -1,9 +1,7 @@
 .videos {
-    &-title {
-        $color: #d00;
-        background-color: $color;
-        border-bottom-color: darken($color, 10%);
-    }
+    $videos-color: #d00;
+
+    @include titles($videos-color);
 
     &-list {
         margin: 10px 0 5px;

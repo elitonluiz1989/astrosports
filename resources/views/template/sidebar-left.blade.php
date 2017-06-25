@@ -1,121 +1,129 @@
+@inject('sidebar', 'App\Http\Controllers\SidebarController')
+
+@inject('videosRepository', 'App\Repositories\VideosRepository')
+
 @php
+//$currentDay = strtolower(Date('D'));
+$currentDay = 'mon';
+
 $days = [
     'mon' => "SEG",
     'tue' => "TER",
-    'Wed' => "QUA",
+    'wed' => "QUA",
     'thu' => "QUI",
     'fri' => "SEX",
     'sat' => "SÁB"
 ];
-$categoriesList = [
-    1 => '05 a 06 anos',
-    '07 a 09 anos',
-    '10 a 12 anos',
-    '13 a 15 anos',
-    '16 a 18 anos',
-    '19 a 21 anos'
-];
-$polesList = [
-    1 => 'Coophatrabalho',
-    'Petrópolis',
-    'Serradinho'
-];
+
+$schedules = $sidebar->schedules();
+
+//dd($schedules);
 @endphp
 
-@inject('schedulesRepository', 'App\Repositories\SchedulesRepository')
-@inject('videosRepository', 'App\Repositories\VideosRepository')
-
 <section class="sidebar hidden-xs col-sm-4 col-md-3">
-    <div class="sidebar-schedule sidebar-wrap">
+    <div class="sidebar__schedule sidebar__wrapper">
         <header>
-            <h1 class="schedule-title sidebar-title">Horários</h1>
-            <ul class="schedule-nav nav nav-justified">
-                @foreach ($days as $day => $title)
-                    <li>
-                        <a class="schedule-nav-content" href="#schedule-{{ $day }}">{{ $title }}</a>
-                    </li>
-                @endforeach
-            </ul>
+            <h1 class="schedule__title sidebar__title">Horários</h1>
         </header>
-        <table class="schedule table">
-            @php $schedules = $schedulesRepository->get('schedules'); $day = 'seg';@endphp
-            @if (count($schedules) > 0)
-                @foreach ($schedules as $hour=>$poles)
-                    @if (count($poles[$day]) > 0)
-                        @php $numPoles = count($poles[$day]); @endphp
-                        <tr>
-                            @php $rowspan = ($numPoles == 1) ? '' : ' rowspan="' . $numPoles . '"'; @endphp
+        <ul class="schedule__nav tabs nav nav-tabs">
+            @foreach ($days as $day => $dayText)
+                @php
+                    $class = ($day == $currentDay) ? 'tabs-item active' : 'tabs-item';
+                @endphp
+                <li role="presentation" class="{{ $class }}">
+                    <a href="/#{{ $day }}" data-toggle="tab">{{ $dayText }}</a>
+                </li>
+            @endforeach
+        </ul>
 
-                            <td class="schedule-item schedule-item--bordered schedule-hour"{{ $rowspan }}>
-                                <div class="schedule-hour-content">{{ $hour }}</div>
-                            </td>
+        <div class="row">
+            <div class="tab-content schedule">
+                @foreach ($schedules as $day => $schedule)
+                    @if (null != $schedule)
+                        @component('partials.tabs.item')
+                            @slot('tabId')
+                                {{ $day }}
+                            @endslot
 
-                            @for ($i = 0; $i < $numPoles; $i++)
-                                @php
-                                $scheduleItemClass = "schedule-item schedule-category";
+                            @if ($currentDay == $day)
+                                @slot('tabActive')
+                                    in active
+                                @endslot
+                            @endif
 
-                                if ($numPoles == 1) {
-                                    $scheduleItemClass .= " schedule-item--bordered";
-                                } else if ($i == ($numPoles - 1)) {
-                                    $scheduleItemClass .= " schedule-item--bordered";
-                                }
+                            @foreach ($schedule as $hour => $content)
+                                <div class="schedule__wrapper row">
+                                    <div class="schedule__hour col-sm-3">
+                                        <div class="schedule__hour-content">{{ substr($hour, 0, strlen($hour) - 3) }}</div>
+                                    </div>
 
-                                if ($i == 0) {
-                                    $scheduleItemClass .= " schedule-item--first";
-                                } else {
-                                    echo '</tr><tr>';
-                                }
-                                @endphp
+                                    <div class="col-reset col-sm-8 col-sm-offset-1">
+                                        @foreach ($content as $pole => $categories)
+                                            <div class="col-sm-12 col-reset">
+                                                <div class="schedule__pole">{{ $pole }}</div>
 
-                                <td class="{{ $scheduleItemClass }}">
-                                    <div class="schedule-category-pole">{{ $polesList[$poles[$day][$i]['pole']] }}</div>
-                                    @foreach ($poles[$day][$i]['categories'] as  $category)
-                                        <div class="schedule-category-name">{{ $categoriesList[$category] }}</div>
-                                    @endforeach
-                                </td>
-                            @endfor
-                        </tr>
+                                                @foreach ($categories as $category)
+                                                    <div class="schedule__category">{{ $category['category'] }}</div>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endcomponent
+                    @else
+                        @component('partials.tabs.item')
+                            @slot('tabId')
+                                {{ $day }}
+                            @endslot
+
+                            @if ($currentDay == $day)
+                                @slot('tabActive')
+                                    in active
+                                @endslot
+                            @endif
+
+                            <div class="row">
+                                <div class="schedule__item">
+                                    <div class="schedule__empty">Sem horários<br>...</div>
+                                </div>
+                            </div>
+                        @endcomponent
                     @endif
                 @endforeach
-            @else
-                <tr>
-                    <td class="schedule-item schedule-item--bordered">
-                        <div class="schedule-empty">Sem horários<br>...</div>
-                    </td>
-                </tr>
-            @endif
-            </table>
+            </div>
         </div>
 
-        <!-- Videos -->
-        @php $showVideos = $showSidebarVideos ?? true; @endphp
-        @if ($showVideos)
-            <div class="sidebar-videos sidebar-wrap">
-                <header>
-                    <h1 class="sidebar-videos-title sidebar-title">Últimos Vídeos</h1>
-                </header>
-                <ul class="list">
-                    @php
-                    $temp = $videosRepository->all();
-                    $videos = [$temp[0], $temp[1]]
-                    @endphp
-                    @if (count($videos) > 0)
-                        @foreach ($videos as $video)
-                            <li class="list-item">
-                                <div class="sidebar-videos-item">
-                                    <iframe class="sidebar-videos-video" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </li>
-                        @endforeach
+    </div>
+    <!-- Videos -->
+    @php $showVideos = $showSidebarVideos ?? true; @endphp
+    @if ($showVideos)
+        <div class="sidebar__videos sidebar__wrapper">
+            <header>
+                <h1 class="sidebar__videos-title sidebar__title">Últimos Vídeos</h1>
+            </header>
+            <ul class="list">
+                @php
+                $temp = $videosRepository->all();
+                $videos = [$temp[0], $temp[1]]
+                @endphp
+                @if (count($videos) > 0)
+                    @foreach ($videos as $video)
                         <li class="list-item">
-                            <a class="sidebar-videos-more btn btn-default" href="/videos">Mais vídeos</a>
+                            <div class="sidebar__videos-item">
+                                <iframe class="sidebar__videos-content" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
                         </li>
-                    @else
-                        <li class="list-item">
-                            <div class="sidebar-videos-novideos">Sem vídeos<br>...</div>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        @endif
-    </section>
+                    @endforeach
+                    <li class="list-item">
+                        <a class="sidebar__videos--more btn btn-default" href="/videos">Mais vídeos</a>
+                    </li>
+                @else
+                    <li class="list-item">
+                        <div class="sidebar__videos--no-videos">Sem vídeos<br>...</div>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    @endif
+</section>

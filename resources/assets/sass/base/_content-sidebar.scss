@@ -1,12 +1,14 @@
 .sidebar {
     padding: 5px 5px 0;
 
-    &-wrap {
+    @include tabs(#333);
+
+    &__wrapper {
         width: 100%;
         margin: 0 0 10px 0;
     }
 
-    &-title {
+    &__title {
         margin: 0;
         padding: 0.25em;
         color: #fff;
@@ -14,49 +16,50 @@
         font-size: 1.5em;
     }
 
-    &-schedule {
-        $sidebarScheduleColor: #007834;
-        $sidebarScheduleBorder: darken($sidebarScheduleColor, 5%);
+    &__schedule {
+        $sidebar-schedule-color: #007834;
+        $sidebar-schedule-border: darken($sidebar-schedule-color, 5%);
+        background-color: #fafafa;
         border-width: 1px 1px 0;
         border-style: solid ;
-        border-color: $sidebarScheduleBorder;
+        border-color: $sidebar-schedule-border;
 
-        .schedule-title {
-            background-color: $sidebarScheduleColor;
+        .schedule__title {
+            background-color: $sidebar-schedule-color;
         }
 
-        .schedule-nav {
+        .schedule__nav {
             background-color: #222;
+            padding: 0;
 
-            &-content {
-                color: #fff;
+            .tabs-item {
+                width: 16.66666666666667%;
                 text-align: center;
-                padding: 8px 0;
 
-                &:hover {
-                    color: #222;
+                & > a {
+                    border-radius: 0 !important;
+                    padding-right: 0;
+                    padding-left: 0;
                 }
+            }
+
+            li > a.active {
+                color: #222;
             }
         }
 
-        .schedule {
-            $cellspacing:  5px;
-            $scheduleItemColor: #007dd0;
-            margin-bottom: 0;
+        & .schedule {
+            $schedule-spacing:  5px;
+            $schedule-side-margin: 2px;
+            $schedule-item-color: #007dd0;
+            text-align: center;
 
-            &-item {
-                background-color: #e9e9e9;
-                border: 0;
-                padding: 0;
-                text-align: center;
-                vertical-align: middle;
+            &__wrapper {
+                border-bottom: 1px solid $sidebar-schedule-border;
+                padding-top: $schedule-spacing;
 
-                &--first {
-                    padding-top: $cellspacing;
-                }
-
-                &--bordered {
-                    border-bottom: 1px solid $sidebarScheduleBorder;
+                &:last-child {
+                    border-bottom: 0;
                 }
             }
 
@@ -64,53 +67,48 @@
                 color: #fff !important;
             }
 
-            &-empty {
+            &__empty {
                 padding: 20px 0;
             }
 
-            &-hour {
-                width: 25%;
+            &__hour {
                 @extend %category-color;
+                padding: 0 0 0 $schedule-side-margin;
 
                 &-content {
-                    background-color: $scheduleItemColor;
-                    margin: 0 $cellspacing;
+                    background-color: $schedule-item-color;
                     padding: 10px 0;
                     font-weight: bolder;
                 }
             }
 
-            &-category {
-                width: 75%;
+            %schedule-category--content {
+                padding: 5px 0;
+                margin-right: $schedule-side-margin;
+            }
 
-                %schdule-category--content {
-                    padding: 5px 0;
-                    margin-right: $cellspacing;
-                }
+            &__pole {
+                background-color: $schedule-item-color;
+                @extend %schedule-category--content;
+                @extend %category-color;
+            }
 
-                &-pole {
-                    background-color: $scheduleItemColor;
-                    @extend %schdule-category--content;
-                    @extend %category-color;
-                }
+            &__category {
+                background-color: #fff;
+                border-width: 0 2px 1px;
+                border-style: solid;
+                border-color: $schedule-item-color;
+                @extend %schedule-category--content;
 
-                &-name {
-                    background-color: #fff;
-                    border-width: 0 2px 1px;
-                    border-style: solid;
-                    border-color: $scheduleItemColor;
-                    @extend %schdule-category--content;
-
-                    &:last-child {
-                        border-bottom-width: 2px;
-                        margin-bottom: $cellspacing;
-                    }
+                &:last-child {
+                    border-bottom-width: 2px;
+                    margin-bottom: $schedule-spacing;
                 }
             }
         }
     }
 
-    &-videos {
+    &__videos {
         $sidebar-videos-color: darken($theme-golden, 5%);
 
         border: 1px solid $sidebar-videos-color;
@@ -131,18 +129,18 @@
             @extend %videos-item;
         }
 
-        &-novideos {
+        &-content {
+            width: 100%;
+            height: 100%;
+        }
+
+        &--no-videos {
             padding: 20px 0;
             text-align: center;
             @extend %videos-item;
         }
 
-        &-video {
-            width: 100%;
-            height: 100%;
-        }
-
-        &-more {
+        &--more {
             width: 95%;
             margin: 5px 2.5%;
         }

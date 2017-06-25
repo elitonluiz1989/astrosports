@@ -1,10 +1,7 @@
 .assessments {
     padding-bottom: 10px;
 
-    &-title {
-        background-color: $theme-green;
-        border-bottom-color: darken($theme-green, 10%);
-    }
+    @include titles($theme-green);
 
     .imc {
         $imc-color: #333;
@@ -24,7 +21,7 @@
             }
         }
 
-        &-title {
+        &__title {
             background-color: $theme-green;
             border: 0;
             margin: 0;
@@ -33,7 +30,7 @@
             text-align: center;
         }
 
-        &-wrapper {
+        &__wrapper {
             border-top: 1px solid $imc-color;
             @extend %hidden;
             padding: 0;
@@ -52,14 +49,14 @@
             }
         }
 
-        &-text {
+        &__text {
             background-color: #fafafa;
             margin: 0;
             padding: 5px;
             text-indent: 20px;
         }
 
-        &-submit {
+        &__submit {
             background-color: $imc-color;
             border: 0;
             width: 100%;

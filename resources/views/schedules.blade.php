@@ -1,103 +1,111 @@
-@extends('template.app')
-
-@section('title', 'Horários')
-
 @php
-// Var treatment
-
-// -- Display --
-$displayByItem = "schedules-display-item";
-
-$schedulesClass = $displayByItem;
-$polesClass = $displayByItem;
-$categoriesClass = $displayByItem;
-
-if ($display == 'poles')  {
-    $polesClass .= " active";
-} else if ($display == 'categories') {
-    $categoriesClass .= " active";
-} else {
-    $schedulesClass .= " active";
-}
-// -- Shedule content --
-$days = [ 'seg' => 'SEG', 'ter' => 'TER', 'qua' => 'QUA', 'qui' => 'QUI', 'sex' => 'SEX', 'sab' => 'SÁB' ];
-$categories = [
-    1 => '05 a 06 anos',
-    '07 a 09 anos',
-    '10 a 12 anos',
-    '13 a 15 anos',
-    '16 a 18 anos',
-    '19 a 21 anos'
+echo '<pre>'; var_dump($schedules); echo '</pre>';
+$tabData = [
+    'days' => [ 'mon' => 'SEG', 'tue' => 'TER', 'wed' => 'QUA', 'thu' => 'QUI', 'fri' => 'SEX', 'sat' => 'SÁB' ],
+    'data' => null
 ];
-$poles = [
-    1 => 'Coophatrabalho',
-    'Petrópolis',
-    'Serradinho'
+
+$tabItems = [
+    'schedules' => [
+        'url'  => '#schedules',
+        'text' => 'Horários'
+    ],
+    'categories' => [
+        'url'  => '#categories',
+        'text' => 'Categorias'
+    ],
+    'poles' => [
+        'url'  => '#poles',
+        'text' => 'Polos'
+    ]
 ];
 @endphp
 
-@section('content')
-    <div class="schedules page">
-        <header class="row">
-            <h2 class="page-title schedules-title">Horários</h2>
-        </header>
-        <div class="row">
-            <ul class="schedules-display-by nav nav-tabs">
-                <li role="presentation" class="{{ $schedulesClass }}">
-                    <a href="/horarios">Horários</a>
-                </li>
-                <li role="presentation" class="{{ $polesClass }}">
-                    <a href="/horarios/polos">Polos</a>
-                </li>
-                <li role="presentation" class="{{ $categoriesClass }}">
-                    <a href="/horarios/categorias">Categorias</a>
-                </li>
-            </ul>
+@extends('partials.tabs.index')
+
+@section('page', 'schedules')
+
+@section('title', 'Horários')
+
+@section('tabs-header')
+    <header class="row">
+        <h2 class="page-title schedules-title">Horários</h2>
+    </header>
+@endsection
+
+@section('tabs-content')
+    <div class="schedules-list col-xs-12">
+        <div class="row hidden-xs">
+            <div class="schedules-list-title col-lg-3">
+                <div class="schedules-list-title col-sm-2"></div>
+            </div>
+            <div class="col-lg-9">
+                @foreach ($tabData['days'] as $day)
+                    <div class="schedules-list-title col-sm-2">{{ $day }}</div>
+                @endforeach
+            </div>
         </div>
-        <div class="row">
-            <table class="schedules-list">
-                <thead>
-                    <tr>
-                        <th class="schedules-list-title"></th>
-                        @foreach ($days as $day)
-                            <th class="schedules-list-title">{{ $day }}</th>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($content as $key => $schedules)
-                        @php
-                            if ($display == "poles") {
-                                $target = $poles[$key] ?? '[Polo]';
-                                $replacements = $categories;
-                            } else {
-                                $target = $categories[$key] ?? '[Categoria]';
-                                $replacements = $poles;
-                            }
-                        @endphp
-                        <tr>
-                            <td class="schedules-list-title">{{ $target }}</td>
-                            @foreach ($schedules as $day => $schedule)
-                                @if (null == $schedule)
-                                    <td class="schedules-item">
-                                        <div class="schedules-item-content">{{ ucfirst(str_replace('sab', 'sáb', $day)) }}</div>
-                                    </td>
-                                @else
-                                    <td class="schedules-item">
-                                        @foreach ($schedule as $value)
-                                            @php
-                                                list($value1, $value2) = array_values($value);
-                                            @endphp
-                                            <div class="schedules-item-content schedules-item-content--xs-up visible-xs">{{ $days[$day] }}</div>
-                                            <div class="schedules-item-content schedules-item-content--up">{{ $replacements[$value1] }}</div>
-                                            <div class="schedules-item-content">{{ $value2 }}</div>
-                                        @endforeach
-                                    </td>
-                                @endif
-                            @endforeach
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <!-- Schedules -->
+        @component('partials.tabs.item')
+            @slot('tabId')
+                schedules
+            @endslot
+
+            @if ($display == "schedules")
+                @slot('tabActive')
+                    in active
+                @endslot
+            @endif
+
+            @php
+                $tabData['data'] = $schedules;
+                $tabData['key1'] = 'pole';
+                $tabData['key2'] = 'category';
+            @endphp
+
+            @include('partials.schedules-tab-content', $tabData)
+        @endcomponent
+
+        <!-- Categories -->
+        @component('partials.tabs.item')
+            @slot('tabId')
+                categories
+            @endslot
+
+            @if ($display == "categories")
+                @slot('tabActive')
+                    in active
+                @endslot
+            @endif
+
+            @php
+                $tabData['data'] = $categories;
+                $tabData['key1'] = 'pole';
+                $tabData['key2'] = 'hour';
+            @endphp
+
+            @include('partials.schedules-tab-content', $tabData)
+        @endcomponent
+
+        <!-- Poles -->
+        @component('partials.tabs.item')
+            @slot('tabId')
+                poles
+            @endslot
+
+            @if ($display == "poles")
+                @slot('tabActive')
+                    in active
+                @endslot
+            @endif
+
+            @php
+                $tabData['data'] = $poles;
+                $tabData['key1'] = 'category';
+                $tabData['key2'] = 'hour';
+            @endphp
+
+            @include('partials.schedules-tab-content', $tabData)
+        @endcomponent
+    </div>
 @endsection

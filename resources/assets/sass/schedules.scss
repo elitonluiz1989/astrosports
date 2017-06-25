@@ -1,7 +1,9 @@
 .schedules {
-    $selector: &;
     $schedules-color: #0085ff;
-    //@include display-tab($selector, darken($schedules-color, 3%));
+
+    @include titles($schedules-color);
+
+    @include tabs($schedules-color);
 
     @include media-query('sm') {
         &-conteiner {

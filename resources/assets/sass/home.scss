@@ -6,11 +6,11 @@
         box-shadow: 2px 2px 4px #333;
     }
 
-    &-wrapper {
+    &__wrapper {
         margin-bottom: 10px;
     }
 
-    &-title {
+    &__title {
         background-color: #333;
         width: 95%;
         @extend %home-shadow;
@@ -23,19 +23,19 @@
         }
     }
 
-    &-photos {
+    &__galery {
         background-color: #222;
         height: 350px;
         overflow: hidden;
+    }
 
-        &-photo {
-            img {
-                margin: 0 auto;
-            }
+    &__photo {
+        img {
+            margin: 0 auto;
         }
     }
 
-    &-history {
+    &__history {
         max-height: 400px;
         overflow: hidden;
 
@@ -48,14 +48,14 @@
         }
     }
 
-    &-news {
+    &__news {
         $homeNewsColor: #333;
         background-color: #285;
         display: table;
         padding: 5px;
         width: 100%;
 
-        &-title {
+        &-header {
             width: 100%;
         }
 
@@ -114,35 +114,39 @@
         &-content {
             @extend %news-pieces;
             @extend %left;
-            @extend %hidden;
             padding: 5px;
             text-align: justify;
 
-            &--withcover {
+            &--with-cover {
                 width: 75%;
 
                 @include media-query("lm", true) {
-                    & {
-                        width: 60%;
-                    }
+                    width: 60%;
                 }
             }
 
-            &-title {
-                background-color: #1e5b3c;
-                padding: 5px 0;
-                color: #fff;
+            &--no-news {
+                background-color: white;
+                margin-top: 10px;
+                padding: 10px 0;
                 text-align: center;
             }
         }
 
-        &-no-news {
-            padding: 10px 0;
-            color: #666;
+        &-title {
+            background-color: #1e5b3c;
+            padding: 5px 0;
+            color: #fff;
             text-align: center;
         }
 
-        &-btn-more {
+        &-text {
+            @extend %left;
+            height: 100px;
+            @extend %hidden;
+        }
+
+        &-more {
             width: 100%;
             border-radius: 0;
         }

@@ -1,7 +1,7 @@
 .content {
     @import "content-sidebar";
 
-    &-main {
+    &__main {
         padding: 5px 5px 0;
     }
 
@@ -11,7 +11,7 @@
         width: 100%;
         overflow-x: hidden;
 
-        &-title {
+        &__title {
             border-bottom-width: 1px;
             border-bottom-style: solid;
             margin: 0;

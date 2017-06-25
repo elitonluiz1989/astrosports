@@ -27,9 +27,9 @@ $tabItems = [
 @section('title', 'Sobre')
 
 @section('tabs-header')
-        <header class="row">
-            <h2 class="page-title about-title">Sobre a escola</h2>
-        </header>
+    <header class="row">
+        <h2 class="page-title about-title">Sobre a escola</h2>
+    </header>
 @endsection
 
 @section('tabs-content')
@@ -83,7 +83,7 @@ $tabItems = [
         @endif
 
         @if (isset($players))
-            @include('partials.about-tables', ['type' => 'players', 'data' => $players])
+            @include('partials.about-tab-content', ['type' => 'players', 'data' => $players])
         @else
             {!! $emptyMessage !!}
         @endif
@@ -102,7 +102,7 @@ $tabItems = [
         @endif
 
         @if (isset($committee))
-            @include('partials.about-tables', ['type' => 'committee', 'data' => $committee])
+            @include('partials.about-tab-content', ['type' => 'committee', 'data' => $committee])
         @else
             {!! $emptyMessage !!}
         @endif
