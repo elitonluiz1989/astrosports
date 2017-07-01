@@ -15,25 +15,24 @@ class SidebarController extends Controller
      */
     public function schedules()
     {
-        $fields = ['hour', 'day', 'pole', 'category'];
-        $order =  ['hour', 'pole', 'category'];
-        $schedules = (new Schedules)->getByDay($fields, $order);
+        $schedules = (new Schedules)->getByDay();
 
-        $schedulesArr = $schedules->groupBy('day')
-                    ->transform(function($item, $i) {
-                        return $item->groupBy('hour')
-                                ->transform(function ($item, $i) {
-                                    return $item->groupBy('pole');
-                                });
-                    });
+        return $schedules;
+    }
 
-        $days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-        foreach($days as $day) {
-            if (!isset($schedulesArr[$day])) {
-                $schedulesArr[$day] = null;
-            }
-        }
+    /**
+     * SidebarController videos
+     * Retrive two last videos of a channel
+     */
+    public function videos()
+    {
+        $videos = Videos::get(2);
 
-        return $schedulesArr->toArray();
+        return array_map(function($video) {
+            return [
+                'url' => $video['url'],
+                'img' => $video['img']['medium']
+            ];
+        }, $videos);
     }
 }

@@ -1,14 +1,13 @@
 .videos {
     $videos-color: #d00;
-
     @include titles($videos-color);
 
-    &-list {
+    &__list {
         margin: 10px 0 5px;
         @extend .list;
     }
 
-    &-item{
+    &__item{
         $videos-item-height: 230px;
         height: $videos-item-height;
         margin-bottom: 5px;
@@ -21,6 +20,7 @@
 
         &-content {
             border: 2px solid #d00;
+            @extend %left;
             @extend %full;
         }
     }

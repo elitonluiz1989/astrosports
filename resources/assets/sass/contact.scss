@@ -1,9 +1,5 @@
 .contact {
-    &__title {
-        $color: #333;
-        background-color: $color;
-        border-bottom-color: darken($color, 10%);
-    }
+    @include titles(#333);
 
     &__section-title {
         background-color: $theme-green;

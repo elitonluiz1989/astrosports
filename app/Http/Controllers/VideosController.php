@@ -16,8 +16,9 @@ class VideosController extends Controller
     public function index() {
         $data = [
             'showSidebarVideos' => false,
-            'videos' => Videos::all()
+            'videos' => Videos::get(39)
         ];
+
         return view('videos', $data);
     }
 }

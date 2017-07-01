@@ -1,23 +1,20 @@
 @inject('sidebar', 'App\Http\Controllers\SidebarController')
 
-@inject('videosRepository', 'App\Repositories\VideosRepository')
-
 @php
-//$currentDay = strtolower(Date('D'));
-$currentDay = 'mon';
+    $currentDay = strtolower(date('D'));
 
-$days = [
-    'mon' => "SEG",
-    'tue' => "TER",
-    'wed' => "QUA",
-    'thu' => "QUI",
-    'fri' => "SEX",
-    'sat' => "SÁB"
-];
+    $days = [
+        'mon' => "SEG",
+        'tue' => "TER",
+        'wed' => "QUA",
+        'thu' => "QUI",
+        'fri' => "SEX",
+        'sat' => "SÁB"
+    ];
 
 $schedules = $sidebar->schedules();
 
-//dd($schedules);
+$videos = $sidebar->videos();
 @endphp
 
 <section class="sidebar hidden-xs col-sm-4 col-md-3">
@@ -54,7 +51,7 @@ $schedules = $sidebar->schedules();
                             @foreach ($schedule as $hour => $content)
                                 <div class="schedule__wrapper row">
                                     <div class="schedule__hour col-sm-3">
-                                        <div class="schedule__hour-content">{{ substr($hour, 0, strlen($hour) - 3) }}</div>
+                                        <div class="schedule__hour-content">{{ $hour }}</div>
                                     </div>
 
                                     <div class="col-reset col-sm-8 col-sm-offset-1">
@@ -103,15 +100,13 @@ $schedules = $sidebar->schedules();
                 <h1 class="sidebar__videos-title sidebar__title">Últimos Vídeos</h1>
             </header>
             <ul class="list">
-                @php
-                $temp = $videosRepository->all();
-                $videos = [$temp[0], $temp[1]]
-                @endphp
                 @if (count($videos) > 0)
                     @foreach ($videos as $video)
                         <li class="list-item">
                             <div class="sidebar__videos-item">
-                                <iframe class="sidebar__videos-content" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
+                                <a href="{{ $video['url'] }}" class="sidebar__videos-content" target="_blank">
+                                    <img src="{{ $video['img'] }}" alt="" class="img">
+                                </a>
                             </div>
                         </li>
                     @endforeach

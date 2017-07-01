@@ -28,7 +28,7 @@ $tabItems = [
 
 @section('tabs-header')
     <header class="row">
-        <h2 class="page-title about-title">Sobre a escola</h2>
+        <h2 class="page__title about__title">Sobre a escola</h2>
     </header>
 @endsection
 

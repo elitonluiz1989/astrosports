@@ -32,10 +32,9 @@ class PhotosController extends Controller
         $this->repo = $repo;
 
         $this->data = [
+            'display' => 'photos',
             'sidebar' => false,
-            'albums' => true,
-            'display' => 'fotos',
-            'qty' => 7
+            'limit'   => 7
         ];
     }
 
@@ -46,7 +45,8 @@ class PhotosController extends Controller
      */
     public function displayPhotos($page = 1) {
         $this->data['page'] = (int)$page;
-        $this->data['photos'] = $this->repo->get('photos');
+
+        $this->getContent();
 
         return view($this->view, $this->data);
     }
@@ -59,7 +59,8 @@ class PhotosController extends Controller
     public function displayAlbums($page = 1) {
         $this->data['display'] = 'albums';
         $this->data['page'] = (int)$page;
-        $this->data['photos'] = $this->repo->get('albums');
+
+        $this->getContent();
 
         return view($this->view, $this->data);
     }
@@ -71,7 +72,6 @@ class PhotosController extends Controller
      * @return View
      */
     public function displayAlbum($id, $page = 1) {
-        $this->data['display'] = 'album';
         $this->data['albumId'] = $id;
         $this->data['page'] = (int)$page;
         $this->data['photos'] = $this->repo->get('photos');
@@ -99,5 +99,16 @@ class PhotosController extends Controller
         $photoExt = end($photoExt);
 
         return $img->response($photoExt);
+    }
+
+    /**
+     * VideosController getContent
+     * Retrive all photos and albums on database
+     * @return array
+     */
+    private function getContent()
+    {
+        $this->data['photos'] = $this->repo->get('photos');
+        $this->data['albums'] = $this->repo->get('albums');
     }
 }

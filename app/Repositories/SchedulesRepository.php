@@ -7,7 +7,27 @@ class SchedulesRepository {
     /**
      * @var array
      */
+    private $days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+    /**
+     * @var array
+     */
     private $fields = ['hour', 'day', 'pole', 'category'];
+
+    /**
+     * @var string
+     */
+    private $target;
+
+    /**
+     * @var string
+     */
+    private $order = 'asc';
+
+    /**
+     * @var string
+     */
+    private $orderFields;
 
     public function get($id = null) {
         if (null != $id) {
@@ -24,21 +44,79 @@ class SchedulesRepository {
      * @param string $order
      * @return array
      */
-    public function getBy($target, $fields = [], $order = 'asc')
+    public function getBy()
     {
-        $fields = (count($fields) > 0) ? $this->fieldsTreatment($fields) : $this->fieldsTreatment($this->fields);
+        $fields = $this->fieldsTreatment($this->fields);
+        $order = $this->target . ' ' . $this->order . ', ' . $this->orderFields;
 
         $result = Schedules::join('schedules_poles', 'schedules_poles.id', '=', 'schedules.pole')
                         ->join('schedules_categories', 'schedules_categories.id', '=', 'schedules.category')
                         ->select($fields)
-                        ->orderBy($target, $order)
+                        ->orderByRaw($order)
                         ->get();
 
-        return $result->groupBy($target)->toArray();
+        return $result->groupBy($this->target);
     }
 
     /**
-     * SchedulesRepository getBy
+     * SchedulesRepository getSchedules
+     * @return array
+     */
+    public function getSchedules()
+    {
+        $this->target = 'hour';
+        $this->orderFields = 'day, pole, category';
+
+        $result = $this->getBy();
+
+        $groupBy = ['day', 'pole'];
+        $wanted = ['category'];
+
+        $schedules = $this->resultHandler($result, $groupBy, $wanted);
+
+        return $this->validateResultDays($schedules);
+    }
+
+    /**
+     * SchedulesRepository getCategories
+     * @return array
+     */
+    public function getCategories()
+    {
+        $this->target = 'category';
+        $this->orderFields = 'day, pole, hour';
+
+        $result = $this->getBy();
+
+        $groupBy = ['day', 'pole'];
+        $wanted = ['hour'];
+
+        $schedules = $this->resultHandler($result, $groupBy, $wanted);
+
+        return $this->validateResultDays($schedules);
+    }
+
+    /**
+     * SchedulesRepository getSchedules
+     * @return array
+     */
+    public function getPoles()
+    {
+        $this->target = 'pole';
+        $this->orderFields = 'day, category, hour';
+
+        $result = $this->getBy('pole');
+
+        $groupBy = ['day', 'category'];
+        $wanted = ['hour'];
+
+        $poles = $this->resultHandler($result, $groupBy, $wanted);
+
+        return $this->validateResultDays($poles);
+    }
+
+    /**
+     * SchedulesRepository getByDay
      * Retrieve all schedules
      * @param array $fields
      * @param string $order
@@ -46,17 +124,17 @@ class SchedulesRepository {
      */
     public function getByDay($fields = [], $additonalOrder = ['hour'])
     {
-        $order = implode(', ', $additonalOrder);
-        $fields = (count($fields) > 0) ? $this->fieldsTreatment($fields) : $this->fieldsTreatment($this->fields);
+        $this->target = 'day';
+        $this->orderFields = 'hour, pole, category';
 
-        $result = Schedules::join('schedules_poles', 'schedules_poles.id', '=', 'schedules.pole')
-                        ->join('schedules_categories', 'schedules_categories.id', '=', 'schedules.category')
-                        ->select($fields)
-                        ->orderByRaw("FIELD(day, 'mon', 'tue', 'wed', 'thu', 'fri', 'sat')")
-                        ->orderByRaw($order)
-                        ->get();
+        $result = $this->getBy('day');
 
-        return $result;
+        $groupBy = ['hour', 'pole'];
+        $wanted = ['category'];
+
+        $schedules = $this->resultHandler($result, $groupBy, $wanted);
+
+        return $this->iterateResultDays($schedules);
     }
 
     /**
@@ -81,29 +159,61 @@ class SchedulesRepository {
 
     /**
      * SchedulesRepository resultHandler
+     * Format the Eloquent result, grouping by categories (max. 2)
      * @param Collection $result
-     * @param string $index
-     * @return array
+     * @param array $groupBy
+     * @param array $wanted
+     * @return Colletion
      */
-    private function resultHandler($result, $index)
+    private function resultHandler($result, $groupBy, $wanted)
     {
-        $newResult = [];
-        $currentIndex = "";
+        return $result->map(function($content) use ($groupBy, $wanted) {
 
-        $fields = $result->original;
-        unset($fields[$index]);
-        unset($fields['day']);
+            return $content->groupBy($groupBy[0])
+                            ->transform(function($content1, $c1) use ($groupBy, $wanted) {
 
-        foreach ($result as $data) {
-            if ($currentIndex != $data->$index) {
-                $currentIndex = $data->$index;
-            }
+                                return $content1->groupBy($groupBy[1])
+                                                ->transform(function($content2) use ($wanted){
 
-            foreach ($fields as $field) {
-                $result[$currentIndex][$data->day][] = $data->$field;
+                                                    return $content2->map(function($content3) use ($wanted) {
+                                                        return collect($content3)->only($wanted);
+                                                    });
+                                                });
+                            });
+        });
+    }
+
+    /**
+     * SchedulesRepository validateResultDays
+     * @param Collection $collection
+     * @return Collection
+     */
+    private function validateResultDays($collection)
+    {
+        return $collection->map(function($value) {
+            return $this->iterateResultDays($value);
+        });
+    }
+
+    /**
+     * SchedulesRepository iterateResultDays
+     * Checks the existence of the days of the week creating a null key if not,
+     * ordering the result by them
+     * @param Collection $value
+     * @return Collection
+     */
+    private function iterateResultDays($collection)
+    {
+        $newCollection = collect();
+        foreach ($this->days as $day) {
+            // The else exists only to create a day of week order
+            if (!isset($collection[$day])) {
+                $newCollection[$day] = null;
+            } else {
+                $newCollection[$day] = $collection[$day];
             }
         }
 
-        return $result;
+        return $newCollection;
     }
 }

@@ -5,14 +5,24 @@
 @section('content')
     <div class="videos page">
         <header class="row">
-            <h2 class="page-title videos-title">Vídeos</h2>
+            <h2 class="page__title videos__title">Vídeos</h2>
         </header>
         <div class="row">
-            <ul class="videos-list">
+            <ul class="videos__list">
                 @foreach ($videos as $key => $video)
-                    @php $videosItemClass = ($loop->first) ? 'col-md-8' : 'col-md-4'; @endphp
-                    <li class="videos-item col-xs-12 {{ $videosItemClass }}">
-                        <iframe class="videos-item-content" src="{{ $video }}" frameborder="0" allowfullscreen></iframe>
+                    @php
+                        $videosItemClass =  'col-md-4';
+                        $videoImg = $video['img']['medium'];
+
+                        if ($loop->first) {
+                            $videosItemClass =  'col-md-8';
+                            $videoImg = $video['img']['high'];
+                        }
+                    @endphp
+                    <li class="videos__item col-xs-12 {{ $videosItemClass }}">
+                        <a href="{{ $video['url'] }}" class="videos__item-content" target="_blank">
+                            <img src="{{ $videoImg }}" alt="{{ $video['description'] }}" class="img" title="{{ $video['title'] }}">
+                        </a>
                     </li>
                 @endforeach
             </ul>

@@ -17,7 +17,8 @@ body {
 }
 
 .col-reset {
-    padding: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .list {
@@ -51,4 +52,8 @@ body {
             color: $navbar-default-link-hover-color;
         }
     }
+}
+
+.text-center {
+    text-align: center;
 }

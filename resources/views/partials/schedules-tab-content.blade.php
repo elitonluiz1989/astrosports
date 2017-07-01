@@ -1,24 +1,66 @@
-@foreach ($data as $target => $contents)
-    <div class="row">
-        <div class="col-xs-12 col-lg-3">
-            <div class="schedules-list-title col-xs-12">{{ $target }}</div>
-        </div>
-        <div class="col-xs-12 col-lg-9">
-            @foreach ($days as $day => $dayName)
-                @foreach ($contents as $content)
-                    @if (isset($content[$day]))
-                        <div class="schedules-item col-xs-12 col-sm-2">
-                            <div class="schedules-item-content schedules-item-content--xs-up visible-xs">{{ $day }}</div>
-                            <div class="schedules-item-content schedules-item-content--up">{{ $content[$key1] }}</div>
-                            <div class="schedules-item-content">{{ $content[$key2] }}</div>
-                        </div>
-                    @else
-                        <div class="schedules-item col-sm-2 hidden-xs">
-                            <div class="schedules-item-content">{{ $dayName }}</div>
-                        </div>
-                    @endif
-                @endforeach
+@php
+    $rowsClass = 'schedules__row';
+    $colsWrapper1Class = 'col-sm-2 col-md-1 col-lg-2';
+    $colsWrapper2Class = 'col-reset col-sm-10 col-md-11 col-lg-10';
+
+
+    $days = [
+        'mon' => "SEG",
+        'tue' => "TER",
+        'wed' => "QUA",
+        'thu' => "QUI",
+        'fri' => "SEX",
+        'sat' => "SÁB"
+    ];
+@endphp
+
+<div class="schedules__conteiner">
+    <div class="{{ $rowsClass }} hidden-xs">
+        <div class="schedules__conteiner-title {{ $colsWrapper1Class }}"></div>
+
+        <div class="{{ $colsWrapper2Class }}">
+            @foreach ($days as $day)
+                <div class="schedules__conteiner-title col-sm-2">{{ $day }}</div>
             @endforeach
         </div>
     </div>
-@endforeach
+    @foreach ($data as $target => $contents)
+        <div class="{{ $rowsClass }}">
+            <div class="schedules__wrapper schedules__target-text col-xs-12 {{ $colsWrapper1Class }}">
+                <div class="schedules__item-text col-xs-12">{{ $target }}</div>
+            </div>
+
+            <div class="schedules__wrapper col-xs-12 {{ $colsWrapper2Class }}">
+                @foreach ($contents as $contentDay => $content)
+
+                    @if (null != $content)
+                        <div class="schedules__item col-xs-12 col-sm-2">
+                            <div class="schedules__item-content schedules__item-content--xs-up visible-xs">
+                                <div class="schedules__item-text">{{ $days[$contentDay] }}</div>
+                            </div>
+
+                            @foreach ($content as $finalContentKey => $finalContent)
+                                <div class="schedules__item-content schedules__item-content--up">
+                                    <div class="schedules__item-text">{{ $finalContentKey }}</div>
+                                </div>
+                                @php $num = count($finalContent); @endphp
+
+                                @for ($i=0; $i < $num; $i++)
+                                    <div class="schedules__item-content schedules__item-content--down">
+                                        <div class="schedules__item-text">{{ $finalContent[$i][$wantedField] }}</div>
+                                    </div>
+                                @endfor
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="schedules__item col-sm-2 hidden-xs">
+                            <div class="schedules__item-content schedules__item--empty">
+                                <div class="schedules__item-text">{{ $days[$contentDay] }}</div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    @endforeach
+</div>

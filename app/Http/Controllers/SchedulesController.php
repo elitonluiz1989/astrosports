@@ -42,10 +42,10 @@ class SchedulesController extends Controller
      */
     public function index($display = 'schedules') {
         $this->data['display'] = ($display == 'schedules') ? $display : $this->validateDisplayChoice($display);
-        
-        $this->data['poles'] = $this->repo->getBy('pole');
-        $this->data['categories'] = $this->repo->getBy('category');
-        $this->data['schedules'] = $this->repo->getBy('hour');
+
+        $this->data['poles'] = $this->repo->getPoles();
+        $this->data['categories'] = $this->repo->getCategories();
+        $this->data['schedules'] = $this->repo->getSchedules();
 
         return view($this->view, $this->data);
     }
@@ -57,8 +57,8 @@ class SchedulesController extends Controller
      */
     private function validateDisplayChoice($display) {
         $validatedDisplay = str_replace(
-            ['polos', 'categorias'],
-            ['poles', 'categories'],
+            ['polos', 'categorias', 'horarios'],
+            ['poles', 'categories', 'schedules'],
             $display
         );
 
