@@ -24,7 +24,7 @@ abstract class Json {
     private static function getJson() {
         try {
             return json_decode(file_get_contents(self::getName()), self::$arrayFormat);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             return [];
         }
     }
@@ -54,7 +54,7 @@ abstract class Json {
         {
             file_put_contents(self::getName(), json_encode($list));
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             mkdir(self::getDir(), 0770, true);
             file_put_contents(self::getName(), json_encode($list));

@@ -5,6 +5,7 @@
     &-tabs {
         background-color: darken($tabs-color, 2%);
         border-color: $tabs-border-color;
+        padding-left: $grid-gutter-width;
 
         .tabs-item {
             &:not(.active) > a:hover {

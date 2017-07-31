@@ -19,14 +19,14 @@
                 @endfor
             </ol>
 
-            <!-- wrapperper for slides -->
+            <!-- Conteiner for slides -->
             <div class="carousel-inner" role="listbox">
                 @foreach ($photos as $p => $photo)
                     @php $class = ($p == 0) ? 'home__photo item active' : 'home__photo item'; @endphp
                     <div class="{{ $class }}">
-                        <img src="{{ $photo[ 'src' ] }}?w=600&h=400" alt="foto {{ $p }}">
-                        @if ( $photo[ 'description' ] )
-                            <div class="carousel-caption">{{ $photo[ 'description' ] }}</div>
+                        <img src="{{ $photo->src }}" alt="{{ $photo->alt }}">
+                        @if ( $photo->description )
+                            <div class="carousel-caption">{{ $photo->description }}</div>
                         @endif
                     </div>
                 @endforeach

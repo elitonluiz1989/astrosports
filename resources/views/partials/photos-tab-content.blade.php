@@ -1,17 +1,17 @@
+@php
+    if ($records->total() > $limit) {
+        $pagination['content'] = $records->links();
+    }
+@endphp
+
 @include('partials.pagination-bar', $pagination)
 
 <div class="row">
-    @foreach ($contents as $id => $content)
+    @foreach ($records as $record)
+        @php $src = $record->cover . '?w=' . $cover['width'] . '&h=' . $cover['height']; @endphp
         <div class="col-xs-12 col-sm-4 col-md-3">
-            @php
-            $elementId = $target . '-' . $id;
-            $elementSrc = $content['src'] ?? $content['cover'];
-
-            $elementUrl = $pagination['url'] . '/' . $elementId;
-            @endphp
-
-            <a href="{{ $elementUrl }}" class="photo" id="{{ $elementId }}">
-                <img src="{{ $elementSrc }}?w=300&h=250" alt="{{ $photo['description'] or 'Sem imgagem' }}" class="photo-content">
+            <a href="{{ $record->url }}" class="photo" id="{{ $record->id }}">
+                <img src="{{ $src }}" alt="{{ $record->alt }}" class="photo__content">
             </a>
         </div>
     @endforeach

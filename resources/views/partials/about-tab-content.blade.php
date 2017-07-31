@@ -1,24 +1,11 @@
-<div class="col-xs-12">
-        @foreach ($data as $content)
-            @if ($loop->first)
-                <div class="row">
-            @endif
-
-            @if ($loop->iteration % 4 == 0)
-                </div>
-                <div class="row">
-            @endif
-
-            <div class="col-xs-12">
-                <div class="col-xs-12">
-                    <img src="{{ $content['img'] }}" alt="{{ $content['name'] }}" class="img">
-                </div>
-                <div class="col-xs-12">{{ $content['name'] }}</div>
-                <div class="col-xs-12">{{ $content['role'] }}</div>
-            </div>
-
-            @if ($loop->last)
-                </div>
-            @endif
-        @endforeach
-</div>
+@foreach ($data as $content)
+    @php $src  = $content->cover ?? config('about.team.img'); @endphp
+    <div class="about__team col-xs-12 col-sm-4">
+        <div>{{ $content->cover }}</div>
+        <div class="about__team-content">
+            <img src="{{ $src }}?w=300&h=250" alt="{{ $content->alt }}" class="img">
+        </div>
+        <div class="about__team-name about__team-content">{{ $content->name }}</div>
+        <div class="about__team-content">{{ $content->role }}</div>
+    </div>
+@endforeach

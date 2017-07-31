@@ -1,25 +1,3 @@
-@php
-$emptyMessage = '<p class="about-empty">Sem registros.</p>';
-$tabItems = [
-    'history' => [
-        'url'  => '#history',
-        'text' => 'História'
-    ],
-    'primer' => [
-        'url'  => '#primer',
-        'text' => 'Cartilha'
-    ],
-    'players' => [
-        'url'  => '#players',
-        'text' => 'Jogadores'
-    ],
-    'committee' => [
-        'url'  => '#committee',
-        'text' => 'Comissão'
-    ]
-];
-@endphp
-
 @extends('partials.tabs.index')
 
 @section('page', 'about')
@@ -36,20 +14,20 @@ $tabItems = [
     <!-- History -->
     @component('partials.tabs.item')
         @slot('tabId')
-            history
+            historia
         @endslot
 
-        @if ($display == "history")
+        @if ($display == "historia")
             @slot('tabActive')
                 in active
             @endslot
         @endif
 
         @if (isset($history))
-            <header class="about-history-header">
+            <header class="about__text-wrapper about__history-header">
                 <h1>{{ $history['title'] }}</h1>
             </header>
-            <article class="about-history-text">{!! $history['text'] !!}</article>
+            <article class="about__text-wrapper about__history-text">{!! $history['text'] !!}</article>
         @else
             {!! $emptyMessage !!}
         @endif
@@ -58,10 +36,10 @@ $tabItems = [
     <!-- Primer -->
     @component('partials.tabs.item')
         @slot('tabId')
-            primer
+            cartilha
         @endslot
 
-        @if ($display == "primer")
+        @if ($display == "cartilha")
             @slot('tabActive')
                 in active
             @endslot
@@ -73,10 +51,10 @@ $tabItems = [
     <!-- PLayers -->
     @component('partials.tabs.item')
         @slot('tabId')
-            players
+            jogadores
         @endslot
 
-        @if ($display == "players")
+        @if ($display == "jogadores")
             @slot('tabActive')
                 in active
             @endslot
@@ -92,17 +70,17 @@ $tabItems = [
     <!-- Committee -->
     @component('partials.tabs.item')
         @slot('tabId')
-            committee
+            comissao
         @endslot
 
-        @if ($display == "committee")
+        @if ($display == "comissao")
             @slot('tabActive')
                 in active
             @endslot
         @endif
 
-        @if (isset($committee))
-            @include('partials.about-tab-content', ['type' => 'committee', 'data' => $committee])
+        @if (isset($commission))
+            @include('partials.about-tab-content', ['type' => 'committee', 'data' => $commission])
         @else
             {!! $emptyMessage !!}
         @endif

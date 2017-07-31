@@ -46,8 +46,8 @@ $navItems = [
                     <h2 class="header-title-subtitle">#Descobrindo valores</h2>
                 </div>
                 <div class="header-contact col-sm-6 col-sm-offset-6">
-                    @inject('contactsRepo', 'App\Repositories\ContactRepository')
-                    @php $social = $contactsRepo->get('social'); @endphp
+                    @inject('repository', 'App\Repositories\DefaultRepository')
+                    @php $social = $repository->model(new App\Models\Contact)->get('social'); @endphp
 
                     <ul class="header-contact-list">
                         @foreach ($social as $icon => $url)

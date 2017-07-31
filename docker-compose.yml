@@ -2,11 +2,11 @@ version: '3'
 
 services:
     app:
-        image: elitonluiz1989/devenv
+        image: elitonluiz1989/php-devenv
 
         container_name: app
 
-        working_dir: /app
+        working_dir: /var/www/html/
 
         ports:
             -   "80:80"
@@ -16,7 +16,7 @@ services:
             - mysql
 
         volumes:
-            -   .:/app/
+            -   .:/var/www/html/
             -   ./docker/vhost.conf:/etc/apache2/sites-available/000-default.conf
 
     phpmyadmin:

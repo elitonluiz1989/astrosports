@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Repositories\ContactRepository;
+use App\Models\Contact;
+use App\Repositories\DefaultRepository;
 
 class ContactController extends Controller
 {
     private $contacts;
     private $view;
 
-    public function __construct(ContactRepository $contacts) {
+    public function __construct(DefaultRepository $contacts) {
         $this->contacts = $contacts;
+        $this->contacts->model(new Contact);
     }
 
     public function index() {

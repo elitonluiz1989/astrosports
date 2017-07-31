@@ -1,6 +1,6 @@
 body {
     background: url('../images/background-lg.png') left bottom no-repeat #222;
-    font-style: 14px;
+    font-size: 14px;
 
     @include media-query('lg') {
         background-image: url('../images/background-lg.png');
@@ -13,7 +13,8 @@ body {
 }
 
 .row {
-    margin: 0 !important;
+    margin-right: 0;
+    margin-left: 0
 }
 
 .col-reset {
@@ -51,6 +52,12 @@ body {
         &:not(.active) > a:hover {
             color: $navbar-default-link-hover-color;
         }
+    }
+
+    &-empty {
+        width: 100%;
+        padding: 30px 0;
+        text-align: center;
     }
 }
 

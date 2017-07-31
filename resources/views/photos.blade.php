@@ -4,31 +4,6 @@
 
 @section('title', 'Fotos')
 
-@php
-    $emptyMessage = '<p class="about-empty">Sem registros.</p>';
-
-    $tabItems = [
-        'photos' => [
-            'url'  => '#photos',
-            'text' => 'Fotos'
-        ],
-        'albums' => [
-            'url'  => '#albums',
-            'text' => 'Albuns'
-        ]
-    ];
-
-    $params = [
-        'target'     => $display,
-        'pagination' => [
-            'class' => 'photos-navigation',
-            'limit' => $limit
-        ]
-    ];
-
-    $photosUrl = ($display == 'album') ? '/fotos/album/{albumId}' : '/fotos';
-@endphp
-
 @section('tabs-header')
     <header class="row">
         <h2 class="page__title photos__title">Vídeos</h2>
@@ -41,8 +16,7 @@
         @slot('tabId')
             photos
         @endslot
-
-        @if ($display == "photos" || $display == "album" )
+        @if ($display == 'photos' || $display == 'album')
             @slot('tabActive')
                 in active
             @endslot
@@ -50,11 +24,23 @@
 
         @if (count($photos) > 0)
             @php
-                $params['pagination']['url'] = $photosUrl;
-                $params['contents'] = $photos;
+                $tabsBody['records'] = $photos;
             @endphp
 
-            @include('partials.photos-tab-content', $params)
+            @if (isset($albumName) && null != $albumName)
+                <div class="row">
+                    <div class="photos__album col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+                        <div class="photos__album-back">
+                            <a href="{{ config('photos.url.photos') }}">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                        </div>
+                        <div class="photos__album-title">{{ $albumName }}</div>
+                    </div>
+                </div>
+            @endif
+
+            @include('partials.photos-tab-content', $tabsBody)
         @else
             {!! $emptyMessage !!}
         @endif
@@ -74,11 +60,10 @@
 
         @if (count($albums) > 0)
             @php
-                $params['pagination']['url'] = '/fotos/album/';
-                $params['contents'] = $albums;
+                $tabsBody['records'] = $albums;
             @endphp
 
-            @include('partials.photos-tab-content', $params)
+            @include('partials.photos-tab-content', $tabsBody)
         @else
             {!! $emptyMessage !!}
         @endif

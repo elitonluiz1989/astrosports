@@ -3,15 +3,46 @@
 
     @include tabs($theme-golden);
 
-    &-navigation {
+    &__navigation {
         text-align: center;
     }
 
-    &-album-title {
-        background-color: lighten($theme-golden, 5%);
-        border: 1px solid darken($theme-golden, 30%);
-        padding: 10px 0;
+    %photos-album-border {
+        border-style: solid;
+        border-color: darken($theme-golden, 20%);
+    }
+
+    &__album{
+        background-color: lighten($theme-golden, 7%);
+        @extend %photos-album-border;
+        border-width: 1px;
+        margin-top: 15px;
+        @extend .col-reset;
         text-align: center;
+
+        %photos-album-padding {
+            padding: 10px 0;
+        }
+
+        &-back {
+            @extend %photos-album-border;
+            border-width: 0 1px 0 0;
+            @extend %left;
+            width: 15%;
+
+            a {
+                @extend %left;
+                width: 100%;
+                @extend %photos-album-padding;
+                color: $theme-dark;
+            }
+        }
+
+        &-title {
+            width: 85%;
+            @extend %right;
+            @extend %photos-album-padding;
+        }
     }
 
     .photo {
@@ -27,7 +58,7 @@
             background-color: #222;
         }
 
-        &-content {
+        &__content {
             border: 1px solid #222;
             @extend %full;
         }

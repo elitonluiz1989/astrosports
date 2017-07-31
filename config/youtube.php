@@ -4,5 +4,5 @@
 // You can find the keys here : https://console.developers.google.com
 
 return array(
-    'KEY' => 'AIzaSyDe8gadjXPvVlCWSObZzFDM3j8hvwPJcHU'
+    'key' => 'AIzaSyC13H94QuNpdiQ7akPtGvrb3fqHFtQJr08'
 );

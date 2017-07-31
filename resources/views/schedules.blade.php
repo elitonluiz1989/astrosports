@@ -1,7 +1,7 @@
 @php
 $tabData = ['data' => null];
 
-$tabItems = [
+$tabsNavItems = [
     'schedules' => [
         'url'  => '#schedules',
         'text' => 'Horários'

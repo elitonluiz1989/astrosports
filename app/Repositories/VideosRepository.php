@@ -12,7 +12,7 @@ class VideosRepository {
 
     /**
      * VideosRepository get
-     * Retrive all videos
+     * Retrieve all videos
      * @param int $limit
      * @param string $order
      * @param bool $basicInfo

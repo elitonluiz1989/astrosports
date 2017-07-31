@@ -4,4 +4,43 @@
     @include titles($about-color);
 
     @include tabs($about-color);
+
+    &__text-wrapper {
+        padding: 0 10px;
+    }
+
+    &__history-header {
+      border-bottom: 1px solid $theme-dark;
+      margin: 0 10px 5px;
+    }
+
+    &__team {
+        $about-team-margin: 5px;
+        margin-top: $about-team-margin;
+
+        &:last-child {
+          margin-bottom: $about-team-margin;
+        }
+
+        &-content {
+            border-width: 0 1px 0;
+            border-style: solid;
+            border-color: #555;
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+
+          &:first-child {
+            border-top-width: 1px;
+          }
+
+          &:last-child {
+            border-bottom-width: 1px;
+          }
+        }
+
+        &-name {
+            font-weight: bolder;
+        }
+    }
 }

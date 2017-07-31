@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\AlbumsRepository;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -23,74 +24,90 @@ class PhotosController extends Controller
     private $data;
 
     /**
+     * @var AlbumsRepository
+     */
+    private $albums;
+
+    /**
      * @var PhotosRepository
      */
-    private $repo;
+    private $photos;
 
-    public function __construct(PhotosRepository $repo) {
+    /**
+     * PhotosController constructor.
+     * @param AlbumsRepository $albums
+     * @param PhotosRepository $photos
+     */
+    public function __construct(
+        AlbumsRepository $albums,
+        PhotosRepository $photos
+    ) {
         $this->view = 'photos';
-        $this->repo = $repo;
+        $this->albums = $albums;
+        $this->photos = $photos;
 
-        $this->data = [
-            'display' => 'photos',
-            'sidebar' => false,
-            'limit'   => 7
-        ];
+        $this->data = config('photos');
+        $this->albums->paginate = $this->data['limit'];
+        $this->photos->paginate = $this->data['limit'];
     }
 
     /**
-     * PhotosController displayPhotos
-     * @param int $page
-     * @return View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function displayPhotos($page = 1) {
-        $this->data['page'] = (int)$page;
-
-        $this->getContent();
+    public function showPhotos() {
+        $this->definingContent();
 
         return view($this->view, $this->data);
     }
 
     /**
-     * PhotosController displayAlbuns
-     * @param int $page
-     * @return View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function displayAlbums($page = 1) {
+    public function showAlbums() {
         $this->data['display'] = 'albums';
-        $this->data['page'] = (int)$page;
 
-        $this->getContent();
-
-        return view($this->view, $this->data);
+        return $this->showPhotos();
     }
 
     /**
-     * PhotosController displayAlbum
-     * @param int $id
-     * @param int $page
-     * @return View
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function displayAlbum($id, $page = 1) {
-        $this->data['albumId'] = $id;
-        $this->data['page'] = (int)$page;
-        $this->data['photos'] = $this->repo->get('photos');
+    public function showAlbum($id) {
+        $id = (int)$id;
+        $this->data['display'] = 'photos';
+        $this->photos->paginatePath = config('photos.url.albums') . $id;
+        $this->definingContent(['albums']);
+        $this->data['albumName'] = $this->data['albums']
+                                        ->where('id', $id)
+                                        ->first()['name'];
+        $this->data['photos'] = $this->photos->get(['album', '=', $id]);
 
         return view($this->view, $this->data);
     }
 
     /**
-     * PhotosController getPhoto
-     * @param  Request $request
-     * @param string $filename
-     * @return ImageManagerStatic
+     * @param array $entities
+     */
+    private function definingContent($entities = ['albums', 'photos'])
+    {
+        foreach ($entities as $entity) {
+            $this->data[$entity] = $this->$entity->get();
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $filename
+     * @return mixed
      */
     public function getPhoto(Request $request, $filename) {
         $sizes = $request->all();
         $path = storage_path('app/photos/' . $filename);
 
         if (count($sizes) > 0) {
-            $img = Image::make($path)->resize($sizes['w'], $sizes['h']);
+            $img = Image::make($path)
+                ->resize($sizes['w'], $sizes['h']);
         } else {
             $img = Image::make($path);
         }
@@ -99,16 +116,5 @@ class PhotosController extends Controller
         $photoExt = end($photoExt);
 
         return $img->response($photoExt);
-    }
-
-    /**
-     * VideosController getContent
-     * Retrive all photos and albums on database
-     * @return array
-     */
-    private function getContent()
-    {
-        $this->data['photos'] = $this->repo->get('photos');
-        $this->data['albums'] = $this->repo->get('albums');
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\History;
+use App\Models\News;
+use App\Repositories\PhotosRepository as Photos;
+use Illuminate\Database\Eloquent\Collection;
 
-use App\Repositories\HistoryRepository as History;
-use App\Repositories\PhotosRepository;
-use App\Repositories\NewsRepository;
+use App\Repositories\DefaultRepository;
 
 class HomeController extends Controller
 {
@@ -21,34 +22,33 @@ class HomeController extends Controller
     private $data;
 
     /**
-     * @var PhotosRepository
+     * @var DefaultRepository $repository
      */
-    private $photos;
+    private $repository;
 
     /**
-     * @var NewsRepository
+     * HomeController constructor.
+     * @param DefaultRepository $repo
      */
-    private $news;
-
-    public function __construct(
-        PhotosRepository $photos,
-        NewsRepository $news
-    ) {
-        $this->photos = $photos;
-        $this->news = $news;
+    public function __construct(DefaultRepository $repo) {
+        $this->repository = $repo;
 
         $this->view = 'home';
         $this->data = [];
     }
 
     /**
-     * HomeController index
-     * @return view
+     * @return View
      */
     public function index() {
-        $this->data['history']  =  History::get('text');
-        $this->data['photos']   =  $this->photos->get('photos');
-        $this->data['news']     =  $this->news->get();
+        $photos = new Photos();
+        $photos->paginate = 5;
+        $photos->width = 600;
+        $photos->height = 400;
+
+        $this->data['history']  =  $this->repository->model(new History)->get('text');
+        $this->data['photos']   =  $photos->get();
+        $this->data['news']     =  $this->repository->model(new News)->get();
 
         return view($this->view, $this->data);
     }
