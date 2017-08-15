@@ -12,6 +12,14 @@ body {
     border: 1px solid red;
 }
 
+.flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
 .row {
     margin-right: 0;
     margin-left: 0
@@ -20,6 +28,18 @@ body {
 .col-reset {
     padding-right: 0;
     padding-left: 0;
+}
+
+.pagination{
+    &--centered {
+        text-align: center;
+    }
+
+    &--bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
 }
 
 .list {
@@ -63,4 +83,30 @@ body {
 
 .text-center {
     text-align: center;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.hidden {
+  overflow: hidden;
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
+.reseted {
+  margin: 0;
+  padding: 0;
 }

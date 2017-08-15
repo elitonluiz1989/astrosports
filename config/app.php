@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'pt-br',
+    'locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -179,7 +179,7 @@ return [
 
         // Custom
         Intervention\Image\ImageServiceProvider::class,
-        Alaouy\Youtube\YoutubeServiceProvider::class,
+        Alaouy\Youtube\YoutubeServiceProvider::class
 
     ],
 

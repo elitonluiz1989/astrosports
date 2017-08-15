@@ -17,14 +17,13 @@ return [
         ]
     ],
     'tabsBody'    => [
-        'cover'      =>[
-            'width'  => 300,
-            'height' => 250
-        ],
         'pagination' => [
-            'class'     => 'photos__navigation',
-            'content'   => null
+            'links'   => null
         ]
+    ],
+    'cover'      =>[
+        'width'  => 300,
+        'height' => 250
     ],
     'emptyMessage'  => '<p class="tabs-empty">Sem registros.</p>',
     'limit'   => 12

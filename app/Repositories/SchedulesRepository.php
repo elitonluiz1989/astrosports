@@ -7,7 +7,7 @@ class SchedulesRepository {
     /**
      * @var array
      */
-    private $days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    private $days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
     /**
      * @var array
@@ -170,7 +170,7 @@ class SchedulesRepository {
         return $result->map(function($content) use ($groupBy, $wanted) {
 
             return $content->groupBy($groupBy[0])
-                            ->transform(function($content1, $c1) use ($groupBy, $wanted) {
+                            ->transform(function($content1) use ($groupBy, $wanted) {
 
                                 return $content1->groupBy($groupBy[1])
                                                 ->transform(function($content2) use ($wanted){

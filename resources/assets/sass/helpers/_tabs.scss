@@ -1,13 +1,31 @@
-@mixin tabs($tabs-color) {
+@mixin tabs($tabs-color, $tab-item-width: 0, $breakpoint-restore-width: null) {
     $tabs-border-color: darken($tabs-color, 4%);
     $tabs-item-hover-bg: lighten($tabs-color, 20%);
 
     &-tabs {
         background-color: darken($tabs-color, 2%);
         border-color: $tabs-border-color;
-        padding-left: $grid-gutter-width;
+
+        @include media-query('sm') {
+            padding-left: $grid-gutter-width;
+        }
 
         .tabs-item {
+            @if $tab-item-width != 0 {
+                width: $tab-item-width !important;
+
+                @if $breakpoint-restore-width != null {
+                    @include media-query($breakpoint-restore-width) {
+                        width: 100px !important;
+                    }
+                }
+            }
+
+            & > a {
+              padding-right: 0;
+              padding-left: 0;
+            }
+
             &:not(.active) > a:hover {
                 background-color: $tabs-item-hover-bg !important;
                 border-color: $tabs-item-hover-bg !important;

@@ -40,6 +40,10 @@
     }
 
     &-title {
+        // Overwriting Bootstrap nav-brand padding definition
+        padding-right: 5px;
+        padding-left: 5px;
+
         %header-text-shadow {
             text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
         }

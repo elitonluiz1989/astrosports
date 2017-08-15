@@ -3,7 +3,17 @@
 
     @include titles($about-color);
 
-    @include tabs($about-color);
+    @include tabs($about-color, 25%, 'sm');
+
+    .tabs-item {
+        & > a {
+            font-size: 0.9em;
+
+            @include media-query('sm') {
+                font-size: 1em;
+            }
+        }
+    }
 
     &__text-wrapper {
         padding: 0 10px;
@@ -15,32 +25,52 @@
     }
 
     &__team {
-        $about-team-margin: 5px;
+        $about-team-margin: 10px;
         margin-top: $about-team-margin;
 
         &:last-child {
           margin-bottom: $about-team-margin;
         }
 
+        %about-team-item {
+          width: 100%;
+        }
+
         &-content {
-            border-width: 0 1px 0;
+            border-width: 0 1px 1px;
             border-style: solid;
             border-color: #555;
-            width: 100%;
-            padding: 5px;
-            text-align: center;
+            @extend .flex;
+            align-items: center;
+            justify-content: center;
+            @extend %about-team-item;
 
           &:first-child {
             border-top-width: 1px;
           }
+        }
 
-          &:last-child {
-            border-bottom-width: 1px;
-          }
+        &-avatar {
+            height: 200px;
+            @extend %about-team-item;
+            overflow: hidden;
+        }
+
+        %about-team-item-height {
+            height: 50px;
+            padding: 0 5px;
         }
 
         &-name {
+            @extend %about-team-item;
+            @extend %about-team-item-height;
             font-weight: bolder;
+        }
+
+        &-role {
+            background-color: #fafafa;
+            @extend %about-team-item;
+            @extend %about-team-item-height;
         }
     }
 }

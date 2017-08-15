@@ -1,31 +1,30 @@
 <?php
 return [
-    'display'       => 'photos',
-    'sidebar'       => false,
-    'url'           => [
-        'albums' => 'fotos/albuns/',
-        'photos' => 'fotos/'
-    ],
+    'display'          => 'history',
     'tabsNavItems'     => [
-        'photos' => [
-            'url'  => '#photos',
-            'text' => 'Fotos'
+        'history' => [
+            'url'  => '/sobre#history',
+            'text' => 'História'
         ],
-        'albums' => [
-            'url'  => '#albums',
-            'text' => 'Albuns'
+        'primer' => [
+            'url'  => '/sobre#primer',
+            'text' => 'Cartilha'
+        ],
+        'players' => [
+            'url'  => '#players',
+            'text' => 'Jogadores'
+        ],
+        'commission' => [
+            'url'  => '#commission',
+            'text' => 'Comissão'
         ]
     ],
-    'tabsBody'    => [
-        'cover'      =>[
-            'width'  => 300,
-            'height' => 250
-        ],
-        'pagination' => [
-            'class'     => 'photos__navigation',
-            'content'   => null
-        ]
+    'cover'      =>[
+        'width'  => 250,
+        'height' => 300
     ],
-    'emptyMessage'  => '<p class="tabs-empty">Sem registros.</p>',
-    'limit'   => 12
+    'emptyMessage'     => '<p class="tabs-empty">Sem registros.</p>',
+    'team'             => [
+        'img' => 'anonymous.png'
+    ]
 ];

@@ -4,12 +4,13 @@
     $currentDay = strtolower(date('D'));
 
     $days = [
-        'mon' => "SEG",
-        'tue' => "TER",
-        'wed' => "QUA",
-        'thu' => "QUI",
-        'fri' => "SEX",
-        'sat' => "SÁB"
+        'sun' => 'DOM',
+        'mon' => 'SEG',
+        'tue' => 'TER',
+        'wed' => 'QUA',
+        'thu' => 'QUI',
+        'fri' => 'SEX',
+        'sat' => 'SÁB'
     ];
 
 $schedules = $sidebar->schedules();

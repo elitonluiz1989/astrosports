@@ -1,15 +1,3 @@
-@php
-$navItems = [
-    "/" => "Início",
-    "/avaliacoes" => "Avaliações",
-    "/contato" => "Contato",
-    "/fotos" => "Fotos",
-    "/horarios" => "Horários",
-    "/videos" => "Vídeos",
-    "/sobre" => "Sobre"
-];
-
-@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,7 +69,7 @@ $navItems = [
                 </div>
                 <div id="header-nav" class="header-nav-list collapse navbar-collapse">
                     <ul class="nav nav-pills nav-justified">
-                        @foreach( $navItems as $uri => $title )
+                        @foreach( config('template.nav') as $uri => $title )
                             <li class="nav-item header-nav-item">
                                 <a class="nav-item-content" href="{{ $uri }}">{{ $title }}</a>
                             </li>

@@ -1,11 +1,9 @@
-@foreach ($data as $content)
-    @php $src  = $content->cover ?? config('about.team.img'); @endphp
-    <div class="about__team col-xs-12 col-sm-4">
-        <div>{{ $content->cover }}</div>
-        <div class="about__team-content">
-            <img src="{{ $src }}?w=300&h=250" alt="{{ $content->alt }}" class="img">
+@foreach ($records as $record)
+    <div class="about__team col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-0 col-md-4 col-lg-3">
+        <div class="about__team-avatar about__team-content">
+            <img src="{{ $record->img }}" alt="{{ $record->alt }}" class="img">
         </div>
-        <div class="about__team-name about__team-content">{{ $content->name }}</div>
-        <div class="about__team-content">{{ $content->role }}</div>
+        <div class="about__team-name about__team-content">{{ $record->name }}</div>
+        <div class="about__team-role about__team-content">{{ $record->role }}</div>
     </div>
 @endforeach

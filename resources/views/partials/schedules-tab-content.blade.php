@@ -1,10 +1,11 @@
 @php
     $rowsClass = 'schedules__row';
-    $colsWrapper1Class = 'col-sm-2 col-md-1 col-lg-2';
-    $colsWrapper2Class = 'col-reset col-sm-10 col-md-11 col-lg-10';
+    $colsWrapper1Class = 'col-sm-2 col-lg-1';
+    $colsWrapper2Class = 'col-reset col-sm-10 col-lg-11';
 
 
     $days = [
+        'sun' => 'DOM',
         'mon' => "SEG",
         'tue' => "TER",
         'wed' => "QUA",
@@ -16,25 +17,25 @@
 
 <div class="schedules__conteiner">
     <div class="{{ $rowsClass }} hidden-xs">
-        <div class="schedules__conteiner-title {{ $colsWrapper1Class }}"></div>
+        <div class="schedules__bar schedules__bar--empty {{ $colsWrapper1Class }}"></div>
 
         <div class="{{ $colsWrapper2Class }}">
             @foreach ($days as $day)
-                <div class="schedules__conteiner-title col-sm-2">{{ $day }}</div>
+                <div class="schedules__bar schedules__bar--content">{{ $day }}</div>
             @endforeach
         </div>
     </div>
     @foreach ($data as $target => $contents)
         <div class="{{ $rowsClass }}">
             <div class="schedules__wrapper schedules__target-text col-xs-12 {{ $colsWrapper1Class }}">
-                <div class="schedules__item-text col-xs-12">{{ $target }}</div>
+                <div class="schedules__item-text">{{ $target }}</div>
             </div>
 
             <div class="schedules__wrapper col-xs-12 {{ $colsWrapper2Class }}">
                 @foreach ($contents as $contentDay => $content)
 
                     @if (null != $content)
-                        <div class="schedules__item col-xs-12 col-sm-2">
+                        <div class="schedules__item">
                             <div class="schedules__item-content schedules__item-content--xs-up visible-xs">
                                 <div class="schedules__item-text">{{ $days[$contentDay] }}</div>
                             </div>
@@ -53,7 +54,7 @@
                             @endforeach
                         </div>
                     @else
-                        <div class="schedules__item col-sm-2 hidden-xs">
+                        <div class="schedules__item hidden-xs">
                             <div class="schedules__item-content schedules__item--empty">
                                 <div class="schedules__item-text">{{ $days[$contentDay] }}</div>
                             </div>

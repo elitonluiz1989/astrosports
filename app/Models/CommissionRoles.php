@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Abstracts\PhotoBaseAbstract;
+use Illuminate\Database\Eloquent\Model;
 
-
-class Albums extends PhotoBaseAbstract
+class CommissionRoles extends Model
 {
     /**
      * @var bool
@@ -15,8 +14,8 @@ class Albums extends PhotoBaseAbstract
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function photos()
+    public function commission()
     {
-        return $this->hasMany('App\Models\Photos', 'id');
+        return $this->hasMany('App\Models\Commission', 'id');
     }
 }

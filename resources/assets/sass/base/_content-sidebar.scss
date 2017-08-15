@@ -33,7 +33,8 @@
             padding: 0;
 
             .tabs-item {
-                width: 16.66666666666667%;
+                $tab-item-width: 100% / 7;
+                width: $tab-item-width;
                 text-align: center;
 
                 & > a {

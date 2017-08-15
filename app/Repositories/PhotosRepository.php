@@ -11,6 +11,11 @@ class PhotosRepository
     public $paginate = 0;
 
     /**
+     * @var int
+     */
+    public $page = 1;
+
+    /**
      * @var string
      */
     public $paginatePath;

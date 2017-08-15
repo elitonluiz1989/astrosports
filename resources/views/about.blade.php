@@ -14,10 +14,10 @@
     <!-- History -->
     @component('partials.tabs.item')
         @slot('tabId')
-            historia
+            history
         @endslot
 
-        @if ($display == "historia")
+        @if ($display == "history")
             @slot('tabActive')
                 in active
             @endslot
@@ -36,10 +36,10 @@
     <!-- Primer -->
     @component('partials.tabs.item')
         @slot('tabId')
-            cartilha
+            primer
         @endslot
 
-        @if ($display == "cartilha")
+        @if ($display == "primer")
             @slot('tabActive')
                 in active
             @endslot
@@ -51,17 +51,17 @@
     <!-- PLayers -->
     @component('partials.tabs.item')
         @slot('tabId')
-            jogadores
+            players
         @endslot
 
-        @if ($display == "jogadores")
+        @if ($display == "players")
             @slot('tabActive')
                 in active
             @endslot
         @endif
 
         @if (isset($players))
-            @include('partials.about-tab-content', ['type' => 'players', 'data' => $players])
+            @include('partials.about-tab-content', ['type' => 'players', 'records' => $players])
         @else
             {!! $emptyMessage !!}
         @endif
@@ -70,17 +70,17 @@
     <!-- Committee -->
     @component('partials.tabs.item')
         @slot('tabId')
-            comissao
+            commission
         @endslot
 
-        @if ($display == "comissao")
+        @if ($display == "commission")
             @slot('tabActive')
                 in active
             @endslot
         @endif
 
         @if (isset($commission))
-            @include('partials.about-tab-content', ['type' => 'committee', 'data' => $commission])
+            @include('partials.about-tab-content', ['type' => 'committee', 'records' => $commission])
         @else
             {!! $emptyMessage !!}
         @endif

@@ -2,6 +2,4 @@
 
 namespace App\Models;
 
-class About extends Json {
-
-}
+class About extends Json { }

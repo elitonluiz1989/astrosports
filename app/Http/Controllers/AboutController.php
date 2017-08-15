@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
+use App\Repositories\CommissionRepository;
+use App\Repositories\DefaultRepository;
 use Illuminate\Http\Request;
-use App\Repositories\HistoryRepository as History;
 
 /**
  * Class AboutController
@@ -11,26 +13,55 @@ use App\Repositories\HistoryRepository as History;
 class AboutController extends Controller
 {
     /**
-     * AboutController index
+     * @var array
      */
-    public function index($display = 'history') {
-        $data = [
-            'display' => $this->displayHandler($display),
-            'history' => History::get()
-        ];
+    private $data;
 
-        return view('about', $data);
+    /**
+     * @var DefaultRepository
+     */
+    private $repository;
+
+    /**
+     * @var CommissionRepository
+     */
+    private $commission;
+
+    public function __construct(
+        DefaultRepository $repo,
+        CommissionRepository $commission
+    )
+    {
+        $this->repository = $repo;
+        $this->commission = $commission;
+        $this->data = config('about');
     }
 
     /**
-     * AboutController displayHandler
+     * @param string $display
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index($display = 'history') {
+        $this->data['display'] = $this->validateDisplayChoice($display);
+        $this->data['history'] = $this->repository->model(new History)->get();
+        $this->data['commission'] = $this->commission->get();
+
+        //dd($this->data);
+
+        return view('about', $this->data);
+    }
+
+    /**
      * @param string $display
      * @return string
      */
-    private function displayHandler($display) {
-        $occurrences = ['historia', 'cartilha', 'jogadores', 'comissao'];
-        $replacements = ['history', 'primer', 'players', 'committee'];
+    private function validateDisplayChoice(string $display) {
+        $validatedDisplay = str_replace(
+            ['historia', 'cartilha', 'jogadores', 'comissao'],
+            ['history', 'primer', 'players', 'commission'],
+            $display
+        );
 
-        return str_replace($occurrences, $replacements, $display);
+        return $validatedDisplay;
     }
 }

@@ -1,143 +1,173 @@
 .schedules {
-    $schedules-color: #0085ff;
+  $schedules-color: #0085ff;
 
-    @include titles($schedules-color);
+  @include titles($schedules-color);
 
-    @include tabs($schedules-color);
+  $tabs-item-width: 100% / 3;
+  @include tabs($schedules-color, $tabs-item-width, 'sm');
 
-    %schedules-item {
-        border-right: 1px solid $theme-green;
-        @extend .text-center;
-        @extend .col-reset;
+  %schedules-item-border {
+    border-right: 1px solid $theme-green;
+  }
+
+  %schedules-item {
+    @extend %schedules-item-border;
+    @extend .text-center;
+    @extend .col-reset;
+  }
+
+  %schedules-item-width {
+    $width: 100% / 7;
+    width: 100%;
+
+    @include media-query('sm') {
+      width: $width;
+    }
+  }
+
+  %schedules-titles {
+    color: #fff;
+    font-weight: bolder;
+  }
+
+  &__conteiner {
+    float: left;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 5px;
+    @extend .col-reset;
+
+    @include media-query('sm') {
+      border-width: 2px 1px 1px 2px;
+      border-style: solid;
+      border-width: $theme-green;
+      padding: 0;
     }
 
-    %schedules-titles {
+    @include media-query('lg') {
+      width: 98%;
+      margin-right: 1%;
+      margin-left: 1%;
+    }
+  }
+
+  %schedules-bar-bg {
+    background-color: lighten($theme-green, 4%);
+  }
+
+  &__bar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    @extend %schedules-titles;
+
+    &--empty {
+      @extend %schedules-bar-bg;
+      @extend %schedules-item-border;
+    }
+
+    &--content {
+      @extend %schedules-bar-bg;
+      @extend %left;
+      @extend %schedules-item;
+      @extend %schedules-item-width;
+    }
+
+    @include media-query('sm', true) {
+      font-size: 0.8em;
+    }
+  }
+
+  &__target-text {
+    background-color: lighten($theme-green, 10%);
+    @extend %schedules-titles;
+    @extend %schedules-item;
+    padding: 10px 0;
+
+    @include media-query('sm') {
+      padding: 0;
+    }
+  }
+
+  &__row {
+    border: 1px solid $theme-green;
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+
+    @include media-query('sm') {
+      border-width: 0 0 1px 0;
+      display: flex;
+      margin-bottom: 0;
+    }
+  }
+
+  &__wrapper {
+    @include media-query('sm') {
+      float: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__item {
+    @extend %schedules-item;
+    @extend %schedules-item-width;
+
+    @include media-query('sm') {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &--empty {
+      background-color: #f0f0f0;
+    }
+
+    &-text {
+      @include media-query('sm') {
+        align-self: center;
+      }
+      width: 100%;
+    }
+
+    &-content {
+      $schedules-content-color: darken($schedule-item-color, 4%);
+      width: 100%;
+      padding: 10px 0;
+      @include media-query('sm') {
+        display: flex;
+      }
+
+      &--bordered {
+        border-left: 1px solid $theme-green;
+      }
+
+      &--xs-up {
+        background-color: $theme-dark;
         color: #fff;
-        font-weight: bolder;
-    }
+      }
 
-    &__conteiner {
-        float: left;
-        width: 100%;
-        margin: 10px 0;
-        padding: 0 5px;
-        @extend .col-reset;
-
-        @include media-query('sm') {
-            border-width: 2px 1px 1px 2px;
-            border-style: solid;
-            border-width: $theme-green;
-            padding: 0;
-        }
-
-        @include media-query('lg') {
-            width: 98%;
-            margin-right: 1%;
-            margin-left: 1%;
-        }
-
-        &-title {
-            background-color: lighten($theme-green, 4%);
-            @extend %schedules-item;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            @extend %schedules-titles;
-
-            @include media-query('sm', true) {
-                font-size: 0.8em;
-            }
-        }
-    }
-
-    &__target-text {
-        background-color: lighten($theme-green, 10%);
-        @extend %schedules-titles;
-        @extend %schedules-item;
-        padding: 10px 0;
+      &--up {
+        background-color: $schedules-content-color;
+        border-width: 0 2px 1px;
+        border-style: solid;
+        border-color: $schedules-content-color;
+        color: white;
 
         @include media-query('sm') {
-            padding: 0;
+          border: 0;
         }
+
+        @include media-query('sm', true) {
+          font-size: 0.8em;
+        }
+      }
+
+      &--down {
+        border-width: 0 2px 2px;
+        border-style: solid;
+        border-color:  $schedules-content-color;
+      }
     }
-
-    &__row {
-        border: 1px solid $theme-green;
-        float: left;
-        width: 100%;
-        margin-bottom: 5px;
-
-        @include media-query('sm') {
-            border-width: 0 0 1px 0;
-            display: flex;
-            margin-bottom: 0;
-        }
-    }
-
-    &__wrapper {
-        @include media-query('sm') {
-            float: none;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    }
-
-    &__item {
-        @extend %schedules-item;
-        @include media-query('sm') {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        &--empty {
-            background-color: #f0f0f0;
-        }
-
-        &-text {
-            @include media-query('sm') {
-                align-self: center;
-            }
-            width: 100%;
-        }
-
-        &-content {
-            $schedules-content-color: darken($schedule-item-color, 4%);
-            width: 100%;
-            padding: 10px 0;
-            @include media-query('sm') {
-                display: flex;
-            }
-
-            &--bordered {
-                border-left: 1px solid $theme-green;
-            }
-
-            &--xs-up {
-                background-color: $theme-dark;
-                color: #fff;
-            }
-
-            &--up {
-                background-color: $schedules-content-color;
-                border-width: 0 2px 1px;
-                border-style: solid;
-                border-color: $schedules-content-color;
-                color: white;
-
-                @include media-query('sm') {
-                    border: 0;
-                }
-
-                @include media-query('sm', true) {
-                    font-size: 0.8em;
-                }
-            }
-
-            &--down {
-                border-width: 0 2px 2px;
-                border-style: solid;
-                border-color:  $schedules-content-color;
-            }
-        }
-    }
+  }
 }
