@@ -1,3 +1,5 @@
+@php $homeTitleClass = 'home__title col-xs-10 col-sm-6 col-md-4 col-xs-offset-1'; @endphp
+
 @extends('template.app')
 
 @section('title', 'Início')
@@ -44,41 +46,23 @@
     </div>
     <!-- History -->
     <div class="home__history home__wrapper">
-        <header class="home__title home__history-title">
+        <header class="{{ $homeTitleClass }}">
             <h1 class="home__title-text">A Escola</h1>
         </header>
-        <article class="home__history-content">{!! $history !!}</article>
+        <section class="home__history-content col-xs-12">{!! $history !!}</section>
     </div>
     <!-- News -->
-    <div class="home__news home__wrapper">
-        <header class="home__title home__news-header">
-            <h1 class="home__title-text">Últimas Notícias</h1>
-        </header>
-        <ul class="list">
-            @if (count($news) > 0)
-                @foreach ($news as $current)
-                    <li class="list-item home__news-wrapper home__news-wrapper--has-news">
-                        @php $newsContentClass = "home__news-content"; @endphp
-                        @if (!empty($current[ 'cover' ]))
-                            @php $newsContentClass .= " home__news-content--with-cover"; @endphp
-                            <div class="home__news-cover">
-                                <img class="img" src="{{ $current[ 'cover' ] }}?w=300&h=250" alt="cover">
-                            </div>
-                        @endif
-                        <div class="{{ $newsContentClass }}">
-                            <div class="home__news-title">{{ $current[ 'title' ] }}</div>
-                            <div class="home__news-text">{!! $current[ 'content' ] !!}</div>
-                        </div>
-                    </li>
-                @endforeach
-                <li class="list-item home__news-wrapper">
-                    <a class=" home__news-more btn btn-default" href="/noticias">Mais Notícias</a>
-                </li>
-            @else
-                <li class="list-item home__news-wrapper--no-news">
-                    <div class="home__news-content--no-news">Sem resgistros.</div>
-                </li>
-            @endif
-        </ul>
-    </div>
+    @if (count($news) > 0)
+        <div class="home__news home__wrapper">
+            <header class="{{ $homeTitleClass }}">
+                <h1 class="home__title-text">Últimas Notícias</h1>
+            </header>
+
+            @include('partials.news-list', ['news' => $news])
+
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <a class=" home__news-more btn btn-default" href="/noticias">Mais Notícias</a>
+            </div>
+        </div>
+    @endif
 @endsection

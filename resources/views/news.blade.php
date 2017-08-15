@@ -21,19 +21,7 @@
 
     @include('partials.pagination-bar', $pagination)
 
-    <ul class="news__list row">
-        @foreach( $news as $record )
-            <li class="news__item col-xs-12 col-md-10 col-md-offset-1">
-                <a href="{{ $record->url }}" class="news__content">
-                    <div class="news__cover col-xs-12 col-sm-3 col-lg-4">
-                        <img src="{{ $record->img }}" alt="{{ $record->alt }}" class="img">
-                    </div>
-                    <div class="news__subject col-xs-12 col-sm-9 col-lg-8">{{ $record->title }}</div>
-                    <div class="news__published col-xs-12 col-sm-9 col-lg-8">{{ $record->published_at }}</div>
-                </a>
-            </li>
-        @endforeach
-    </ul>
+    @include('partials.news-list', ['news', $news])
 
     @include('partials.pagination-bar-bottom', $pagination)
 @endsection
