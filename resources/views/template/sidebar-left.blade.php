@@ -18,7 +18,7 @@ $schedules = $sidebar->schedules();
 $videos = $sidebar->videos();
 @endphp
 
-<section class="sidebar hidden-xs col-sm-4 col-md-3">
+<div class="sidebar hidden-xs col-sm-4 col-md-3">
     <div class="sidebar__schedule sidebar__wrapper">
         <header>
             <h1 class="schedule__title sidebar__title">Horários</h1>
@@ -91,8 +91,8 @@ $videos = $sidebar->videos();
                 @endforeach
             </div>
         </div>
-
     </div>
+
     <!-- Videos -->
     @php $showVideos = $showSidebarVideos ?? true; @endphp
     @if ($showVideos)
@@ -122,4 +122,4 @@ $videos = $sidebar->videos();
             </ul>
         </div>
     @endif
-</section>
+</div>

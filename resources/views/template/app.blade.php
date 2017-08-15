@@ -79,23 +79,23 @@
             </nav>
         </div>
     </header>
-    <section class="content conteiner-fluid">
+    <div class="content conteiner-fluid">
         <div class="row">
             @php
-            $contentClass = "content__main col-xs-12";
-            $showSidebar = $sidebar ?? true;
+                $sidebar = $sidebar ?? true;
+                $contentClass = 'page col-xs-12';
             @endphp
 
-            @if ($showSidebar)
+            @if ($sidebar)
                 @include('template.sidebar-left')
-                @php $contentClass .= " col-sm-8 col-md-9"; @endphp
+                @php $contentClass .= ' col-sm-8 col-md-9'; @endphp
             @endif
 
-            <section class="{{ $contentClass }}">
+            <div class="@yield('page') {{ $contentClass }}">
                 @yield('content')
-            </section>
+            </div>
         </div>
-    </section>
+    </div>
     <footer class="footer conteiner-fluid">
         <section class="row">
             <ul class="footer-contact list-inline col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">

@@ -1,154 +1,156 @@
 .home {
-    background-color: #fff;
+  background-color: #fff;
+  padding: 5px;
+
+  %home-shadow {
+    box-shadow: 2px 2px 4px #333;
+  }
+
+  &__wrapper {
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  &__title {
+    background-color: #333;
+    width: 95%;
+    @extend %home-shadow;
+
+    &-text {
+      margin: 0;
+      padding: 10px 0 10px 15px;
+      color: #fff;
+      font-size: 1.4em;
+    }
+  }
+
+  &__galery {
+    background-color: #222;
+    height: 350px;
+    overflow: hidden;
+  }
+
+  &__photo {
+    img {
+      margin: 0 auto;
+    }
+  }
+
+  &__history {
+    max-height: 400px;
+    overflow: hidden;
+
+    &-title {
+      width: 40%;
+    }
+
+    &-content {
+      padding: 5px 10px;
+    }
+  }
+
+  &__news {
+    $homeNewsColor: #333;
+    background-color: #285;
+    display: table;
     padding: 5px;
+    width: 100%;
 
-    %home-shadow {
-        box-shadow: 2px 2px 4px #333;
+    &-header {
+      width: 100%;
     }
 
-    &__wrapper {
-        margin-bottom: 10px;
+    &-wrapper {
+      background-color: #fff;
+      border: 1px solid $homeNewsColor;
+      @extend %home-shadow;
+      margin-top: 10px;
+
+      &--has-news {
+        height: 150px;
+      }
+
+      &:last-child() {
+        margin-bottom: 5px;
+      }
+
+      @include media-query("lm", true) {
+        & {
+          width: 100%;
+        }
+      }
+
+      @include media-query("md") {
+        $homeNewsContentMargin: 5%;
+        & {
+          width: 90%;
+          margin-right: $homeNewsContentMargin;
+          margin-left: $homeNewsContentMargin;
+        }
+      }
     }
 
-    &__title {
-        background-color: #333;
-        width: 95%;
-        @extend %home-shadow;
-
-        &-text {
-            margin: 0;
-            padding: 10px 0 10px 15px;
-            color: #fff;
-            font-size: 1.4em;
-        }
+    %news-pieces {
+      height: 100%;
     }
 
-    &__galery {
-        background-color: #222;
-        height: 350px;
-        overflow: hidden;
+    &-cover {
+      border-right: 1px solid $homeNewsColor;
+      @extend %news-pieces;
+      @extend %left;
+
+      @include media-query("lm", true) {
+        &{
+          width: 40%;
+        }
+      }
+
+      @include media-query("xs") {
+        &{
+          width: 25%;
+        }
+      }
     }
 
-    &__photo {
-        img {
-            margin: 0 auto;
+    &-content {
+      @extend %news-pieces;
+      @extend %left;
+      padding: 5px;
+      text-align: justify;
+
+      &--with-cover {
+        width: 75%;
+
+        @include media-query("lm", true) {
+          width: 60%;
         }
+      }
+
+      &--no-news {
+        background-color: white;
+        margin-top: 10px;
+        padding: 10px 0;
+        text-align: center;
+      }
     }
 
-    &__history {
-        max-height: 400px;
-        overflow: hidden;
-
-        &-title {
-            width: 40%;
-        }
-
-        &-content {
-            padding: 5px 10px;
-        }
+    &-title {
+      background-color: #1e5b3c;
+      padding: 5px 0;
+      color: #fff;
+      text-align: center;
     }
 
-    &__news {
-        $homeNewsColor: #333;
-        background-color: #285;
-        display: table;
-        padding: 5px;
-        width: 100%;
-
-        &-header {
-            width: 100%;
-        }
-
-        &-wrapper {
-            background-color: #fff;
-            border: 1px solid $homeNewsColor;
-            @extend %home-shadow;
-            margin-top: 10px;
-
-            &--has-news {
-                height: 150px;
-            }
-
-            &:last-child() {
-                margin-bottom: 5px;
-            }
-
-            @include media-query("lm", true) {
-                & {
-                    width: 100%;
-                }
-            }
-
-            @include media-query("md") {
-                $homeNewsContentMargin: 5%;
-                & {
-                    width: 90%;
-                    margin-right: $homeNewsContentMargin;
-                    margin-left: $homeNewsContentMargin;
-                }
-            }
-        }
-
-        %news-pieces {
-            height: 100%;
-        }
-
-        &-cover {
-            border-right: 1px solid $homeNewsColor;
-            @extend %news-pieces;
-            @extend %left;
-
-            @include media-query("lm", true) {
-                &{
-                    width: 40%;
-                }
-            }
-
-            @include media-query("xs") {
-                &{
-                    width: 25%;
-                }
-            }
-        }
-
-        &-content {
-            @extend %news-pieces;
-            @extend %left;
-            padding: 5px;
-            text-align: justify;
-
-            &--with-cover {
-                width: 75%;
-
-                @include media-query("lm", true) {
-                    width: 60%;
-                }
-            }
-
-            &--no-news {
-                background-color: white;
-                margin-top: 10px;
-                padding: 10px 0;
-                text-align: center;
-            }
-        }
-
-        &-title {
-            background-color: #1e5b3c;
-            padding: 5px 0;
-            color: #fff;
-            text-align: center;
-        }
-
-        &-text {
-            @extend %left;
-            height: 100px;
-            @extend %hidden;
-        }
-
-        &-more {
-            width: 100%;
-            border-radius: 0;
-        }
+    &-text {
+      @extend %left;
+      height: 100px;
+      @extend %hidden;
     }
+
+    &-more {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
 }

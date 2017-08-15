@@ -30,9 +30,9 @@ class NewsController extends Controller
         $this->news->paginate = $this->data['limit'];
         $this->data['news'] = $this->news->listNews();
 
-        //if ($this->data['news']->total() > $this->data['limit']) {
+        if ($this->data['news']->total() > $this->data['limit']) {
             $this->data['pagination']['links'] = $this->data['news']->links();
-        //}
+        }
 
         return view('news', $this->data);
     }
