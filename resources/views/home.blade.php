@@ -50,6 +50,7 @@
             <h1 class="home__title-text">A Escola</h1>
         </header>
         <section class="home__history-content col-xs-12">{!! $history !!}</section>
+        <a href="/sobre/historia" id="home-history-show" class="home__history-show">continue lendo...</a>
     </div>
     <!-- News -->
     @if (count($news) > 0)

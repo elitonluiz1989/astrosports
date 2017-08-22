@@ -1,6 +1,6 @@
 <?php
 // Source code from git repository denissonleal/json
-namespace App\Models;
+namespace App\Models\Abstracts;
 
 abstract class Json {
 
@@ -31,12 +31,12 @@ abstract class Json {
 
     public static function all()
     {
-        return self::getJson();
+        return collect(self::getJson());
     }
 
     public static function find($id)
     {
-        $list = self::getJson();
+        $list = collect(self::getJson());
 
         return $list[$id];
     }

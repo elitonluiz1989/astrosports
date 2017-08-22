@@ -1,5 +1,3 @@
-@inject('sidebar', 'App\Http\Controllers\SidebarController')
-
 @php
     $currentDay = strtolower(date('D'));
 
@@ -12,10 +10,6 @@
         'fri' => 'SEX',
         'sat' => 'SÁB'
     ];
-
-$schedules = $sidebar->schedules();
-
-$videos = $sidebar->videos();
 @endphp
 
 <div class="sidebar hidden-xs col-sm-4 col-md-3">

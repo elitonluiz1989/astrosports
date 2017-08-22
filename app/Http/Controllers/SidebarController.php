@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Repositories\AdvertisingRepository as Advertising;
 use App\Repositories\SchedulesRepository as Schedules;
 use App\Repositories\VideosRepository as Videos;
 
@@ -34,5 +34,14 @@ class SidebarController extends Controller
                 'img' => $video['img']['medium']
             ];
         }, $videos);
+    }
+
+    /**
+     * Retrieve all advertings
+     * @return array
+     */
+    public function advertising()
+    {
+        return (new Advertising)->get();
     }
 }

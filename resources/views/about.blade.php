@@ -5,8 +5,8 @@
 @section('title', 'Sobre')
 
 @section('tabs-header')
-    <header class="row">
-        <h2 class="page__title about__title">Sobre a escola</h2>
+    <header class='row'>
+        <h2 class='page__title about__title'>Sobre a escola</h2>
     </header>
 @endsection
 
@@ -17,17 +17,17 @@
             history
         @endslot
 
-        @if ($display == "history")
+        @if ($display == 'history')
             @slot('tabActive')
                 in active
             @endslot
         @endif
 
         @if (isset($history))
-            <header class="about__text-wrapper about__history-header">
+            <header class='about__text-wrapper about__history-header'>
                 <h1>{{ $history['title'] }}</h1>
             </header>
-            <article class="about__text-wrapper about__history-text">{!! $history['text'] !!}</article>
+            <article class='about__text-wrapper about__history-text'>{!! $history['text'] !!}</article>
         @else
             {!! $emptyMessage !!}
         @endif
@@ -39,7 +39,7 @@
             primer
         @endslot
 
-        @if ($display == "primer")
+        @if ($display == 'primer')
             @slot('tabActive')
                 in active
             @endslot
@@ -54,7 +54,7 @@
             players
         @endslot
 
-        @if ($display == "players")
+        @if ($display == 'players')
             @slot('tabActive')
                 in active
             @endslot
@@ -73,7 +73,7 @@
             commission
         @endslot
 
-        @if ($display == "commission")
+        @if ($display == 'commission')
             @slot('tabActive')
                 in active
             @endslot

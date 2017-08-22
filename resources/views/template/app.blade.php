@@ -83,17 +83,35 @@
         <div class="row">
             @php
                 $sidebar = $sidebar ?? true;
+
                 $contentClass = 'page col-xs-12';
             @endphp
 
             @if ($sidebar)
-                @include('template.sidebar-left')
-                @php $contentClass .= ' col-sm-8 col-md-9'; @endphp
+                @php $contentClass .= ' col-sm-6 col-md-7'; @endphp
+                @inject('sidebar', 'App\Http\Controllers\SidebarController')
+
+                @php
+                    $sidebarLeft = [
+                        'schedules' => $sidebar->schedules(),
+                        'videos'    => $sidebar->videos()
+                    ];
+
+                    $sidebarRight = [
+                        'advertising' => $sidebar->advertising()
+                    ];
+                @endphp
+
+                @include('template.sidebar-left', $sidebarLeft)
             @endif
 
             <div class="@yield('page') {{ $contentClass }}">
                 @yield('content')
             </div>
+
+            @if ($sidebar)
+                @include('template.sidebar-right', $sidebarRight)
+            @endif
         </div>
     </div>
     <footer class="footer conteiner-fluid">

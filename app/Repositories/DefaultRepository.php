@@ -30,14 +30,4 @@ class DefaultRepository {
             return $this->model::find($id);
         }
     }
-
-    /**
-     * @param array $fields
-     * @return Collection
-     */
-    public function select(Array $fields)
-    {
-        return $this->model::select($fields)
-                            ->get();
-    }
 }
