@@ -8,11 +8,16 @@ class DefaultRepository {
     protected $model;
 
     /**
-     * @param $model
+     * @param mixed $model
      * @return $this
      */
     public function model($model) {
-        $this->model = $model;
+        if (\is_object($model)) {
+            $this->model = $model;
+        } else {
+            $className = '\\App\\Models\\' . \ucfirst($model);
+            $this->model = new $className;
+        }
 
         return $this;
     }
