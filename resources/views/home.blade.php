@@ -53,7 +53,7 @@
         <a href="/sobre/historia" id="home-history-show" class="home__history-show">continue lendo...</a>
     </div>
     <!-- News -->
-    @if (count($news) > 0)
+    @if (isset($news) && count($news) > 0)
         <div class="home__news home__wrapper">
             <header class="{{ $homeTitleClass }}">
                 <h1 class="home__title-text">Últimas Notícias</h1>

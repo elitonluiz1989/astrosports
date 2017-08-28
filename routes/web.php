@@ -4,6 +4,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/avaliacoes', 'AssessmentsController@index');
 
 Route::get('/contato', 'ContactController@index');
+Route::get('/contato/{subject}', 'ContactController@index');
 
 // News module
 Route::get('/noticias', 'NewsController@index');

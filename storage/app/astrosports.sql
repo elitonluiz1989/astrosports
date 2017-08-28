@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.1
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql
--- Generation Time: 13-Ago-2017 às 19:31
--- Versão do servidor: 5.7.18
--- PHP Version: 7.0.16
+-- Host: localhost:3306
+-- Tempo de geração: 26/08/2017 às 02:59
+-- Versão do servidor: 5.7.19-0ubuntu0.17.04.1
+-- Versão do PHP: 7.0.22-0ubuntu0.17.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,13 +17,37 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `astrosports`
+-- Banco de dados: `astrosports`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `albums`
+-- Estrutura para tabela `advertisings`
+--
+
+CREATE TABLE `advertisings` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Fazendo dump de dados para tabela `advertisings`
+--
+
+INSERT INTO `advertisings` (`id`, `name`, `url`, `img`, `created_at`, `updated_at`) VALUES
+(1, 'M4 Brinks', NULL, 'c9fb04155e8fb36d91deb8afa2e2ed41.png', '2017-08-24 14:25:00', NULL),
+(2, 'Rota.7', NULL, '5770e3b5773f35b6e6a02fa7c1d119e0.jpg', '2017-08-24 14:27:00', NULL),
+(3, 'FM Interativa', 'http://www.fminterativams.com.br/', '1a5feb2f2007f3c4460d2f33507f7ef5.jpg', '2017-08-24 14:28:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `albums`
 --
 
 CREATE TABLE `albums` (
@@ -34,7 +56,7 @@ CREATE TABLE `albums` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `albums`
+-- Fazendo dump de dados para tabela `albums`
 --
 
 INSERT INTO `albums` (`id`, `name`) VALUES
@@ -44,7 +66,7 @@ INSERT INTO `albums` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `authors`
+-- Estrutura para tabela `authors`
 --
 
 CREATE TABLE `authors` (
@@ -53,7 +75,7 @@ CREATE TABLE `authors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `authors`
+-- Fazendo dump de dados para tabela `authors`
 --
 
 INSERT INTO `authors` (`id`, `name`) VALUES
@@ -64,7 +86,7 @@ INSERT INTO `authors` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `commission`
+-- Estrutura para tabela `commission`
 --
 
 CREATE TABLE `commission` (
@@ -77,7 +99,7 @@ CREATE TABLE `commission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `commission`
+-- Fazendo dump de dados para tabela `commission`
 --
 
 INSERT INTO `commission` (`id`, `name`, `avatar`, `role`, `created_at`, `updated_at`) VALUES
@@ -90,7 +112,7 @@ INSERT INTO `commission` (`id`, `name`, `avatar`, `role`, `created_at`, `updated
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `commission_roles`
+-- Estrutura para tabela `commission_roles`
 --
 
 CREATE TABLE `commission_roles` (
@@ -99,7 +121,7 @@ CREATE TABLE `commission_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `commission_roles`
+-- Fazendo dump de dados para tabela `commission_roles`
 --
 
 INSERT INTO `commission_roles` (`id`, `name`) VALUES
@@ -111,7 +133,7 @@ INSERT INTO `commission_roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `migrations`
+-- Estrutura para tabela `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -121,7 +143,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `migrations`
+-- Fazendo dump de dados para tabela `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -135,17 +157,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2017_07_28_105229_create_players_positions_table', 2),
 (9, '2017_07_28_105235_create_players_table', 2),
 (10, '2017_08_13_145847_create_authors_table', 3),
-(11, '2017_08_13_150001_create_news_table', 3);
+(11, '2017_08_13_150001_create_news_table', 3),
+(12, '2017_08_24_101618_create_advertisings_table', 4);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `news`
+-- Estrutura para tabela `news`
 --
 
 CREATE TABLE `news` (
   `id` int(10) UNSIGNED NOT NULL,
   `author` int(10) UNSIGNED NOT NULL,
+  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -153,22 +177,22 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `news`
+-- Fazendo dump de dados para tabela `news`
 --
 
-INSERT INTO `news` (`id`, `author`, `title`, `text`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Escola de Futebol recebe a visita da TV Morena', '&lt;p&gt;&lt;img src=&quot;/uploads/noticias/4f0c70bdf357b622a25a6df23517a4cf.JPG&quot; alt=&quot;&quot; width=&quot;292&quot; height=&quot;254&quot; /&gt;&lt;img style=&quot;float: right;&quot; src=&quot;/uploads/noticias/1dd40d3be03187bf9a46c6281376b2f9.JPG&quot; alt=&quot;&quot; width=&quot;294&quot; height=&quot;254&quot; /&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;Foi com grande alegria que atletas, pais e comiss&amp;atilde;o t&amp;eacute;cnica receberam a visita da TV Morena durante os treinamentos de prepara&amp;ccedil;&amp;atilde;o para a estr&amp;eacute;ia no Campeonato Estadual Sub-14 da FFMS. A visita da TV Morena n&amp;atilde;o foi importante s&amp;oacute; para a equipe da Escola de Futebol, mais tambem para toda comunidade local que se sentiu orgulhosa e valorizada.&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt;', '2014-09-05 17:24:21', NULL),
-(2, 1, 'Escola de Futebol Astro Sports faz parceria com clube profissional', '&lt;p style=&quot;text-align: right;&quot;&gt;&lt;img style=&quot;float: left;&quot; src=&quot;/uploads/noticias/39ebd8ff17a7a9694ee0bbd921a2d41a.jpg&quot; alt=&quot;&quot; width=&quot;332&quot; height=&quot;274&quot; /&gt;&lt;img src=&quot;/uploads/noticias/69755eb896d09ea346834daf7b2cc1b3.jpg&quot; alt=&quot;&quot; width=&quot;320&quot; height=&quot;274&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Diretoria, Comiss&amp;atilde;o t&amp;eacute;cnica e atletas da Escola de Futebol Astro Sports receberam em seu CT Membros da Diretoria de um clube profissional da nossa capital e na oportunidade firmaram parceria para disputar o Campeonato Estadual sub-14. A princ&amp;iacute;pio a parceria seria apenas para o estadual sub-14, mais pode se estender a outras categorias.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', '2014-09-05 17:23:57', NULL),
-(3, 1, ' Início das atividades em 2014', '&lt;p&gt;&amp;nbsp;&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;/uploads/noticias/b7f6971c4ea55602628a3c581589966c.jpg&quot; alt=&quot;&quot; width=&quot;479&quot; height=&quot;401&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;A Escola de Futebol Astro Sports voltou com suas atividades este ano no dia 15.02 - s&amp;aacute;bado no per&amp;iacute;odo matutino. Segundo informa&amp;ccedil;&amp;otilde;es da coordena&amp;ccedil;&amp;atilde;o t&amp;eacute;cnica, neste primeiro momento os treinamentos ser&amp;atilde;o somente aos s&amp;aacute;bados &amp;agrave; partir das 08hs.&lt;/p&gt;', '2014-09-05 17:25:05', NULL),
-(5, 2, 'Funesp realiza capacitação com professores do Projeto Geração de Campeões', '&lt;p&gt;&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;/uploads/fotos/b952894c2380fccc2b1d10be26f78f143080d252.jpg&quot; alt=&quot;&quot; width=&quot;617&quot; height=&quot;389&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Os professores das escolas de futebol do Projeto Gera&amp;ccedil;&amp;atilde;o de Campe&amp;otilde;es, realizado pela Associa&amp;ccedil;&amp;atilde;o dos profissionais de Educa&amp;ccedil;&amp;atilde;o F&amp;iacute;sica em parceria com a Prefeitura Municipal de Campo Grande, receberam na tarde de quarta-feira 13.08.14, capacita&amp;ccedil;&amp;atilde;o para melhorar a forma&amp;ccedil;&amp;atilde;o da inicia&amp;ccedil;&amp;atilde;o esportiva na sede da Fnda&amp;ccedil;&amp;atilde;o Municipal de Esporte. A forma&amp;ccedil;&amp;atilde;o foi apresentada pelo Doutor em Gest&amp;atilde;o de Clubes de Futebol, Marvio Pereira Leoncini. Entre os temas abordados os de maior destaque e discuss&amp;atilde;o foram &quot;Como trabalhar o futebol em cada faixa et&amp;aacute;ria e qual a diferen&amp;ccedil;a do professor e treinador.&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', '2014-09-05 17:25:46', NULL),
-(7, 3, '1ª COPA CAMPO GRANDE DE FUTEBOL SUB-15', '&lt;p&gt;&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;/uploads/noticias/8301fcaf316d1ce4d5f08e4e6be56eb0.jpg&quot; alt=&quot;&quot; width=&quot;456&quot; height=&quot;322&quot; /&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;A FUNESP (Funda&amp;ccedil;&amp;atilde;o Municipal de Esporte), abriu na &amp;uacute;ltima segunda-feira, 1&amp;ordm; de setembro, as inscri&amp;ccedil;&amp;otilde;es para a 1&amp;ordf; COPA CAMPO GRANDE DE FUTEBOL SUB - 15, que seguem at&amp;eacute; o pr&amp;oacute;ximo dia 19. O in&amp;iacute;cio da competi&amp;ccedil;&amp;atilde;o esta previsto para o dia 27 de setembro.&lt;/p&gt;', '2014-09-05 17:25:58', NULL),
-(9, 1, 'Atletas da Escola de Futebol Astro Sports Indicados para Jogarem no Náutico F. C.', '&lt;p&gt;&lt;img src=&quot;/uploads/fotos/c88930f482e4ed8dd4f2a26a351d71f0a6bb0190.937aaa815e91cee7b74ca05a9ffc79f1.jpg&quot; alt=&quot;&quot; width=&quot;946&quot; height=&quot;460&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;Atletas da Escola de Futebol Astro Sports dos Polos Coophatrabalho e Jd. Petr&amp;oacute;polis foram selecionados para disputarem competi&amp;ccedil;&amp;otilde;es sub 15 e sub 17 pelo N&amp;aacute;utico Futebol Clube.&amp;nbsp;&lt;/p&gt;', '2014-11-03 13:24:05', NULL),
-(11, 1, 'Novo Espaço de Treinamento', '&lt;p&gt;&lt;img src=&quot;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xfl1/v/l/t1.0-0/s160x160/12795425_813291728777264_8181703304873998205_n.jpg?oh=ca2f49170b59dfdf552e113f820473ae&amp;amp;oe=57B854E2&quot; alt=&quot;&quot; width=&quot;160&quot; height=&quot;107&quot; /&gt; A Escola de Futebol Astro Sports fez parceria com a Arena Bola de Meia e estara com espa&amp;ccedil;o dispon&amp;iacute;vel para treinamentos a partir de mar&amp;ccedil;o.&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', '2016-04-05 20:45:59', NULL);
+INSERT INTO `news` (`id`, `author`, `cover`, `title`, `text`, `created_at`, `updated_at`) VALUES
+(1, 1, '4f0c70bdf357b622a25a6df23517a4cf.JPG', 'Escola de Futebol recebe a visita da TV Morena', '&lt;p&gt;&lt;img src=&quot;/uploads/noticias/4f0c70bdf357b622a25a6df23517a4cf.JPG&quot; alt=&quot;&quot; width=&quot;292&quot; height=&quot;254&quot; /&gt;&lt;img style=&quot;float: right;&quot; src=&quot;/uploads/noticias/1dd40d3be03187bf9a46c6281376b2f9.JPG&quot; alt=&quot;&quot; width=&quot;294&quot; height=&quot;254&quot; /&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;Foi com grande alegria que atletas, pais e comiss&amp;atilde;o t&amp;eacute;cnica receberam a visita da TV Morena durante os treinamentos de prepara&amp;ccedil;&amp;atilde;o para a estr&amp;eacute;ia no Campeonato Estadual Sub-14 da FFMS. A visita da TV Morena n&amp;atilde;o foi importante s&amp;oacute; para a equipe da Escola de Futebol, mais tambem para toda comunidade local que se sentiu orgulhosa e valorizada.&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt;', '2014-09-05 21:24:21', NULL),
+(2, 1, '39ebd8ff17a7a9694ee0bbd921a2d41a.jpg', 'Escola de Futebol Astro Sports faz parceria com clube profissional', '&lt;p style=&quot;text-align: right;&quot;&gt;&lt;img style=&quot;float: left;&quot; src=&quot;/uploads/noticias/39ebd8ff17a7a9694ee0bbd921a2d41a.jpg&quot; alt=&quot;&quot; width=&quot;332&quot; height=&quot;274&quot; /&gt;&lt;img src=&quot;/uploads/noticias/69755eb896d09ea346834daf7b2cc1b3.jpg&quot; alt=&quot;&quot; width=&quot;320&quot; height=&quot;274&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Diretoria, Comiss&amp;atilde;o t&amp;eacute;cnica e atletas da Escola de Futebol Astro Sports receberam em seu CT Membros da Diretoria de um clube profissional da nossa capital e na oportunidade firmaram parceria para disputar o Campeonato Estadual sub-14. A princ&amp;iacute;pio a parceria seria apenas para o estadual sub-14, mais pode se estender a outras categorias.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', '2014-09-05 21:23:57', NULL),
+(3, 1, 'b7f6971c4ea55602628a3c581589966c.jpg', ' Início das atividades em 2014', '&lt;p&gt;&amp;nbsp;&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;/uploads/noticias/b7f6971c4ea55602628a3c581589966c.jpg&quot; alt=&quot;&quot; width=&quot;479&quot; height=&quot;401&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;A Escola de Futebol Astro Sports voltou com suas atividades este ano no dia 15.02 - s&amp;aacute;bado no per&amp;iacute;odo matutino. Segundo informa&amp;ccedil;&amp;otilde;es da coordena&amp;ccedil;&amp;atilde;o t&amp;eacute;cnica, neste primeiro momento os treinamentos ser&amp;atilde;o somente aos s&amp;aacute;bados &amp;agrave; partir das 08hs.&lt;/p&gt;', '2014-09-05 21:25:05', NULL),
+(5, 2, 'b952894c2380fccc2b1d10be26f78f143080d252.jpg', 'Funesp realiza capacitação com professores do Projeto Geração de Campeões', '&lt;p&gt;&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;/uploads/fotos/b952894c2380fccc2b1d10be26f78f143080d252.jpg&quot; alt=&quot;&quot; width=&quot;617&quot; height=&quot;389&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Os professores das escolas de futebol do Projeto Gera&amp;ccedil;&amp;atilde;o de Campe&amp;otilde;es, realizado pela Associa&amp;ccedil;&amp;atilde;o dos profissionais de Educa&amp;ccedil;&amp;atilde;o F&amp;iacute;sica em parceria com a Prefeitura Municipal de Campo Grande, receberam na tarde de quarta-feira 13.08.14, capacita&amp;ccedil;&amp;atilde;o para melhorar a forma&amp;ccedil;&amp;atilde;o da inicia&amp;ccedil;&amp;atilde;o esportiva na sede da Fnda&amp;ccedil;&amp;atilde;o Municipal de Esporte. A forma&amp;ccedil;&amp;atilde;o foi apresentada pelo Doutor em Gest&amp;atilde;o de Clubes de Futebol, Marvio Pereira Leoncini. Entre os temas abordados os de maior destaque e discuss&amp;atilde;o foram &quot;Como trabalhar o futebol em cada faixa et&amp;aacute;ria e qual a diferen&amp;ccedil;a do professor e treinador.&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', '2014-09-05 21:25:46', NULL),
+(7, 3, '8301fcaf316d1ce4d5f08e4e6be56eb0.jpg', '1ª COPA CAMPO GRANDE DE FUTEBOL SUB-15', '&lt;p&gt;&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;/uploads/noticias/8301fcaf316d1ce4d5f08e4e6be56eb0.jpg&quot; alt=&quot;&quot; width=&quot;456&quot; height=&quot;322&quot; /&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: justify;&quot;&gt;A FUNESP (Funda&amp;ccedil;&amp;atilde;o Municipal de Esporte), abriu na &amp;uacute;ltima segunda-feira, 1&amp;ordm; de setembro, as inscri&amp;ccedil;&amp;otilde;es para a 1&amp;ordf; COPA CAMPO GRANDE DE FUTEBOL SUB - 15, que seguem at&amp;eacute; o pr&amp;oacute;ximo dia 19. O in&amp;iacute;cio da competi&amp;ccedil;&amp;atilde;o esta previsto para o dia 27 de setembro.&lt;/p&gt;', '2014-09-05 21:25:58', NULL),
+(9, 1, 'c88930f482e4ed8dd4f2a26a351d71f0a6bb0190.937aaa815e91cee7b74ca05a9ffc79f1.jpg', 'Atletas da Escola de Futebol Astro Sports Indicados para Jogarem no Náutico F. C.', '&lt;p&gt;&lt;img src=&quot;/uploads/fotos/c88930f482e4ed8dd4f2a26a351d71f0a6bb0190.937aaa815e91cee7b74ca05a9ffc79f1.jpg&quot; alt=&quot;&quot; width=&quot;946&quot; height=&quot;460&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;Atletas da Escola de Futebol Astro Sports dos Polos Coophatrabalho e Jd. Petr&amp;oacute;polis foram selecionados para disputarem competi&amp;ccedil;&amp;otilde;es sub 15 e sub 17 pelo N&amp;aacute;utico Futebol Clube.&amp;nbsp;&lt;/p&gt;', '2014-11-03 16:24:05', NULL),
+(11, 1, 'https://scontent-sea1-1.xx.fbcdn.net/hphotos-xfl1/v/l/t1.0-0/s160x160/12795425_813291728777264_8181703304873998205_n.jpg?oh=ca2f49170b59dfdf552e113f820473ae&amp;amp;oe=57B854E2', 'Novo Espaço de Treinamento', '&lt;p&gt;&lt;img src=&quot;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xfl1/v/l/t1.0-0/s160x160/12795425_813291728777264_8181703304873998205_n.jpg?oh=ca2f49170b59dfdf552e113f820473ae&amp;amp;oe=57B854E2&quot; alt=&quot;&quot; width=&quot;160&quot; height=&quot;107&quot; /&gt; A Escola de Futebol Astro Sports fez parceria com a Arena Bola de Meia e estara com espa&amp;ccedil;o dispon&amp;iacute;vel para treinamentos a partir de mar&amp;ccedil;o.&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', '2016-04-06 00:45:59', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `photos`
+-- Estrutura para tabela `photos`
 --
 
 CREATE TABLE `photos` (
@@ -181,7 +205,7 @@ CREATE TABLE `photos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `photos`
+-- Fazendo dump de dados para tabela `photos`
 --
 
 INSERT INTO `photos` (`id`, `name`, `description`, `album`, `created_at`, `updated_at`) VALUES
@@ -254,7 +278,7 @@ INSERT INTO `photos` (`id`, `name`, `description`, `album`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `players`
+-- Estrutura para tabela `players`
 --
 
 CREATE TABLE `players` (
@@ -269,7 +293,7 @@ CREATE TABLE `players` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `players_positions`
+-- Estrutura para tabela `players_positions`
 --
 
 CREATE TABLE `players_positions` (
@@ -280,7 +304,7 @@ CREATE TABLE `players_positions` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `schedules`
+-- Estrutura para tabela `schedules`
 --
 
 CREATE TABLE `schedules` (
@@ -294,7 +318,7 @@ CREATE TABLE `schedules` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `schedules`
+-- Fazendo dump de dados para tabela `schedules`
 --
 
 INSERT INTO `schedules` (`id`, `hour`, `day`, `pole`, `category`, `created_at`, `updated_at`) VALUES
@@ -313,7 +337,7 @@ INSERT INTO `schedules` (`id`, `hour`, `day`, `pole`, `category`, `created_at`, 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `schedules_categories`
+-- Estrutura para tabela `schedules_categories`
 --
 
 CREATE TABLE `schedules_categories` (
@@ -322,7 +346,7 @@ CREATE TABLE `schedules_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `schedules_categories`
+-- Fazendo dump de dados para tabela `schedules_categories`
 --
 
 INSERT INTO `schedules_categories` (`id`, `name`) VALUES
@@ -342,7 +366,7 @@ INSERT INTO `schedules_categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `schedules_poles`
+-- Estrutura para tabela `schedules_poles`
 --
 
 CREATE TABLE `schedules_poles` (
@@ -351,7 +375,7 @@ CREATE TABLE `schedules_poles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `schedules_poles`
+-- Fazendo dump de dados para tabela `schedules_poles`
 --
 
 INSERT INTO `schedules_poles` (`id`, `name`) VALUES
@@ -361,69 +385,62 @@ INSERT INTO `schedules_poles` (`id`, `name`) VALUES
 (4, 'POLO SÍRIO LIBANÊS I');
 
 --
--- Indexes for dumped tables
+-- Índices de tabelas apagadas
 --
 
 --
--- Indexes for table `albums`
+-- Índices de tabela `advertisings`
+--
+ALTER TABLE `advertisings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `albums`
 --
 ALTER TABLE `albums`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `authors`
---
-ALTER TABLE `authors`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `commission`
+-- Índices de tabela `commission`
 --
 ALTER TABLE `commission`
   ADD PRIMARY KEY (`id`),
   ADD KEY `commission_role_foreign` (`role`);
 
 --
--- Indexes for table `commission_roles`
+-- Índices de tabela `commission_roles`
 --
 ALTER TABLE `commission_roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Índices de tabela `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `news_author_foreign` (`author`);
-
---
--- Indexes for table `photos`
+-- Índices de tabela `photos`
 --
 ALTER TABLE `photos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `photos_album_foreign` (`album`);
 
 --
--- Indexes for table `players`
+-- Índices de tabela `players`
 --
 ALTER TABLE `players`
   ADD PRIMARY KEY (`id`),
   ADD KEY `players_position_foreign` (`position`);
 
 --
--- Indexes for table `players_positions`
+-- Índices de tabela `players_positions`
 --
 ALTER TABLE `players_positions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `schedules`
+-- Índices de tabela `schedules`
 --
 ALTER TABLE `schedules`
   ADD PRIMARY KEY (`id`),
@@ -431,116 +448,104 @@ ALTER TABLE `schedules`
   ADD KEY `schedules_category_foreign` (`category`);
 
 --
--- Indexes for table `schedules_categories`
+-- Índices de tabela `schedules_categories`
 --
 ALTER TABLE `schedules_categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `schedules_poles`
+-- Índices de tabela `schedules_poles`
 --
 ALTER TABLE `schedules_poles`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas apagadas
 --
 
 --
--- AUTO_INCREMENT for table `albums`
+-- AUTO_INCREMENT de tabela `advertisings`
+--
+ALTER TABLE `advertisings`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de tabela `albums`
 --
 ALTER TABLE `albums`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `authors`
---
-ALTER TABLE `authors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `commission`
+-- AUTO_INCREMENT de tabela `commission`
 --
 ALTER TABLE `commission`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `commission_roles`
+-- AUTO_INCREMENT de tabela `commission_roles`
 --
 ALTER TABLE `commission_roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT for table `photos`
+-- AUTO_INCREMENT de tabela `photos`
 --
 ALTER TABLE `photos`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
--- AUTO_INCREMENT for table `players`
+-- AUTO_INCREMENT de tabela `players`
 --
 ALTER TABLE `players`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `players_positions`
+-- AUTO_INCREMENT de tabela `players_positions`
 --
 ALTER TABLE `players_positions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `schedules`
+-- AUTO_INCREMENT de tabela `schedules`
 --
 ALTER TABLE `schedules`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `schedules_categories`
+-- AUTO_INCREMENT de tabela `schedules_categories`
 --
 ALTER TABLE `schedules_categories`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `schedules_poles`
+-- AUTO_INCREMENT de tabela `schedules_poles`
 --
 ALTER TABLE `schedules_poles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- Constraints for dumped tables
+-- Restrições para dumps de tabelas
 --
 
 --
--- Limitadores para a tabela `commission`
+-- Restrições para tabelas `commission`
 --
 ALTER TABLE `commission`
   ADD CONSTRAINT `commission_role_foreign` FOREIGN KEY (`role`) REFERENCES `commission_roles` (`id`);
 
 --
--- Limitadores para a tabela `news`
---
-ALTER TABLE `news`
-  ADD CONSTRAINT `news_author_foreign` FOREIGN KEY (`author`) REFERENCES `authors` (`id`);
-
---
--- Limitadores para a tabela `photos`
+-- Restrições para tabelas `photos`
 --
 ALTER TABLE `photos`
   ADD CONSTRAINT `photos_album_foreign` FOREIGN KEY (`album`) REFERENCES `albums` (`id`);
 
 --
--- Limitadores para a tabela `players`
+-- Restrições para tabelas `players`
 --
 ALTER TABLE `players`
   ADD CONSTRAINT `players_position_foreign` FOREIGN KEY (`position`) REFERENCES `players_positions` (`id`);
 
 --
--- Limitadores para a tabela `schedules`
+-- Restrições para tabelas `schedules`
 --
 ALTER TABLE `schedules`
   ADD CONSTRAINT `schedules_category_foreign` FOREIGN KEY (`category`) REFERENCES `schedules_categories` (`id`),
   ADD CONSTRAINT `schedules_pole_foreign` FOREIGN KEY (`pole`) REFERENCES `schedules_poles` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -7,19 +7,31 @@ use App\Repositories\DefaultRepository;
 
 class ContactController extends Controller
 {
+    /**
+     * @var DefaultRepository
+     */
     private $contacts;
-    private $view;
 
+    /**
+     * ContactController __construct
+     * @param DefaultRepository $contacts
+     */
     public function __construct(DefaultRepository $contacts) {
         $this->contacts = $contacts;
         $this->contacts->model(new Contact);
     }
 
-    public function index() {
+    /**
+     * @param  string $subject
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index($subject = null) {
         $data = [
-            'telephones'    => $this->contacts->get("telephone"),
-            'emails'        => $this->contacts->get("email"),
-            'localization'  => $this->contacts->get("localization")
+            'telephones'    => $this->contacts->get('telephone'),
+            'emails'        => $this->contacts->get('email'),
+            'subjects'      => $this->contacts->get('subjects'),
+            'subjectChosen' => $subject,
+            'localization'  => $this->contacts->get('localization')
         ];
 
         return view('contact', $data);

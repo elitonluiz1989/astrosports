@@ -105,6 +105,7 @@ class PhotosController extends Controller
         $sizes = $request->all();
         $path = storage_path('app/photos/' . $filename);
 
+
         if (count($sizes) > 0) {
             $img = Image::make($path)
                 ->resize($sizes['w'], $sizes['h']);

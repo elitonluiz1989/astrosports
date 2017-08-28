@@ -82,19 +82,21 @@
     <div class="content conteiner-fluid">
         <div class="row">
             @php
-                $sidebar = $sidebar ?? true;
+                $showSidebar = $sidebar ?? true;
 
                 $contentClass = 'page col-xs-12';
             @endphp
 
-            @if ($sidebar)
+            @if ($showSidebar)
                 @php $contentClass .= ' col-sm-6 col-md-7'; @endphp
                 @inject('sidebar', 'App\Http\Controllers\SidebarController')
 
                 @php
                     $sidebarLeft = [
-                        'schedules' => $sidebar->schedules(),
-                        'videos'    => $sidebar->videos()
+                        'days'       => $sidebar->weekDays,
+                        'currentDay' => $sidebar->currentDay,
+                        'schedules'  => $sidebar->schedules(),
+                        'videos'     => $sidebar->videos()
                     ];
 
                     $sidebarRight = [
@@ -109,7 +111,7 @@
                 @yield('content')
             </div>
 
-            @if ($sidebar)
+            @if ($showSidebar)
                 @include('template.sidebar-right', $sidebarRight)
             @endif
         </div>

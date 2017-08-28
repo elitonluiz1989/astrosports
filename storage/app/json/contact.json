@@ -8,6 +8,12 @@
         "exemplo@exemplo.com",
         "exemplo2@exemplo.com"
     ],
+    "subjects": [
+        "...",
+        "Matrícula",
+        "Parceria",
+        "Outros"
+    ],
     "social": {
         "facebook": "#",
         "google-plus": "#",

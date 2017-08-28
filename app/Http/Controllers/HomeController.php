@@ -55,7 +55,7 @@ class HomeController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
         $this->photos->paginate = 5;

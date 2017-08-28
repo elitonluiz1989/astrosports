@@ -2,12 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\AdvertisingRepository as Advertising;
+use App\Repositories\DefaultRepository as Repo;
 use App\Repositories\SchedulesRepository as Schedules;
 use App\Repositories\VideosRepository as Videos;
 
 class SidebarController extends Controller
 {
+    /**
+     * @var array
+     */
+    public $weekDays = [
+        'sun' => 'DOM',
+        'mon' => 'SEG',
+        'tue' => 'TER',
+        'wed' => 'QUA',
+        'thu' => 'QUI',
+        'fri' => 'SEX',
+        'sat' => 'SÁB'
+    ];
+
+    /**
+     * @var string
+     */
+    public $currentDay = strtolower(date('D'));
+
     /**
      * SidebarController schedules
      * Retrive all schedules ordered by day, hour, pole
@@ -26,22 +44,23 @@ class SidebarController extends Controller
      */
     public function videos()
     {
-        $videos = Videos::get(2);
+        return [];
+        /*$videos = Videos::get(2);
 
         return array_map(function($video) {
             return [
                 'url' => $video['url'],
                 'img' => $video['img']['medium']
             ];
-        }, $videos);
+        }, $videos);*/
     }
 
     /**
      * Retrieve all advertings
-     * @return array
+     * @return Collection
      */
     public function advertising()
     {
-        return (new Advertising)->get();
+        return (new Repo)->model('advertising')->get();
     }
 }

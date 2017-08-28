@@ -1,19 +1,5 @@
-@php
-    $currentDay = strtolower(date('D'));
-
-    $days = [
-        'sun' => 'DOM',
-        'mon' => 'SEG',
-        'tue' => 'TER',
-        'wed' => 'QUA',
-        'thu' => 'QUI',
-        'fri' => 'SEX',
-        'sat' => 'SÁB'
-    ];
-@endphp
-
-<div class="sidebar hidden-xs col-sm-4 col-md-3">
-    <div class="sidebar__schedule sidebar__wrapper">
+<div class="sidebar sidebar--left hidden-xs col-sm-4 col-md-3">
+    <div class="sidebar--left__schedule sidebar--left__wrapper">
         <header>
             <h1 class="schedule__title sidebar__title">Horários</h1>
         </header>
@@ -90,27 +76,27 @@
     <!-- Videos -->
     @php $showVideos = $showSidebarVideos ?? true; @endphp
     @if ($showVideos)
-        <div class="sidebar__videos sidebar__wrapper">
+        <div class="sidebar--left__videos sidebar--left__wrapper">
             <header>
-                <h1 class="sidebar__videos-title sidebar__title">Últimos Vídeos</h1>
+                <h1 class="sidebar--left__videos-title sidebar__title">Últimos Vídeos</h1>
             </header>
             <ul class="list">
                 @if (count($videos) > 0)
                     @foreach ($videos as $video)
                         <li class="list-item">
-                            <div class="sidebar__videos-item">
-                                <a href="{{ $video['url'] }}" class="sidebar__videos-content" target="_blank">
+                            <div class="sidebar--left__videos-item">
+                                <a href="{{ $video['url'] }}" class="sidebar--left__videos-content" target="_blank">
                                     <img src="{{ $video['img'] }}" alt="" class="img">
                                 </a>
                             </div>
                         </li>
                     @endforeach
                     <li class="list-item">
-                        <a class="sidebar__videos--more btn btn-default" href="/videos">Mais vídeos</a>
+                        <a class="sidebar--left__videos--more btn btn-default" href="/videos">Mais vídeos</a>
                     </li>
                 @else
                     <li class="list-item">
-                        <div class="sidebar__videos--no-videos">Sem vídeos<br>...</div>
+                        <div class="sidebar--left__videos--no-videos">Sem vídeos<br>...</div>
                     </li>
                 @endif
             </ul>
