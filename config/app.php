@@ -179,7 +179,7 @@ return [
 
         // Custom
         Intervention\Image\ImageServiceProvider::class,
-        //Alaouy\Youtube\YoutubeServiceProvider::class
+        Alaouy\Youtube\YoutubeServiceProvider::class
 
     ],
 
@@ -232,7 +232,7 @@ return [
 
         // Custom
         'Image' => Intervention\Image\Facades\Image::class,
-        //'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
 
     ],
 

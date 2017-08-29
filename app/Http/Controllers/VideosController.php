@@ -14,9 +14,12 @@ class VideosController extends Controller
      * VidoesController index
      */
     public function index() {
+        $videos = new Videos();
+
         $data = [
-            'showSidebarVideos' => false,
-            'videos' => Videos::get(39)
+            'sidebarVideos' => false,
+            'channel'           => $videos->getChannel(),
+            'videos'            => $videos->basicGet('title', 'description', 'url', 'thumb')
         ];
 
         return view('videos', $data);

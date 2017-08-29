@@ -13,11 +13,11 @@
             @foreach ($videos as $key => $video)
                 @php
                     $videosItemClass =  'col-md-4';
-                    $videoImg = $video['img']['medium'];
+                    $videoImg = $video['thumb']->medium->url;
 
                     if ($loop->first) {
                         $videosItemClass =  'col-md-8';
-                        $videoImg = $video['img']['high'];
+                        $videoImg = $video['thumb']->high->url;
                     }
                 @endphp
                 <li class="videos__item col-xs-12 {{ $videosItemClass }}">
@@ -26,6 +26,9 @@
                     </a>
                 </li>
             @endforeach
+            <li>
+                <a href="{{ $channel }}" class="videos__channel-link btn btn-default" target="_blank">Visite nosso canal</a>
+            </li>
         </ul>
     </div>
 @endsection

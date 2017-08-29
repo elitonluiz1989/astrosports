@@ -93,8 +93,6 @@
 
                 @php
                     $sidebarLeft = [
-                        'days'       => $sidebar->weekDays,
-                        'currentDay' => $sidebar->currentDay,
                         'schedules'  => $sidebar->schedules(),
                         'videos'     => $sidebar->videos()
                     ];

@@ -2,7 +2,7 @@
     @if (isset($advertising) && count($advertising) > 0)
         <ul class="advertising">
             <li>
-                <h2 class="advertising__title sidebar__title">Parceiros</h2>
+                <h2 class="advertising__title sidebar__title">Anúncios</h2>
             </li>
             @foreach( $advertising as $record)
                 <li class="advertising__item">
@@ -12,7 +12,7 @@
                 </li>
             @endforeach
             <li class="advertising__item">
-                <a href="/contato/parceria" class="advertising__content advertising__content--join">Anúncie aqui</a>
+                <a href="/contato/anuncios" class="advertising__content advertising__content--join">Anúncie aqui</a>
             </li>
         </ul>
     @endif

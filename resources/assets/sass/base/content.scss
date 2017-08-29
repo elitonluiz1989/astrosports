@@ -11,7 +11,24 @@
       font-size: 1.5em;
     }
 
-    @import "content-sidebar-left";
+    &--left {
+      padding-right: 5px;
+      padding-left: 0;
+
+      @include tabs(#333);
+
+      &__wrapper {
+        width: 100%;
+        margin: 0 0 10px 0;
+      }
+
+      @import "sidebar-schedules";
+
+      @import "sidebar-videos";
+      
+      @import "sidebar-assessments";
+    }
+
     @import "content-sidebar-right";
   }
 

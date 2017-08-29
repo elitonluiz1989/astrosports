@@ -9,24 +9,6 @@ use App\Repositories\VideosRepository as Videos;
 class SidebarController extends Controller
 {
     /**
-     * @var array
-     */
-    public $weekDays = [
-        'sun' => 'DOM',
-        'mon' => 'SEG',
-        'tue' => 'TER',
-        'wed' => 'QUA',
-        'thu' => 'QUI',
-        'fri' => 'SEX',
-        'sat' => 'SÁB'
-    ];
-
-    /**
-     * @var string
-     */
-    public $currentDay = strtolower(date('D'));
-
-    /**
      * SidebarController schedules
      * Retrive all schedules ordered by day, hour, pole
      * @return array
@@ -35,24 +17,32 @@ class SidebarController extends Controller
     {
         $schedules = (new Schedules)->getByDay();
 
-        return $schedules;
+        return [
+            'weekDays'   => [
+                'sun' => 'DOM',
+                'mon' => 'SEG',
+                'tue' => 'TER',
+                'wed' => 'QUA',
+                'thu' => 'QUI',
+                'fri' => 'SEX',
+                'sat' => 'SÁB'
+            ],
+            'currentDay' => \strtolower(\date('D')),
+            'schedules'  => $schedules
+        ];
     }
 
     /**
      * SidebarController videos
-     * Retrive two last videos of a channel
+     * Retrieve two last videos of a channel
      */
     public function videos()
     {
-        return [];
-        /*$videos = Videos::get(2);
+        $videos = new Videos();
+        $videos->limit = 2;
+        $records = $videos->basicGet('title', 'url', ['thumb', 'medium']);
 
-        return array_map(function($video) {
-            return [
-                'url' => $video['url'],
-                'img' => $video['img']['medium']
-            ];
-        }, $videos);*/
+        return ['videos' => $records];
     }
 
     /**

@@ -51,7 +51,7 @@
                         @foreach ($subjects as $value => $subject)
                             @php
                                 $subjectTreated = strtolower($subject);
-                                $subjectTreated = str_replace('í', 'i', $subjectTreated);
+                                $subjectTreated = str_replace(['í', 'ú'], ['i', 'u'], $subjectTreated);
                                 $selected = ($subjectTreated == $subjectChosen) ? ' selected="selected"' : null;
                             @endphp
                             <option value="{{ $value }}"{{ $selected }}>{{ $subject }}</option>
