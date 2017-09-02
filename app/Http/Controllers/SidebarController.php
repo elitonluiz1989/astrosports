@@ -39,8 +39,9 @@ class SidebarController extends Controller
     public function videos()
     {
         $videos = new Videos();
+        $videos->videosAttrs = ['title', 'url', ['thumb', 'medium']];
         $videos->limit = 2;
-        $records = $videos->basicGet('title', 'url', ['thumb', 'medium']);
+        $records = $videos->all();
 
         return ['videos' => $records];
     }

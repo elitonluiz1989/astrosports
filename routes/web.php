@@ -20,10 +20,3 @@ Route::get('/horarios/{display?}', 'SchedulesController@index');
 Route::get('/videos', 'VideosController@index');
 
 Route::get('/sobre/{display?}', 'AboutController@index');
-
-
-// Remove production
-Route::get('json/{model}', function($model) {
-    $class = 'App\\Models\\' . $model;
-    return $class::all();
-});

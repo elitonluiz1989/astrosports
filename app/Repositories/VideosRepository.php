@@ -2,9 +2,15 @@
 namespace App\Repositories;
 
 use Alaouy\Youtube\Facades\Youtube;
+use Illuminate\Support\Collection;
 
 class VideosRepository
 {
+    /**
+     * @var array
+     */
+    public $videosAttrs = [];
+
     /**
      * @var int
      */
@@ -26,47 +32,85 @@ class VideosRepository
      */
     public function __construct()
     {
-        $this->channel = 'UCupqHNRTEHjNtq9X8djWyaQ';
+        $this->channel = config('youtube.channel');
+    }
+
+    public function all()
+    {
+        $videos = collect();
+
+        $uploadsVideos = $this->getUplaodsVideos();
+        $videos = $videos->merge($uploadsVideos);
+
+        $playlistsVideos = $this->getPlaylistsVideos();
+        $videos = $videos->merge($playlistsVideos);
+
+
+        $videos = $videos->sortByDesc('publishedAt');
+        $videos->splice($this->limit);
+
+        return $videos;
+    }
+
+    public function getUplaodsVideos()
+    {
+        $uploadsVideos = Youtube::listChannelVideos($this->channel, $this->limit, $this->order);
+        return $this->videosDataTreatment($uploadsVideos);
     }
 
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function get()
+    public function getPlaylistsVideos()
     {
-        $videos = Youtube::listChannelVideos($this->channel, $this->limit, $this->order);
+        $playlistsVideos = collect();
+        $playlists = $this->getPlaylists();
 
-        return collect($videos);
+        foreach ($playlists as $playlist) {
+            $videos = Youtube::getPlaylistItemsByPlaylistId($playlist['id'], '', $this->limit)['results'];
+            //dd($videos);
+            $videos = $this->videosDataTreatment($videos);
+
+            $playlistsVideos = $playlistsVideos->merge($videos);
+        }
+
+        return collect($playlistsVideos);
     }
 
     /**
-     * @param array ...$fields
+     * @param array $videosData
      * @return \Illuminate\Support\Collection
      */
-    public function basicGet(...$fields)
+    public function videosDataTreatment(array $videosData)
     {
-        $videos = $this->get();
+        if (count($this->videosAttrs) > 0) {
+            return collect($videosData)->map(function ($video) {
+                $record = collect();
 
-        return $videos->map(function($video) use ($fields) {
-            $record = collect();
+                foreach ($this->videosAttrs as $attr) {
+                    if ($attr == 'id') {
+                        $videoId = $video->id->videoId ?? $video->contentDetails->videoId;
+                        $record->put('id', $videoId);
+                    } else if ($attr == 'url') {
+                        $videoUrl = ($video->kind == 'youtube#playlistItem') ?
+                        $video->snippet->resourceId->videoId . '&list=' . $video->snippet->playlistId : $video->id->videoId;
 
-            foreach ($fields as $field) {
-                if ($field == 'id') {
-                    $record->put('id', $video->id->videoId);
-                } else if ($field == 'url') {
-                    $record->put('url', 'http://youtube.com/watch?v=' . $video->id->videoId);
-                } else if ($field == 'thumb') {
-                    $record->put('thumb', $video->snippet->thumbnails);
-                } else if (\is_array($field)) {
-                    $size = $field[1];
-                    $record->put('thumb', $video->snippet->thumbnails->$size->url);
-                } else {
-                    $record->put($field, $video->snippet->$field);
+                        $record->put('url', 'http://youtube.com/watch?v=' . $videoUrl);
+                    } else if ($attr == 'thumb') {
+                        $record->put('thumb', $video->snippet->thumbnails);
+                    } else if (\is_array($attr)) {
+                        $size = $attr[1];
+                        $record->put('thumb', $video->snippet->thumbnails->$size->url);
+                    } else {
+                        $record->put($attr, $video->snippet->$attr);
+                    }
+
+                    $record->put('publishedAt', $video->snippet->publishedAt);
                 }
-            }
 
-            return $record;
-        });
+                return $record;
+            });
+        }
     }
 
     /**
@@ -75,5 +119,17 @@ class VideosRepository
     public function getChannel()
     {
         return 'https://www.youtube.com/channel/' . $this->channel;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    private function getPlaylists()
+    {
+        $playlists =  Youtube::getPlaylistsByChannelId($this->channel)['results'];
+
+        return collect($playlists)->map(function($playlist) {
+            return ['id' => $playlist->id, 'title' => $playlist->snippet->title];
+        });
     }
 }

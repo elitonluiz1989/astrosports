@@ -15,11 +15,12 @@ class VideosController extends Controller
      */
     public function index() {
         $videos = new Videos();
+        $videos->videosAttrs = ['title', 'description', 'url', ['thumb', 'medium']];
 
         $data = [
             'sidebarVideos' => false,
             'channel'           => $videos->getChannel(),
-            'videos'            => $videos->basicGet('title', 'description', 'url', 'thumb')
+            'videos'            => $videos->all()
         ];
 
         return view('videos', $data);

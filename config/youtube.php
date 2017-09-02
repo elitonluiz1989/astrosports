@@ -5,5 +5,5 @@
 
 return [
     'key'     => 'AIzaSyC13H94QuNpdiQ7akPtGvrb3fqHFtQJr08',
-    'channel' => 'UCupqHNRTEHjNtq9X8djWyaQ'
+    'channel' => 'UCHrOu__iXxJSBq9cB2JxQvw'
 ];

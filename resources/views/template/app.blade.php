@@ -35,20 +35,25 @@
                 </div>
                 <div class="header-contact col-sm-6 col-sm-offset-6">
                     @inject('repository', 'App\Repositories\DefaultRepository')
-                    @php $social = $repository->model(new App\Models\Contact)->get('social'); @endphp
+                    @php
+                        $contacts = $repository->model(new App\Models\Contact);
+                        $social = $contacts->get('social');
+                    @endphp
 
                     <ul class="header-contact-list">
                         @foreach ($social as $icon => $url)
-                            <li class="header-contact-item">
-                                <a href="{{ $url }}" class="header-contact-icon header-contact-icon--{{ $icon }}">
-                                    @php
-                                        if ($icon == 'youtube') {
-                                            $icon = 'youtube-play';
-                                        }
-                                    @endphp
-                                    <i class="fa fa-{{ $icon }}"></i>
-                                </a>
-                            </li>
+                            @if (null != $url)
+                                <li class="header-contact-item">
+                                    <a href="{{ $url }}" class="header-contact-icon header-contact-icon--{{ $icon }}">
+                                        @php
+                                            if ($icon == 'youtube') {
+                                                $icon = 'youtube-play';
+                                            }
+                                        @endphp
+                                        <i class="fa fa-{{ $icon }}"></i>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
@@ -118,21 +123,28 @@
         <section class="row">
             <ul class="footer-contact list-inline col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
                 <li class="footer-item col-xs-12 col-sm-3 col-lg-2">
-                    <div class="footer-content">(00) 0000-0000</div>
+                    @php $telephones = $contacts->get('telephone'); @endphp
+                    @foreach ($telephones as $telephone)
+                        <div class="footer-content">{{ $telephone }}</div>
+                    @endforeach
                 </li>
                 <li class="footer-item col-xs-12 col-sm-1">
                     <div class="footer-content footer-content--separator visible-xs">...</div>
                     <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
                 </li>
                 <li class="footer-item col-xs-12 col-sm-3 col-lg-3">
-                    <div class="footer-content">exemple@exemple.com</div>
+                    @php $emails = $contacts->get('email'); @endphp
+                    @foreach ($emails as $email)
+                        <div class="footer-content">{{ $email }}</div>
+                    @endforeach
                 </li>
                 <li class="footer-item col-xs-12 col-sm-1">
                     <div class="footer-content footer-content--separator visible-xs">...</div>
                     <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
                 </li>
                 <li class="footer-item col-xs-12 col-sm-4 col-lg-5">
-                    <div class="footer-content">Rua exemplo, 000 - bairro exemplo - cidade/UF</div>
+                    @php $localization = $contacts->get('localization'); @endphp
+                    <div class="footer-content">{{ $localization['address'] }}</div>
                 </li>
             </ul>
         </section>
