@@ -1,6 +1,6 @@
 <?php
 return [
-    'nav' => [
+    'nav'    => [
         '/'         => 'Início',
         '/contato'  => 'Contato',
         '/noticias' => 'Notícias',
@@ -8,5 +8,14 @@ return [
         '/horarios' => 'Horários',
         '/videos'   => 'vídeos',
         '/sobre'    => 'Sobre'
+    ],
+    'social' => [
+        'links' => [
+            'facebook'    => 'https://www.facebook.com/',
+            'google-plus' => 'https://plus.google.com/',
+            'twitter'     => 'https://twitter.com/',
+            'youtube'     => 'https://www.youtube.com/channel/',
+            'whatsapp'    => 'https://web.whatsapp.com/'
+        ]
     ]
 ];

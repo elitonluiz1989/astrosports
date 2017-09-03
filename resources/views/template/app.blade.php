@@ -1,3 +1,4 @@
+@inject('template', 'App\Http\Controllers\TemplateController')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,55 +35,15 @@
                     <h2 class="header-title-subtitle">#Descobrindo valores</h2>
                 </div>
                 <div class="header-contact col-sm-6 col-sm-offset-6">
-                    @inject('repository', 'App\Repositories\DefaultRepository')
                     @php
-                        $contacts = $repository->model(new App\Models\Contact);
-                        $social = $contacts->get('social');
+                        $social = $template->social();
                     @endphp
 
-                    <ul class="header-contact-list">
-                        @foreach ($social as $icon => $url)
-                            @if (null != $url)
-                                <li class="header-contact-item">
-                                    <a href="{{ $url }}" class="header-contact-icon header-contact-icon--{{ $icon }}">
-                                        @php
-                                            if ($icon == 'youtube') {
-                                                $icon = 'youtube-play';
-                                            }
-                                        @endphp
-                                        <i class="fa fa-{{ $icon }}"></i>
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+                    @include('template.contact-list', $social)
                 </div>
             </div>
         </div>
-        <div class="row">
-            <nav class="navbar header-nav col-sm-12">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle header-nav-toggle collapsed" data-toggle="collapse" data-target="#header-nav" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                   </button>
-                   <a id="header-title-collapsed" class="header-title navbar-brand visible-xs" href="#">
-                       <span class="header-title-text">E. F. Astro Sports</span>
-                   </a>
-                </div>
-                <div id="header-nav" class="header-nav-list collapse navbar-collapse">
-                    <ul class="nav nav-pills nav-justified">
-                        @foreach( config('template.nav') as $uri => $title )
-                            <li class="nav-item header-nav-item">
-                                <a class="nav-item-content" href="{{ $uri }}">{{ $title }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        @include('template.nav', $template->navItems())
     </header>
     <div class="content conteiner-fluid">
         <div class="row">
@@ -94,16 +55,15 @@
 
             @if ($showSidebar)
                 @php $contentClass .= ' col-sm-6 col-md-7'; @endphp
-                @inject('sidebar', 'App\Http\Controllers\SidebarController')
 
                 @php
                     $sidebarLeft = [
-                        'schedules'  => $sidebar->schedules(),
-                        'videos'     => $sidebar->videos()
+                        'schedules'  => $template->schedules(),
+                        'videos'     => $template->videos()
                     ];
 
                     $sidebarRight = [
-                        'advertising' => $sidebar->advertising()
+                        'advertising' => $template->advertising()
                     ];
                 @endphp
 
@@ -119,36 +79,8 @@
             @endif
         </div>
     </div>
-    <footer class="footer conteiner-fluid">
-        <section class="row">
-            <ul class="footer-contact list-inline col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
-                <li class="footer-item col-xs-12 col-sm-3 col-lg-2">
-                    @php $telephones = $contacts->get('telephone'); @endphp
-                    @foreach ($telephones as $telephone)
-                        <div class="footer-content">{{ $telephone }}</div>
-                    @endforeach
-                </li>
-                <li class="footer-item col-xs-12 col-sm-1">
-                    <div class="footer-content footer-content--separator visible-xs">...</div>
-                    <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
-                </li>
-                <li class="footer-item col-xs-12 col-sm-3 col-lg-3">
-                    @php $emails = $contacts->get('email'); @endphp
-                    @foreach ($emails as $email)
-                        <div class="footer-content">{{ $email }}</div>
-                    @endforeach
-                </li>
-                <li class="footer-item col-xs-12 col-sm-1">
-                    <div class="footer-content footer-content--separator visible-xs">...</div>
-                    <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
-                </li>
-                <li class="footer-item col-xs-12 col-sm-4 col-lg-5">
-                    @php $localization = $contacts->get('localization'); @endphp
-                    <div class="footer-content">{{ $localization['address'] }}</div>
-                </li>
-            </ul>
-        </section>
-    </footer>
+
+    @include('template.footer', $template->footer())
 
     <script src="/js/manifest.js"></script>
     <script src="/js/vendor.js"></script>
