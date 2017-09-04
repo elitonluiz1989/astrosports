@@ -14,7 +14,7 @@
                 </li>
             @endforeach
             <li class="list-item">
-                <a class="sidebar--left__videos--more btn btn-default" href="/videos">Mais vídeos</a>
+                <a class="sidebar--left__videos-more btn btn-default" href="/videos">Mais vídeos</a>
             </li>
         @else
             <li class="list-item">

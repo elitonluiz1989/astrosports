@@ -26,6 +26,9 @@ class NewsController extends Controller
         $this->data = config('news');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index() {
         $this->news->paginate = $this->data['limit'];
         $this->data['news'] = $this->news->listNews();
@@ -34,6 +37,19 @@ class NewsController extends Controller
             $this->data['pagination']['links'] = $this->data['news']->links();
         }
 
+        return view('news', $this->data);
+    }
+
+    /**
+     * @param string $news
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showNews(string $news)
+    {
+        $id = (int)explode('_', $news)[0];
+
+        $this->data['showChosenNews'] = true;
+        $this->data['news'] = $this->news->get(['id', '=', $id])[0];
         return view('news', $this->data);
     }
 }

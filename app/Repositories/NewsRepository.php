@@ -40,7 +40,7 @@ class NewsRepository
 
         if (count($where) > 0) {
             list($column, $signal, $value) = $where;
-            $news->where($column, $signal, $value);
+            $news->where('news.' . $column, $signal, $value);
         }
 
         if ($limit > 0) {

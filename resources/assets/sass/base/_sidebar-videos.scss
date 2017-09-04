@@ -31,8 +31,13 @@
     @extend %videos-item;
   }
 
-  &--more {
+  &-more {
     width: 95%;
     margin: 5px 2.5%;
+
+    &:hover {
+      background-color: #d00;
+      color: white;
+    }
   }
 }

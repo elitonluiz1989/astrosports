@@ -7,6 +7,7 @@ Route::get('/contato/{subject?}', 'ContactController@index');
 
 // News
 Route::get('/noticias', 'NewsController@index');
+Route::get('/noticias/{news}', 'NewsController@showNews');
 
 // Photos
 Route::get(config('photos.url.photos'), 'PhotosController@showPhotos');

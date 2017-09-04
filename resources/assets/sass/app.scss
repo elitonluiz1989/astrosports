@@ -15,7 +15,9 @@
 @import "helpers/gradients";
 @import "helpers/placeholders";
 @import "helpers/shadows";
-@import "helpers/news-list";
+
+//partials
+@import "partials/news-list";
 
 // Components
 @import "base/index";
