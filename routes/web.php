@@ -21,3 +21,11 @@ Route::get('/horarios/{display?}', 'SchedulesController@index');
 Route::get('/videos', 'VideosController@index');
 
 Route::get('/sobre/{display?}', 'AboutController@index');
+
+
+// Json
+Route::get('/json/{jsonFile}', function($jsonFile) {
+    $jsonPath = storage_path() . '/app/json/' . $jsonFile . '.json';
+
+    return \json_decode(\file_get_contents($jsonPath), true);
+});

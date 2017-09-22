@@ -45,7 +45,7 @@
         </div>
         @include('template.nav', $template->navItems())
     </header>
-    <div class="content conteiner-fluid">
+    <div id="app" class="content conteiner-fluid">
         <div class="row">
             @php
                 $showSidebar = $sidebar ?? true;

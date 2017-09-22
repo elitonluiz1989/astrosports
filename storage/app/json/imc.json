@@ -1,0 +1,30 @@
+{
+  "very-underweight": {
+    "range": "abaixo de 17",
+    "message": "Você está muito abaixo do seu peso ideal."
+  },
+  "underweight": {
+    "range": "entre 17 e 18,49",
+    "message": "Você está abaixo do seu peso ideal."
+  },
+  "normal-weight": {
+    "range": "entre 18,5 e 24,99",
+    "message": "Parabéns! Você está em seu peso ideal."
+  },
+  "overweight": {
+    "range": "entre 25 e 29,99",
+    "message": "Você está acima do seu peso ideal."
+  },
+  "obesity1": {
+    "range": "entre 30 e 34,99",
+    "message": "Obesidade de grau 1."
+  },
+  "obesity2": {
+    "range": "entre 35 e 39,99",
+    "message": "Obesidade de grau 2 (severa)."
+  },
+  "obesity3": {
+    "range": "acima de 40",
+    "message": "Obesidade de grau 3 (mórbida)."
+  }
+}

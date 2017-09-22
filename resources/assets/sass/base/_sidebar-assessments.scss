@@ -5,7 +5,7 @@
 
   &__title {
     background-color: $assessments-color;
-    color: white;
+    @extend .color-white;
     @extend .sidebar__title;
   }
 
@@ -54,8 +54,14 @@
       }
 
       &-content {
+        height: 1px;
+        overflow: hidden;
+        transition: height 1s;
+      }
+
+      &--show {
         border-top: 1px solid $imc-color;
-        @extend .hidden;
+        height: 190px;
       }
     }
 
@@ -66,12 +72,144 @@
       text-indent: 20px;
     }
 
-    &__submit {
-      background-color: $imc-color;
+    &__calculate {
+      background-color: lighten($theme-green, 10%);
       border: 0;
       width: 100%;
       padding: 15px 0;
-      color: #fff;
+      @extend .color-white;
+    }
+
+    &__result {
+      $imc-result-height: $spinner-size + 29px; // 32px by .imc__loader others elements
+      background-color: #333;
+      height: 0;
+      overflow: hidden;
+      transition: height 1s;
+
+      &--loading-expand {
+        height: $imc-result-height;
+      }
+
+      &--errors-reduce {
+        height: 70px;
+      }
+
+      &--message-expand {
+        height: 120px;
+      }
+
+      &-content {
+        @extend .text-center;
+        padding: 10px 5px;
+      }
+
+      &-value {
+        padding-bottom: 10px;
+        @extend .color-white;
+        font-size: 20px;
+        font-weight: bolder;
+      }
+    }
+
+    &__message {
+      $imc-strong-red: #d00;
+      $imc-red: #dd4945;
+      $imc-green: #00bb34;
+      $imc-strong-green: darken($imc-green, 15%);
+      height: 100px;
+      opacity: 0;
+      transition: opacity 1s;
+
+      &--show {
+        opacity: 1;
+      }
+
+      &--very-underweight {
+       color: $imc-strong-red;
+      }
+
+      &--underweight {
+        color: $imc-red;
+      }
+
+      &--normal-weight {
+        color: $imc-green;
+      }
+
+      &--overweight {
+        color: $imc-strong-green;
+      }
+
+      &--obesity1 {
+        color: $imc-red;
+      }
+
+      &--obesity2 {
+        color: $imc-strong-red;
+      }
+
+      &--obesity3 {
+        color: darken($imc-strong-red, 8%);
+      }
+
+      &-value {
+        font-size: 30px;
+        font-weight: bolder;
+      }
+
+      &-text {
+        padding: 5px 0;
+      }
+
+      &-range {
+        background-color: #888;
+        width: 90%;
+        margin: 2.5px auto 0;
+        padding: 2.5px 0;
+        @extend .color-white;
+      }
+    }
+
+    &__error {
+      @extend .alert-danger;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 1s;
+
+      &--show {
+        opacity: 1;
+      }
+
+      &-message {
+        margin: 0;
+        padding: 15px 0;
+        font-size: 14px;
+        @extend .text-center;
+      }
+    }
+
+    &__loader {
+      background-color: white;
+      padding-top: 5px;
+      opacity: 0;
+      transition: display, opacity 1s;
+
+      &-message {
+        margin: 0;
+        padding: 4px 0;
+        @extend .text-center;
+        font-size: 12px;
+      }
+
+      &--show {
+        display: block;
+        opacity: 1;
+      }
+
+      &--hide {
+        display: none;
+      }
     }
   }
 }
