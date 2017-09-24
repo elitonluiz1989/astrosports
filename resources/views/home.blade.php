@@ -45,12 +45,12 @@
         </a>
     </div>
     <!-- History -->
-    <div class="home__history home__wrapper">
+    <div id="home-history" class="home__history home__wrapper">
         <header class="{{ $homeTitleClass }}">
             <h1 class="home__title-text">A Escola</h1>
         </header>
         <section class="home__history-content col-xs-12">{!! $history !!}</section>
-        <a href="/sobre/historia" id="home-history-show" class="home__history-show">continue lendo...</a>
+        <a href="/sobre/historia" id="home-history-toggle" class="home__history-toggle">Continue lendo...</a>
     </div>
     <!-- News -->
     @if (isset($news) && count($news) > 0)

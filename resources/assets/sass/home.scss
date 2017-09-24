@@ -37,18 +37,22 @@
   }
 
   &__history {
-    max-height: 400px;
+    max-height: 500px;
     overflow: hidden;
     position: relative;
+    transition: max-height 1s;
+
+    &--expand {
+      max-height: 1800px;
+    }
 
     $content-padding: 5%;
-
     &-content {
       margin-bottom: 10px;
       padding: 10px $content-padding;
     }
 
-    &-show {
+    &-toggle {
       background-color: white;
       border: 1px solid #ddd;
       display: block;

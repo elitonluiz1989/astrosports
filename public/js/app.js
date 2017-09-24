@@ -737,13 +737,42 @@ module.exports = function normalizeComponent (
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(34);
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(34);
 
 Vue.component('imc', __webpack_require__(37));
 
 var appImc = new Vue({
     el: "#app"
 });
+
+(function () {
+    var homeHistory = $('#home-history');
+    var homeHistoryToggleBtn = $('#home-history-toggle');
+    var homeHistoryExpand = false;
+    var scrollY = 0;
+
+    homeHistoryToggleBtn.click(function (evt) {
+        evt.preventDefault();
+
+        homeHistoryExpand = !homeHistoryExpand;
+
+        if (homeHistoryExpand) {
+            scrollY = window.scrollY;
+            homeHistory.addClass('home__history--expand');
+
+            setTimeout(function () {
+                homeHistoryToggleBtn.html('Ocultar texto.');
+            }, 1000);
+        } else {
+            homeHistory.removeClass('home__history--expand');
+
+            $('html, body').animate({ scrollTop: scrollY }, 1000, function () {
+                homeHistoryToggleBtn.html('Continue lendo...');
+            });
+        }
+    });
+})();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 14 */
@@ -21445,13 +21474,13 @@ var Component = __webpack_require__(11)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(39),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/elitonluiz/Dev/astrosports/resources/assets/js/components/Imc/Imc.vue"
+Component.options.__file = "/var/www/html/resources/assets/js/components/Imc/Imc.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Imc.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -21462,9 +21491,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f83741ce", Component.options)
+    hotAPI.createRecord("data-v-4b73b3a0", Component.options)
   } else {
-    hotAPI.reload("data-v-f83741ce", Component.options)
+    hotAPI.reload("data-v-4b73b3a0", Component.options)
   }
 })()}
 
@@ -21479,13 +21508,13 @@ var Component = __webpack_require__(11)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(39),
+  __webpack_require__(40),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/elitonluiz/Dev/astrosports/resources/assets/js/components/Imc/ImcResult.vue"
+Component.options.__file = "/var/www/html/resources/assets/js/components/Imc/ImcResult.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ImcResult.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -21496,9 +21525,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-628b8816", Component.options)
+    hotAPI.createRecord("data-v-73b51b5d", Component.options)
   } else {
-    hotAPI.reload("data-v-628b8816", Component.options)
+    hotAPI.reload("data-v-73b51b5d", Component.options)
   }
 })()}
 
@@ -21507,41 +21536,6 @@ module.exports = Component.exports
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "imc__result-content"
-  }, [(!_vm.hasErrors) ? _c('div', {
-    staticClass: "imc__message",
-    class: _vm.imcResultStyles.message
-  }, [_c('div', {
-    staticClass: "imc__message-value",
-    class: _vm.imcResultMessageStyle
-  }, [_vm._v(_vm._s(_vm.imcResultValue))]), _vm._v(" "), _c('div', {
-    staticClass: "imc__message-text",
-    class: _vm.imcResultMessageStyle
-  }, [_vm._v(_vm._s(_vm.imcResultMessage))]), _vm._v(" "), _c('div', {
-    staticClass: "imc__message-range"
-  }, [_vm._v("Faixa " + _vm._s(_vm.imcResultRangeText))])]) : _vm._e(), _vm._v(" "), (_vm.hasErrors) ? _c('div', {
-    staticClass: "imc__error",
-    class: _vm.imcResultStyles.error
-  }, _vm._l((_vm.errors), function(error) {
-    return _c('p', {
-      staticClass: "imc__error-message"
-    }, [_vm._v("Error: " + _vm._s(error.message))])
-  })) : _vm._e()])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-628b8816", module.exports)
-  }
-}
-
-/***/ }),
-/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21680,7 +21674,42 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-f83741ce", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4b73b3a0", module.exports)
+  }
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "imc__result-content"
+  }, [(!_vm.hasErrors) ? _c('div', {
+    staticClass: "imc__message",
+    class: _vm.imcResultStyles.message
+  }, [_c('div', {
+    staticClass: "imc__message-value",
+    class: _vm.imcResultMessageStyle
+  }, [_vm._v(_vm._s(_vm.imcResultValue))]), _vm._v(" "), _c('div', {
+    staticClass: "imc__message-text",
+    class: _vm.imcResultMessageStyle
+  }, [_vm._v(_vm._s(_vm.imcResultMessage))]), _vm._v(" "), _c('div', {
+    staticClass: "imc__message-range"
+  }, [_vm._v("Faixa " + _vm._s(_vm.imcResultRangeText))])]) : _vm._e(), _vm._v(" "), (_vm.hasErrors) ? _c('div', {
+    staticClass: "imc__error",
+    class: _vm.imcResultStyles.error
+  }, _vm._l((_vm.errors), function(error) {
+    return _c('p', {
+      staticClass: "imc__error-message"
+    }, [_vm._v("Error: " + _vm._s(error.message))])
+  })) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-73b51b5d", module.exports)
   }
 }
 
