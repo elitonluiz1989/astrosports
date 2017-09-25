@@ -29,46 +29,9 @@
             @endforeach
         </ul>
     </div>
-    <div class="row">
-        <h2 class="contact__section-title col-xs-12 col-sm-7 col-md-6 col-lg-4">Envie-nos uma mensagem</h2>
-        <form id="send-email" class="send-email col-xs-12 col-lg-9 col-lg-offset-1" action="/contato/enviar" >
-            <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-2" for="send-email-name">Nome</label>
-                <div class="input-group col-xs-12 col-sm-8 col-md-7">
-                    <input id="send-email-name" class="form-control input-lg" type="text" name="send-email-name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-2" for="send-email-email">E-mail</label>
-                <div class="input-group col-xs-12 col-sm-9 col-md-9 col-lg-9">
-                    <input id="send-email-email" class="form-control input-lg" type="text" name="send-email-email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="send-email-subject" class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-2">Assunto</label>
-                <div class="input-group col-xs-12 col-sm-8 col-md-5 col-lg-4">
-                    <select name="send-email-subject" id="send-email-subject" class="form-control input-lg">
-                        @foreach ($subjects as $value => $subject)
-                            @php
-                                $subjectTreated = strtolower($subject);
-                                $subjectTreated = str_replace(['í', 'ú'], ['i', 'u'], $subjectTreated);
-                                $selected = ($subjectTreated == $subjectChosen) ? ' selected="selected"' : null;
-                            @endphp
-                            <option value="{{ $value }}"{{ $selected }}>{{ $subject }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <textarea id="send-email-text" class="send-email__text form-control col-xs-12" name="send-email-text"></textarea>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <input type="submit" id="send-email-submit" class="send-email__submit btn btn-default" value="Enviar">
-                </div>
-            </div>
-        </form>
-    </div>
+
+    <contact-email subject-selected="{{ $subjectSelected }}"></contact-email>
+
     <div class="row localization">
         <h2 class="contact__section-title col-xs-12 col-sm-7 col-md-6 col-lg-4">Localização</h2>
         <p class="col-xs-12 col-lg-10 col-lg-offset-1">{{ $localization['title'] }}</p>

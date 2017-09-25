@@ -1,12 +1,16 @@
 require('./bootstrap');
 
 Vue.component('imc', require('./components/Imc/Imc.vue'));
+Vue.component('contact-email', require('./components/ContactEmail.vue'));
 
 const appImc = new Vue({
     el: "#app"
 });
 
 (() => {
+    /**
+    * Home History
+    */
     const homeHistory = $('#home-history');
     const homeHistoryToggleBtn = $('#home-history-toggle');
     let homeHistoryExpand = false;
@@ -33,4 +37,4 @@ const appImc = new Vue({
             });
         }
     });
-})();
+ })();

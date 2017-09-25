@@ -29,8 +29,7 @@ class ContactController extends Controller
         $data = [
             'telephones'    => $this->contacts->get('telephone'),
             'emails'        => $this->contacts->get('email'),
-            'subjects'      => $this->contacts->get('subjects'),
-            'subjectChosen' => $subject,
+            'subjectSelected' => $subject,
             'localization'  => $this->contacts->get('localization')
         ];
 

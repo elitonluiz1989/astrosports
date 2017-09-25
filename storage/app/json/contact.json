@@ -5,12 +5,11 @@
     "email": [
         "marcelosilvagol@gmail.com"
     ],
-    "subjects": [
-        "...",
-        "Matrícula",
-        "Anúncios",
-        "Outros"
-    ],
+    "subjects": {
+        "matricula": "Matrícula",
+        "anuncios": "Anúncios",
+        "outros": "Outros"
+    },
     "social": {
         "facebook": "marcelo.dasilva.5851?fref=ts",
         "google-plus": null,

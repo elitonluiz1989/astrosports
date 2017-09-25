@@ -39,7 +39,25 @@
   }
 
   .send-email {
-    &__text {
+    &__message {
+      opacity: 0;
+      transition: opacity .3s;
+      @extend .text-center;
+
+      &--show {
+        opacity: 1;
+      }
+    }
+
+    &__required {
+      color: #d00;
+    }
+
+    &__fields--error {
+      border-color: #d00;
+    }
+
+    &__content {
       min-height: 250px;
       max-width: 100%;
     }
