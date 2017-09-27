@@ -4,6 +4,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/avaliacoes', 'AssessmentsController@index');
 
 Route::get('/contato/{subject?}', 'ContactController@index');
+Route::post('/contato/enviar', 'ContactController@sendEmail');
 
 // News
 Route::get('/noticias', 'NewsController@index');

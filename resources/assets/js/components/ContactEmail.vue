@@ -3,9 +3,10 @@
         <h2 class="contact__section-title col-xs-12 col-sm-7 col-md-6 col-lg-4">Envie-nos uma mensagem</h2>
 
         <form class="send-email col-xs-12 col-lg-9 col-lg-offset-1" action="/contato/enviar" v-on:submit="sendEmail">
+            <form-mask :show-mask="showFormMask" :fullScreen="formMaskFullScreen" :loader-message="formLoaderMessage"></form-mask>
+
             <div class="form-group send-email__message" v-bind:class="contactEmailStyles.message.show">
-                <p class="alert" v-bind:class="[ contactEmailStyles.message.error, contactEmailStyles.message.success ]">{{
-                    formMessage }}</p>
+                <p class="alert" v-bind:class="[ contactEmailStyles.message.error, contactEmailStyles.message.success ]">{{ formMessage }}</p>
             </div>
 
             <div class="form-group">
@@ -50,28 +51,40 @@
 </template>
 
 <script>
+    import Mask from './Mask';
+
     export default {
+        name: 'contact-email',
+
         props: ['subjectSelected'],
 
         data: function() {
             return {
-                name: '',
+                name: 'Eliton',
                 nameError: false,
 
-                email: '',
+                email: 'teste@gmail.com',
                 emailError: false,
 
                 subjects: [],
                 subject: this.subjectSelected,
                 subjectError: false,
 
-                content: '',
+                content: 'Isso é um teste!',
                 contentError: false,
+
+                showFormMask: false,
+                formMaskFullScreen: true,
+                formLoaderMessage: 'Enviando...',
 
                 showMessageError: false,
                 showMessageSuccess: false,
                 formMessage: ''
             }
+        },
+
+        components: {
+          'form-mask': Mask
         },
 
         mounted: function() {
@@ -123,6 +136,41 @@
         },
 
         methods: {
+            scrollWindow(speed, scrollTo) {
+                speed = speed || 800;
+                scrollTo = scrollTo || 400;
+
+                $('html, body').animate({scrollTop: scrollTo}, speed);
+            },
+
+            setMessageContent(message, targetElement) {
+                this.formMessage = message;
+
+                if (targetElement) {
+                    let elementError = targetElement + 'Error';
+                    let selector = '#send-email-' + targetElement;
+
+                    this[elementError] = true;
+                    $(selector).focus();
+                }
+
+                this.scrollWindow(500);
+            },
+
+            setMessageError(message, targetElement) {
+                this.showMessageSuccess = false;
+                this.showMessageError = true;
+
+                this.setMessageContent(message, targetElement);
+            },
+
+            setMessageSuccess(message, targetElement) {
+                this.showMessageError = false;
+                this.showMessageSuccess = true;
+
+                this.setMessageContent(message, targetElement);
+            },
+
             removeErrorStatus: function(evt) {
                 let element = evt.target.id.replace('send-email-', '') + 'Error';
 
@@ -139,56 +187,43 @@
             sendEmail: function(evt) {
                 evt.preventDefault();
 
-                const scrollTo = 300;
-
                 if (this.name == '') {
-                    this.showMessageError = true;
-                    this.nameError = true;
-                    this.formMessage = 'Preencha o campo nome.';
-                    document.querySelector('#send-email-name').focus();
-                    window.scrollTo(0, scrollTo);
+                    this.setMessageError('Preencha o campo nome.', 'name');
 
                 } else if (this.email == '') {
-                    this.showMessageError = true;
-                    this.emailError = true;
-                    this.formMessage = 'Preencha o campo email.';
-                    document.querySelector('#send-email-email').focus();
-                    window.scrollTo(0, scrollTo);
+                    this.setMessageError('Preencha o campo email.', 'email');
 
                 }else if (!this.validateEmail()) {
-                    this.showMessageError = true;
-                    this.emailError = true;
-                    this.formMessage = 'Preencha com um e-mail válido.';
-                    document.querySelector('#send-email-email').focus();
-                    window.scrollTo(0, scrollTo);
+                    this.setMessageError('Preencha com um e-mails válido.', 'email');
 
                 } else if (this.subject == '') {
-                    this.showMessageError = true;
-                    this.subjectError = true;
-                    this.formMessage = 'Escolha um assunto.';
-                    document.querySelector('#send-email-subject').focus();
-                    window.scrollTo(0, scrollTo);
+                    this.setMessageError('Escolha um assunto.', 'subject');
 
                 } else if (this.content == '') {
-                    this.showMessageError = true;
-                    this.contentError = true;
-                    this.formMessage = 'Preencha o campo de texto.';
-                    document.querySelector('#send-email-content').focus();
-                    window.scrollTo(0, scrollTo);
+                    this.setMessageError('Preencha o campo de texto.', 'content');
 
                 } else {
-                    axios.post('/contato/enviar')
+                    this.showFormMask = true;
+
+                    $('html, body').animate({scrollTop: scrollTo}, 800);
+
+                    let data = {
+                        name: this.name,
+                        email: this.email,
+                        subject: this.subjects[this.subject],
+                        content: this.content
+                    };
+
+                    /*axios.post('/contato/enviar', data)
                         .then(response => {
-                            this.showMessageSuccess = true;
-                            this.formMessage = this.response.message;
-                            window.scrollTo(0, scrollTo);
+                            console.log(response)
+                            this.setMessageSuccess(response.data);
                         })
                         .catch(err => {
-                            console.log(err)
-                            this.showMessageError = true;
-                            this.formMessage = 'Houve um erro e no envio do e-mail';
-                            window.scrollTo(0, scrollTo);
-                        });
+                            console.log(err);
+
+                            this.setMessageError('Houve um erro e no envio do e-mails');
+                        });*/
                 }
             }
         }

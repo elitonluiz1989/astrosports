@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SendEmailResquest;
+use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Repositories\DefaultRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -34,5 +38,13 @@ class ContactController extends Controller
         ];
 
         return view('contact', $data);
+    }
+
+    public function sendEmail(SendEmailResquest $sendEmail) {
+
+        Mail::to(env('MAIL_TO_ADDRESS'))
+            ->send(new ContactMail($sendEmail->all()));
+
+        return 'E-mail envidao com sucesso.';
     }
 }

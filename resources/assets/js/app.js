@@ -1,7 +1,8 @@
 require('./bootstrap');
 
-Vue.component('imc', require('./components/Imc/Imc.vue'));
-Vue.component('contact-email', require('./components/ContactEmail.vue'));
+Vue.component('imc', require('./components/Imc/Imc'));
+
+Vue.component('contact-email', require('./components/ContactEmail'));
 
 const appImc = new Vue({
     el: "#app"

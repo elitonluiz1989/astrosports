@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
-use App\Models\News;
 use App\Repositories\DefaultRepository;
 use App\Repositories\NewsRepository;
 use App\Repositories\PhotosRepository;
