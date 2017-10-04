@@ -39,8 +39,6 @@
   }
 
   .send-email {
-    position: relative;
-
     &__message {
       opacity: 0;
       transition: opacity .3s;

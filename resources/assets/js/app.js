@@ -1,5 +1,7 @@
 require('./bootstrap');
 
+Vue.component('main-mask', require('./components/Mask'));
+
 Vue.component('imc', require('./components/Imc/Imc'));
 
 Vue.component('contact-email', require('./components/ContactEmail'));

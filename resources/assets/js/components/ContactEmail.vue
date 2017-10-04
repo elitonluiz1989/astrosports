@@ -3,7 +3,7 @@
         <h2 class="contact__section-title col-xs-12 col-sm-7 col-md-6 col-lg-4">Envie-nos uma mensagem</h2>
 
         <form class="send-email col-xs-12 col-lg-9 col-lg-offset-1" action="/contato/enviar" v-on:submit="sendEmail">
-            <form-mask :show-mask="showFormMask" :fullScreen="formMaskFullScreen" :loader-message="formLoaderMessage"></form-mask>
+            <form-mask :show-mask="showFormMask" :mask-style="dark" :fullscreen="formMaskFullscreen" :loader-message="formLoaderMessage"></form-mask>
 
             <div class="form-group send-email__message" v-bind:class="contactEmailStyles.message.show">
                 <p class="alert" v-bind:class="[ contactEmailStyles.message.error, contactEmailStyles.message.success ]">{{ formMessage }}</p>
@@ -32,7 +32,7 @@
                     <select id="send-email-subject" class="form-control input-lg" v-on:change="removeErrorStatus" v-model="subject">
                         <option disabled>Selecione o assunto.</option>
 
-                        <option v-for="(value, key) in subjects" v-bind:value="key">{{ value }}</option>
+                        <option v-for="(subjectValue, subjectKey) in subjects" :value="subjectKey">{{ subjectValue }}</option>
                     </select>
                 </div>
             </div>
@@ -58,7 +58,7 @@
 
         props: ['subjectSelected'],
 
-        data: function() {
+        data() {
             return {
                 name: 'Eliton',
                 nameError: false,
@@ -74,7 +74,7 @@
                 contentError: false,
 
                 showFormMask: false,
-                formMaskFullScreen: true,
+                formMaskFullscreen: true,
                 formLoaderMessage: 'Enviando...',
 
                 showMessageError: false,
@@ -140,6 +140,8 @@
                 speed = speed || 800;
                 scrollTo = scrollTo || 400;
 
+                console.log(speed + ' ' + scrollTo)
+
                 $('html, body').animate({scrollTop: scrollTo}, speed);
             },
 
@@ -171,7 +173,7 @@
                 this.setMessageContent(message, targetElement);
             },
 
-            removeErrorStatus: function(evt) {
+            removeErrorStatus(evt) {
                 let element = evt.target.id.replace('send-email-', '') + 'Error';
 
                 if (this[element]) {
@@ -180,11 +182,11 @@
                 }
             },
 
-            validateEmail: function() {
+            validateEmail() {
                 return /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(this.email);
             },
 
-            sendEmail: function(evt) {
+            sendEmail(evt) {
                 evt.preventDefault();
 
                 if (this.name == '') {
@@ -205,7 +207,7 @@
                 } else {
                     this.showFormMask = true;
 
-                    $('html, body').animate({scrollTop: scrollTo}, 800);
+                    this.scrollWindow();
 
                     let data = {
                         name: this.name,
@@ -214,16 +216,21 @@
                         content: this.content
                     };
 
-                    /*axios.post('/contato/enviar', data)
+                    setTimeout(() => {
+                    axios.post('/contato/envar', data)
                         .then(response => {
                             console.log(response)
+
+                            this.showFormMask = false;
                             this.setMessageSuccess(response.data);
                         })
                         .catch(err => {
                             console.log(err);
 
+                            this.showFormMask = false;
                             this.setMessageError('Houve um erro e no envio do e-mails');
-                        });*/
+                        });
+                    }, 1000);
                 }
             }
         }

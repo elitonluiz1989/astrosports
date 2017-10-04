@@ -39,7 +39,7 @@
 
 <style lang="scss">
     .loader {
-        background-color: white;
+        background-color: transparent;
         padding-top: 5px;
         position: absolute;
         top: 50%;
