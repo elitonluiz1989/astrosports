@@ -1,10 +1,10 @@
 require('./bootstrap');
 
-Vue.component('main-mask', require('./components/Mask'));
+Vue.component('main-mask', require('./components/Base/TheMask'));
 
 Vue.component('imc', require('./components/Imc/Imc'));
 
-Vue.component('contact-email', require('./components/ContactEmail'));
+Vue.component('contact-email', require('./components/Contact/ContactEmail'));
 
 const appImc = new Vue({
     el: "#app"

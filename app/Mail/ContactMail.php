@@ -35,7 +35,7 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.contact')
+        return $this->markdown('mails.contact')
                     ->from($this->sender['email'], $this->sender['name'])
                     ->subject($this->sender['subject']);
     }

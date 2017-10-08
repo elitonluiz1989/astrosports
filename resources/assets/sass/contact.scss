@@ -41,7 +41,7 @@
   .send-email {
     &__message {
       opacity: 0;
-      transition: opacity .3s;
+      transition: opacity .5s;
       @extend .text-center;
 
       &--show {

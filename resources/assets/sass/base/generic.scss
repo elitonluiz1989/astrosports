@@ -125,3 +125,47 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+
+.orientation {
+  top: 0;
+  left: 0;
+}
+
+.mask {
+  display: none;
+  @extend .full;
+  position: absolute;
+  @extend .orientation;
+
+  &--light {
+    background-color: white;
+  }
+
+  &--dark {
+    background-color: black;
+    color: white;
+  }
+
+  &--show {
+    display: block;
+  }
+
+  &--reset-position {
+    position: static;
+  }
+
+  &__content {
+    @extend .full;
+    position: absolute;
+    @extend .orientation;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 1s;
+
+    &--show {
+      opacity: .8;
+    }
+  }
+}

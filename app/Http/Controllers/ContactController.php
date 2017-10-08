@@ -41,10 +41,9 @@ class ContactController extends Controller
     }
 
     public function sendEmail(SendEmailResquest $sendEmail) {
-
         Mail::to(env('MAIL_TO_ADDRESS'))
             ->send(new ContactMail($sendEmail->all()));
 
-        return 'E-mail envidao com sucesso.';
+        return 'E-mail enviado com sucesso.';
     }
 }

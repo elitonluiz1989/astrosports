@@ -113,10 +113,10 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        'theme' => 'astrosports',
 
         'paths' => [
-            resource_path('views/vendor/mails'),
+            resource_path('views/vendor/mail'),
         ],
     ],
 

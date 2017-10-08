@@ -1,43 +1,42 @@
 <template>
     <div class="imc__result-content">
-        <div class="imc__message" v-bind:class="imcResultStyles.message" v-if="!hasErrors">
-            <div class="imc__message-value" v-bind:class="imcResultMessageStyle">{{ imcResultValue }}</div>
-            <div class="imc__message-text" v-bind:class="imcResultMessageStyle">{{ imcResultMessage }}</div>
+        <div class="imc__message" :class="imcResultStyles.message" v-if="!hasErrors">
+            <div class="imc__message-value" :class="imcResultMessageStyle">{{ imcResultValue }}</div>
+            <div class="imc__message-text" :class="imcResultMessageStyle">{{ imcResultMessage }}</div>
             <div class="imc__message-range">Faixa {{ imcResultRangeText }}</div>
         </div>
 
-        <div class="imc__error" v-bind:class="imcResultStyles.error" v-if="hasErrors">
-            <p class="imc__error-message" v-for="error of errors">Error: {{ error.message }}</p>
+        <div class="imc__error" :class="imcResultStyles.error" v-if="hasErrors">
+            <p class="imc__error-message">{{ errorMessage }}</p>
         </div>
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
-
     export default {
-        props: ['imcValue'],
+        name: 'ImcResult',
+
+        props: {
+            imcValue: {
+                type: String,
+                required: true
+            },
+
+            showImcResult: {
+                type: Boolean,
+                default: false
+            }
+        },
 
         data: function() {
             return {
                 resultMessages: [],
-                errors: [],
+                errorMessage: [],
                 hasErrors: false,
                 showImcErrors: false,
                 showImcMessage: false,
                 imcResultClass: ''
             }
-        },
-
-        mounted: function() {
-            axios.get('/json/imc')
-                .then(response => {
-                    this.resultMessages = response.data;
-                })
-                .catch(err => {
-                    this.errors.push(err);
-                    this.hasErrors = true;
-                });
         },
 
         computed: {
@@ -54,7 +53,7 @@
             },
 
             imcResultValue: function() {
-                return String(this.imcValue).replace('.', ',');
+                return this.imcValue.replace('.', ',');
             },
 
             imcResultRange: function() {
@@ -72,6 +71,35 @@
             imcResultMessage: function() {
                 return (this.resultMessages[this.imcResultRange] != undefined) ? this.resultMessages[this.imcResultRange].message : '';
             }
+        },
+
+        watch: {
+            showImcResult(show) {
+                if (show) {
+                    if (this.hasErrors) {
+                        this.showImcErrors = true;
+                        this.showImcMessage = false;
+                    } else {
+                        this.showImcErrors = false;
+                        this.showImcMessage = true;
+                    }
+                } else {
+                    this.showImcErrors = false;
+                    this.showImcMessage = false;
+                }
+            }
+        },
+
+        mounted: function() {
+            axios.get('/json/imc')
+                .then(response => {
+                    this.resultMessages = response.data;
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.errorMessage = 'Houve um erro no cálculo do IMC.';
+                    this.hasErrors = true;
+                });
         },
 
         methods: {

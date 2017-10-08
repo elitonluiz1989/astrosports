@@ -34,12 +34,9 @@
                 <button class="imc__calculate" v-on:click="calculateImc">Calcular</button>
 
                 <div class="imc__result" v-bind:class="imcStyles.result">
-                    <div class="imc__loader" v-bind:class="imcStyles.loader">
-                        <div class="spinner"></div>
-                        <p class="imc__loader-message">Carregando...</p>
-                    </div>
+                    <imc-loader :show-loader="imcTransitions.loader.show" :hide-loader="imcTransitions.loader.hide" :floating-loader="false" :loader-message="'Carregando...'"></imc-loader>
 
-                    <imc-result v-bind:imc-value="imcValue"></imc-result>
+                    <imc-result :imc-value="imcValue" :show-imc-result="showImcResult"></imc-result>
                 </div>
             </div>
         </div>
@@ -47,25 +44,30 @@
 </template>
 
 <script>
+    import TheLoader from '../Base/TheLoader';
     import ImcResult from './ImcResult.vue';
 
     export default {
+        name: 'Imc',
+
+        components: {
+            'imc-loader': TheLoader,
+            'imc-result': ImcResult
+        },
+
         data: function() {
             return {
                 imcWeight: '',
                 imcHeight: '',
-                imcValue: 0,
+                imcValue: '',
                 showImcInfo: false,
+                showImcResult: false,
                 initialDelay: 0,
                 imcTransitions: {
                     loader: {
                         expand: false,
                         show: false,
                         hide: false
-                    },
-
-                    error: {
-                        expand: false,
                     },
 
                     message: {
@@ -75,16 +77,11 @@
             }
         },
 
-        components: {
-            'imc-result': ImcResult
-        },
-
         computed: {
             imcStyles: function () {
                 return {
                     result: {
                         'imc__result--loading-expand': this.imcTransitions.loader.expand,
-                        'imc__result--errors-reduce': this.imcTransitions.error.expand,
                         'imc__result--message-expand': this.imcTransitions.message.expand
                     },
 
@@ -97,19 +94,6 @@
         },
 
         methods: {
-            toggleImcInfo: function() {
-                this.showImcInfo = !this.showImcInfo;
-                console.log('sss')
-            },
-
-            validateImcInput: function(input) {
-                if (typeof input == 'string' && input.indexOf(',') != -1) {
-                    input = parseFloat(input.replace(',', '.'));
-                }
-
-                return input;
-            },
-
             allowOnlyNumbers: function(evt) {
                 evt = evt ? evt : window.event;
                 let keyCode = evt.which || evt.keyCode;
@@ -141,11 +125,6 @@
                 }
             },
 
-            setInitialTransitionsValues: function () {
-                this.imcTransitions.loader.expand = true;
-                this.imcTransitions.loader.show = true;
-            },
-
             initialTransitions: function() {
                 if (this.initialDelay > 0) {
                     setTimeout(() => {
@@ -153,6 +132,19 @@
                     }, this.initialDelay);
                 } else {
                     this.setInitialTransitionsValues()
+                }
+            },
+
+            resetTransitions: function () {
+                if (this.imcTransitions.message.expand) {
+                    this.imcTransitions.message.expand = false;
+                    this.showImcResult = false;
+
+                    setTimeout(() => {
+                        this.imcTransitions.loader.hide = false;
+                    }, 800);
+
+                    this.initialDelay = 1000;
                 }
             },
 
@@ -165,38 +157,31 @@
                 setTimeout(() => {
                     this.imcTransitions.loader.hide = true;
 
-                    if (this.$children[0].hasErrors) {
-                        this.imcTransitions.error.expand = this.$children[0].hasErrors;
-                    } else {
-                        this.imcTransitions.message.expand = true;
-                    }
+                    this.imcTransitions.message.expand = true;
                 }, transitionDelay + 1000);
 
                 setTimeout(() => {
                     this.imcTransitions.loader.hide = true;
 
-                    if (this.$children[0].hasErrors) {
-                        this.$children[0].showImcErrors = this.$children[0].hasErrors;
-                    } else {
-                        this.$children[0].showImcMessage = true;
-                    }
+                    this.showImcResult = true;
                 }, transitionDelay + 1500);
             },
 
-            resetTransitions: function () {
-                if (this.imcTransitions.error.expand || this.imcTransitions.message.expand) {
-                    this.imcTransitions.error.expand = false;
-                    this.$children[0].showImcErrors = false;
+            setInitialTransitionsValues: function () {
+                this.imcTransitions.loader.expand = true;
+                this.imcTransitions.loader.show = true;
+            },
 
-                    this.imcTransitions.message.expand = false;
-                    this.$children[0].showImcMessage = false;
-
-                    setTimeout(() => {
-                        this.imcTransitions.loader.hide = false;
-                    }, 800);
-
-                    this.initialDelay = 1000;
+            validateImcInput: function(input) {
+                if (typeof input == 'string' && input.indexOf(',') != -1) {
+                    input = parseFloat(input.replace(',', '.'));
                 }
+
+                return input;
+            },
+
+            toggleImcInfo: function() {
+                this.showImcInfo = !this.showImcInfo;
             }
         }
     }
