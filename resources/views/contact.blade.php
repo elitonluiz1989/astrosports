@@ -32,12 +32,5 @@
 
     <contact-email subject-selected="{{ $subjectSelected }}"></contact-email>
 
-    <div class="row localization">
-        <h2 class="contact__section-title col-xs-12 col-sm-7 col-md-6 col-lg-4">Localização</h2>
-        <p class="col-xs-12 col-lg-10 col-lg-offset-1">{{ $localization['title'] }}</p>
-        <p class="col-xs-12 col-lg-10 col-lg-offset-1">{{ $localization['address'] }}</p>
-        <div class="col-xs-12 col-lg-10 col-lg-offset-1">
-            <iframe class="localization__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.699355279317!2d-54.66514355072046!3d-20.43644963132883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9486e712a2d9accd%3A0x27c5be65d936e49d!2sR.+Pte.+Preta%2C+Campo+Grande+-+MS!5e0!3m2!1spt-BR!2sbr!4v1492027319770" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
+    <contact-address :address="'{{ $localization['address'] }}'" :title="'{{ $localization['title'] }}'"></contact-address>
 @endsection

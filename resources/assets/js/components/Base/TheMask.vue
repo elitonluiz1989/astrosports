@@ -1,7 +1,7 @@
 <template>
     <div class="mask" :class="maskStyles.main" ref="mask">
         <div class="mask__content" :class="maskStyles.content">
-            <mask-loader :show-loader="showMask" :loader-message="loaderMessage" v-if="hasLoader"></mask-loader>
+            <mask-loader :show="showMask" :message="loaderMessage" v-if="hasLoader"></mask-loader>
         </div>
     </div>
 </template>

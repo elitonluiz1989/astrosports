@@ -19,6 +19,7 @@
     },
     "localization": {
         "title": "CT Astro",
-        "address": "Rua Pequi s/nº esquina com a rua Presidente Café Filho,Coophatrabalho, Mato Grosso do Sul, Brasil"
+        "reference": "Rua Pequi s/nº esquina com a rua Presidente Café Filho,Coophatrabalho, Mato Grosso do Sul, Brasil",
+        "address": "Rua Pequi, 1 - Coophatrabalho, Campo Grande - MS"
     }
 }

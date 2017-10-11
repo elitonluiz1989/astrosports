@@ -2,7 +2,7 @@
     <div class="loader" v-bind:class="TheLoaderStyle">
         <div class="spinner"></div>
 
-        <p class="loader__message" v-if="loaderMessage != ''">{{ loaderMessage }}</p>
+        <p class="loader__message" v-if="message != ''">{{ message }}</p>
     </div>
 </template>
 
@@ -11,22 +11,22 @@
         name: 'TheLoader',
 
         props: {
-            hideLoader: {
-                type: Boolean,
-                default: false
-            },
-
-            loaderMessage: {
-                type: String,
-                default: ''
-            },
-
-            floatingLoader: {
+            floating: {
                 type: Boolean,
                 default: true
             },
 
-            showLoader: {
+            hide: {
+                type: Boolean,
+                default: false
+            },
+
+            message: {
+                type: String,
+                default: ''
+            },
+
+            show: {
                 type: Boolean,
                 default: false
             },
@@ -35,10 +35,10 @@
         computed: {
             TheLoaderStyle: function() {
                 return {
-                    'loader--show': this.showLoader,
-                    'loader--hide': this.hideLoader,
-                    'loader--floating': this.floatingLoader,
-                    'loader--static': !this.floatingLoader,
+                    'loader--show': this.show,
+                    'loader--hide': this.hide,
+                    'loader--floating': this.floating,
+                    'loader--static': !this.floating,
                 }
             }
         }

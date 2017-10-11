@@ -4,6 +4,8 @@ Vue.component('main-mask', require('./components/Base/TheMask'));
 
 Vue.component('imc', require('./components/Imc/Imc'));
 
+Vue.component('contact-address', require('./components/Contact/ContactAddress'));
+
 Vue.component('contact-email', require('./components/Contact/ContactEmail'));
 
 const appImc = new Vue({

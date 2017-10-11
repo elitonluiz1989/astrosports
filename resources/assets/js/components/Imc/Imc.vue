@@ -34,7 +34,7 @@
                 <button class="imc__calculate" v-on:click="calculateImc">Calcular</button>
 
                 <div class="imc__result" v-bind:class="imcStyles.result">
-                    <imc-loader :show-loader="imcTransitions.loader.show" :hide-loader="imcTransitions.loader.hide" :floating-loader="false" :loader-message="'Carregando...'"></imc-loader>
+                    <imc-loader :show="imcTransitions.loader.show" :hide="imcTransitions.loader.hide" :floating="false" :message="'Carregando...'"></imc-loader>
 
                     <imc-result :imc-value="imcValue" :show-imc-result="showImcResult"></imc-result>
                 </div>
