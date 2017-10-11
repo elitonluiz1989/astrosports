@@ -6,17 +6,17 @@ return [
         'albums' => 'fotos/albuns/',
         'photos' => 'fotos/'
     ],
-    'tabsNavItems'     => [
+    'navItems'     => [
         'photos' => [
-            'url'  => '#photos',
+            'url'  => '/fotos',
             'text' => 'Fotos'
         ],
         'albums' => [
-            'url'  => '#albums',
+            'url'  => 'fotos/albuns/',
             'text' => 'Albuns'
         ]
     ],
-    'tabsBody'    => [
+    'photosContent'    => [
         'pagination' => [
             'links'   => null
         ]

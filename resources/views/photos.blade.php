@@ -1,30 +1,42 @@
-@extends('partials.tabs.index')
+@extends('template.app')
 
 @section('page', 'photos')
 
 @section('title', 'Fotos')
 
-@section('tabs-header')
+@section('content')
     <header class="row">
-        <h2 class="page__title photos__title">Vídeos</h2>
+        <h2 class="page__title photos__title">Fotos</h2>
     </header>
-@endsection
 
-@section('tabs-content')
-    <!-- Photos -->
-    @component('partials.tabs.item')
-        @slot('tabId')
-            photos
-        @endslot
-        @if ($display == 'photos' || $display == 'album')
-            @slot('tabActive')
-                in active
-            @endslot
+    <div class="row">
+        <ul class="photos-tabs nav nav-tabs col-xs-12">
+            @foreach ($navItems as $item => $content)
+                @php $class = ($display == $item) ? 'tabs-item active' : 'tabs-item'; @endphp
+                <li class="{{ $class }}">
+                    <a href="{{ $content['url'] }}">{{ $content['text'] }}</a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
+    <!-- Albums -->
+    @if ($display == 'albums')
+        @if (count($albums) > 0)
+            @php
+                $photosContent['records'] = $albums;
+                $photosContent['showAlbumName'] = true;
+            @endphp
+
+            @include('partials.photos-content', $photosContent)
+        @else
+            {!! $emptyMessage !!}
         @endif
-
+    <!-- Photos -->
+    @else
         @if (count($photos) > 0)
             @php
-                $tabsBody['records'] = $photos;
+                $photosContent['records'] = $photos;
             @endphp
 
             @if (isset($albumName) && null != $albumName)
@@ -35,38 +47,15 @@
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                             </a>
                         </div>
+
                         <div class="photos__album-title">{{ $albumName }}</div>
                     </div>
                 </div>
             @endif
 
-            @include('partials.photos-tab-content', $tabsBody)
+            @include('partials.photos-content', $photosContent)
         @else
             {!! $emptyMessage !!}
         @endif
-    @endcomponent
-
-    <!-- Albums -->
-    @component('partials.tabs.item')
-        @slot('tabId')
-            albums
-        @endslot
-
-        @if ($display == "albums")
-            @slot('tabActive')
-                in active
-            @endslot
-        @endif
-
-        @if (count($albums) > 0)
-            @php
-                $tabsBody['records'] = $albums;
-                $tabsBody['showAlbumName'] = true;
-            @endphp
-
-            @include('partials.photos-tab-content', $tabsBody)
-        @else
-            {!! $emptyMessage !!}
-        @endif
-    @endcomponent
+    @endif
 @endsection

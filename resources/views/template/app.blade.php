@@ -29,7 +29,11 @@
     </head>
 
     <body>
-        <div id="app">
+        <div id="app" style="position: relative;">
+            <div id="main-mask" class="mask">
+                <div class="mask__content mask--dark"></div>
+            </div>
+
             <header class="header conteiner-fluid">
                 <div class="row hidden-xs">
                     <div class="header-logo col-sm-2"></div>

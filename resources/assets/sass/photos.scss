@@ -8,6 +8,15 @@
         border-color: darken($theme-golden, 20%);
     }
 
+  &__modal {
+    position: absolute;
+    @extend .text-center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
     &__album{
         background-color: lighten($theme-golden, 7%);
         @extend %photos-album-border;

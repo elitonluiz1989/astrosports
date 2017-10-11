@@ -91,6 +91,8 @@
         },
 
         mounted() {
+            console.log(this.hasLoader)
+
             if (this.maskStyle == 'dark') {
                 this.maskDark = true;
                 this.maskLight = false;

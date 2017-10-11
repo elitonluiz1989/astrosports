@@ -1,3 +1,5 @@
+import {PhotosGallery} from "./components/Photos/PhotosGallery.js";
+
 require('./bootstrap');
 
 Vue.component('main-mask', require('./components/Base/TheMask'));
@@ -43,3 +45,5 @@ const appImc = new Vue({
         }
     });
  })();
+
+PhotosGallery();
