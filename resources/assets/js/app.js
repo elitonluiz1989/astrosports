@@ -1,4 +1,6 @@
 import {PhotosGallery} from "./components/Photos/PhotosGallery.js";
+import {HomeHistory} from "./components/Home/HomeHistory";
+import {VideosModal} from "./components/Videos/VideosModal";
 
 require('./bootstrap');
 
@@ -14,36 +16,8 @@ const appImc = new Vue({
     el: "#app"
 });
 
-(() => {
-    /**
-    * Home History
-    */
-    const homeHistory = $('#home-history');
-    const homeHistoryToggleBtn = $('#home-history-toggle');
-    let homeHistoryExpand = false;
-    let scrollY = 0;
-
-    homeHistoryToggleBtn.click((evt) => {
-        evt.preventDefault();
-
-        homeHistoryExpand = !homeHistoryExpand;
-
-        if (homeHistoryExpand) {
-            scrollY = window.scrollY;
-            homeHistory.addClass('home__history--expand');
-
-            setTimeout(() => {
-                homeHistoryToggleBtn.html('Ocultar texto.');
-            }, 1000);
-
-        } else {
-            homeHistory.removeClass('home__history--expand');
-
-            $('html, body').animate({scrollTop: scrollY}, 1000, function() {
-                homeHistoryToggleBtn.html('Continue lendo...');
-            });
-        }
-    });
- })();
+HomeHistory();
 
 PhotosGallery();
+
+VideosModal();

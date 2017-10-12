@@ -2,6 +2,14 @@
   $videos-color: #d00;
   @include titles($videos-color);
 
+  &-modal {
+    &__header {
+      background-color: $videos-color;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+    }
+  }
+
   &__list {
     margin: 10px 0 5px;
     @extend .list;

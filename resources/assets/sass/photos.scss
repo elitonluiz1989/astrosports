@@ -12,6 +12,12 @@
     position: absolute;
     @extend .text-center;
 
+    &-header {
+      background-color: $theme-golden;
+      border-top-right-radius: 6px; // 6px from .modal bootstrap class
+      border-top-left-radius: 6px;
+    }
+
     img {
       max-width: 100%;
     }

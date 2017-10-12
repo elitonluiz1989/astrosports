@@ -1,19 +1,9 @@
+import {Modal} from "../Base/Modal";
+
 export function PhotosGallery() {
-    let photosModal = $('#photos-modal');
-    let mainMask = $('#main-mask');
+    let modal = new Modal('#photos-modal');
 
-    photosModal.find('.close').click(evt => {
-        photosModal
-            .removeClass('in')
-            .removeAttr('style')
-            .find('img')
-                .removeAttr('alt', 'src');
-
-        mainMask
-            .removeClass('mask--show')
-            .find('.mask__content')
-                .removeClass('mask__content--show');
-    });
+    modal.setCloseButton();
 
     $('.photos .photo:not(.is-album)').click(evt => {
         evt.preventDefault();
@@ -22,24 +12,15 @@ export function PhotosGallery() {
 
         $('html, body').animate({scrollTop: 290}, 500);
 
-        mainMask
-            .addClass('mask--show')
-            .find('.mask__content')
-                .addClass('mask__content--show');
-
-        photosModal
-            .find('img')
-                .attr({
-                    alt: evt.target.alt,
-                    src: src
-                })
-                .on('load', () => {
-                    photosModal
-                        .css({
-                            display: 'block',
-                            'z-index': 10000
-                        })
-                        .addClass('in');
-                });
+        modal.content = [{
+            selector: 'img',
+            attrs: {
+                alt: evt.target.alt,
+                src: src
+            },
+            waitLoad: true
+        }];
+        
+        modal.showModal();
     });
 }

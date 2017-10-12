@@ -10,10 +10,11 @@
 
     $showSocialTitle = $showSocialTitle ?? false;
 @endphp
+
 <ul class="contact-list{{ $listOrientation }}">
     @foreach ($social as $icon => $url)
         <li class="contact-list__item{{ $listItemOrientation }}">
-            <a href="{{ $url }}" class="contact-list__content" target="_blank">
+            <a href="{{ $url }}" class="contact-list__content" {{ ($icon != 'whatsapp')? 'target="_blank"' : null }}>
                 @php $faIcon = \str_replace('youtube', 'youtube-play', $icon); @endphp
                 <div class="contact-list__icon contact-list__icon--{{ $icon }}">
                     <i class="fa fa-{{ $faIcon }}"></i>

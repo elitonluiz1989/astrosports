@@ -15,7 +15,7 @@ return [
             'google-plus' => 'https://plus.google.com/',
             'twitter'     => 'https://twitter.com/',
             'youtube'     => 'https://www.youtube.com/channel/',
-            'whatsapp'    => 'https://web.whatsapp.com/'
+            'whatsapp'    => 'whatsapp://send?phone='
         ]
     ]
 ];

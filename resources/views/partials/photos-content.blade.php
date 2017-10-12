@@ -13,7 +13,7 @@
         <div class="modal-dialog modal-lg">
 
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="photos__modal-header modal-header">
                     <button type="button" class="close">&times;</button>
                 </div>
 
