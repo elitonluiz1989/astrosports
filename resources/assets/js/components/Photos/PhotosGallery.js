@@ -20,6 +20,8 @@ export function PhotosGallery() {
 
         let src = evt.target.src.split('?')[0];
 
+        $('html, body').animate({scrollTop: 290}, 500);
+
         mainMask
             .addClass('mask--show')
             .find('.mask__content')
