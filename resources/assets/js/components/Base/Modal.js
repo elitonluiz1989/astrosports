@@ -2,7 +2,6 @@ export function Modal(selector) {
     this.element = $(selector);
     this.mask = $('#main-mask');
     this.content = [];
-    this.waitLoad = null;
 
     this.hideMask = () => {
         this.mask
@@ -42,6 +41,8 @@ export function Modal(selector) {
     };
 
     this.setModalToShow = () => {
+        this.mask.find('.loader').removeClass('loader--show');
+
         this.element.css({
                 display: 'block',
                 'z-index': 10000
@@ -52,7 +53,9 @@ export function Modal(selector) {
     this.showMask = () => {
         this.mask.addClass('mask--show')
             .find('.mask__content')
-            .addClass('mask__content--show');
+            .addClass('mask__content--show')
+            .find('.loader')
+                .addClass('loader--show');
     };
 
     this.showModal = () => {
@@ -60,12 +63,6 @@ export function Modal(selector) {
 
         this.setModalContent();
 
-        if (this.waitLoad) {
-            this.element
-                .find(this.waitLoad)
-                    .one('load', () => {this.setModalToShow()});
-        } else {
-            this.setModalToShow();
-        }
+        this.setModalToShow();
     };
 }

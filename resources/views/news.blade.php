@@ -15,6 +15,7 @@
         @if ($news->isEmpty())
             <p class="news__empty">Sem registros</p>
         @else
+            <!--
             <div class="row">
                 <form class="news__search navbar-form navbar-right" action="/noticias/pesquisa" method="get" role="search">
                     <div class="news__search-field form-group">
@@ -25,6 +26,7 @@
                     </button>
                 </form>
             </div>
+            -->
 
             @include('partials.pagination-bar', $pagination)
 

@@ -5,22 +5,24 @@ export function PhotosGallery() {
 
     modal.setCloseButton();
 
-    $('.photos .photo:not(.is-album)').click(evt => {
-        evt.preventDefault();
+    // only if not mobile
+    if (!(window.navigator.maxTouchPoints || 'ontouchstart' in document)) {
+        $('.photos .photo:not(.is-album)').click(evt => {
+            evt.preventDefault();
 
-        let src = evt.target.src.split('?')[0];
+            let src = evt.target.src.split('?')[0];
 
-        $('html, body').animate({scrollTop: 290}, 500);
+            $('html, body').animate({scrollTop: 290}, 500);
 
-        modal.content = [{
-            selector: 'img',
-            attrs: {
-                alt: evt.target.alt,
-                src: src
-            },
-            waitLoad: true
-        }];
-        
-        modal.showModal();
-    });
+            modal.content = [{
+                selector: 'img',
+                attrs: {
+                    alt: evt.target.alt,
+                    src: src
+                }
+            }];
+
+            modal.showModal();
+        });
+    }
 }

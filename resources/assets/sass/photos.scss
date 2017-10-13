@@ -9,8 +9,11 @@
     }
 
   &__modal {
-    position: absolute;
     @extend .text-center;
+
+    @include media-query('sm') {
+      position: absolute;
+    }
 
     &-header {
       background-color: $theme-golden;
@@ -20,6 +23,7 @@
 
     img {
       max-width: 100%;
+      max-height: 100%;
     }
   }
 

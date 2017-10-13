@@ -48,7 +48,6 @@ class NewsRepository
         }
 
         return $news->select($this->fields)
-                    ->orderBy('updated_at', 'DESC')
                     ->orderBy('created_at', 'DESC')
                     ->paginate($this->paginate);
     }

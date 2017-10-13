@@ -30,7 +30,13 @@
 
     <body>
         <div id="main-mask" class="mask">
-            <div class="mask__content mask--dark"></div>
+            <div class="mask__content mask--dark">
+                <div class="loader loader--floating loader--show">
+                    <div class="spinner"></div>
+
+                    <p class="loader__message"></p>
+                </div>
+            </div>
         </div>
 
         <div id="app">

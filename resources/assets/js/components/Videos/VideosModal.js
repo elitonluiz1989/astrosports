@@ -3,13 +3,17 @@ import {Modal} from "../Base/Modal";
 export function VideosModal() {
     let modal = new Modal('#videos-modal');
     let contentAttrs = {
-        width: 800,
+        width: 600,
         height: 400,
         src: null,
         frameborder: 0,
         allowfullscreen: '',
         style: 'width: 100%'
     };
+
+    if (window.navigator.maxTouchPoints || 'ontouchstart' in document) {
+        contentAttrs.height = 200;
+    }
 
     modal.setCloseButton();
 

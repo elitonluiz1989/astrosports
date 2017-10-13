@@ -8,7 +8,7 @@
             <form-message :error="showMessageError" :success="showMessageSuccess" :message="formMessage"></form-message>
 
             <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-2">Nome <small class="send-email__required">*</small></label>
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">Nome <small class="send-email__required">*</small></label>
 
                 <div class="input-group col-xs-12 col-sm-8 col-md-7" :class="contactEmailStyles.fields.name">
                     <input id="send-email-name" class="form-control input-lg" type="text" name="send-email-name" @keyup="removeErrorStatus" v-model="name">
@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-2">E-mail <small class="send-email__required">*</small></label>
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">E-mail <small class="send-email__required">*</small></label>
 
                 <div class="input-group col-xs-12 col-sm-9 col-md-9 col-lg-9" :class="contactEmailStyles.fields.email">
                     <input id="send-email-email"  class="form-control input-lg" type="text" name="send-email-email" @keyup="removeErrorStatus" v-model="email">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-2">Assunto <small class="send-email__required">*</small></label>
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">Assunto <small class="send-email__required">*</small></label>
 
                 <div class="input-group col-xs-12 col-sm-6 col-md-5 col-lg-3" :class="contactEmailStyles.fields.subject">
                     <select id="send-email-subject" class="form-control input-lg" @change="removeErrorStatus" v-model="subject">

@@ -24,7 +24,7 @@ class News extends ImageBaseAbstract
 
         $date = Carbon::parse($date);
 
-        return $date->format('d F Y - H:s');
+        return $date->format('d F Y - H:i');
     }
 
     public function getPublishedByAttribute()
