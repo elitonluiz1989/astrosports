@@ -2,17 +2,6 @@
     $rowsClass = 'schedules__row';
     $colsWrapper1Class = 'col-sm-2 col-lg-1';
     $colsWrapper2Class = 'col-reset col-sm-10 col-lg-11';
-
-
-    $days = [
-        'sun' => 'DOM',
-        'mon' => "SEG",
-        'tue' => "TER",
-        'wed' => "QUA",
-        'thu' => "QUI",
-        'fri' => "SEX",
-        'sat' => "SÁB"
-    ];
 @endphp
 
 <div class="schedules__conteiner">

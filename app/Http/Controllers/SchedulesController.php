@@ -33,7 +33,7 @@ class SchedulesController extends Controller
 
         $this->view = 'schedules';
 
-        $this->data['sidebar'] = false;
+        $this->data = config('schedules');
     }
 
     /**
@@ -43,9 +43,17 @@ class SchedulesController extends Controller
     public function index($display = 'schedules') {
         $this->data['display'] = $this->validateDisplayChoice($display);
 
-        $this->data['poles'] = $this->repo->getPoles();
-        $this->data['categories'] = $this->repo->getCategories();
-        $this->data['schedules'] = $this->repo->getSchedules();
+        if ($this->data['vacation']) {
+            $this->data['noResultsMessage']['message'] = $this->data['vacationMessage'];
+
+            $this->data['poles'] = [];
+            $this->data['categories'] = [];
+            $this->data['schedules'] = [];
+        } else {
+            $this->data['poles'] = $this->repo->getPoles();
+            $this->data['categories'] = $this->repo->getCategories();
+            $this->data['schedules'] = $this->repo->getSchedules();
+        }
 
         return view($this->view, $this->data);
     }

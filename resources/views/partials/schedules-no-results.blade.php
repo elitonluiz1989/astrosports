@@ -1,0 +1,1 @@
+<p class="schedules__no-results">{{ $message }}</p>

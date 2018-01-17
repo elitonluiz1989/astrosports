@@ -30,6 +30,18 @@
     font-weight: bolder;
   }
 
+  &__no-results {
+    padding: 2rem 0;
+    margin-top: 10%;
+    font-size: 1.4em;
+
+    @extend .text-center;
+
+    @include media-query('sm') {
+      margin-top: 15%;
+    }
+  }
+
   &__conteiner {
     float: left;
     width: 100%;

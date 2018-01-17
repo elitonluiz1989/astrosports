@@ -1,22 +1,3 @@
-@php
-$tabData = ['data' => null];
-
-$tabsNavItems = [
-    'schedules' => [
-        'url'  => '#schedules',
-        'text' => 'Horários'
-    ],
-    'categories' => [
-        'url'  => '#categories',
-        'text' => 'Categorias'
-    ],
-    'poles' => [
-        'url'  => '#poles',
-        'text' => 'Polos'
-    ]
-];
-@endphp
-
 @extends('partials.tabs.index')
 
 @section('page', 'schedules')
@@ -42,12 +23,16 @@ $tabsNavItems = [
             @endslot
         @endif
 
-        @php
-            $tabData['data'] = $schedules;
-            $tabData['wantedField'] = 'category';
-        @endphp
+        @if (count($schedules) > 0)
+            @php
+                $tabData['data'] = $schedules;
+                $tabData['wantedField'] = 'category';
+            @endphp
 
-        @include('partials.schedules-tab-content', $tabData)
+            @include('partials.schedules-tab-content', $tabData)
+        @else
+            @include('partials.schedules-no-results', $noResultsMessage)
+        @endif
     @endcomponent
 
     <!-- Categories -->
@@ -62,12 +47,16 @@ $tabsNavItems = [
             @endslot
         @endif
 
-        @php
-            $tabData['data'] = $categories;
-            $tabData['wantedField'] = 'hour';
-        @endphp
+        @if (count($categories) > 0)
+            @php
+                $tabData['data'] = $categories;
+                $tabData['wantedField'] = 'hour';
+            @endphp
 
-        @include('partials.schedules-tab-content', $tabData)
+            @include('partials.schedules-tab-content', $tabData)
+        @else
+            @include('partials.schedules-no-results', $noResultsMessage)
+        @endif
     @endcomponent
 
     <!-- Poles -->
@@ -82,11 +71,15 @@ $tabsNavItems = [
             @endslot
         @endif
 
-        @php
-            $tabData['data'] = $poles;
-            $tabData['wantedField'] = 'hour';
-        @endphp
+        @if (count($poles) > 0)
+            @php
+                $tabData['data'] = $poles;
+                $tabData['wantedField'] = 'hour';
+            @endphp
 
-        @include('partials.schedules-tab-content', $tabData)
+            @include('partials.schedules-tab-content', $tabData)
+        @else
+            @include('partials.schedules-no-results', $noResultsMessage)
+        @endif
     @endcomponent
 @endsection

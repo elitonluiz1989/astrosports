@@ -61,20 +61,31 @@ class TemplateController extends Controller
      */
     public function schedules()
     {
-        $schedules = $this->schedules->getByDay();
+        $inVacation = config('schedules')['vacation'];
+        $weekdays = config('schedules')['tabData']['days'];
+
+        if ($inVacation) {
+            $schedules = [
+                'sun' => null,
+                'mon' => null,
+                'tue' => null,
+                'wed' => null,
+                'thu' => null,
+                'fri' => null,
+                'sat' => null
+            ];
+
+            $scheduleMessage = config('schedules')['vacationMessage'] . '<br>...';
+        } else {
+            $schedules = $this->schedules->getByDay();
+            $scheduleMessage = 'Sem horários<br>...';
+        }
 
         return [
-            'weekDays'   => [
-                'sun' => 'DOM',
-                'mon' => 'SEG',
-                'tue' => 'TER',
-                'wed' => 'QUA',
-                'thu' => 'QUI',
-                'fri' => 'SEX',
-                'sat' => 'SÁB'
-            ],
+            'weekDays'   => $weekdays,
             'currentDay' => \strtolower(\date('D')),
-            'schedules'  => $schedules
+            'schedules'  => $schedules,
+            'scheduleEmptyMessage' => $scheduleMessage
         ];
     }
 
