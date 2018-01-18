@@ -1,7 +1,7 @@
 .news {
   background-color: #f8f8f8 !important;
 
-  @include media-query('sm') {
+  @include media-breakpoint-up('sm') {
     background-color: white !important;
   }
 
@@ -10,7 +10,8 @@
   &__empty {
     padding: 10px 0;
     color: #555;
-    text-align: center;
+
+    @extend .text-center;
   }
 
   &__search {
@@ -18,30 +19,32 @@
     margin-right: 1%;
     margin-left: 1%;
 
-    @include media-query('sm') {
+    @include media-breakpoint-up('sm') {
       width: 60%;
     }
 
-    @include media-query('md') {
+    @include media-breakpoint-up('md') {
       width: 40%;
     }
 
-    @include media-query('lg') {
+    @include media-breakpoint-up('lg') {
       width: 30%;
     }
 
     &-field {
-      @extend .left;
-      @extend .col-reset;
       width: 85%;
+
+      @extend .float-left;
+      @extend .col-reset;
     }
 
     &-input {
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
-      width: 100%;
 
-      @include media-query('sm')
+      @extend .w-100;
+
+      @include media-breakpoint-up('sm')
       {
         width: 100% !important; //overwriting bootstrap default value
       }
@@ -51,10 +54,11 @@
       border-left: 0;
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
-      @extend .right;
       width: 15%;
       margin: 0;
       color: #777;
+
+      @extend .float-right;
     }
   }
 
@@ -65,8 +69,9 @@
       border-bottom: 1px solid #ddd;
 
       &-title {
-        text-align: justify;
         padding: 5px;
+
+        @extend .text-justify;
       }
 
       &-published {
@@ -78,21 +83,23 @@
     &__content {
       margin-top: 10px;
       padding: 0 5px;
-      text-align: justify;
+
+      @extend .text-justify;
 
       p {
-        overflow: hidden;
+        @extend .o-hidden;
       }
 
       img {
-        width: 100%;
         height: 200px;
 
-        @include media-query('xs') {
+        @extend .w-100;
+
+        @include media-breakpoint-up('xs') {
           height: 230px;
         }
 
-        @include media-query('md') {
+        @include media-breakpoint-up('md') {
           width: auto;
           max-width: 100%;
           height: auto;

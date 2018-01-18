@@ -3,8 +3,9 @@
 
   .advertising {
     background-color: white;
-    @extend .left;
     margin-left: 5px;
+
+    @extend .float-left;
     @extend .list;
 
     $advertising-item-margin: 5px;
@@ -15,23 +16,26 @@
 
     &__item {
       border: 1px solid #888;
-      @extend .list__item;
       width: 98%;
       margin: 0 0 $advertising-item-margin 1%;
+
+      @extend .list__item;
     }
 
     &__content {
-      @extend .left;
       height: 100px;
-      width: 100%;
+
+      @extend .float-left;
+      @extend .w-100;
 
       &--join {
         background-color: #eee;
         padding: 40px;
         color: #777;
         font-size: 20px;
-        font-weight: bolder;
-        text-align: center;
+
+        @extend .font-weight-bold;
+        @extend .text-center;
       }
     }
   }

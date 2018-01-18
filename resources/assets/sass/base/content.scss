@@ -2,13 +2,13 @@
   padding: 5px 5px 0;
 
   .sidebar {
-
     &__title {
       margin: 0;
       padding: 0.25em;
-      color: #fff;
-      text-align: center;
       font-size: 1.5em;
+
+      @extend .text-white;
+      @extend .text-center;
     }
 
     &--left {
@@ -18,14 +18,15 @@
       @include tabs(#333);
 
       &__wrapper {
-        width: 100%;
         margin: 0 0 10px 0;
+
+        @extend .w-100;
       }
 
       @import "sidebar-schedules";
 
       @import "sidebar-videos";
-      
+
       @import "sidebar-assessments";
     }
 
@@ -46,16 +47,17 @@
       border-bottom-style: solid;
       margin: 0;
       padding: 10px 0 10px 10%;
-      color: white;
+
+      @extend .text-white;
     }
 
-    @include media-query("lm") {
+    @include media-breakpoint-up("lm") {
       & {
         min-height: 300px;
       }
     }
 
-    @include media-query("sm") {
+    @include media-breakpoint-up("sm") {
       & {
         min-height: 800px;
       }

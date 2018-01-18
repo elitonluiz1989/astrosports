@@ -6,7 +6,7 @@
         background-color: darken($tabs-color, 2%);
         border-color: $tabs-border-color;
 
-        @include media-query('sm') {
+        @include media-breakpoint-up('sm') {
             padding-left: $grid-gutter-width;
         }
 
@@ -15,7 +15,7 @@
                 width: $tab-item-width !important;
 
                 @if $breakpoint-restore-width != null {
-                    @include media-query($breakpoint-restore-width) {
+                    @include media-breakpoint-up($breakpoint-restore-width) {
                         width: 100px !important;
                     }
                 }

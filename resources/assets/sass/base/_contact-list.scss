@@ -3,17 +3,13 @@
 
   @extend .list;
 
-  &--right {
-    @extend .right;
-  }
-
   &--left {
-    @extend .left;
-    width: 100%;
+    @extend .float-left;
+    @extend .w-100;
   }
 
   &__item {
-    @extend %left;
+    @extend .float-left;
 
     &--horizontal {
       & + & {
@@ -22,8 +18,8 @@
     }
 
     &--vertical {
-      @extend %left;
-      width: 100%;
+      @extend .float-left;
+      @extend .w-100;
 
       & + & {
         margin-top: 10px;
@@ -32,34 +28,39 @@
   }
 
   $icons: (
-          'facebook': #2153b5,
-          'google-plus': #e00,
-          'twitter': #00a6d2,
-          'youtube': #c00,
-          'whatsapp': #00bb34
+    'facebook': #2153b5,
+    'google-plus': #e00,
+    'twitter': #00a6d2,
+    'youtube': #c00,
+    'whatsapp': #00bb34
   );
+
   &__content {
-    display: block;
-    width: 100%;
     padding-left: 30%;
 
-    @include media-query('sm') {
+    @extend .d-block;
+    @extend .w-100;
+
+    @include media-breakpoint-up('sm') {
       padding-left: 0;
     }
 
     %icons-hover-settings {
       text-decoration: none;
-      color: white;
+
+      @extend .text-white;
     }
 
     @mixin setIcons($parent) {
       @each $iconName, $iconColor in $icons {
         #{$parent}__icon--#{$iconName} {
           background-color: $iconColor;
+
           @extend %icons-hover-settings;
         }
       }
     }
+
     &:hover {
       @include setIcons($self);
     }
@@ -68,16 +69,17 @@
   &__icon {
     background-color: white;
     border-radius: 15px;
-    display: inline-block;
     width: 30px;
     padding: 5px 0;
     color: #444;
-    text-align: center;
+
+    @extend .d-inline-block;
+    @extend .text-center;
 
     @mixin icon-bg() {
       @each $iconName, $iconColor in $icons {
         &--#{$iconName} {
-          @include media-query('sm', true) {
+          @include media-breakpoint-only('sm') {
             background-color: $iconColor;
             color: white;
           }
@@ -89,9 +91,10 @@
   }
 
   &__title {
-    display: inline-block;
     margin-top: 6px;
     padding-left: 5px;
-    color: white;
+
+    @extend .d-inline-block;
+    @extend .text-white;
   }
 }

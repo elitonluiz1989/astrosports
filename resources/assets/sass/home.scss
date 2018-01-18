@@ -19,15 +19,17 @@
     &-text {
       margin: 0;
       padding: 10px 0 10px 15px;
-      color: #fff;
       font-size: 1.4em;
+
+      @extend .text-white;
     }
   }
 
   &__galery {
     background-color: #222;
     height: 350px;
-    overflow: hidden;
+
+    @extend .o-hidden;
   }
 
   &__photo {
@@ -38,9 +40,10 @@
 
   &__history {
     max-height: 500px;
-    overflow: hidden;
     position: relative;
     transition: max-height 1s;
+
+    @extend .o-hidden;
 
     &--expand {
       max-height: 1800px;
@@ -55,7 +58,6 @@
     &-toggle {
       background-color: white;
       border: 1px solid #ddd;
-      display: block;
       width: 100% - ($content-padding * 2);
       padding: 5px $content-padding 5px 0;
       position: absolute;
@@ -63,8 +65,10 @@
       left: $content-padding;
       z-index: 1;
       color: $theme-dark;
-      font-weight: bold;
-      text-align: right;
+
+      @extend .d-block;
+      @extend .text-right;
+      @extend .font-weight-bold;
 
       &:hover {
         background-color: #fafafa;
@@ -78,8 +82,9 @@
     }
 
     &-more {
-      width: 100%;
       border-radius: 0;
+
+      @extend .w-100;
     }
   }
 }

@@ -18,7 +18,8 @@
     .tabs-item {
       $tab-item-width: 100% / 7;
       width: $tab-item-width;
-      text-align: center;
+
+      @extend .text-center;
 
       & > a {
         border-radius: 0 !important;
@@ -35,7 +36,8 @@
   & .schedule {
     $schedule-spacing:  5px;
     $schedule-side-margin: 2px;
-    text-align: center;
+
+    @extend .text-center;
 
     &__wrapper {
       border-bottom: 1px solid $sidebar-schedule-border;
@@ -61,7 +63,8 @@
       &-content {
         background-color: $schedule-item-color;
         padding: 10px 0;
-        font-weight: bolder;
+
+        @extend .font-weight-bold;
       }
     }
 
@@ -72,6 +75,7 @@
 
     &__pole {
       background-color: $schedule-item-color;
+
       @extend %schedule-category--content;
       @extend %category-color;
     }
@@ -81,6 +85,7 @@
       border-width: 0 2px 1px;
       border-style: solid;
       border-color: $schedule-item-color;
+
       @extend %schedule-category--content;
 
       &:last-child {

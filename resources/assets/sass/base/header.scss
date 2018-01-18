@@ -1,171 +1,173 @@
 .header {
-    $header-height-sm: 200px;
-    $header-height-md: 200px;
-    $header-height-lg: 250px;
+  $header-height-sm: 200px;
+  $header-height-md: 200px;
+  $header-height-lg: 250px;
 
-    background-image: url('../images/header-xs.jpg');
-    background-position: center top;
-    background-repeat: no-repeat;
-    margin: 0;
+  background-image: url('../images/header-xs.jpg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+
+  @include media-breakpoint-up('sm') {
+    background-image: url('../images/header-sm.jpg');
+    height: $header-height-sm;
+  }
+
+  @include media-breakpoint-up('md') {
+    background-image: url('../images/header-md.jpg');
+    height: $header-height-md;
+  }
+
+  @include media-breakpoint-up('lg') {
+    background-image: url('../images/header-lg.jpg');
+    height: $header-height-lg;
+  }
+
+  &-logo {
+    background: url('../images/logo.png') center center no-repeat;
+    height: $header-height-sm - 60;
+    margin-top: 4px;
+    margin-bottom: 4px;
+
+    @include media-breakpoint-only('md') {
+      height: $header-height-md - 58;
+    }
+
+    @include media-breakpoint-up('lg') {
+      height: $header-height-lg - 58;
+    }
+  }
+
+  &-title {
+    // Overwriting Bootstrap nav-brand padding definition
+    padding-right: 5px;
+    padding-left: 5px;
+
+    %header-text-shadow {
+      text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
+    }
+
+    &-content {
+      height: $header-height-sm - 100;
+
+      @include media-breakpoint-only('md') {
+        height: $header-height-md - 98;
+      }
+
+      @include media-breakpoint-up('lg') {
+        height: $header-height-lg - 98;
+      }
+    }
+
+    &-text {
+      color: $theme-golden;
+      font-size: 28px;
+
+      @extend .w-100;
+      @extend .reseted;
+      @extend .float-left;
+      @extend .font-weight-bold;
+      @extend %header-text-shadow;
+    }
+
+    &-subtitle {
+      float: right;
+
+      @extend .reseted;
+      @extend .text-white;
+      @extend .font-weight-bold;
+      @extend %header-text-shadow;
+    }
+
+    @include media-breakpoint-only("sm") {
+      &-text {
+        margin-top: 10px;
+        font-size: 40px;
+      }
+
+      &-subtitle {
+        font-size: 20px;
+        margin-right: 8%;
+      }
+    }
+
+    @include media-breakpoint-only("md") {
+      &-text {
+        font-size: 55px;
+      }
+
+      &-subtitle {
+        font-size: 24px;
+        margin-right: 10%;
+      }
+    }
+
+    @include media-breakpoint-up("lg") {
+      &-text {
+        margin-top: 20px;
+        font-size: 55px;
+      }
+
+      &-subtitle {
+        font-size: 26px;
+        margin-right: 15%;
+      }
+    }
+  }
+
+  &-nav {
+    margin-bottom: 0;
     padding: 0;
 
-    @include media-query('sm') {
-        background-image: url('../images/header-sm.jpg');
-        height: $header-height-sm;
+    @include media-breakpoint-up("sm") {
+      background-color: rgba(0, 0, 0, .8);
     }
 
-    @include media-query('md') {
-        background-image: url('../images/header-md.jpg');
-        height: $header-height-md;
+    &-toggle {
+      $header-toggle-color: white;
+      background-color: rgba(0, 0, 0, .5);
+      border-color: $header-toggle-color;
+
+      .icon-bar {
+        background-color: $header-toggle-color;
+      }
     }
 
-    @include media-query('lg') {
-        background-image: url('../images/header-lg.jpg');
-        height: $header-height-lg;
+    a {
+      @extend .text-white;
+
+      &:hover {
+        color: #0a7701;
+      }
     }
 
-    &-logo {
-        background: url('../images/logo.png') center center no-repeat;
-        height: $header-height-sm - 60;
-        margin-top: 4px;
-        margin-bottom: 4px;
+    &-list {
+      background-color: #111;
+      border: 0;
 
-        @include media-query('md', true) {
-            height: $header-height-md - 58;
-        }
+      @include media-breakpoint-up('sm') {
+        background-color: transparent;
+        margin-top: 5px;
 
-        @include media-query('lg') {
-            height: $header-height-lg - 58;
-        }
-    }
-
-    &-title {
-        // Overwriting Bootstrap nav-brand padding definition
-        padding-right: 5px;
-        padding-left: 5px;
-
-        %header-text-shadow {
-            text-shadow: 2px 2px 3px #000, -2px -2px 3px #000;
-        }
-
-        &-content {
-            height: $header-height-sm - 100;
-
-            @include media-query('md', true) {
-                height: $header-height-md - 98;
-            }
-
-            @include media-query('lg') {
-                height: $header-height-lg - 98;
-            }
-        }
-
-        &-text {
-            @extend %left;
-            width: 100%;
-            @extend %reseted;
-            color: $theme-golden;
-            font-size: 28px;
-            @extend %bolder;
-            @extend %header-text-shadow;
-        }
-
-        &-subtitle {
-            float: right;
-            @extend %reseted;
-            color: #fff;
-            @extend %bolder;
-            @extend %header-text-shadow;
-        }
-
-        @include media-query("sm", true) {
-            &-text {
-                margin-top: 10px;
-                font-size: 40px;
-            }
-
-            &-subtitle {
-                font-size: 20px;
-                margin-right: 8%;
-            }
-        }
-
-        @include media-query("md", true) {
-            &-text {
-                font-size: 55px;
-            }
-
-            &-subtitle {
-                font-size: 24px;
-                margin-right: 10%;
-            }
-        }
-
-        @include media-query("lg") {
-            &-text {
-                margin-top: 20px;
-                font-size: 55px;
-            }
-
-            &-subtitle {
-                font-size: 26px;
-                margin-right: 15%;
-            }
-        }
-    }
-
-    &-nav {
-        margin-bottom: 0;
-        padding: 0;
-
-        @include media-query("sm") {
-            background-color: rgba(0, 0, 0, .8);
-        }
-
-        &-toggle {
-            $header-toggle-color: white;
-            background-color: rgba(0, 0, 0, .5);
-            border-color: $header-toggle-color;
-
-            .icon-bar {
-                background-color: $header-toggle-color;
-            }
-        }
-
-        a {
-            color: #fff;
+        .nav {
+          display: inline-block;
+          &-item-content {
+            text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
 
             &:hover {
-                color: #0a7701;
+              text-shadow: none;
             }
+          }
         }
-
-        &-list {
-            background-color: #111;
-            border: 0;
-
-            @include media-query('sm') {
-                background-color: transparent;
-                margin-top: 5px;
-
-                .nav {
-                    display: inline-block;
-                    &-item-content {
-                        text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
-
-                        &:hover {
-                            text-shadow: none;
-                        }
-                    }
-                }
-            }
-        }
-
-        @include media-query("md") {
-            .nav-item-content {
-                font-size: 18px;
-                padding: 6px !important;
-            }
-        }
+      }
     }
+
+    @include media-breakpoint-up("md") {
+      .nav-item-content {
+        font-size: 18px;
+        padding: 6px !important;
+      }
+    }
+  }
 }

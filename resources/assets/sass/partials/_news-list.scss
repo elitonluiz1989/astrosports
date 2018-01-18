@@ -10,21 +10,21 @@
     $news-item-margin: 10px;
     margin-bottom: $news-item-margin;
 
-    @include media-query('sm') {
+    @include media-breakpoint-up('sm') {
 
       &:last-child > * {
         border-bottom: 0;
       }
     }
 
-    @include media-query('lg') {
+    @include media-breakpoint-up('lg') {
       margin-bottom: $news-item-margin * 2;
     }
 
     &:first-child {
       margin-top: $news-item-margin * 2;
 
-      @include media-query('lg') {
+      @include media-breakpoint-up('lg') {
         margin-top: $news-item-margin * 2;
       }
     }
@@ -32,10 +32,11 @@
 
   &__content {
     background-color: white;
-    @extend %news-item-border;
     border-width: 1px;
-    @extend .left;
-    width: 100%;
+
+    @extend %news-item-border;
+    @extend .float-left;
+    @extend .w-100;
 
     &:hover {
       $hover-color: #88dab0;
@@ -55,7 +56,7 @@
       }
     }
 
-    @include media-query('sm') {
+    @include media-breakpoint-up('sm') {
       border-width: 0 0 1px 0;
       padding-top: 10px;
       padding-bottom: 10px;
@@ -63,7 +64,7 @@
       height: 100px;
     }
 
-    @include media-query('lg') {
+    @include media-breakpoint-up('lg') {
       height: 180px;
     }
   }
@@ -71,10 +72,11 @@
   &__cover {
     background-color: #f1f1f1;
     height: 250px;
-    overflow: hidden;
+
+    @extend .o-hidden;
     @extend .col-reset;
 
-    @include media-query('sm') {
+    @include media-breakpoint-up('sm') {
       background-color: transparent;
       border-right: 1px solid  #bbb;
       height: 100%;
@@ -85,26 +87,29 @@
   %news-text {
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: center;
+
+    @extend .text-center;
   }
 
   &__subject {
-    @extend %news-text;
     color: lighten($theme-dark, 20%);
-    @extend .bolder;
 
-    @include media-query('sm') {
+    @extend %news-text;
+    @extend .font-weight-bold;
+
+    @include media-breakpoint-up('sm') {
       height: 70%;
     }
 
-    @include media-query('lg') {
+    @include media-breakpoint-up('lg') {
       height: 80%;
     }
   }
 
   &__published {
-    @extend %news-text;
     color: lighten($theme-dark, 40%);
-    font-weight: bold;
+
+    @extend %news-text;
+    @extend .font-weight-bold;
   }
 }

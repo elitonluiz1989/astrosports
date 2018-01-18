@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 
 // Font-Awesome
 @import "font-awesome/scss/font-awesome";
@@ -11,10 +11,6 @@
 @import "helpers/variables";
 @import "helpers/tabs";
 @import "helpers/titles";
-@import "helpers/media-queries";
-@import "helpers/gradients";
-@import "helpers/placeholders";
-@import "helpers/shadows";
 
 //partials
 @import "partials/news-list";

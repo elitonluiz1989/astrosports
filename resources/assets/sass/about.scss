@@ -9,7 +9,7 @@
         & > a {
             font-size: 0.9em;
 
-            @include media-query('sm') {
+            @include media-breakpoint-up('sm') {
                 font-size: 1em;
             }
         }
@@ -33,16 +33,17 @@
         }
 
         %about-team-item {
-          width: 100%;
+          @extend .w-100;
         }
 
         &-content {
             border-width: 0 1px 1px;
             border-style: solid;
             border-color: #555;
-            @extend .flex;
             align-items: center;
             justify-content: center;
+
+            @extend .flex;
             @extend %about-team-item;
 
           &:first-child {
@@ -52,8 +53,9 @@
 
         &-avatar {
             height: 200px;
+
             @extend %about-team-item;
-            overflow: hidden;
+            @extend .o-hidden;
         }
 
         %about-team-item-height {
@@ -62,13 +64,14 @@
         }
 
         &-name {
-            @extend %about-team-item;
             @extend %about-team-item-height;
-            font-weight: bolder;
+            @extend %about-team-item;
+            @extend .font-weight-bold;
         }
 
         &-role {
             background-color: #fafafa;
+
             @extend %about-team-item;
             @extend %about-team-item-height;
         }

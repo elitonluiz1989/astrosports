@@ -20,19 +20,20 @@
 
     &-content {
       border: 2px solid #d00;
-      @extend %left;
-      @extend %full;
+      @extend .float-left;
+      @extend .w-100;
+      @extend .h-100;
     }
 
     &-thumb {
       height: 180px;
-      width: 100%;
+      @extend .w-100;
 
-      @include media-query('md', true) {
+      @include media-breakpoint-only('md') {
         height: 150px;
       }
 
-      @include media-query('lg') {
+      @include media-breakpoint-up('lg') {
         height: 120px;
       }
     }
@@ -41,22 +42,23 @@
       $height: 1em * 3;
       boder: 1px solid red;
       height: $height;
-      overflow: hidden;
       padding: 3px;
       color: $theme-dark;
+
+      @extend .o-hidden;
       @extend .text-center;
     }
   }
 
   &__channel-link {
-    @extend .left;
+    @extend .float-left;
     width: 60%;
     margin: 0 20% 10px;
     padding: 5px 0;
 
     &:hover {
       background-color: $videos-color;
-      color: white;
+      @extend .text-white;
     }
   }
 }

@@ -1,6 +1,6 @@
 @php
     if (isset($listOrientation)) {
-        $listOrientation = \str_replace(['right', 'left'], [' contact-list--right', ' contact-list--left'], $listOrientation);
+        $listOrientation = \str_replace(['right', 'left'], [' float-right', ' contact-list--left'], $listOrientation);
 
         $listItemOrientation = \str_replace(['right', 'left'], [' contact-list__item--horizontal', ' contact-list__item--vertical'], $listOrientation);
     } else {

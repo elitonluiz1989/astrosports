@@ -5,17 +5,19 @@
 
   &__title {
     background-color: $assessments-color;
-    @extend .color-white;
+
+    @extend .text-white;
     @extend .sidebar__title;
   }
 
   %assessments-child {
-    width: 100%;
+    @extend .w-100;
   }
 
   .imc {
     $imc-color: #333;
     border: 1px solid $imc-color;
+
     @extend %assessments-child;
 
     &__title {
@@ -23,12 +25,14 @@
       border: 0;
       margin: 0;
       padding: 10px;
-      color: #fff;
-      text-align: center;
+
+      @extend .text-white;
+      @extend .text-center;
     }
 
     &__wrapper {
       border-top: 1px solid $imc-color;
+
       @extend %assessments-child;
 
       .form-group {
@@ -45,8 +49,9 @@
       &-btn {
         background-color: transparent;
         border-width: 0;
-        @extend %assessments-child;
         padding: 5px 0;
+
+        @extend %assessments-child;
 
         &:hover {
           background-color: #f6f6f6;
@@ -55,8 +60,9 @@
 
       &-content {
         height: 1px;
-        overflow: hidden;
         transition: height 1s;
+
+        @extend .o-hidden;
       }
 
       &--show {
@@ -75,17 +81,19 @@
     &__calculate {
       background-color: lighten($theme-green, 10%);
       border: 0;
-      width: 100%;
       padding: 15px 0;
-      @extend .color-white;
+
+      @extend .w-100;
+      @extend .text-white;
     }
 
     &__result {
       $imc-result-height: $spinner-size + 29px; // 32px by .imc__loader others elements
       background-color: #333;
       height: 0;
-      overflow: hidden;
       transition: height 1s;
+
+      @extend .o-hidden;
 
       &--loading-expand {
         height: $imc-result-height;
@@ -96,15 +104,17 @@
       }
 
       &-content {
-        @extend .text-center;
         padding: 10px 5px;
+
+        @extend .text-center;
       }
 
       &-value {
         padding-bottom: 10px;
-        @extend .color-white;
         font-size: 20px;
-        font-weight: bolder;
+
+        @extend .text-white;
+        @extend .font-weight-bold;
       }
     }
 
@@ -151,7 +161,8 @@
 
       &-value {
         font-size: 30px;
-        font-weight: bolder;
+
+        @extend .font-weight-bold;
       }
 
       &-text {
@@ -163,15 +174,17 @@
         width: 90%;
         margin: 2.5px auto 0;
         padding: 2.5px 0;
-        @extend .color-white;
+
+        @extend .text-white;
       }
     }
 
     &__error {
-      @extend .alert-danger;
       opacity: 0;
-      overflow: hidden;
       transition: opacity 1s;
+
+      @extend .alert-danger;
+      @extend .o-hidden;
 
       &--show {
         opacity: 1;
@@ -181,12 +194,13 @@
         margin: 0;
         padding: 15px 0;
         font-size: 14px;
+
         @extend .text-center;
       }
     }
 
     & .loader {
-      color: white;
+      @extend .text-white;
     }
   }
 }
