@@ -10,24 +10,24 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">Nome <small class="send-email__required">*</small></label>
 
-                <div class="input-group col-xs-12 col-sm-8 col-md-7" :class="contactEmailStyles.fields.name">
-                    <input id="send-email-name" class="form-control input-lg" type="text" name="send-email-name" @keyup="removeErrorStatus" v-model="name">
+                <div class="input-group col-xs-12 col-sm-8 col-md-7">
+                    <input id="send-email-name" class="form-control input-lg" :class="contactEmailStyles.fields.name" type="text" name="send-email-name" @keyup="removeErrorStatus" v-model="name">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">E-mail <small class="send-email__required">*</small></label>
 
-                <div class="input-group col-xs-12 col-sm-9 col-md-9 col-lg-9" :class="contactEmailStyles.fields.email">
-                    <input id="send-email-email"  class="form-control input-lg" type="text" name="send-email-email" @keyup="removeErrorStatus" v-model="email">
+                <div class="input-group col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                    <input id="send-email-email"  class="form-control input-lg" :class="contactEmailStyles.fields.email" type="text" name="send-email-email" @keyup="removeErrorStatus" v-model="email">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">Assunto <small class="send-email__required">*</small></label>
 
-                <div class="input-group col-xs-12 col-sm-6 col-md-5 col-lg-3" :class="contactEmailStyles.fields.subject">
-                    <select id="send-email-subject" class="form-control input-lg" @change="removeErrorStatus" v-model="subject">
+                <div class="input-group col-xs-12 col-sm-6 col-md-5 col-lg-3">
+                    <select id="send-email-subject" class="form-control input-lg" :class="contactEmailStyles.fields.subject" @change="removeErrorStatus" v-model="subject">
                         <option disabled>Selecione o assunto.</option>
 
                         <option v-for="(subjectValue, subjectKey) in subjects" :value="subjectKey">{{ subjectValue }}</option>
@@ -35,8 +35,8 @@
                 </div>
             </div>
 
-            <div class="form-group" :class="contactEmailStyles.fields.content">
-                <textarea id="send-email-content"  class="send-email__content form-control col-xs-12" name="send-email-text" @keyup="removeErrorStatus" v-model="content"></textarea>
+            <div class="form-group">
+                <textarea id="send-email-content"  class="send-email__content form-control col-xs-12" :class="contactEmailStyles.fields.content" name="send-email-text" @keyup="removeErrorStatus" v-model="content"></textarea>
             </div>
 
             <div class="form-group">
@@ -49,14 +49,14 @@
 </template>
 
 <script>
-    import Mask from '../Base/TheMask';
+    import AppMask from '../Base/AppMask';
     import ContactEmailMessages from './ContactEmailMessage';
 
     export default {
         name: 'contact-email',
 
         components: {
-            'form-mask': Mask,
+            'form-mask': AppMask,
             'form-message': ContactEmailMessages
         },
 
@@ -99,19 +99,19 @@
                 return {
                     fields: {
                         name: {
-                            'has-error': this.nameError
+                            'is-invalid': this.nameError
                         },
 
                         email: {
-                            'has-error': this.emailError
+                            'is-invalid': this.emailError
                         },
 
                         subject: {
-                            'has-error': this.subjectError
+                            'is-invalid': this.subjectError
                         },
 
                         content: {
-                            'has-error': this.contentError
+                            'is-invalid': this.contentError
                         }
                     }
                 }

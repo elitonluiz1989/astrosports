@@ -7,10 +7,10 @@
 </template>
 
 <script>
-    import TheLoader from './TheLoader';
+    import TheLoader from './AppLoader';
 
     export default {
-        name: 'TheMask',
+        name: 'app-mask',
 
         components: {
             'mask-loader': TheLoader
@@ -91,7 +91,7 @@
         },
 
         mounted() {
-            if (this.maskStyle == 'dark') {
+            if (this.maskStyle === 'dark') {
                 this.maskDark = true;
                 this.maskLight = false;
             }

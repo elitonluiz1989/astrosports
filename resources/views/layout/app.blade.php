@@ -39,31 +39,14 @@
             </div>
         </div>
 
-        <div id="app">
-            <header class="header conteiner-fluid">
-                <div class="row hidden-xs">
-                    <div class="header-logo col-sm-2"></div>
+        <div id="app" style="overflow: hidden">
+            <header class="header container-fluid">
+                @include('layout.header.title')
 
-                    <div id="header-title-default" class="header-title col-sm-10">
-                        <div class="header-title-content">
-                            <h1 class="header-title-text">Escola de Futebol Astro Sports</h1>
-                            <h2 class="header-title-subtitle">#Descobrindo valores</h2>
-                        </div>
-
-                        <div class="header-contact col-sm-6 col-sm-offset-6">
-                            @php
-                                $social = $template->social();
-                            @endphp
-
-                            @include('template.contact-list', $social)
-                        </div>
-                    </div>
-                </div>
-
-                @include('template.nav', $template->navItems())
+                @include('layout.header.nav', $template->navItems())
             </header>
 
-            <div class="content conteiner-fluid">
+            <div class="content container-fluid">
                 <div class="row">
                     @php
                         $showSidebar = $sidebar ?? true;
@@ -85,7 +68,7 @@
                             ];
                         @endphp
 
-                        @include('template.sidebar-left', $sidebarLeft)
+                        @include('layout.sidebar-left', $sidebarLeft)
                     @endif
 
                     <div class="@yield('page') {{ $contentClass }}">
@@ -93,12 +76,12 @@
                     </div>
 
                     @if ($showSidebar)
-                        @include('template.sidebar-right', $sidebarRight)
+                        @include('layout.sidebar-right', $sidebarRight)
                     @endif
                 </div>
             </div>
 
-            @include('template.footer', $template->footer())
+            @include('layout.footer', $template->footer())
         </div>
 
         <script src="/js/manifest.js"></script>

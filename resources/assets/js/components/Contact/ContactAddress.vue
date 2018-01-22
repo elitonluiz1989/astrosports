@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import TheMap from '../Base/TheMap';
+    import AppMap from '../Base/AppMap';
 
     export default {
         name: 'ContactAddress',
@@ -44,7 +44,7 @@
         },
 
         components: {
-            'contact-map': TheMap
+            'contact-map': AppMap
         }
     }
 </script>

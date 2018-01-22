@@ -135,7 +135,7 @@ class TemplateController extends Controller
     {
         $social = $this->default->model('contact')->get('social');
         $social = \array_filter($social);
-        $socialLinks = config('template.social.links');
+        $socialLinks = config('layout.social.links');
 
         return collect($social)->map(function($socialTitle, $socialLink) use ($socialLinks) {
             return $socialLinks[$socialLink] . $socialTitle;

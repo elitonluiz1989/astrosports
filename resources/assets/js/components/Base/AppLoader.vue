@@ -2,13 +2,13 @@
     <div class="loader" v-bind:class="TheLoaderStyle">
         <div class="spinner"></div>
 
-        <p class="loader__message" v-if="message != ''">{{ message }}</p>
+        <p class="loader__message text-center" v-if="hasMessage">{{ message }}</p>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'TheLoader',
+        name: 'app-loader',
 
         props: {
             floating: {
@@ -40,6 +40,10 @@
                     'loader--floating': this.floating,
                     'loader--static': !this.floating,
                 }
+            },
+
+            hasMessage() {
+                return this.message !== "";
             }
         }
 
@@ -76,7 +80,6 @@
         &__message {
             margin: 0;
             padding: 4px 0;
-            text-align: center;
             font-size: 12px;
         }
     }

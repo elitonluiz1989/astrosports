@@ -1,4 +1,4 @@
-<footer class="footer conteiner-fluid">
+<footer class="footer container-fluid">
     <section class="row">
         <ul class="footer-contact list-inline col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
             <li class="footer-item col-xs-12 col-sm-2 col-lg-2">
@@ -20,7 +20,7 @@
                 <div class="footer-content footer-content--separator visible-sm-up hidden-xs">.</div>
             </li>
             <li class="footer-item col-xs-12 col-sm-2 col-lg-2">
-                @include('template.contact-list', $social)
+                @include('layout.contact-list', $social)
             </li>
             <li class="footer-item col-xs-12 col-sm-1">
                 <div class="footer-content footer-content--separator visible-xs">...</div>

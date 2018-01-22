@@ -1,4 +1,4 @@
-@extends('template.app')
+@extends('layout.app')
 
 @section('content')
     @yield('tabs-header')

@@ -4,7 +4,7 @@ import {VideosModal} from "./components/Videos/VideosModal";
 
 require('./bootstrap');
 
-Vue.component('main-mask', require('./components/Base/TheMask'));
+Vue.component('main-mask', require('./components/Base/AppMask'));
 
 Vue.component('imc', require('./components/Imc/Imc'));
 

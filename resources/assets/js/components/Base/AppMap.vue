@@ -3,8 +3,10 @@
 </template>
 
 <script>
+    import Config from './Config';
+
     export default {
-        name: 'TheMap',
+        name: 'app-map',
 
         props: {
             address: {
@@ -57,7 +59,7 @@
                 errorMessage: 'Houve um erro ao carregar o mapa',
                 hasErrors: false,
                 geocoder: null,
-                googleKey: 'AIzaSyDrWVhWhId6VT9KBwAfX-joYbh1keEdsyM',
+                googleKey: Config.googleKey,
                 googleMaps: null,
                 mapId: this.name || 'map-' + Math.random()
             };

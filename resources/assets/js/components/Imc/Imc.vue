@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import TheLoader from '../Base/TheLoader';
+    import TheLoader from '../Base/AppLoader';
     import ImcResult from './ImcResult.vue';
 
     export default {

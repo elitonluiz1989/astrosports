@@ -1,6 +1,6 @@
 @php $homeTitleClass = 'home__title col-xs-10 col-sm-6 col-md-4 col-xs-offset-1'; @endphp
 
-@extends('template.app')
+@extends('layout.app')
 
 @section('title', 'Início')
 

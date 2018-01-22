@@ -5,44 +5,46 @@
   &-modal {
     &__header {
       background-color: $videos-color;
-      border-top-right-radius: 5px;
-      border-top-left-radius: 5px;
+      border-top-right-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
     }
   }
 
   &__list {
-    margin: 10px 0 5px;
+    margin: 1rem 0 0.5rem;
+
     @extend .list;
   }
 
   &__item{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 
     &-content {
-      border: 2px solid #d00;
+      border: 0.2rem solid #d00;
+
       @extend .float-left;
       @extend .w-100;
       @extend .h-100;
     }
 
     &-thumb {
-      height: 180px;
+      height: 1.8rem;
+
       @extend .w-100;
 
       @include media-breakpoint-only('md') {
-        height: 150px;
+        height: 15rem;
       }
 
       @include media-breakpoint-up('lg') {
-        height: 120px;
+        height: 12rem;
       }
     }
 
     &-title {
-      $height: 1em * 3;
-      boder: 1px solid red;
-      height: $height;
-      padding: 3px;
+      border: 1px solid red;
+      height: 3em;
+      padding: 0.3rem;
       color: $theme-dark;
 
       @extend .o-hidden;
@@ -58,6 +60,7 @@
 
     &:hover {
       background-color: $videos-color;
+
       @extend .text-white;
     }
   }
