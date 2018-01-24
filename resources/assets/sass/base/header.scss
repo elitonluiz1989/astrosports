@@ -1,13 +1,17 @@
 .header {
-  $navbar-height: $nav-link-height + ($nav-link-padding-y * 7);
   $header-height-sm: 12.5rem;
   $header-height-md: $header-height-sm;
-  $header-height-lg: 25rem;
+  $header-height-lg: 15.6rem;
+  $header-height-xl: 16.2rem;
 
-  border-bottom: 2px solid yellow;
-  background-image: url('../images/header-xs.jpg');
-  background-position: center top;
+  background-image: url('../images/header-xs.png');
   background-repeat: no-repeat;
+
+  @extend .position-relative;
+
+  @include media-breakpoint-up(sm) {
+    background-position: center top;
+  }
 
   @include media-breakpoint-only(sm) {
     background-image: url('../images/header-sm.jpg');
@@ -24,14 +28,20 @@
     height: $header-height-lg;
   }
 
+  @include media-breakpoint-up(xl) {
+    background-image: url('../images/header-xl.jpg');
+    background-size: cover;
+    height: $header-height-xl;
+  }
+
   &__logo {
     height: auto;
     padding-top: 0.5rem;
 
-    @include media-breakpoint-only('md') {
-    }
+    @extend .text-center;
 
-    @include media-breakpoint-up('lg') {
+    @include media-breakpoint-up(lg) {
+      text-align: right !important;
     }
   }
 
@@ -39,9 +49,14 @@
     text-shadow: 0.1rem 0.1rem 0.3rem #000, -0.1rem -0.1rem 0.3rem #000;
   }
 
-  &__title {
-    height: $header-height-sm - $navbar-height;
+  %header-wrapper {
+    @include media-breakpoint-up(sm) {
+      width: 100%;
+      position: absolute;
+    }
+  }
 
+  &__title {
     &-text {
       color: $theme-golden;
       font-size: 1.4rem;
@@ -61,7 +76,7 @@
       @extend %header-title-shadow;
     }
 
-    @include media-breakpoint-only("sm") {
+    @include media-breakpoint-only(sm) {
       &-text {
         margin-top: 1rem;
         font-size: 1.8rem;
@@ -73,32 +88,36 @@
       }
     }
 
-    @include media-breakpoint-only("md") {
+    @include media-breakpoint-only(md) {
       &-text {
         font-size: 2rem;
       }
 
       &-subtitle {
-        font-size: 1.4rem;
-        margin-right: 10%;
+        font-size: 1.6rem;
+        margin-right: 20%;
       }
     }
 
     @include media-breakpoint-up("lg") {
       &-text {
         margin-top: 2rem;
-        font-size: 5.5rem;
+        font-size: 2.5rem;
       }
 
       &-subtitle {
-        font-size: 2.6rem;
-        margin-right: 15%;
+        font-size: 1.8rem;
+        margin-right: 20%;
       }
     }
   }
 
-  .contact-list {
-    margin-bottom: 0.6rem !important;
+  &__contact-wrapper {
+    @extend %header-wrapper;
+
+    @include media-breakpoint-up(sm) {
+      bottom: 3.5rem; // magic number!
+    }
   }
 
   &__nav {
@@ -108,10 +127,11 @@
       background-color: rgba(0, 0, 0, .8);
     }
 
-    @include media-breakpoint-up("md") {
-      .nav-link {
-        font-size: 1.8rem;
-        padding: 0.6rem !important;
+    &-wrapper {
+      @extend %header-wrapper;
+
+      @include media-breakpoint-up(sm) {
+        bottom: 0;
       }
     }
 
@@ -139,7 +159,6 @@
     &-list {
       background-color: #111;
       border: 0;
-      font-size: 1rem;
 
       .nav-item {
         @extend .text-center;
@@ -147,14 +166,31 @@
 
       @include media-breakpoint-up(sm) {
         background-color: transparent;
-        margin-top: 5px;
+        margin-top: $navbar-padding-y;
 
         .navbar-nav {
           width: 100%;
-          justify-content: space-between;
           margin-bottom: $navbar-padding-y;
+          padding-right: $navbar-padding-y;
+          padding-left: $navbar-padding-y;
+
+          .nav-link {
+            &:hover,
+            &--active {
+              color: darken($theme-green, 5%) !important;
+            }
+
+            &:hover {
+              background-color: #fafafa;
+            }
+
+            &--active {
+              background-color: #efefef;
+            }
+          }
         }
       }
     }
   }
 }
+  

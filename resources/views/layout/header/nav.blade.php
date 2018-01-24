@@ -1,4 +1,4 @@
-<div class="row">
+<div class="header__nav-wrapper row">
     <nav class="header__nav navbar navbar-expand-sm col">
         <a id="header-title-collapsed" class="header-title navbar-brand d-sm-none" href="#">
             <span class="header__title-text">E. F. Astro Sports</span>
@@ -9,10 +9,11 @@
       </button>
 
         <div id="header-nav" class="header__nav-list collapse navbar-collapse">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav nav-fill">
                 @foreach ($navItems as $url => $title)
+                    @php $navLinkClass = ($url == $current) ? 'nav-link nav-link--active' : 'nav-link'; @endphp
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ $url }}">{{ $title }}</a>
+                        <a class="{{ $navLinkClass }}" href="{{ $url }}">{{ $title }}</a>
                     </li>
                 @endforeach
             </ul>

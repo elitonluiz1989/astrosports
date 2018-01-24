@@ -43,6 +43,12 @@
             <header class="header container-fluid">
                 @include('layout.header.title')
 
+                <div class="header__contact-wrapper row justify-content-end d-none d-sm-flex">
+                    <div class="col-sm-10 col-lg-9">
+                        @include('layout.contact-list', $template->social())
+                    </div>
+                </div>
+
                 @include('layout.header.nav', $template->navItems())
             </header>
 
