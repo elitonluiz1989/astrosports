@@ -1,36 +1,39 @@
 .content {
-  padding: 5px 5px 0;
+  @include media-breakpoint-up(sm) {
+    margin-top: 0.5rem;
+  }
 
   .sidebar {
     &__title {
       margin: 0;
-      padding: 0.25em;
+      padding: 0.25rem;
       font-size: 1.5em;
 
       @extend .text-white;
       @extend .text-center;
     }
 
-    &--left {
-      padding-right: 5px;
-      padding-left: 0;
+    &-left {
+      padding-right: 0.5rem;
+      padding-left:  0.5rem;
 
       @include tabs(#333);
 
       &__wrapper {
-        margin: 0 0 10px 0;
+        margin-bottom: 1rem;
 
+        @extend .float-left;
         @extend .w-100;
       }
-
-      @import "sidebar-schedules";
-
-      @import "sidebar-videos";
-
-      @import "sidebar-assessments";
     }
 
-    @import "content-sidebar-right";
+    @import "sidebar/advertising";
+
+    @import "sidebar/assessments";
+
+    @import "sidebar/schedules";
+
+    @import "sidebar/videos";
   }
 
   &__main {

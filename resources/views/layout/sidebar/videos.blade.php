@@ -1,6 +1,6 @@
-<div class="sidebar--left__videos sidebar--left__wrapper">
+<div class="sidebar__videos sidebar-left__wrapper">
     <header>
-        <h1 class="sidebar--left__videos-title">Últimos Vídeos</h1>
+        <h1 class="sidebar__videos-title">Últimos Vídeos</h1>
     </header>
     <ul class="list">
         @if ($videos->isNotEmpty())

@@ -7,7 +7,6 @@
 
   &-title {
     background-color: $sidebar-videos-color;
-    @extend .sidebar__title;
   }
 
   %videos-item {

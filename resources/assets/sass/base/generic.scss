@@ -1,8 +1,7 @@
 body {
   background: url('../images/background-lg.png') left bottom no-repeat #222;
-  font-size: 14px;
+  font-size: 10px !important;
 
-  @extend .o-hidden;
   @extend .position-relative;
 
   @include media-breakpoint-up('lg') {
@@ -10,12 +9,8 @@ body {
   }
 }
 
-.flex {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  @extend .d-flex;
+.main {
+  font-size: 14px !important;
 }
 
 .col-reset {

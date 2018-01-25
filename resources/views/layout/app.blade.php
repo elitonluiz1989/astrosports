@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div id="app" style="overflow: hidden">
+        <div id="app" class="main">
             <header class="header container-fluid">
                 @include('layout.header.title')
 
@@ -61,28 +61,31 @@
                     @endphp
 
                     @if ($showSidebar)
-                        @php $contentClass .= ' col-sm-6 col-md-7'; @endphp
+                        @php $contentClass .= ' col-sm-7 col-md-8 col-lg-9'; @endphp
 
                         @php
+                            $advertising = $template->advertising();
+
                             $sidebarLeft = [
+                                'advertising' => $advertising,
                                 'schedules'  => $template->schedules(),
                                 'videos'     => $template->videos()
                             ];
 
                             $sidebarRight = [
-                                'advertising' => $template->advertising()
+                                'advertising' => $advertising
                             ];
                         @endphp
 
-                        @include('layout.sidebar-left', $sidebarLeft)
+                        @include('layout.sidebar.sidebar-left', $sidebarLeft)
                     @endif
 
                     <div class="@yield('page') {{ $contentClass }}">
                         @yield('content')
                     </div>
 
-                    @if ($showSidebar)
-                        @include('layout.sidebar-right', $sidebarRight)
+                    @if ($showSidebar === 3)
+                        @include('layout.sidebar.sidebar-right', $sidebarRight)
                     @endif
                 </div>
             </div>

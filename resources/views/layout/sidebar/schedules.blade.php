@@ -1,8 +1,7 @@
-<div class="sidebar--left__schedule sidebar--left__wrapper">
-    <header>
-        <h2 class="schedule__title">Horários</h2>
-    </header>
-    <ul class="schedule__nav tabs nav nav-tabs">
+<div class="sidebar__schedule sidebar-left__wrapper">
+    <h2 class="sidebar__schedule-title sidebar__title">Horários</h2>
+
+    <ul class="sidebar__schedule-nav tabs nav nav-tabs">
         @foreach ($weekDays as $day => $dayText)
             @php
                 $class = ($day == $currentDay) ? 'tabs-item active' : 'tabs-item';
@@ -13,8 +12,7 @@
         @endforeach
     </ul>
 
-    <div class="row">
-        <div class="tab-content schedule">
+    <div class="tab-content">
             @foreach ($schedules as $day => $schedule)
                 @if (null != $schedule)
                     @component('partials.tabs.item')
@@ -29,18 +27,18 @@
                         @endif
 
                         @foreach ($schedule as $hour => $content)
-                            <div class="schedule__wrapper row">
-                                <div class="schedule__hour col-sm-3">
-                                    <div class="schedule__hour-content">{{ $hour }}</div>
+                            <div class="sidebar__schedule-wrapper row">
+                                <div class="sidebar__schedule-hour col-sm-3">
+                                    <div class="sidebar__schedule-hour-content">{{ $hour }}</div>
                                 </div>
 
                                 <div class="col-reset col-sm-8 col-sm-offset-1">
                                     @foreach ($content as $pole => $categories)
                                         <div class="col-sm-12 col-reset">
-                                            <div class="schedule__pole">{{ $pole }}</div>
+                                            <div class="sidebar__schedule-pole">{{ $pole }}</div>
 
                                             @foreach ($categories as $category)
-                                                <div class="schedule__category">{{ $category['category'] }}</div>
+                                                <div class="sidebar__schedule-category">{{ $category['category'] }}</div>
                                             @endforeach
                                         </div>
                                     @endforeach
@@ -61,13 +59,12 @@
                         @endif
 
                         <div class="row">
-                            <div class="schedule__item">
-                                <div class="schedule__empty">Sem horários<br>...</div>
+                            <div class="sidebar__schedule-item">
+                                <div class="sidebar__schedule-empty">Sem horários<br>...</div>
                             </div>
                         </div>
                     @endcomponent
                 @endif
             @endforeach
         </div>
-    </div>
 </div>

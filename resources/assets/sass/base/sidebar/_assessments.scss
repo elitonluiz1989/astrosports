@@ -5,20 +5,13 @@
 
   &__title {
     background-color: $assessments-color;
-
-    @extend .text-white;
-    @extend .sidebar__title;
-  }
-
-  %assessments-child {
-    @extend .w-100;
   }
 
   .imc {
     $imc-color: #333;
     border: 1px solid $imc-color;
 
-    @extend %assessments-child;
+    @extend .w-100;
 
     &__title {
       background-color: $theme-green;
@@ -33,7 +26,7 @@
     &__wrapper {
       border-top: 1px solid $imc-color;
 
-      @extend %assessments-child;
+      @extend .w-100;
 
       .form-group {
         margin: 0;
@@ -51,7 +44,7 @@
         border-width: 0;
         padding: 5px 0;
 
-        @extend %assessments-child;
+        @extend .w-100;
 
         &:hover {
           background-color: #f6f6f6;
