@@ -1,37 +1,35 @@
 .footer {
-    background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0, 0, 0, .8);
 
-    &-contact {
-        padding: 25px 0;
+  &-contact {
+    padding: 25px 0;
+    margin: 0;
+  }
+
+  &-item {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
     }
 
-    &-content {
-        font-size: 16px;
-
-        @extend .text-white;
-        @extend .text-center;
-
-        &--separator {
-            font-weight: bolder;
-            letter-spacing: 10px;
-        }
+    .fa-map-marker {
+      margin-right: 0.5rem;
     }
+  }
 
-    @include media-breakpoint-down('sm') {
-        &-item + &-item {
-            margin-top: 10px;
-        }
-    }
+  &-content {
+    padding: 0 0.2rem;
 
-    @include media-breakpoint-only('sm') {
-        &-content {
-            font-size: 12px;
-        }
-    }
+    @extend .text-white;
+    @extend .text-center;
 
-    @include media-breakpoint-up('md') {
-        &-contact {
-            margin-top: 10px;
-        }
+    &--separator {
+      font-weight: bolder;
+      letter-spacing: 10px;
+
+      @extend .w-100;
+      @extend .text-center;
     }
+  }
 }

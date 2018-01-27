@@ -1,32 +1,6 @@
 .contact-list {
   $self: &;
 
-  @extend .list;
-
-  &--left {
-    @extend .float-left;
-    @extend .w-100;
-  }
-
-  &__item {
-    @extend .float-left;
-
-    &--horizontal {
-      & + & {
-        margin-left: 10px;
-      }
-    }
-
-    &--vertical {
-      @extend .float-left;
-      @extend .w-100;
-
-      & + & {
-        margin-top: 10px;
-      }
-    }
-  }
-
   $icons: (
     'facebook': #2153b5,
     'google-plus': #e00,
@@ -35,15 +9,17 @@
     'whatsapp': #00bb34
   );
 
-  &__content {
-    padding-left: 30%;
+  &__item {
+    @extend .d-inline-block;
 
+    & + & {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__content {
     @extend .d-block;
     @extend .w-100;
-
-    @include media-breakpoint-up('sm') {
-      padding-left: 0;
-    }
 
     %icons-hover-settings {
       text-decoration: none;
@@ -72,30 +48,9 @@
     width: 30px;
     padding: 5px 0;
     color: #444;
-    font-size: 15px;
+    font-size: 14px;
 
     @extend .d-inline-block;
     @extend .text-center;
-
-    @mixin icon-bg() {
-      @each $iconName, $iconColor in $icons {
-        &--#{$iconName} {
-          @include media-breakpoint-only('sm') {
-            background-color: $iconColor;
-            color: white;
-          }
-        }
-      }
-    }
-
-    @include icon-bg;
-  }
-
-  &__title {
-    margin-top: 6px;
-    padding-left: 5px;
-
-    @extend .d-inline-block;
-    @extend .text-white;
   }
 }

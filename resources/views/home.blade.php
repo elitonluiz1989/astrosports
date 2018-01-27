@@ -49,7 +49,7 @@
         <header class="{{ $homeTitleClass }}">
             <h1 class="home__title-text">A Escola</h1>
         </header>
-        <section class="home__history-content col-xs-12">{!! $history !!}</section>
+        <section class="home__history-content col-12">{!! $history !!}</section>
         <a href="/sobre/historia" id="home-history-toggle" class="home__history-toggle">Continue lendo...</a>
     </div>
     <!-- News -->
@@ -61,7 +61,7 @@
 
             @include('partials.news-list', ['news' => $news])
 
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="col-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <a class=" home__news-more btn btn-default" href="/noticias">Mais Notícias</a>
             </div>
         </div>

@@ -10,7 +10,7 @@
     </header>
 
     <div class="row">
-        <ul class="photos-tabs nav nav-tabs col-xs-12">
+        <ul class="photos-tabs nav nav-tabs col-12">
             @foreach ($navItems as $item => $content)
                 @php $class = ($display == $item) ? 'tabs-item active' : 'tabs-item'; @endphp
                 <li class="{{ $class }}">
@@ -41,7 +41,7 @@
 
             @if (isset($albumName) && null != $albumName)
                 <div class="row">
-                    <div class="photos__album col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+                    <div class="photos__album col-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
                         <div class="photos__album-back">
                             <a href="{{ config('photos.url.albums') }}">
                                 <span class="glyphicon glyphicon-chevron-left"></span>

@@ -130,9 +130,7 @@ class TemplateController extends Controller
             'telephones'   => $contacts->get('telephone'),
             'emails'       => $contacts->get('email'),
             'social'       => [
-                'listOrientation' => 'left',
-                'showSocialTitle' => true,
-                'social'          => $this->socialDataTreatment()
+                'social' => $this->socialDataTreatment()
             ],
             'localization' => $contacts->get('localization')
         ];

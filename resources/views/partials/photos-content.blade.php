@@ -26,12 +26,12 @@
     </div>
 
     @foreach ($records as $record)
-        <div class="col-xs-12 col-sm-4 col-md-3">
+        <div class="col-12 col-sm-4 col-md-3">
             <a href="{{ $record->url }}" id="{{ $record->id }}" class="photo{{ ($showAlbumName) ? ' is-album' : null  }}">
                 <img src="{{ $record->img }}" alt="{{ $record->alt }}" class="photo__content">
 
                 @if ($showAlbumName)
-                    <div class="photo__album-name col-xs-12">{{ $record->name }}</div>
+                    <div class="photo__album-name col-12">{{ $record->name }}</div>
                 @endif
             </a>
         </div>

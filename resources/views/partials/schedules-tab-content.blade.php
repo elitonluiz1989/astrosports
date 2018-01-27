@@ -16,11 +16,11 @@
     </div>
     @foreach ($data as $target => $contents)
         <div class="{{ $rowsClass }}">
-            <div class="schedules__wrapper schedules__target-text col-xs-12 {{ $colsWrapper1Class }}">
+            <div class="schedules__wrapper schedules__target-text col-12 {{ $colsWrapper1Class }}">
                 <div class="schedules__item-text">{{ $target }}</div>
             </div>
 
-            <div class="schedules__wrapper col-xs-12 {{ $colsWrapper2Class }}">
+            <div class="schedules__wrapper col-12 {{ $colsWrapper2Class }}">
                 @foreach ($contents as $contentDay => $content)
 
                     @if (null != $content)

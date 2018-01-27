@@ -28,7 +28,7 @@
 
         <ul id="videos" class="videos__list">
             @foreach ($videos as $key => $video)
-                <li class="videos__item col-xs-12 col-md-4">
+                <li class="videos__item col-12 col-md-4">
                     <a href="{{ $video['url'] }}" class="videos__item-content" target="_blank">
                         <img src="{{ $video['thumb'] }}" alt="{{ $video['description'] }}" class="videos__item-thumb" title="{{ $video['title'] }}">
 
