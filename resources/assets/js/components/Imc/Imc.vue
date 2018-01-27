@@ -1,14 +1,12 @@
 <template>
-    <div class="assessments sidebar--left__wrapper">
-        <header class="row">
-            <h2 class="assessments__title sibebar__title">Avaliações</h2>
-        </header>
+    <div class="sidebar__assessments sidebar-left__wrapper">
+        <h2 class="sidebar__assessments-title">Avaliações</h2>
 
         <div id="imc" class="imc form-horizontal">
             <h3 class="imc__title">IMC</h3>
 
             <div class="imc_info imc__wrapper">
-                <button id="imc-show-info" class="imc__info-btn" v-on:click="toggleImcInfo">O que é o IMC? Clique para saber mais.</button>
+                <button id="imc-show-info" class="imc__info-btn btn" v-on:click="toggleImcInfo">O que é o IMC? Clique para saber mais.</button>
                 <div class="imc__info-content" v-bind:class="{'imc__info--show': showImcInfo}">
                     <p class="imc__text">IMC é a sigla para Índice de Massa Corporal, que é uma medida utilizada para medir a obesidade.</p>
                     <p class="imc__text">O cálculo é feito dividindo o peso (em quilogramas) pela altura (em metros) ao quadrado.</p>
@@ -16,15 +14,15 @@
                 </div>
             </div>
 
-            <div class=" imc__wrapper">
-                <div class="form-group">
+            <div class=" imc__wrapper container">
+                <div class="form-group row">
                     <label class="col-sm-3 control-label" for="imc__weight">Peso</label>
                     <div class="col-sm-9">
                         <input id="imc__weight" class="form-control input-lg" name="imc__weight" type="text" placeholder="0" v-model="imcWeight" v-on:focus="$event.target.select()" v-on:keypress="allowOnlyNumbers">
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="col-sm-3 control-label" for="imc__height">Altura</label>
                     <div class="col-sm-9">
                         <input id="imc__height"  class="form-control input-lg" name="imc__height" type="text" placeholder="0" v-model="imcHeight" v-on:focus="$event.target.select()" v-on:keypress="allowOnlyNumbers">

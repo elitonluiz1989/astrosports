@@ -1,10 +1,12 @@
-.assessments {
+&__assessments {
   $assessments-color: lighten($theme-dark, 5%);
   background-color: white;
   border: 1px solid $assessments-color;
 
-  &__title {
+  &-title {
     background-color: $assessments-color;
+
+    @extend .sidebar__title;
   }
 
   .imc {
@@ -17,7 +19,7 @@
       background-color: $theme-green;
       border: 0;
       margin: 0;
-      padding: 10px;
+      padding: 0.25rem;
 
       @extend .text-white;
       @extend .text-center;
@@ -26,11 +28,10 @@
     &__wrapper {
       border-top: 1px solid $imc-color;
 
-      @extend .w-100;
+      @extend .col-reset;
 
       .form-group {
-        margin: 0;
-        padding: 15px 0 20px;
+        padding: $spacer 0.5rem 0;
       }
 
       .form-group + .form-group {
@@ -41,10 +42,14 @@
     &__info {
       &-btn {
         background-color: transparent;
-        border-width: 0;
-        padding: 5px 0;
+        border: 0;
+        padding: 0.5rem 0;
 
         @extend .w-100;
+
+        @include media-breakpoint-between(sm, lg) {
+          font-size: 0.75rem;
+        }
 
         &:hover {
           background-color: #f6f6f6;
@@ -53,28 +58,36 @@
 
       &-content {
         height: 1px;
-        transition: height 1s;
+        transition: height .5s;
 
         @extend .o-hidden;
       }
 
       &--show {
         border-top: 1px solid $imc-color;
-        height: 190px;
+        height: 17rem;
+
+        @include media-breakpoint-only(md) {
+          height: 15rem;
+        }
+
+        @include media-breakpoint-only(xl) {
+          height: 15rem;
+        }
       }
     }
 
     &__text {
       background-color: #fafafa;
       margin: 0;
-      padding: 5px;
-      text-indent: 20px;
+      padding: 0.4rem;
+      text-indent: 1.8rem;
     }
 
     &__calculate {
       background-color: lighten($theme-green, 10%);
       border: 0;
-      padding: 15px 0;
+      padding: 1rem 0;
 
       @extend .w-100;
       @extend .text-white;
@@ -93,18 +106,18 @@
       }
 
       &--message-expand {
-        height: 120px;
+        height: 10rem;
       }
 
       &-content {
-        padding: 10px 5px;
+        padding: 0.8rem 0.3rem;
 
         @extend .text-center;
       }
 
       &-value {
-        padding-bottom: 10px;
-        font-size: 20px;
+        padding-bottom: 0.7rem;
+        font-size: 1.7rem;
 
         @extend .text-white;
         @extend .font-weight-bold;
@@ -116,7 +129,6 @@
       $imc-red: #dd4945;
       $imc-green: #00bb34;
       $imc-strong-green: darken($imc-green, 15%);
-      height: 100px;
       opacity: 0;
       transition: opacity 1s;
 
@@ -153,20 +165,20 @@
       }
 
       &-value {
-        font-size: 30px;
+        font-size: 2rem;
 
         @extend .font-weight-bold;
       }
 
       &-text {
-        padding: 5px 0;
+        padding: 0.2rem 0;
       }
 
       &-range {
         background-color: #888;
         width: 90%;
-        margin: 2.5px auto 0;
-        padding: 2.5px 0;
+        margin: 0.5rem auto 0;
+        padding: 0.5rem 0;
 
         @extend .text-white;
       }
@@ -185,8 +197,7 @@
 
       &-message {
         margin: 0;
-        padding: 15px 0;
-        font-size: 14px;
+        padding: 1.2rem 0;
 
         @extend .text-center;
       }
