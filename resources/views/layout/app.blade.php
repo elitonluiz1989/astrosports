@@ -69,7 +69,8 @@
                             $sidebarLeft = [
                                 'advertising' => $advertising,
                                 'schedules'  => $template->schedules(),
-                                'videos'     => $template->videos()
+                                'showVideos' => false,
+                                'videos'     => null//$template->videos()
                             ];
 
                             $sidebarRight = [

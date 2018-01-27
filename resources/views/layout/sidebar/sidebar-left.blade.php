@@ -5,7 +5,7 @@
 
     <imc></imc>
 
-    @php $showVideos = $sidebarVideos ?? true; @endphp
+    @php $showVideos = $showVideos ?? true; @endphp
     @if ($showVideos)
         @include('layout.sidebar.videos', $videos)
     @endif

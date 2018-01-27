@@ -1,4 +1,4 @@
-@extends('partials.tabs.index')
+@extends('partials.tabs.page')
 
 @section('page', 'schedules')
 
@@ -12,7 +12,7 @@
 
 @section('tabs-content')
     <!-- Schedules -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             schedules
         @endslot
@@ -36,7 +36,7 @@
     @endcomponent
 
     <!-- Categories -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             categories
         @endslot
@@ -60,7 +60,7 @@
     @endcomponent
 
     <!-- Poles -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             poles
         @endslot

@@ -1,40 +1,46 @@
 <div class="sidebar__schedule sidebar-left__wrapper">
     <h2 class="sidebar__schedule-title sidebar__title">Horários</h2>
 
-    <ul class="sidebar__schedule-nav tabs nav nav-tabs">
+    <ul id="sidebar-schedule-days" class="sidebar__schedule-nav nav nav-tabs" role="tablist">
         @foreach ($weekDays as $day => $dayText)
             @php
-                $class = ($day == $currentDay) ? 'tabs-item active' : 'tabs-item';
+                $navItemData = [
+                    'tabItemId' => 'schedule-' . $day,
+                    'tabItemText' => $dayText
+                ];
+
+                if ($day == $currentDay) {
+                    $navItemData['isActive'] = true;
+                }
             @endphp
-            <li role="presentation" class="{{ $class }}">
-                <a href="/#{{ $day }}" data-toggle="tab">{{ $dayText }}</a>
-            </li>
+
+            @include('partials.tabs.nav-item', $navItemData)
         @endforeach
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content" id="sidebar-schedule-content">
             @foreach ($schedules as $day => $schedule)
-                @if (null != $schedule)
-                    @component('partials.tabs.item')
-                        @slot('tabId')
-                            {{ $day }}
-                        @endslot
+                @component('partials.tabs.content-item')
+                    @slot('tabContentId', 'schedule-' . $day)
 
-                        @if ($currentDay == $day)
-                            @slot('tabActive')
-                                in active
-                            @endslot
-                        @endif
+                    @slot('customClass', 'container')
 
+                    @slot('labelledBy', 'schedule-' . $day)
+
+                    @if ($currentDay == $day)
+                        @slot('isActive', true)
+                    @endif
+
+                    @if (null != $schedule)
                         @foreach ($schedule as $hour => $content)
                             <div class="sidebar__schedule-wrapper row">
                                 <div class="sidebar__schedule-hour col-sm-3">
                                     <div class="sidebar__schedule-hour-content">{{ $hour }}</div>
                                 </div>
 
-                                <div class="col-reset col-sm-8 col-sm-offset-1">
+                                <div class="sidebar__schedule-content col-sm-9">
                                     @foreach ($content as $pole => $categories)
-                                        <div class="col-sm-12 col-reset">
+                                        <div class="w-100">
                                             <div class="sidebar__schedule-pole">{{ $pole }}</div>
 
                                             @foreach ($categories as $category)
@@ -45,26 +51,10 @@
                                 </div>
                             </div>
                         @endforeach
-                    @endcomponent
-                @else
-                    @component('partials.tabs.item')
-                        @slot('tabId')
-                            {{ $day }}
-                        @endslot
-
-                        @if ($currentDay == $day)
-                            @slot('tabActive')
-                                in active
-                            @endslot
-                        @endif
-
-                        <div class="row">
-                            <div class="sidebar__schedule-item">
-                                <div class="sidebar__schedule-empty">Sem horários<br>...</div>
-                            </div>
-                        </div>
-                    @endcomponent
-                @endif
+                    @else
+                        <div class="sidebar__schedule-empty">{!! $scheduleEmptyMessage !!}</div>
+                    @endif
+                @endcomponent
             @endforeach
         </div>
 </div>
