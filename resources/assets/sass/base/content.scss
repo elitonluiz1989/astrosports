@@ -3,6 +3,12 @@
     margin-top: 0.5rem;
   }
 
+  &__wrapper {
+    @extend .col-reset
+
+
+  }
+
   .sidebar {
     &__title {
       margin: 0;
@@ -14,7 +20,7 @@
     }
 
     &-left {
-      padding-right: 0.5rem;
+      padding-right: 0;
       padding-left:  0.5rem;
 
       @include tabs(#333);
@@ -36,14 +42,14 @@
     @import "sidebar/videos";
   }
 
-  &__main {
-    margin-top: 5px;
-  }
-
   .page {
     background-color: #fff;
     overflow-x: hidden;
-    @extend .col-reset;
+    margin: 0 0.5rem;
+
+    &--full {
+      margin: 0;
+    }
 
     &__title {
       border-bottom-width: 1px;

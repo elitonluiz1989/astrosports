@@ -58,7 +58,7 @@ class HomeController extends Controller
      */
     public function index() {
         $this->photos->paginate = 5;
-        $this->photos->resize(600,400);
+        $this->photos->resize(600,305);
 
         $this->data['history']  =  $this->repository->model(new History)->get('text');
         $this->data['photos']   =  $this->photos->get();

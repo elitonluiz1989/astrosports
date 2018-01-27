@@ -57,7 +57,7 @@
                     @php
                         $showSidebar = $sidebar ?? true;
 
-                        $contentClass = 'page col-xs-12';
+                        $contentClass = 'col-reset col-xs-12';
                     @endphp
 
                     @if ($showSidebar)
@@ -80,7 +80,7 @@
                         @include('layout.sidebar.sidebar-left', $sidebarLeft)
                     @endif
 
-                    <div class="@yield('page') {{ $contentClass }}">
+                    <div class="{{ $contentClass }}">
                         @yield('content')
                     </div>
 
