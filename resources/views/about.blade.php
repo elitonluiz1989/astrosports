@@ -1,4 +1,4 @@
-@extends('partials.tabs.index')
+@extends('partials.tabs.page')
 
 @section('page', 'about')
 
@@ -12,7 +12,7 @@
 
 @section('tabs-content')
     <!-- History -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             history
         @endslot
@@ -34,7 +34,7 @@
     @endcomponent
 
     <!-- Primer -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             primer
         @endslot
@@ -49,7 +49,7 @@
     @endcomponent
 
     <!-- PLayers -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             players
         @endslot
@@ -68,7 +68,7 @@
     @endcomponent
 
     <!-- Committee -->
-    @component('partials.tabs.item')
+    @component('partials.tabs.content-item')
         @slot('tabId')
             commission
         @endslot
