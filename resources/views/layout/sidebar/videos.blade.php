@@ -6,19 +6,19 @@
         @if ($videos->isNotEmpty())
             @foreach ($videos as $video)
                 <li class="list-item">
-                    <div class="sidebar--left__videos-item">
-                        <a href="{{ $video['url'] }}" class="sidebar--left__videos-content" target="_blank">
+                    <div class="sidebar__videos-item">
+                        <a href="{{ $video['url'] }}" class="sidebar__videos-content" target="_blank">
                             <img src="{{ $video['thumb'] }}" alt="{{ $video['title']  }}" title="{{ $video['title'] }}" class="img">
                         </a>
                     </div>
                 </li>
             @endforeach
             <li class="list-item">
-                <a class="sidebar--left__videos-more btn btn-default" href="/videos">Mais vídeos</a>
+                <a class="sidebar__videos-more btn" href="/videos">Mais vídeos</a>
             </li>
         @else
             <li class="list-item">
-                <div class="sidebar--left__videos--no-videos">Sem vídeos<br>...</div>
+                <div class="sidebar__videos--no-videos">Sem vídeos<br>...</div>
             </li>
         @endif
     </ul>

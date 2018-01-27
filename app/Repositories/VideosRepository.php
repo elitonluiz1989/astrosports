@@ -52,10 +52,18 @@ class VideosRepository
         return $videos;
     }
 
+    /**
+     * @return Collection
+     */
     public function getUplaodsVideos()
     {
         $uploadsVideos = Youtube::listChannelVideos($this->channel, $this->limit, $this->order);
-        return $this->videosDataTreatment($uploadsVideos);
+
+        if ($uploadsVideos) {
+            return $this->videosDataTreatment($uploadsVideos);
+        } else {
+            return collect([]);
+        }
     }
 
     /**
@@ -66,15 +74,18 @@ class VideosRepository
         $playlistsVideos = collect();
         $playlists = $this->getPlaylists();
 
-        foreach ($playlists as $playlist) {
-            $videos = Youtube::getPlaylistItemsByPlaylistId($playlist['id'], '', $this->limit)['results'];
-            //dd($videos);
-            $videos = $this->videosDataTreatment($videos);
+        if ($playlists) {
+            foreach ($playlists as $playlist) {
+                $videos = Youtube::getPlaylistItemsByPlaylistId($playlist['id'], '', $this->limit)['results'];
+                $videos = $this->videosDataTreatment($videos);
 
-            $playlistsVideos = $playlistsVideos->merge($videos);
+                $playlistsVideos = $playlistsVideos->merge($videos);
+            }
+
+            return collect($playlistsVideos);
+        } else {
+            return collect([]);
         }
-
-        return collect($playlistsVideos);
     }
 
     /**
