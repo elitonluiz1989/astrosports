@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\News;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class NewsRepository
 {

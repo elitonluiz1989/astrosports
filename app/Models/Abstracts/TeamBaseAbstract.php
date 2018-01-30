@@ -7,12 +7,16 @@ class TeamBaseAbstract extends ImageBaseAbstract
     /**
      * @return string
      */
-    protected function definingImg()
+    protected function getImgName()
     {
-        $cover = config('about.cover');
-        $resize = '?w=' . $cover['width'] . '&h=' . $cover['height'];
-        $img = $this->attributes['avatar'] ?? config('about.team.img');
+        return $this->attributes['avatar'] ?? config('about.team.img');
+    }
 
-        return $img . $resize;
+    /**
+     * @return array
+     */
+    protected function getDefaultImgSize()
+    {
+        return config('about.cover');
     }
 }
