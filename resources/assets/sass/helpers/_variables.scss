@@ -43,3 +43,20 @@ $theme-golden: #f1b92a;
 $theme-dark: #333;
 $schedule-item-color: #007dd0;
 $spinner-size: 50px;
+
+
+// News list
+$news-breakpoint1: 800px;
+$news-breakpoint2: 1000px;
+$news-breakpoint3: 1200px;
+
+$news-breakpoint1-max: $news-breakpoint2 - 1;
+$news-breakpoint2-max: $news-breakpoint3 - 1;
+
+$news-right-width1: 40%;
+$news-right-width2: 35%;
+$news-right-width3: 30%;
+
+$news-left-width1: 60%;
+$news-left-width2: 65%;
+$news-left-width3: 70%;

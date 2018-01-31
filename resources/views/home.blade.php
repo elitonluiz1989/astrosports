@@ -1,4 +1,4 @@
-@php $homeTitleClass = 'home__title col-xs-10 col-sm-6 col-md-4'; @endphp
+@php $homeTitleClass = 'home__title col-12 col-md-6 col-lg-4'; @endphp
 
 @extends('layout.app')
 
@@ -61,9 +61,7 @@
 
                 @include('partials.news-list', ['news' => $news])
 
-                <div class="col-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    <a class=" home__news-more btn btn-default" href="/noticias">Mais Notícias</a>
-                </div>
+                <a class=" home__news-more btn btn-light" href="/noticias">Mais Notícias</a>
             </div>
         @endif
     </div>

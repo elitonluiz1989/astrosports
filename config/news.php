@@ -6,6 +6,6 @@ return [
     ],
     'cover'      => [
         'width' => 400,
-        'height' => 350,
+        'height' => 250,
     ]
 ];
