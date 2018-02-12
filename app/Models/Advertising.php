@@ -16,10 +16,9 @@ class Advertising extends ImageBaseAbstract
     }
 
     /**
-     * @param  string $value
      * @return string|null
      */
-    public function getTargetAttribute($value)
+    public function getTargetAttribute()
     {
         if (null == $this->attributes['url']) {
             return null;
@@ -33,8 +32,8 @@ class Advertising extends ImageBaseAbstract
     */
     protected function definingImg()
     {
-        $rezise = config('advertising.img');
-        $img = $this->attributes['img'] . '?w=' . $rezise['width'] . '&h=' . $rezise['height'];
+        $resize = config('advertising.img');
+        $img = $this->attributes['img'] . '?w=' . $resize['width'] . '&h=' . $resize['height'];
 
         return $img;
     }

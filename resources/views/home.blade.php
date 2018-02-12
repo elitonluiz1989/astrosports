@@ -26,11 +26,13 @@
         <div class="carousel-inner" role="listbox">
             @foreach ($photos as $photo)
                 @php $class = ($loop->first) ? 'home__photo item active' : 'home__photo item'; @endphp
+
                 <div class="{{ $class }}">
-                    <img src="{{ $photo->img }}" alt="{{ $photo->alt }}">
-                    @if ( $photo->description )
+                    <img src="{{ $photo->source }}" alt="{{ $photo->alt }}">
+
+                    @isset($photo->description)
                         <div class="carousel-caption">{{ $photo->description }}</div>
-                    @endif
+                    @endisset
                 </div>
             @endforeach
         </div>

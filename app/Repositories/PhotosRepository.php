@@ -2,13 +2,19 @@
 namespace App\Repositories;
 
 use App\Models\Photos;
+use App\Repositories\Contracts\PhotosRepositoryInterface;
 
-class PhotosRepository
+class PhotosRepository implements PhotosRepositoryInterface
 {
+    /**
+     * @var array
+     */
+    public $fields = ['id', 'name', 'description'];
+
     /**
      * @var int
      */
-    public $paginate = 0;
+    public $limit = 0;
 
     /**
      * @var int
@@ -18,16 +24,17 @@ class PhotosRepository
     /**
      * @var string
      */
-    public $paginatePath;
+    public $path;
 
     /**
      * @var array
      */
-    public $fields = ['id', 'name', 'description'];
+    public $where = [];
 
-    public $width;
-
-    public $height;
+    /**
+     * @var AlbumsRepository
+     */
+    private $albums;
 
     /**
      * @var array
@@ -36,31 +43,41 @@ class PhotosRepository
 
     /**
      * PhotosRepository constructor.
+     * @param AlbumsRepository $albums
      */
-    public function __construct()
+    public function __construct(AlbumsRepository $albums)
     {
-        $this->paginatePath = config('photos.url.photos');
-
+        $this->albums = $albums;
+        $this->path = config('photos.url.photos');
         $this->imgSize = config('photos.cover');
     }
 
     /**
-     * @param array $where
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function get($where = []) {
+    public function getAlbums()
+    {
+        $this->albums->limit = $this->limit;
+
+        return $this->albums->get();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getPhotos() {
         $query = Photos::with('album');
 
-        if (count($where)) {
-            list($column, $signal, $value) = $where;
+        if (count($this->where) > 0) {
+            list($column, $signal, $value) = $this->where;
             $query->where($column, $signal, $value);
         }
 
         $photos = $query->select($this->fields)
-                        ->paginate($this->paginate);
+                        ->paginate($this->limit);
 
-        if ($this->paginatePath) {
-            $photos->withPath($this->paginatePath);
+        if ($this->path) {
+            $photos->withPath($this->path);
         }
 
 
@@ -71,7 +88,7 @@ class PhotosRepository
      * @param int $width
      * @param int $height
      */
-    public function resize(int $width, int $height)
+    public function setSize(int $width, int $height)
     {
         if ($width != $this->imgSize['width']) {
             config()->set('photos.cover.width', $width);

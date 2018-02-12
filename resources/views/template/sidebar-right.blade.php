@@ -6,8 +6,8 @@
             </li>
             @foreach( $advertising as $record)
                 <li class="advertising__item">
-                    <a href="{{ $record['url'] }}" {{ $record->target }} class="advertising__content">
-                        <img src="{{ $record['img'] }}" alt="{{ $record['name'] }}" class="img">
+                    <a href="{{ $record->url }}" {{ $record->target }} class="advertising__content">
+                        <img src="{{ $record->source }}" alt="{{ $record->name }}" class="img">
                     </a>
                 </li>
             @endforeach

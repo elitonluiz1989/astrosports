@@ -14,7 +14,7 @@ abstract class ImageBaseAbstract extends Model
     /**
      * @return string
      */
-    public function getImgAttribute()
+    public function getSourceAttribute()
     {
         return $this->imgSrc . $this->definingImg();
     }
@@ -31,5 +31,8 @@ abstract class ImageBaseAbstract extends Model
         }
     }
 
+    /**
+     * @return string
+     */
     abstract protected function definingImg();
 }

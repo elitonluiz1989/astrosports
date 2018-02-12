@@ -1,8 +1,4 @@
 @php
-    if ($records->total() > $limit) {
-        $pagination['links'] = $records->links();
-    }
-
     $showAlbumName = $showAlbumName ?? false;
 @endphp
 
@@ -27,8 +23,8 @@
 
     @foreach ($records as $record)
         <div class="col-xs-12 col-sm-4 col-md-3">
-            <a href="{{ $record->url }}" id="{{ $record->id }}" class="photo{{ ($showAlbumName) ? ' is-album' : null  }}">
-                <img src="{{ $record->img }}" alt="{{ $record->alt }}" class="photo__content">
+            <a href="{{ $record->link }}" id="{{ $record->id }}" class="photo{{ ($showAlbumName) ? ' is-album' : null  }}">
+                <img src="{{ $record->source }}" alt="{{ $record->alt }}" class="photo__content">
 
                 @if ($showAlbumName)
                     <div class="photo__album-name col-xs-12">{{ $record->name }}</div>

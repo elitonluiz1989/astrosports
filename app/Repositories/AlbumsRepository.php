@@ -9,33 +9,33 @@ class AlbumsRepository
     /**
      * @var int
      */
-    public $paginate = 0;
+    public $limit = 0;
 
     /**
      * @var string
      */
-    public $paginatePath;
+    public $path;
 
     /**
      * AlbumsRepository constructor.
      */
     public function __construct()
     {
-        $this->paginatePath = config('photos.url.albums');
+        $this->path = config('photos.url.albums');
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function get() {
         $coverQuery = "(SELECT photos.name FROM photos WHERE photos.album = albums.id ORDER BY rand() LIMIT 1) AS cover";
 
         $albums = Albums::select()
                         ->addSelect(DB::raw($coverQuery))
-                        ->paginate($this->paginate);
+                        ->paginate($this->limit);
 
-        if ($this->paginatePath) {
-            $albums->withPath($this->paginatePath);
+        if ($this->path) {
+            $albums->withPath($this->path);
         }
 
         return $albums;

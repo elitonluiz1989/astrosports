@@ -1,9 +1,14 @@
 <?php
+
 return [
+    'views' => [
+        'index' => 'photos.index',
+        'item' => 'photos.item'
+    ],
     'display'       => 'photos',
     'sidebar'       => false,
     'url'           => [
-        'albums' => 'fotos/albuns/',
+        'album' => 'fotos/album/',
         'photos' => 'fotos/'
     ],
     'navItems'     => [
@@ -16,14 +21,9 @@ return [
             'text' => 'Albuns'
         ]
     ],
-    'photosContent'    => [
-        'pagination' => [
-            'links'   => null
-        ]
-    ],
     'cover'      =>[
-        'width'  => 300,
-        'height' => 250
+        'width'  => 360,
+        'height' => 225
     ],
     'emptyMessage'  => '<p class="tabs-empty">Sem registros.</p>',
     'limit'   => 12

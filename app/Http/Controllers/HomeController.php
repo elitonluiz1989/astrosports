@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Repositories\Contracts\PhotosRepositoryInterface;
 use App\Repositories\DefaultRepository;
 use App\Repositories\NewsRepository;
-use App\Repositories\PhotosRepository;
 
 class HomeController extends Controller
 {
     /**
      * @var string
      */
-    private $view;
+    private $data;
 
     /**
-     * @var string
+     * @var NewsRepository $news
      */
-    private $data;
+    private $news;
+
+    /**
+     * @var PhotosRepositoryInterface $photos
+     */
+    private $photos;
 
     /**
      * @var DefaultRepository $repository
@@ -25,26 +30,15 @@ class HomeController extends Controller
     private $repository;
 
     /**
-     * @var NewsRepository $news
-     */
-    private $news;
-
-
-    /**
-     * @var PhotosRepository $photos
-     */
-    private $photos;
-
-    /**
      * HomeController constructor.
      * @param DefaultRepository $repo
      * @param NewsRepository $news
-     * @param PhotosRepository $photos
+     * @param PhotosRepositoryInterface $photos
      */
     public function __construct(
         DefaultRepository $repo,
         NewsRepository $news,
-        PhotosRepository $photos
+        PhotosRepositoryInterface $photos
     ) {
         $this->repository = $repo;
         $this->news = $news;
@@ -57,11 +51,24 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $this->photos->paginate = 5;
-        $this->photos->resize(600,400);
+        $this->photos->limit = 5;
+        /**
+         * Facebook image sizes
+         * 208x130
+         * 360x225
+         * 512x320
+         * 767x480
+         * 863x540
+         * 960x600
+         * 1151x720
+         * 1534x960
+         * 1650x1032
+         */
+        $size = config('facebook.image_sizes.767x480');
+        $this->photos->setSize($size['width'], $size['height']);
 
         $this->data['history']  =  $this->repository->model(new History)->get('text');
-        $this->data['photos']   =  $this->photos->get();
+        $this->data['photos']   =  $this->photos->getPhotos();
         $this->data['news']     =  $this->news->listNews();
 
         return view('home', $this->data);
