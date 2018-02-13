@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'service' => 'facebook',
     'views' => [
         'index' => 'photos.index',
         'item' => 'photos.item'
@@ -9,6 +10,7 @@ return [
     'sidebar'       => false,
     'url'           => [
         'album' => 'fotos/album/',
+        'albums' => 'fotos/albuns/',
         'photos' => 'fotos/'
     ],
     'navItems'     => [

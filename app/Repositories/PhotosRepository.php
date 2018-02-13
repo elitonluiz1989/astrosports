@@ -52,21 +52,31 @@ class PhotosRepository implements PhotosRepositoryInterface
         $this->imgSize = config('photos.cover');
     }
 
+    public function getAlbum($albumId)
+    {
+        return $this->albums->getAlbum($albumId);
+    }
+
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
      */
     public function getAlbums()
     {
-        $this->albums->limit = $this->limit;
-
+        $this->path = config('photos.url.albums');
         return $this->albums->get();
     }
 
     /**
+     * @param null $albumId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getPhotos() {
+    public function getPhotos($albumId = null) {
         $query = Photos::with('album');
+
+        if (null != $albumId) {
+            $query->where('album', '=', $albumId);
+            $this->path = config('photos.url.album') . $albumId;
+        }
 
         if (count($this->where) > 0) {
             list($column, $signal, $value) = $this->where;

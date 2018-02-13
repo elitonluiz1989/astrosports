@@ -1,5 +1,5 @@
 @php
-    $showAlbumName = $showAlbumName ?? false;
+    $showAlbumName = $isAlbum ?? false;
 @endphp
 
 @include('partials.pagination-bar', $pagination)

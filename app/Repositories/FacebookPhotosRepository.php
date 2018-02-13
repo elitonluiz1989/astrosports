@@ -9,12 +9,24 @@ use Illuminate\Support\Collection;
 class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryInterface
 {
     /**
+     * @var array
+     */
+    public $fields;
+
+    public function getAlbum($albumId)
+    {
+        $params = ['fields' => 'name'];
+        $album = $this->setRequest($albumId, $params);
+        return $album->getGraphAlbum();
+    }
+
+    /**
      * @return \Illuminate\Pagination\LengthAwarePaginator|Collection
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function getAlbums()
     {
-        $this->setFields('name');
+        $this->verifyFields(['id', 'name']);
 
         $uri = $this->pageId . '/albums';
 
@@ -38,20 +50,20 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
         $photos = collect([]);
 
         // Set fields to photos search
-        $this->setFields(['id', 'name', 'source', 'album{id,name}']);
-        $this->path = config('photos.url.photos');
+        $this->verifyFields(['id', 'name', 'source', 'album{id,name}']);
 
         if (null == $albumId) {
             $this->setTotalItems();
 
             $uri = $this->pageId . '/photos?type=uploaded';
+            $this->path = config('photos.url.photos');
 
         } else {
             // Searching the total of photos of the current album to pagination
             $this->setTotalItems($albumId);
 
             $uri = "/{$albumId}/photos";
-
+            $this->path = config('photos.url.album') . $albumId;
         }
 
         $values = $this->getResponseValues($uri);
@@ -128,5 +140,11 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
             $uri = '/' . $albumId;
             $this->totalItems = $this->setRequest($uri, $params)->getDecodedBody()['count'];
         }
+    }
+
+    private function verifyFields(array $defaultFields)
+    {
+        $fields = $this->fields ?? $defaultFields;
+        $this->setFields($fields);
     }
 }

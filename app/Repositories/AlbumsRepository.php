@@ -40,4 +40,13 @@ class AlbumsRepository
 
         return $albums;
     }
+
+    /**
+     * @param int $albumId
+     * @return \Illuminate\Database\Eloquent\Collection;
+     */
+    public function getAlbum(int $albumId)
+    {
+        return Albums::find($albumId);
+    }
 }

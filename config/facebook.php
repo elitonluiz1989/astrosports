@@ -7,7 +7,7 @@ return [
         'default_graph_version' => 'v2.12'
     ],
     'graph_url' => 'https://graph.facebook.com/',
-    'page_id' => '2051727141519185',
+    'page_id' => '894796037272493',
     'excluded_albums' => [
         'Profile Pictures',
         'Cover Photos',

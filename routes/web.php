@@ -11,7 +11,9 @@ Route::get('/noticias', 'NewsController@index');
 Route::get('/noticias/{news}', 'NewsController@showNews');
 
 // Photos
-Route::get(config('photos.url.photos'), 'PhotosController@index');
+Route::get(config('photos.url.photos'), 'PhotosController@photos');
+Route::get(config('photos.url.albums'), 'PhotosController@albums');
+Route::get(config('photos.url.album') . '{id}', 'PhotosController@album')->where('id', '[0-9]+');
 Route::get('storage/photos/{file}', 'PhotosController@getPhoto');
 
 // Schedules

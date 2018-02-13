@@ -48,11 +48,28 @@ class PhotosController extends Controller
         $this->photos->limit = $this->data['limit'];
     }
 
-    public function index()
+    public function album(int $id)
     {
         $this->validatePage();
 
-        $records = $this->photos->getPhotos();
+        $this->data['albumName'] = $this->photos->getAlbum($id)['name'];
+
+        $records = $this->photos->getPhotos($id);
+
+        $this->recordsHandler($records);
+
+        return view($this->view, $this->data);
+    }
+
+    public function albums()
+    {
+        $this->validatePage();
+
+        $this->data['display'] = 'albums';
+        $this->data['records']['isAlbum'] = true;
+
+        $this->photos->fields = ['id', 'name', 'cover_photo'];
+        $records = $this->photos->getAlbums();
 
         $this->recordsHandler($records);
 
@@ -77,13 +94,18 @@ class PhotosController extends Controller
         return $img->response($photoExt);
     }
 
-    private function validatePage()
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function photos()
     {
-        $page = $this->request->get('page');
+        $this->validatePage();
 
-        if (null != $page) {
-            $this->photos->page = (int)$page;
-        }
+        $records = $this->photos->getPhotos();
+
+        $this->recordsHandler($records);
+
+        return view($this->view, $this->data);
     }
 
     /**
@@ -99,6 +121,15 @@ class PhotosController extends Controller
         } else {
             // Same of up
             $this->data['records']['pagination']['links'] = [];
+        }
+    }
+
+    private function validatePage()
+    {
+        $page = $this->request->get('page');
+
+        if (null != $page) {
+            $this->photos->page = (int)$page;
         }
     }
 }

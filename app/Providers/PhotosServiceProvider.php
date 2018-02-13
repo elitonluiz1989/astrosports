@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Repositories\Contracts\PhotosRepositoryInterface;
 use App\Repositories\FacebookPhotosRepository;
+use App\Repositories\PhotosRepository;
 use Illuminate\Support\ServiceProvider;
 
 class PhotosServiceProvider extends ServiceProvider
@@ -25,7 +26,13 @@ class PhotosServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(PhotosRepositoryInterface::class, FacebookPhotosRepository::class);
+        $service = config('photos.service');
+
+        if ($service == 'facebook'){
+            $this->app->bind(PhotosRepositoryInterface::class, FacebookPhotosRepository::class);
+        } else {
+            $this->app->bind(PhotosRepositoryInterface::class, PhotosRepository::class);
+        }
     }
 
     public function provides()

@@ -7,14 +7,14 @@ abstract class PhotoBaseAbstract extends ImageBaseAbstract
     /**
      * @return string
      */
-    public function getUrlAttribute()
+    public function getLinkAttribute()
     {
         $childClassName = (new \ReflectionClass(\get_called_class()))->getShortName();
         if ($childClassName == "Albums")
         {
-            return config('photos.url.albums') . $this->id;
+            return config('photos.url.album') . $this->id;
         } else {
-            return $this->img;
+            return $this->source;
         }
     }
 
