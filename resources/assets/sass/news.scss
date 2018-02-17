@@ -1,5 +1,10 @@
 .news {
   background-color: #f8f8f8 !important;
+  min-height: 15rem;
+
+  @include media-query($news-breakpoint1) {
+    padding-bottom: 1rem;
+  }
 
   @include media-breakpoint-up('sm') {
     background-color: white !important;
@@ -14,54 +19,6 @@
     @extend .text-center;
   }
 
-  &__search {
-    width: 98%;
-    margin-right: 1%;
-    margin-left: 1%;
-
-    @include media-breakpoint-up('sm') {
-      width: 60%;
-    }
-
-    @include media-breakpoint-up('md') {
-      width: 40%;
-    }
-
-    @include media-breakpoint-up('lg') {
-      width: 30%;
-    }
-
-    &-field {
-      width: 85%;
-
-      @extend .float-left;
-      @extend .col-reset;
-    }
-
-    &-input {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-
-      @extend .w-100;
-
-      @include media-breakpoint-up('sm')
-      {
-        width: 100% !important; //overwriting bootstrap default value
-      }
-    }
-
-    &-btn {
-      border-left: 0;
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
-      width: 15%;
-      margin: 0;
-      color: #777;
-
-      @extend .float-right;
-    }
-  }
-
   &-full {
     margin: 5px;
 
@@ -69,20 +26,20 @@
       border-bottom: 1px solid #ddd;
 
       &-title {
-        padding: 5px;
+        padding: 0.3rem;
 
         @extend .text-justify;
       }
 
       &-published {
-        padding: 10px 0 10px 20px;
+        padding: 0.7rem 0 0.7rem 1.7rem;
         color: #777;
       }
     }
 
     &__content {
-      margin-top: 10px;
-      padding: 0 5px;
+      margin-top: 1rem;
+      padding: 0 0.3rem;
 
       @extend .text-justify;
 
@@ -95,7 +52,7 @@
 
         @extend .w-100;
 
-        @include media-breakpoint-up('xs') {
+        @include media-breakpoint-up('sm') {
           height: 230px;
         }
 

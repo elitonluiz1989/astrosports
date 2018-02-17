@@ -59,7 +59,7 @@
                     <h1 class="home__title-text">Últimas Notícias</h1>
                 </header>
 
-                @include('partials.news-list', ['news' => $news])
+                @include('news.list', ['news' => $news])
 
                 <a class=" home__news-more btn btn-light" href="/noticias">Mais Notícias</a>
             </div>

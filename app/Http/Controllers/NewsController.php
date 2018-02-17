@@ -6,15 +6,21 @@ use App\Repositories\NewsRepository;
 
 class NewsController extends Controller
 {
+
+    /**
+     * @var array
+     */
+     private $data;
+
     /**
      * @var NewsRepository
      */
     private $news;
 
     /**
-     * @var array
+     * @var string
      */
-    private $data;
+    private $view;
 
     /**
      * NewsController constructor.
@@ -24,6 +30,8 @@ class NewsController extends Controller
     {
         $this->news = $news;
         $this->data = config('news');
+        $this->view = $this->data['view'];
+        unset($this->data['view']);
     }
 
     /**
@@ -37,7 +45,7 @@ class NewsController extends Controller
             $this->data['pagination']['links'] = $this->data['news']->links();
         }
 
-        return view('news', $this->data);
+        return view($this->view, $this->data);
     }
 
     /**
@@ -50,6 +58,6 @@ class NewsController extends Controller
 
         $this->data['showChosenNews'] = true;
         $this->data['news'] = $this->news->get(['id', '=', $id])[0];
-        return view('news', $this->data);
+        return view($this->view, $this->data);
     }
 }

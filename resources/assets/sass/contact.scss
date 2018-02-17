@@ -1,7 +1,5 @@
 .contact {
-  @include titles(#333) {
-    @extend .col-12;
-  }
+  @include titles(#333);
 
   &__section-title {
     background-color: $theme-green;
