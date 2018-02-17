@@ -1,29 +1,40 @@
 .contact {
-  @include titles(#333);
+  @include titles(#333) {
+    @extend .col-12;
+  }
 
   &__section-title {
     background-color: $theme-green;
     padding: 8px 0;
     font-size: 20px;
 
+    @extend .col-12;
+    @extend .col-sm-9;
+    @extend .col-md-7;
+    @extend .col-lg-6;
+    @extend .col-xl-4;
     @extend .text-white;
     @extend .text-center;
 
     @include media-breakpoint-up('sm') {
-      margin-left: 10px;
+      margin-top: 1rem;
+      margin-left: 1.5rem;
     }
   }
 
   .contacts {
-    padding-right: 10px;
+    padding-left: 2rem; // -15px from bootstrap col margin
 
     &__subtitle {
       background-color: #333;
-      margin-left: 10px;
-      padding: 5px 0;
+      padding: 0.3rem 0;
       color: $theme-golden;
 
-      @extend .float-left;
+      @extend .col-8;
+      @extend .col-sm-6;
+      @extend .col-md-5;
+      @extend .col-lg-4;
+      @extend .col-xl-3;
       @extend .text-center;
 
       @include media-breakpoint-up('sm') {
@@ -32,15 +43,23 @@
     }
 
     &__item {
-      padding: 5px 0 5px 15px;
+      padding: 0.5rem 0 0.5rem 1.3rem;
 
       @include media-breakpoint-up('sm') {
-        padding-left: 20px;
+        padding-left: 1.7rem;
       }
     }
   }
 
   .send-email {
+    @extend .col-12;
+    @extend .col-lg-9;
+
+    .control-label {
+      @extend .col-12;
+      @extend .col-3;
+    }
+
     &__message {
       opacity: 0;
       transition: opacity .5s;
@@ -49,6 +68,11 @@
 
       &--show {
         opacity: 1;
+      }
+
+      .alert {
+        width: 90%;
+        margin: 0 auto;
       }
     }
 
@@ -67,11 +91,25 @@
     }
 
     &__submit {
+      border-color: #bbb;
       margin-top: 15px;
     }
   }
 
   .localization {
+    &__title {
+      font-size: 1.4rem;
+
+      @extend .font-weight-bold;
+    }
+
+    &__text {
+      margin-bottom: 0.3rem;
+      padding-left: 1rem;
+
+      @extend .w-100;
+    }
+
     &__error {
       padding: 15px 0;
 
@@ -81,10 +119,9 @@
 
     &__map {
       border: 1px solid $theme-green;
+      width: 98%;
       height: 400px;
-      margin-bottom: 10px;
-
-      @extend .w-100;
+      margin: 0 1% 1rem;
     }
   }
 }

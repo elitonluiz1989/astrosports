@@ -1,5 +1,5 @@
 <template>
-    <div class="loader" v-bind:class="TheLoaderStyle">
+    <div class="loader" v-bind:class="styles">
         <div class="spinner"></div>
 
         <p class="loader__message text-center" v-if="hasMessage">{{ message }}</p>
@@ -33,7 +33,7 @@
         },
 
         computed: {
-            TheLoaderStyle: function() {
+            styles: function() {
                 return {
                     'loader--show': this.show,
                     'loader--hide': this.hide,
@@ -66,7 +66,7 @@
         }
 
         &--floating {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             margin-top: -35px;

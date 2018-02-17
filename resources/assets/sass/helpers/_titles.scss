@@ -1,6 +1,8 @@
 @mixin titles($title-color) {
-    &__title {
-        background-color: $title-color;
-        border-bottom-color: darken($title-color, 10%);
-    }
+  &__title {
+    background-color: $title-color;
+    border-bottom-color: darken($title-color, 10%);
+
+    @content;
+  }
 }

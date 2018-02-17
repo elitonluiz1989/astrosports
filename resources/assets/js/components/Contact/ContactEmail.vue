@@ -1,14 +1,14 @@
 <template>
     <div class="row">
-        <h2 class="contact__section-title col-12 col-sm-7 col-md-6 col-lg-4">Envie-nos uma mensagem</h2>
+        <h2 class="contact__section-title">Envie-nos uma mensagem</h2>
 
-        <form id="send-email" class="send-email col-12 col-lg-9 col-lg-offset-1" action="/contato/enviar" @submit="sendEmail">
+        <form id="send-email" class="send-email" action="/contato/enviar" @submit="sendEmail" ref="form">
             <form-mask :show-mask="showFormMask" :fullscreen="formMaskFullscreen" :loader-message="formLoaderMessage"></form-mask>
 
             <form-message :error="showMessageError" :success="showMessageSuccess" :message="formMessage"></form-message>
 
             <div class="form-group">
-                <label class="control-label col-12 col-sm-3 col-md-3 col-lg-3">Nome <small class="send-email__required">*</small></label>
+                <label class="control-label">Nome <small class="send-email__required">*</small></label>
 
                 <div class="input-group col-12 col-sm-8 col-md-7">
                     <input id="send-email-name" class="form-control input-lg" :class="contactEmailStyles.fields.name" type="text" name="send-email-name" @keyup="removeErrorStatus" v-model="name">
@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-12 col-sm-3 col-md-3 col-lg-3">E-mail <small class="send-email__required">*</small></label>
+                <label class="control-label">E-mail <small class="send-email__required">*</small></label>
 
                 <div class="input-group col-12 col-sm-9 col-md-9 col-lg-9">
                     <input id="send-email-email"  class="form-control input-lg" :class="contactEmailStyles.fields.email" type="text" name="send-email-email" @keyup="removeErrorStatus" v-model="email">
@@ -24,9 +24,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-12 col-sm-3 col-md-3 col-lg-3">Assunto <small class="send-email__required">*</small></label>
+                <label class="control-label">Assunto <small class="send-email__required">*</small></label>
 
-                <div class="input-group col-12 col-sm-6 col-md-5 col-lg-3">
+                <div class="input-group col-8 col-sm-6 col-md-5 col-lg-3">
                     <select id="send-email-subject" class="form-control input-lg" :class="contactEmailStyles.fields.subject" @change="removeErrorStatus" v-model="subject">
                         <option disabled>Selecione o assunto.</option>
 
@@ -36,12 +36,14 @@
             </div>
 
             <div class="form-group">
-                <textarea id="send-email-content" class="send-email__content form-control col-12" :class="contactEmailStyles.fields.content" name="send-email-text" @keyup="removeErrorStatus" v-model="content"></textarea>
+                <div class="col-12">
+                    <textarea id="send-email-content" class="send-email__content form-control" :class="contactEmailStyles.fields.content" name="send-email-text" @keyup="removeErrorStatus" v-model="content"></textarea>
+                </div>
             </div>
 
             <div class="form-group">
                 <div class="col-12">
-                    <input type="submit" class="send-email__submit btn btn-default" value="Enviar">
+                    <input type="submit" class="send-email__submit btn btn-light" value="Enviar">
                 </div>
             </div>
         </form>
@@ -90,7 +92,8 @@
                 showMessageSuccess: false,
                 formMessage: '',
 
-                hideSubmitMessage: null
+                hideSubmitMessage: null,
+                defaultScroll: 10
             }
         },
 
@@ -119,6 +122,8 @@
         },
 
         mounted: function() {
+            this.defaultScroll += this.$refs.form.offsetTop;
+
             axios.get('/json/contact')
                 .then(response => {
                     this.subjects = response.data.subjects;
@@ -177,7 +182,7 @@
                 } else {
                     this.showFormMask = true;
 
-                    this.scrollWindow();
+                    this.scrollWindow(800);
 
                     let data = {
                         name: this.name,
@@ -232,7 +237,7 @@
                     $(selector).focus();
                 }
 
-                this.scrollWindow(500);
+                this.scrollWindow();
             },
 
             setMessageError(message, targetElement, submitMessage) {
@@ -251,8 +256,8 @@
             },
 
             scrollWindow(speed, scrollTo) {
-                speed = speed || 800;
-                scrollTo = scrollTo || 400;
+                speed = speed || 500;
+                scrollTo = scrollTo || this.defaultScroll;
 
                 $('html, body').animate({scrollTop: scrollTo}, speed);
             },

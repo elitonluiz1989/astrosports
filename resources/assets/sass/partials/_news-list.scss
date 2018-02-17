@@ -46,7 +46,7 @@
         border-right-color: $hover-children-color;
 
         img {
-          border: 1px solid $hover-children-color;
+          border-color: $hover-children-color;
         }
       }
 
@@ -96,6 +96,7 @@
       @extend .w-100;
 
       @include media-query($news-breakpoint1) {
+        border: 1px solid transparent;
         height: 100% !important;
       }
 
