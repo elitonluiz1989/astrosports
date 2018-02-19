@@ -2,8 +2,6 @@
 
 @section('page', 'photos')
 
-@section('title', 'Fotos')
-
 @section('content')
     <header class="row">
         <h2 class="page__title photos__title">Fotos</h2>
