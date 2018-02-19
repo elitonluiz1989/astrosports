@@ -61,7 +61,7 @@
                     @endphp
 
                     @if ($showSidebar)
-                        @php $contentClass .= ' col-sm-7 col-md-8 col-lg-9'; @endphp
+                        @php $contentClass .= ' col-sm-7 col-md-8 col-lg-9 col-xl-7'; @endphp
 
                         @php
                             $advertising = $template->advertising();
@@ -84,7 +84,7 @@
                         @yield('content')
                     </div>
 
-                    @if ($showSidebar === 3)
+                    @if ($showSidebar)
                         @include('layout.sidebar.sidebar-right', $sidebarRight)
                     @endif
                 </div>

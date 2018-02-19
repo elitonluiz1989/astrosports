@@ -1,5 +1,6 @@
 &__advertising {
   background-color: #fafafa;
+  padding-bottom: 0.5rem;
 
   $advertising-item-margin: 0.5rem;
   &-title {
@@ -8,9 +9,8 @@
   }
 
   &-item {
-    margin: 0 0 $advertising-item-margin;
-
-    @extend .w-100;
+    width: 98%;
+    margin: 0 1% $advertising-item-margin;
   }
 
   &-content {

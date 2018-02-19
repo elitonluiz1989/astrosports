@@ -1,4 +1,4 @@
-<div class="sidebar__schedule sidebar-left__wrapper">
+<div class="sidebar__schedule sidebar__wrapper">
     <h2 class="sidebar__schedule-title sidebar__title">Horários</h2>
 
     <ul id="sidebar-schedule-days" class="sidebar__schedule-nav nav nav-tabs" role="tablist">

@@ -1,7 +1,7 @@
 <template>
-    <div class="sidebar__assessments sidebar-left__wrapper">
+    <div class="sidebar__assessments sidebar__wrapper">
         <h2 class="sidebar__assessments-title">Avaliações</h2>
-
+        
         <div id="imc" class="imc form-horizontal">
             <h3 class="imc__title">IMC</h3>
 

@@ -8,6 +8,11 @@
   }
 
   .sidebar {
+    &__wrapper {
+      margin-bottom: 1rem;
+      @extend .w-100;
+    }
+
     &__title {
       margin: 0;
       padding: 0.25rem;
@@ -22,13 +27,11 @@
       padding-left:  0.5rem;
 
       @include tabs(#333);
+    }
 
-      &__wrapper {
-        margin-bottom: 1rem;
-
-        @extend .float-left;
-        @extend .w-100;
-      }
+    &-right {
+      padding-right: 0.5rem;
+      padding-left: 0;
     }
 
     @import "sidebar/advertising";

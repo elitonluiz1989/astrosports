@@ -1,5 +1,7 @@
 <div class="sidebar-left d-none d-sm-block col-sm-5 col-md-4 col-lg-3">
-    @include('layout.sidebar.advertising', ['advertising' => $advertising])
+    <div class="d-xl-none">
+        @include('layout.sidebar.advertising', ['advertising' => $advertising])
+    </div>
 
     @include('layout.sidebar.schedules', $schedules)
 

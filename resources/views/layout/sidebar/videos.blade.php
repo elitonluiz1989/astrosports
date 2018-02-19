@@ -1,4 +1,4 @@
-<div class="sidebar__videos sidebar-left__wrapper">
+<div class="sidebar__videos sidebar__wrapper">
     <header>
         <h1 class="sidebar__videos-title">Últimos Vídeos</h1>
     </header>

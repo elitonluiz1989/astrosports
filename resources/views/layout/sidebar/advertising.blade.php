@@ -1,5 +1,5 @@
 @if (isset($advertising) && count($advertising) > 0)
-    <div class="sidebar__advertising sidebar-left__wrapper">
+    <div class="sidebar__advertising sidebar__wrapper">
         <h2 class="sidebar__advertising-title sidebar__title">Anúncios</h2>
 
         @foreach( $advertising as $record)
