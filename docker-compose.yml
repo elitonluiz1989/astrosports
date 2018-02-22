@@ -52,3 +52,6 @@ services:
           - MYSQL_DATABASE=astrosports
           - MYSQL_USER=elitonluiz
           - MYSQL_PASSWORD=5119191413
+
+        volumes:
+          - ./docker/astrosports.sql:/docker-entrypoint-initdb.d/astrosports.sql

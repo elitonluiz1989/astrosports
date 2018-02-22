@@ -57,7 +57,7 @@
                     @php
                         $showSidebar = $sidebar ?? true;
 
-                        $contentClass = 'col-reset col-xs-12';
+                        $contentClass = 'col-reset col-12';
                     @endphp
 
                     @if ($showSidebar)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Albums;
 use App\Repositories\AlbumsRepository;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -42,7 +43,7 @@ class PhotosController extends Controller
         AlbumsRepository $albums,
         PhotosRepository $photos
     ) {
-        $this->view = 'photos';
+        $this->view = 'photos.index';
         $this->albums = $albums;
         $this->photos = $photos;
 
@@ -55,8 +56,8 @@ class PhotosController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showPhotos() {
-        $this->definingContent();
-
+        $records = $this->photos->get();
+        $this->definingContent($records);
         return view($this->view, $this->data);
     }
 
@@ -65,8 +66,11 @@ class PhotosController extends Controller
      */
     public function showAlbums() {
         $this->data['display'] = 'albums';
+        $this->data['records']['isAlbum'] = true;
+        $records = $this->albums->get();
+        $this->definingContent($records);
 
-        return $this->showPhotos();
+        return view($this->view, $this->data);
     }
 
     /**
@@ -77,23 +81,21 @@ class PhotosController extends Controller
         $id = (int)$id;
         $this->data['display'] = 'photos';
         $this->photos->paginatePath = config('photos.url.albums') . $id;
-        $this->definingContent(['albums']);
-        $this->data['albumName'] = $this->data['albums']
-                                        ->where('id', $id)
+        $this->data['albumName'] = Albums::where('id', $id)
                                         ->first()['name'];
-        $this->data['photos'] = $this->photos->get(['album', '=', $id]);
+        $records = $this->photos->get(['album', '=', $id]);
+        $this->definingContent($records);
 
         return view($this->view, $this->data);
     }
 
     /**
-     * @param array $entities
+     * @param $records
      */
-    private function definingContent($entities = ['albums', 'photos'])
+    private function definingContent($records)
     {
-        foreach ($entities as $entity) {
-            $this->data[$entity] = $this->$entity->get();
-        }
+        $this->data['records']['records'] = $records;
+        $this->data['records']['pagination']['links'] = $records->render();
     }
 
     /**

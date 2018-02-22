@@ -13,19 +13,27 @@ body {
   font-size: 14px !important;
 }
 
+.row-reset {
+  margin-right: 0!important;
+  margin-left: 0!important;
+}
+
 .col-reset {
   padding-right: 0;
   padding-left: 0;
 }
 
-.pagination{
-  &--centered {
-    @extend .text-center;
+.pagination {
+  &--top {
+    margin-top: 0.5rem;
+
+    @extend .row-reset;
   }
 
   &--bottom {
     bottom: 0;
 
+    @extend .row-reset;
     @extend .w-100;
     @extend .position-relative;
   }

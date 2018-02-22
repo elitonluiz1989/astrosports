@@ -1,8 +1,9 @@
 @if (null != $links)
-    @php $rowClass = (isset($bottom) && $bottom) ? 'pagination--bottom row' : 'row'; @endphp
-    <div class="{{ $rowClass }}">
-        <nav aria-label="Page navigation" class="pagination--centered col-12">
-            {{ $links }}
-        </nav>
-    </div>
+    @php
+        $navClass = (isset($bottom) && $bottom) ?'pagination--bottom' : 'pagination--top';
+        $navClass .= ' row row justify-content-center';
+    @endphp
+    <nav aria-label="Photos page navigation" class="{{ $navClass }}">
+        {{ $links }}
+    </nav>
 @endif

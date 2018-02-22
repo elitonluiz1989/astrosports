@@ -1,24 +1,23 @@
 .photos {
-    @include titles($theme-golden);
+  @include titles($theme-golden);
+  @include tabs($theme-golden, 50%, 'sm');
 
-    @include tabs($theme-golden, 50%, 'sm');
-
-    %photos-album-border {
-        border-style: solid;
-        border-color: darken($theme-golden, 20%);
-    }
+  &-tabs {
+    padding-top: 0.3rem;
+  }
 
   &__modal {
-    @extend .text-center;
-
     @include media-breakpoint-up('sm') {
       position: absolute;
     }
 
-    &-header {
-      background-color: $theme-golden;
-      border-top-right-radius: 6px; // 6px from .modal bootstrap class
-      border-top-left-radius: 6px;
+    .modal-header {
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+
+    .modal-content {
+      @extend .text-center;
     }
 
     img {
@@ -27,76 +26,90 @@
     }
   }
 
-    &__album{
-        background-color: lighten($theme-golden, 7%);
-        border-width: 1px;
-        margin-top: 15px;
+  %photos-record {
+    border: 1px solid #222;
+    margin-bottom: 1rem;
 
-        @extend .col-reset;
-        @extend .text-center;
-        @extend %photos-album-border;
+    @extend .float-left;
+    @extend .w-100;
+    @extend .o-hidden;
+  }
 
-        %photos-album-padding {
-            padding: 10px 0;
-        }
+  .album {
+    @extend .position-relative;
+    @extend %photos-record;
 
-        &-back {
-            border-width: 0 1px 0 0;
-            width: 15%;
+    &__name {
+      background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+      margin-top: 0.3rem;
+      padding: 2rem 0 0.5rem;
+      left: 0;
+      bottom: 0;
 
-            @extend %photos-album-border;
-            @extend .float-left;
+      @extend .font-weight-bold;
+      @extend .position-absolute;
+      @extend .text-center;
+      @extend .text-white;
+      @extend .w-100;
+    }
+  }
 
-            a {
-                color: $theme-dark;
+  %album-title-border {
+    border-style: solid;
+    border-color: darken($theme-golden, 20%);
+  }
 
-                @extend .w-100;
-                @extend .float-left;
-                @extend %photos-album-padding;
-            }
-        }
+  .album-title {
+    background-color: lighten($theme-golden, 7%);
+    border-width: 1px;
+    margin-top: 1.3rem;
 
-        &-title {
-            width: 85%;
-            @extend .float-right;
-            @extend %photos-album-padding;
-        }
+    @extend .col-10;
+    @extend .col-sm-8;
+    @extend .col-md-6;
+    @extend .col-lg-5;
+    @extend .col-xl-4;
+    @extend .col-reset;
+    @extend .text-center;
+    @extend %album-title-border;
+
+    %album-title-padding {
+      padding: 0.7rem 0;
     }
 
-    .photo {
-        margin-top: 10px;
-        margin-bottom: 10px;
+    &__back {
+      border-width: 0 1px 0 0;
+      width: 15%;
+      color: $theme-dark;
 
-        @extend .float-left;
-        @extend .w-100;
-        @extend .o-hidden;
-
-        &:hover {
-            background-color: #222;
-        }
-
-        %photo-content-border {
-          border-style: solid;
-          border-color: #222;
-        }
-
-        &__content {
-          border-width: 1px;
-          height: 250px;
-
-          @extend .w-100;
-          @extend %photo-content-border;
-        }
-
-        &__album-name {
-          background-color: #fafafa;
-          border-width: 0 1px 1px;
-          padding: 10px;
-          color: $theme-dark;
-
-          @extend .font-weight-bold;
-          @extend .text-center;
-          @extend %photo-content-border;
-        }
+      @extend .float-left;
+      @extend %album-title-border;
+      @extend %album-title-padding;
     }
+
+    &__text {
+      width: 85%;
+      @extend .float-right;
+      @extend .o-hidden;
+      @extend %album-title-padding;
+    }
+  }
+
+  .photo {
+    @extend %photos-record;
+  }
+
+  .cover {
+    height: 250px;
+
+    @extend .w-100;
+
+    @include media-breakpoint-between(sm, lg) {
+      height: 160px;
+    }
+
+    @include media-breakpoint-up(xl) {
+      height: 220px;
+    }
+  }
 }
