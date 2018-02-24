@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Repositories\SchedulesRepository;
 
 /**
@@ -11,11 +9,6 @@ use App\Repositories\SchedulesRepository;
  */
 class SchedulesController extends Controller
 {
-    /**
-     * @var string
-     */
-    private $view;
-
     /**
      * @var array
      */
@@ -26,22 +19,31 @@ class SchedulesController extends Controller
      */
     private $repo;
 
+    /**
+     * @var string
+     */
+    private $view;
+
+    /**
+     * SchedulesController constructor.
+     * @param SchedulesRepository $repo
+     */
     public function __construct(
         SchedulesRepository $repo
     ) {
         $this->repo = $repo;
 
-        $this->view = 'schedules';
+        $this->view = 'schedules.index';
 
         $this->data = config('schedules');
     }
 
     /**
-     * SchedulesController index
-     * @return View
+     * @param string $display
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($display = 'schedules') {
-        $this->data['display'] = $this->validateDisplayChoice($display);
+    public function index($display = 'horarios') {
+        $this->data['display'] = $display;
 
         if ($this->data['vacation']) {
             $this->data['noResultsMessage']['message'] = $this->data['vacationMessage'];
@@ -56,20 +58,5 @@ class SchedulesController extends Controller
         }
 
         return view($this->view, $this->data);
-    }
-
-    /**
-     * SchedulesController validateDisplayChoice
-     * @param string $display
-     * @return string
-     */
-    private function validateDisplayChoice($display) {
-        $validatedDisplay = str_replace(
-            ['horarios', 'polos', 'categorias', 'horarios'],
-            ['schedules', 'poles', 'categories', 'schedules'],
-            $display
-        );
-
-        return $validatedDisplay;
     }
 }

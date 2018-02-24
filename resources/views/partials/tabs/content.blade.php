@@ -9,9 +9,12 @@
         $tabItemClass .= ' ' . $customClass;
     }
 
-    $labelledBy = $labelledBy ?? $tabId;
+    $labelledBy = $labelledBy ?? $tabContentId;
 @endphp
 
-<div id="{{ $tabContentId }}" class="{{ $tabItemClass }}" role="tabpanel" aria-labelledby="{{ $labelledBy }}-tab">
+<div id="{{ $tabContentId }}"
+     class="{{ $tabItemClass }}"
+     role="tabpanel"
+     aria-labelledby="{{ $labelledBy }}-tab">
     {{ $slot }}
 </div>

@@ -9,7 +9,8 @@
 
             <ul class="photos-tabs nav nav-tabs col-12">
                 @foreach ($navItems as $item => $content)
-                    @php $class = ($display == $item) ? 'nav-link tab--active' : 'nav-link'; @endphp
+                    @php $class = ($display == $item) ? 'nav-link active' : 'nav-link'; @endphp
+
                     <li class="nav-item">
                         <a class="{{ $class }}" href="{{ $content['url'] }}">{{ $content['text'] }}</a>
                     </li>

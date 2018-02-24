@@ -6,23 +6,69 @@
   $tabs-item-width: 100% / 3;
   @include tabs($schedules-color, $tabs-item-width, 'sm');
 
-  %schedules-item-border {
-    border-right: 1px solid $theme-green;
-  }
-
-  %schedules-item {
-    @extend %schedules-item-border;
-    @extend .text-center;
-    @extend .col-reset;
-  }
-
-  %schedules-item-width {
-    $width: 100% / 7;
+  &__no-results {
+    margin-top: 15%;
+    margin-bottom: 15%;
+    font-size: 1.4em;
 
     @extend .w-100;
+    @extend .text-center;
 
-    @include media-breakpoint-up('sm') {
-      width: $width;
+    @include media-breakpoint-between(sm, lg) {
+      margin-top: 20%;
+      margin-bottom: 20%;
+    }
+  }
+
+  &__container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    @extend .container-fluid;
+
+    @include media-breakpoint-up(sm) {
+      border-width: 2px 1px 1px 2px;
+      border-style: solid;
+      border-color: $theme-green;
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 98%;
+      margin-right: 1%;
+      margin-left: 1%;
+    }
+  }
+
+  &__row {
+    border: 1px solid $theme-green;
+    margin-bottom: 1rem;
+
+    @extend .row;
+
+    @include media-breakpoint-down(xs) {
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    @include media-breakpoint-up(sm) {
+      border-width: 0 0 1px 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__wrapper {
+    @extend .col-reset;
+    @extend .col-12;
+
+    &--left {
+      @extend .col-sm-2;
+      @extend .col-lg-1;
+    }
+
+    &--right {
+      @extend .d-sm-flex;
+      @extend .col-sm-10;
+      @extend .col-lg-11;
     }
   }
 
@@ -31,118 +77,59 @@
     @extend .font-weight-bold;
   }
 
-  &__no-results {
-    padding: 2rem 0;
-    margin-top: 10%;
-    font-size: 1.4em;
-
-    @extend .text-center;
-
-    @include media-breakpoint-up('sm') {
-      margin-top: 15%;
-    }
-  }
-
-  &__conteiner {
-    width: 100%;
-    margin: 10px 0;
-    padding: 0 5px;
-    @extend .col-reset;
-    @extend .float-left;
-
-    @include media-breakpoint-up('sm') {
-      border-width: 2px 1px 1px 2px;
-      border-style: solid;
-      border-width: $theme-green;
-      padding: 0;
-    }
-
-    @include media-breakpoint-up('lg') {
-      width: 98%;
-      margin-right: 1%;
-      margin-left: 1%;
-    }
-  }
-
-  %schedules-bar-bg {
-    background-color: lighten($theme-green, 4%);
+  %schedules-item-border {
+    border-right: 1px solid $theme-green;
   }
 
   &__bar {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    background-color: lighten($theme-green, 4%);
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+
     @extend %schedules-titles;
 
     &--empty {
-      @extend %schedules-bar-bg;
       @extend %schedules-item-border;
     }
 
-    &--content {
-      @extend %schedules-bar-bg;
-      @extend .float-left;
-      @extend %schedules-item;
-      @extend %schedules-item-width;
-    }
+    &--filled {
+      flex: 1;
 
-    @include media-breakpoint-only('sm') {
-      font-size: 0.8em;
+      @extend %schedules-item;
+
+      @include media-breakpoint-only(sm) {
+        font-size: 0.8em;
+      }
     }
+  }
+
+  %schedules-item {
+    @extend %schedules-item-border;
+    @extend .text-center;
   }
 
   &__target-text {
     background-color: lighten($theme-green, 10%);
+    padding: 0.7rem 0;
+
     @extend %schedules-titles;
     @extend %schedules-item;
-    padding: 10px 0;
 
     @include media-breakpoint-up('sm') {
-      padding: 0;
-    }
-  }
-
-  &__row {
-    border: 1px solid $theme-green;
-    margin-bottom: 5px;
-
-    @extend .float-left;
-    @extend .w-100;
-
-    @include media-breakpoint-up('sm') {
-      border-width: 0 0 1px 0;
-      display: flex;
-      margin-bottom: 0;
-    }
-  }
-
-  &__wrapper {
-    @include media-breakpoint-up('sm') {
-      float: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      padding-top: 1.3rem;
+      padding-bottom: 0;
     }
   }
 
   &__item {
+    background-color: #f0f0f0;
     @extend %schedules-item;
-    @extend %schedules-item-width;
+    @extend .flex-sm-wrap;
+    @extend .flex-sm-column;
+    @extend .justify-content-sm-center;
 
     @include media-breakpoint-up('sm') {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    &--empty {
-      background-color: #f0f0f0;
-    }
-
-    &-text {
-      @extend .w-100;
-
-      @include media-breakpoint-up('sm') {
-        align-self: center;
-      }
+      flex: 1;
     }
 
     &-content {
@@ -151,10 +138,6 @@
 
       @extend .w-100;
 
-      @include media-breakpoint-up('sm') {
-        display: flex;
-      }
-
       &--bordered {
         border-left: 1px solid $theme-green;
       }
@@ -162,6 +145,8 @@
       &--xs-up {
         background-color: $theme-dark;
         color: #fff;
+
+        @extend .d-sm-none;
       }
 
       &--up {
@@ -182,6 +167,7 @@
       }
 
       &--down {
+        background-color: white;
         border-width: 0 2px 2px;
         border-style: solid;
         border-color:  $schedules-content-color;

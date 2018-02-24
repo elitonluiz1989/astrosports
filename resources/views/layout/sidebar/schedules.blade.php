@@ -1,26 +1,21 @@
 <div class="sidebar__schedule sidebar__wrapper">
     <h2 class="sidebar__schedule-title sidebar__title">Horários</h2>
 
-    <ul id="sidebar-schedule-days" class="sidebar__schedule-nav nav nav-tabs" role="tablist">
-        @foreach ($weekDays as $day => $dayText)
-            @php
-                $navItemData = [
-                    'tabItemId' => 'schedule-' . $day,
-                    'tabItemText' => $dayText
-                ];
+    @php
+        $navSettings = [
+            'navId' => 'sidebar-schedules-days',
+            'navItems' => $weekDays,
+            'navItemPrefix' => 'schedule',
+            'customClass' => 'sidebar__schedule-nav',
+            'target' => $currentDay
+        ];
+    @endphp
 
-                if ($day == $currentDay) {
-                    $navItemData['isActive'] = true;
-                }
-            @endphp
-
-            @include('partials.tabs.nav-item', $navItemData)
-        @endforeach
-    </ul>
+    @include('partials.tabs.nav', $navSettings)
 
     <div class="tab-content" id="sidebar-schedule-content">
             @foreach ($schedules as $day => $schedule)
-                @component('partials.tabs.content-item')
+                @component('partials.tabs.content')
                     @slot('tabContentId', 'schedule-' . $day)
 
                     @slot('customClass', 'container')

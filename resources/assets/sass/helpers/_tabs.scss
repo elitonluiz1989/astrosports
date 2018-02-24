@@ -5,6 +5,7 @@
   &-tabs {
     background-color: darken($tabs-color, 2%);
     border-color: $tabs-border-color;
+    padding-top: 0.3rem;
 
     @include media-breakpoint-up('sm') {
       padding-left: $grid-gutter-width;
@@ -28,23 +29,27 @@
         @extend .text-white;
         @extend .text-center;
 
-        &:not(.tab--active):hover {
+        &:not(.active):hover {
           background-color: $tabs-item-hover-bg !important;
           border-color: $tabs-item-hover-bg !important;
           border-bottom-color: $tabs-border-color !important;
         }
 
-        &.tab--active {
+        &.active {
+          background-color: white;
+          border-color: $tabs-border-color !important;
+          border-bottom-color: transparent !important;
           color: darken($tabs-border-color, 10%) !important;
         }
       }
     }
-
-    .tab--active {
-      background-color: white;
-      border-color: $tabs-border-color !important;
-      border-bottom-color: transparent !important;
-    }
   }
 
+  .tab-content {
+    @extend .w-100;
+
+    .tab-pane.fade {
+      transition-duration: .5s !important;
+    }
+  }
 }
