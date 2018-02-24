@@ -7,7 +7,13 @@
 @include('partials.pagination-bar', $pagination)
 
 <div class="row row-reset">
-    @include('photos.modal')
+    @component('partials.modal')
+        @slot('modalId', 'photos-modal')
+
+        @slot('customClass', 'photos__modal')
+
+        <img>
+    @endcomponent
 
     @foreach ($records as $record)
         <div class="col-12 col-sm-4 col-md-3">

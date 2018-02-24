@@ -34,7 +34,7 @@
 
             maskStyle: {
                 type: String,
-                default: 'ligth'
+                default: 'light'
             },
 
             showMask: {
@@ -99,7 +99,7 @@
 
         methods: {
             setFullscreen(choice) {
-                choice  = choice === undefined ? true : choice;
+                choice  = choice || true;
 
                 if (this.fullscreen) {
                     let mask = $(this.$refs.mask);

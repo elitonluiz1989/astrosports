@@ -12,6 +12,7 @@
   .imc {
     $imc-color: #333;
     border: 1px solid $imc-color;
+    overflow-x: hidden;
 
     @extend .w-100;
 

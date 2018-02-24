@@ -2,11 +2,31 @@
   $videos-color: #d00;
   @include titles($videos-color);
 
-  &-modal {
-    &__header {
-      background-color: $videos-color;
-      border-top-right-radius: 0.5rem;
-      border-top-left-radius: 0.5rem;
+  .modal-content {
+    background-color: $videos-color;
+  }
+
+  .modal-body {
+    background-color: white;
+
+    iframe {
+      height: 11rem;
+
+      @include media-breakpoint-only(sm) {
+        height: 13rem;
+      }
+
+      @include media-breakpoint-only(md) {
+        height: 14rem;
+      }
+
+      @include media-breakpoint-only(lg) {
+        height: 20rem;
+      }
+
+      @include media-breakpoint-up(xl) {
+        height: 22rem;
+      }
     }
   }
 
@@ -22,41 +42,45 @@
     &-content {
       border: 0.2rem solid #d00;
 
-      @extend .float-left;
+      @extend .d-block;
       @extend .w-100;
-      @extend .h-100;
+      @extend .position-relative;
+      @extend .o-hidden;
     }
 
     &-thumb {
-      height: 1.8rem;
+      height: 13rem;
 
       @extend .w-100;
 
-      @include media-breakpoint-only('md') {
-        height: 15rem;
-      }
-
-      @include media-breakpoint-up('lg') {
+      @include media-breakpoint-up(lg) {
         height: 12rem;
       }
+
     }
 
     &-title {
-      border: 1px solid red;
-      height: 3em;
-      padding: 0.3rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .8));
+      padding: 1.5rem 0 0.1rem 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
       color: $theme-dark;
 
-      @extend .o-hidden;
+      @extend .w-100;
+      @extend .position-absolute;
       @extend .text-center;
+      @extend .text-white;
     }
   }
 
   &__channel-link {
-    @extend .float-left;
+    border: 1px solid #888;
     width: 60%;
-    margin: 0 20% 10px;
-    padding: 5px 0;
+    margin: 0 auto 0.7rem;
+    padding: 0.5rem 0;
+
+    @extend .d-block;
 
     &:hover {
       background-color: $videos-color;

@@ -17,7 +17,7 @@ class VideosController extends Controller
         $videos->videosAttrs = ['title', 'description', 'url', ['thumb', 'medium']];
 
         $data = [
-            'sidebarVideos' => false,
+            'showVideos' => false,
             'channel'           => $videos->getChannel(),
             'videos'            => $videos->all()
         ];

@@ -30,7 +30,7 @@
             </ul>
         </div>
 
-        <contact-email subject-selected="{{ $subjectSelected }}"></contact-email>
+        <contact-email subject-selected="{{ $subject}}"></contact-email>
 
         <contact-address :address="'{{ $localization['address'] }}'" :title="'{{ $localization['title'] }}'"></contact-address>
     </div>

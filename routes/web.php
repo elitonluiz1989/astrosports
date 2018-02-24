@@ -3,7 +3,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/avaliacoes', 'AssessmentsController@index');
 
-Route::get('/contato/{subject?}', 'ContactController@index');
+Route::get('/contato', 'ContactController@index');
+Route::get('/contato/email', 'ContactController@email');
 Route::post('/contato/enviar', 'ContactController@sendEmail');
 
 // News

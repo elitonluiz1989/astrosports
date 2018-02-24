@@ -1,7 +1,9 @@
 export function Modal(selector) {
-    this.element = $(selector);
-    this.mask = $('#main-mask');
+
+    this.modal = $(selector);
+    this.mask = this.modal.find('.mask');
     this.content = [];
+    this.waitContentLoad = false;
 
     this.hideMask = () => {
         this.mask
@@ -11,8 +13,8 @@ export function Modal(selector) {
     };
 
     this.setCloseButton = () => {
-        this.element.find('.close').click(evt => {
-            this.element
+        this.modal.find('.close').click(evt => {
+            this.modal
                 .removeClass('in')
                 .removeAttr('style')
                 .find('img')
@@ -23,7 +25,7 @@ export function Modal(selector) {
             $.each(this.content, (index, element) => {
                 let attrsList = Object.getOwnPropertyNames(element.attrs).join(' ');
 
-                this.element.find(element.selector)
+                this.modal.find(element.selector)
                     .removeAttr(attrsList);
             })
         });
@@ -31,23 +33,9 @@ export function Modal(selector) {
 
     this.setModalContent = () => {
         $.each(this.content, (index, element) => {
-            this.element.find(element.selector)
-                .attr(element.attrs)
-
-            if (!this.waitLoad && element.waitLoad) {
-                this.waitLoad = element.selector;
-            }
+            this.modal.find(element.selector)
+                .attr(element.attrs);
         })
-    };
-
-    this.setModalToShow = () => {
-        this.mask.find('.loader').removeClass('loader--show');
-
-        this.element.css({
-                display: 'block',
-                'z-index': 10000
-            })
-            .addClass('in');
     };
 
     this.showMask = () => {
@@ -58,11 +46,17 @@ export function Modal(selector) {
                 .addClass('loader--show');
     };
 
-    this.showModal = () => {
+    this.show = () => {
         this.showMask();
 
         this.setModalContent();
 
-        this.setModalToShow();
+        this.modal.modal('show');
+
+        if (!this.waitContentLoad) {
+            let modalInterval = setTimeout(() => {
+                this.hideMask();
+            }, 1000);
+        }
     };
 }

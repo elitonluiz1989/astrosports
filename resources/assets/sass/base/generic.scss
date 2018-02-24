@@ -153,3 +153,16 @@ body {
     }
   }
 }
+
+.modal-content {
+  @extend .o-hidden;
+
+  .modal-header {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .modal-body {
+    background-color: white;
+  }
+}

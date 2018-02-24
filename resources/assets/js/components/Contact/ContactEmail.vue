@@ -63,7 +63,7 @@
         },
 
         props: {
-            'subjectSelected': {
+            subjectSelected: {
                 type: String,
                 default: ''
             }
@@ -124,6 +124,11 @@
         mounted: function() {
             this.defaultScroll += this.$refs.form.offsetTop;
 
+            if (this.subjectSelected !== '') {
+                this.$refs.form.querySelector('#send-email-name').focus();
+                this.scrollWindow();
+            }
+
             axios.get('/json/contact')
                 .then(response => {
                     this.subjects = response.data.subjects;
@@ -137,7 +142,7 @@
             removeErrorStatus(evt) {
                 let keyCode = evt.which || evt.keyCode;
 
-                if (keyCode != 13) {
+                if (keyCode !== 13) {
                     let element = evt.target.id.replace('send-email-', '') + 'Error';
 
                     if (this[element]) {
@@ -162,7 +167,7 @@
                     email: 'Preencha o campo email.',
                     subject: 'Escolha um assunto.',
                     content: 'Preencha o campo de texto.'
-                }
+                };
 
                 if (this.name === '') {
                     this.setMessageError(errorMessages.name, 'name');
