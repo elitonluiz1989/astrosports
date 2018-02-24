@@ -1,6 +1,6 @@
-@extends('partials.tabs.page')
+@extends('partials.tabs.page', ['page' => 'about'])
 
-@section('page', 'about')
+@section('page-class', 'about page')
 
 @section('title', 'Sobre')
 
@@ -13,14 +13,12 @@
 @section('tabs-content')
     <!-- History -->
     @component('partials.tabs.content')
-        @slot('tabId')
-            history
-        @endslot
+        @slot('tabContentId', 'historia')
 
-        @if ($display == 'history')
-            @slot('tabActive')
-                in active
-            @endslot
+        @if ($display == 'historia')
+            @slot('isActive', true)
+        @else
+            @slot('isActive', false)
         @endif
 
         @if (isset($history))
@@ -35,33 +33,30 @@
 
     <!-- Primer -->
     @component('partials.tabs.content')
-        @slot('tabId')
-            primer
-        @endslot
+        @slot('tabContentId', 'cartilha')
 
-        @if ($display == 'primer')
-            @slot('tabActive')
-                in active
-            @endslot
+        @if ($display == 'cartilha')
+            @slot('isActive', true)
+        @else
+            @slot('isActive', false)
         @endif
 
         {!! $primer ?? $emptyMessage !!}
     @endcomponent
 
-    <!-- PLayers -->
+    <!-- Players -->
     @component('partials.tabs.content')
-        @slot('tabId')
-            players
-        @endslot
 
-        @if ($display == 'players')
-            @slot('tabActive')
-                in active
-            @endslot
+        @slot('tabContentId', 'jogadores')
+
+        @if ($display == 'jogadores')
+            @slot('isActive', true)
+        @else
+            @slot('isActive', false)
         @endif
 
         @if (isset($players))
-            @include('partials.about-tab-content', ['type' => 'players', 'records' => $players])
+            @include('about.content', ['records' => $players])
         @else
             {!! $emptyMessage !!}
         @endif
@@ -69,18 +64,16 @@
 
     <!-- Committee -->
     @component('partials.tabs.content')
-        @slot('tabId')
-            commission
-        @endslot
+        @slot('tabContentId', 'comissao')
 
-        @if ($display == 'commission')
-            @slot('tabActive')
-                in active
-            @endslot
+        @if ($display == 'comissao')
+            @slot('isActive', true)
+        @else
+            @slot('isActive', false)
         @endif
 
         @if (isset($commission))
-            @include('partials.about-tab-content', ['type' => 'committee', 'records' => $commission])
+            @include('about.content', ['records' => $commission])
         @else
             {!! $emptyMessage !!}
         @endif

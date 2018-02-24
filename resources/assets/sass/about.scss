@@ -3,37 +3,27 @@
 
     @include titles($about-color);
 
-    @include tabs($about-color, 25%, 'sm');
+    @include tabs($about-color, 25%, md);
 
-    .tabs-item {
-        & > a {
-            font-size: 0.9em;
-
-            @include media-breakpoint-up('sm') {
-                font-size: 1em;
-            }
-        }
+    .tab-pane {
+        min-height: 30rem;
     }
 
     &__text-wrapper {
-        padding: 0 10px;
+        padding: 0 0.5rem;
     }
 
     &__history-header {
       border-bottom: 1px solid $theme-dark;
-      margin: 0 10px 5px;
+      margin: 0 0.5rem 0.2rem;
     }
 
     &__team {
-        $about-team-margin: 10px;
+        $about-team-margin: 0.5rem;
         margin-top: $about-team-margin;
 
         &:last-child {
           margin-bottom: $about-team-margin;
-        }
-
-        %about-team-item {
-          @extend .w-100;
         }
 
         &-content {
@@ -44,7 +34,7 @@
             justify-content: center;
 
             @extend .d-flex;
-            @extend %about-team-item;
+            @extend .w-100;
 
           &:first-child {
             border-top-width: 1px;
@@ -52,27 +42,27 @@
         }
 
         &-avatar {
-            height: 200px;
+            height: 15rem;
 
-            @extend %about-team-item;
+            @extend .w-100;
             @extend .o-hidden;
         }
 
         %about-team-item-height {
-            height: 50px;
-            padding: 0 5px;
+            height: 3rem;
+            padding: 0 0.2rem;
         }
 
         &-name {
             @extend %about-team-item-height;
-            @extend %about-team-item;
+            @extend .w-100;
             @extend .font-weight-bold;
         }
 
         &-role {
             background-color: #fafafa;
 
-            @extend %about-team-item;
+            @extend .w-100;
             @extend %about-team-item-height;
         }
     }
