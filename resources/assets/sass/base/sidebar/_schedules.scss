@@ -1,0 +1,112 @@
+&__schedule {
+  $sidebar-schedule-bg: #fafafa;
+  $sidebar-schedule-color: #007834;
+  $sidebar-schedule-border: darken($sidebar-schedule-color, 5%);
+  $schedule-spacing:  5px;
+  $schedule-side-margin: 2px;
+
+  background-color: $sidebar-schedule-bg;
+  border-width: 1px 1px 0;
+  border-style: solid ;
+  border-color: $sidebar-schedule-border;
+
+  &-title {
+    background-color: $sidebar-schedule-color;
+  }
+
+  &-nav {
+    background-color: #222;
+    padding: 0;
+    font-size: 0.7rem;
+
+    @include media-breakpoint-between(md, lg) {
+      font-size: 0.8rem;
+    }
+
+    @include media-breakpoint-up(xl) {
+      font-size: 0.9rem;
+    }
+
+    .nav-item {
+      $width: 100% / 7;
+      width: $width;
+      @extend .text-center;
+
+      & > a {
+        border-radius: 0;
+        padding-right: 0;
+        padding-left: 0;
+
+        @extend .text-white;
+
+        &.active {
+          background-color: $sidebar-schedule-bg;
+          color: #222 !important;
+        }
+      }
+    }
+  }
+
+  &-wrapper {
+    border-bottom: 1px solid $sidebar-schedule-border;
+    padding-top: $schedule-spacing;
+
+    @extend .text-center;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  &-empty {
+    padding: 2rem 0;
+
+    @extend .w-100;
+    @extend .text-center;
+  }
+
+  &-hour {
+    padding: 0 0 0 $schedule-side-margin;
+
+    @extend .text-white;
+
+    &-content {
+      background-color: $schedule-item-color;
+      padding: 10px 0;
+
+      @extend .font-weight-bold;
+    }
+  }
+
+  &-content {
+    padding-left: 0.5rem;
+
+    @extend .col-reset;
+  }
+
+  %schedule-content {
+    padding: 5px 0;
+    margin-right: $schedule-side-margin;
+  }
+
+  &-pole {
+    background-color: $schedule-item-color;
+
+    @extend %schedule-content;
+    @extend .text-white;
+  }
+
+  &-category {
+    background-color: #fff;
+    border-width: 0 2px 1px;
+    border-style: solid;
+    border-color: $schedule-item-color;
+
+    @extend %schedule-content;
+
+    &:last-child {
+      border-bottom-width: 2px;
+      margin-bottom: $schedule-spacing;
+    }
+  }
+}

@@ -28,13 +28,18 @@ class Advertising extends ImageBaseAbstract
     }
 
     /**
-    * @return string
-    */
-    protected function definingImg()
+     * @return string
+     */
+    protected function getImgName()
     {
-        $resize = config('advertising.img');
-        $img = $this->attributes['img'] . '?w=' . $resize['width'] . '&h=' . $resize['height'];
+        return $this->attributes['img'];
+    }
 
-        return $img;
+    /**
+     * @return string
+     */
+    protected function getDefaultImgSize()
+    {
+        return config('advertising.img');
     }
 }

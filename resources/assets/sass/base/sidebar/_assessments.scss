@@ -1,0 +1,211 @@
+&__assessments {
+  $assessments-color: lighten($theme-dark, 5%);
+  background-color: white;
+  border: 1px solid $assessments-color;
+
+  &-title {
+    background-color: $assessments-color;
+
+    @extend .sidebar__title;
+  }
+
+  .imc {
+    $imc-color: #333;
+    border: 1px solid $imc-color;
+    overflow-x: hidden;
+
+    @extend .w-100;
+
+    &__title {
+      background-color: $theme-green;
+      border: 0;
+      margin: 0;
+      padding: 0.25rem;
+
+      @extend .text-white;
+      @extend .text-center;
+    }
+
+    &__wrapper {
+      border-top: 1px solid $imc-color;
+
+      @extend .col-reset;
+
+      .form-group {
+        padding: $spacer 0.5rem 0;
+      }
+
+      .form-group + .form-group {
+        border-top: 1px solid $imc-color;
+      }
+    }
+
+    &__info {
+      &-btn {
+        background-color: transparent;
+        border: 0;
+        padding: 0.5rem 0;
+
+        @extend .w-100;
+
+        @include media-breakpoint-between(sm, lg) {
+          font-size: 0.75rem;
+        }
+
+        &:hover {
+          background-color: #f6f6f6;
+        }
+      }
+
+      &-content {
+        height: 1px;
+        transition: height .5s;
+
+        @extend .o-hidden;
+      }
+
+      &--show {
+        border-top: 1px solid $imc-color;
+        height: 17rem;
+
+        @include media-breakpoint-only(md) {
+          height: 15rem;
+        }
+
+        @include media-breakpoint-only(xl) {
+          height: 15rem;
+        }
+      }
+    }
+
+    &__text {
+      background-color: #fafafa;
+      margin: 0;
+      padding: 0.4rem;
+      text-indent: 1.8rem;
+    }
+
+    &__calculate {
+      background-color: lighten($theme-green, 10%);
+      border: 0;
+      padding: 1rem 0;
+
+      @extend .w-100;
+      @extend .text-white;
+    }
+
+    &__result {
+      $imc-result-height: $spinner-size + 29px; // 32px by .imc__loader others elements
+      background-color: #333;
+      height: 0;
+      transition: height 1s;
+
+      @extend .o-hidden;
+
+      &--loading-expand {
+        height: $imc-result-height;
+      }
+
+      &--message-expand {
+        height: 10rem;
+      }
+
+      &-content {
+        padding: 0.8rem 0.3rem;
+
+        @extend .text-center;
+      }
+
+      &-value {
+        padding-bottom: 0.7rem;
+        font-size: 1.7rem;
+
+        @extend .text-white;
+        @extend .font-weight-bold;
+      }
+    }
+
+    &__message {
+      $imc-strong-red: #d00;
+      $imc-red: #dd4945;
+      $imc-green: #00bb34;
+      $imc-strong-green: darken($imc-green, 15%);
+      opacity: 0;
+      transition: opacity 1s;
+
+      &--show {
+        opacity: 1;
+      }
+
+      &--very-underweight {
+       color: $imc-strong-red;
+      }
+
+      &--underweight {
+        color: $imc-red;
+      }
+
+      &--normal-weight {
+        color: $imc-green;
+      }
+
+      &--overweight {
+        color: $imc-strong-green;
+      }
+
+      &--obesity1 {
+        color: $imc-red;
+      }
+
+      &--obesity2 {
+        color: $imc-strong-red;
+      }
+
+      &--obesity3 {
+        color: darken($imc-strong-red, 8%);
+      }
+
+      &-value {
+        font-size: 2rem;
+
+        @extend .font-weight-bold;
+      }
+
+      &-text {
+        padding: 0.2rem 0;
+      }
+
+      &-range {
+        background-color: #888;
+        width: 90%;
+        margin: 0.5rem auto 0;
+        padding: 0.5rem 0;
+
+        @extend .text-white;
+      }
+    }
+
+    &__error {
+      opacity: 0;
+      transition: opacity 1s;
+
+      @extend .alert-danger;
+      @extend .o-hidden;
+
+      &--show {
+        opacity: 1;
+      }
+
+      &-message {
+        margin: 0;
+        padding: 1.2rem 0;
+
+        @extend .text-center;
+      }
+    }
+
+    & .loader {
+      @extend .text-white;
+    }
+  }
+}

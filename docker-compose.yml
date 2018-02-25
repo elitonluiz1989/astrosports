@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-    app:
+    astrosports:
         image: elitonluiz1989/php-devenv
 
-        container_name: app
+        container_name: astrosports
 
         working_dir: /var/www/html/
 
@@ -52,3 +52,6 @@ services:
           - MYSQL_DATABASE=astrosports
           - MYSQL_USER=elitonluiz
           - MYSQL_PASSWORD=5119191413
+
+        volumes:
+          - ./docker/astrosports.sql:/docker-entrypoint-initdb.d/astrosports.sql

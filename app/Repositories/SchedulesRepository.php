@@ -29,6 +29,10 @@ class SchedulesRepository {
      */
     private $orderFields;
 
+    /**
+     * @param null $id
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function get($id = null) {
         if (null != $id) {
             return Schedules::find($id);
@@ -38,11 +42,7 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository getBy
-     * Retrieve all schedules
-     * @param array $fields
-     * @param string $order
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getBy()
     {
@@ -59,8 +59,7 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository getSchedules
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getSchedules()
     {
@@ -78,8 +77,7 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository getCategories
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getCategories()
     {
@@ -97,8 +95,7 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository getSchedules
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getPoles()
     {
@@ -116,11 +113,9 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository getByDay
-     * Retrieve all schedules
      * @param array $fields
-     * @param string $order
-     * @return array
+     * @param array $additonalOrder
+     * @return \Illuminate\Support\Collection
      */
     public function getByDay($fields = [], $additonalOrder = ['hour'])
     {
@@ -138,9 +133,8 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository fieldsTreatment
-     * @param array $fields
-     * @return array
+     * @param $fields
+     * @return string
      */
     private function fieldsTreatment($fields)
     {
@@ -158,12 +152,10 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository resultHandler
-     * Format the Eloquent result, grouping by categories (max. 2)
-     * @param Collection $result
-     * @param array $groupBy
-     * @param array $wanted
-     * @return Colletion
+     * @param $result
+     * @param $groupBy
+     * @param $wanted
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     private function resultHandler($result, $groupBy, $wanted)
     {
@@ -184,9 +176,8 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository validateResultDays
-     * @param Collection $collection
-     * @return Collection
+     * @param $collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     private function validateResultDays($collection)
     {
@@ -196,11 +187,8 @@ class SchedulesRepository {
     }
 
     /**
-     * SchedulesRepository iterateResultDays
-     * Checks the existence of the days of the week creating a null key if not,
-     * ordering the result by them
-     * @param Collection $value
-     * @return Collection
+     * @param $collection
+     * @return \Illuminate\Support\Collection
      */
     private function iterateResultDays($collection)
     {

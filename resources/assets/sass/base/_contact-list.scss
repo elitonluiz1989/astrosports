@@ -1,65 +1,42 @@
 .contact-list {
   $self: &;
 
-  @extend .list;
-
-  &--right {
-    @extend .right;
-  }
-
-  &--left {
-    @extend .left;
-    width: 100%;
-  }
+  $icons: (
+    'facebook': #2153b5,
+    'google-plus': #e00,
+    'twitter': #00a6d2,
+    'youtube': #c00,
+    'whatsapp': #00bb34
+  );
 
   &__item {
-    @extend %left;
+    @extend .d-inline-block;
 
-    &--horizontal {
-      & + & {
-        margin-left: 10px;
-      }
-    }
-
-    &--vertical {
-      @extend %left;
-      width: 100%;
-
-      & + & {
-        margin-top: 10px;
-      }
+    & + & {
+      margin-left: 0.5rem;
     }
   }
 
-  $icons: (
-          'facebook': #2153b5,
-          'google-plus': #e00,
-          'twitter': #00a6d2,
-          'youtube': #c00,
-          'whatsapp': #00bb34
-  );
   &__content {
-    display: block;
-    width: 100%;
-    padding-left: 30%;
-
-    @include media-query('sm') {
-      padding-left: 0;
-    }
+    @extend .d-block;
+    @extend .w-100;
 
     %icons-hover-settings {
       text-decoration: none;
-      color: white;
+
+      @extend .text-white;
     }
 
     @mixin setIcons($parent) {
       @each $iconName, $iconColor in $icons {
         #{$parent}__icon--#{$iconName} {
           background-color: $iconColor;
+
           @extend %icons-hover-settings;
         }
       }
     }
+
     &:hover {
       @include setIcons($self);
     }
@@ -68,30 +45,12 @@
   &__icon {
     background-color: white;
     border-radius: 15px;
-    display: inline-block;
     width: 30px;
     padding: 5px 0;
     color: #444;
-    text-align: center;
+    font-size: 14px;
 
-    @mixin icon-bg() {
-      @each $iconName, $iconColor in $icons {
-        &--#{$iconName} {
-          @include media-query('sm', true) {
-            background-color: $iconColor;
-            color: white;
-          }
-        }
-      }
-    }
-
-    @include icon-bg;
-  }
-
-  &__title {
-    display: inline-block;
-    margin-top: 6px;
-    padding-left: 5px;
-    color: white;
+    @extend .d-inline-block;
+    @extend .text-center;
   }
 }

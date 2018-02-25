@@ -1,11 +1,12 @@
 <?php
 return [
+    'cover'      => [
+        'width' => 400,
+        'height' => 250,
+    ],
     'limit'      => 10,
     'pagination' => [
         'links' => null
     ],
-    'cover'      => [
-        'width' => 400,
-        'height' => 350,
-    ]
+    'view' => 'news.index'
 ];

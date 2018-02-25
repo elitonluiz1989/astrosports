@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SendEmailResquest;
+use App\Http\Requests\SendEmailRequest;
 use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Repositories\DefaultRepository;
@@ -17,33 +17,58 @@ class ContactController extends Controller
     private $contacts;
 
     /**
+     * @var array
+     */
+    private $data = [];
+
+    private $view;
+
+    /**
      * ContactController __construct
      * @param DefaultRepository $contacts
      */
     public function __construct(DefaultRepository $contacts) {
         $this->contacts = $contacts;
         $this->contacts->model(new Contact);
+        $this->view = 'contact';
     }
 
     /**
-     * @param  string $subject
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($subject = null) {
-        $data = [
-            'telephones'    => $this->contacts->get('telephone'),
-            'emails'        => $this->contacts->get('email'),
-            'subjectSelected' => $subject,
-            'localization'  => $this->contacts->get('localization')
-        ];
+    public function email(Request $request) {
+        $this->recordsHandler();
 
-        return view('contact', $data);
+        $this->data['subject'] = $request->get('assunto') ?? 'matricula';
+
+        return view($this->view, $this->data);
     }
 
-    public function sendEmail(SendEmailResquest $sendEmail) {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index() {
+        $this->recordsHandler();
+
+        return view($this->view, $this->data);
+    }
+
+    /**
+     * @param SendEmailRequest $sendEmail
+     * @return string
+     */
+    public function sendEmail(SendEmailRequest $sendEmail) {
         Mail::to(env('MAIL_TO_ADDRESS'))
             ->send(new ContactMail($sendEmail->all()));
 
         return 'E-mail enviado com sucesso.';
+    }
+
+    private function recordsHandler() {
+        $this->data['telephones'] = $this->contacts->get('telephone');
+        $this->data['emails'] = $this->contacts->get('email');
+        $this->data['localization'] = $this->contacts->get('localization');
+        $this->data['subject'] = null;
     }
 }

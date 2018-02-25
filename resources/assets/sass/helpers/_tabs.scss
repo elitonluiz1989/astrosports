@@ -1,41 +1,55 @@
 @mixin tabs($tabs-color, $tab-item-width: 0, $breakpoint-restore-width: null) {
-    $tabs-border-color: darken($tabs-color, 4%);
-    $tabs-item-hover-bg: lighten($tabs-color, 20%);
+  $tabs-border-color: darken($tabs-color, 4%);
+  $tabs-item-hover-bg: lighten($tabs-color, 20%);
 
-    &-tabs {
-        background-color: darken($tabs-color, 2%);
-        border-color: $tabs-border-color;
+  &-tabs {
+    background-color: darken($tabs-color, 2%);
+    border-color: $tabs-border-color;
+    padding-top: 0.3rem;
 
-        @include media-query('sm') {
-            padding-left: $grid-gutter-width;
-        }
-
-        .tabs-item {
-            @if $tab-item-width != 0 {
-                width: $tab-item-width !important;
-
-                @if $breakpoint-restore-width != null {
-                    @include media-query($breakpoint-restore-width) {
-                        width: 100px !important;
-                    }
-                }
-            }
-
-            & > a {
-              padding-right: 0;
-              padding-left: 0;
-            }
-
-            &:not(.active) > a:hover {
-                background-color: $tabs-item-hover-bg !important;
-                border-color: $tabs-item-hover-bg !important;
-                border-bottom-color: $tabs-border-color !important;
-            }
-
-            &.active > a {
-                border-color: $tabs-border-color !important;
-                border-bottom-color: transparent !important;
-            }
-        }
+    @include media-breakpoint-up('sm') {
+      padding-left: $grid-gutter-width;
     }
+
+    .nav-item {
+      @if $tab-item-width != 0 {
+        width: $tab-item-width !important;
+
+        @if $breakpoint-restore-width != null {
+          @include media-breakpoint-up($breakpoint-restore-width) {
+            width: 100px !important;
+          }
+        }
+      }
+
+      .nav-link {
+        padding-right: 0;
+        padding-left: 0;
+
+        @extend .text-white;
+        @extend .text-center;
+
+        &:not(.active):hover {
+          background-color: $tabs-item-hover-bg !important;
+          border-color: $tabs-item-hover-bg !important;
+          border-bottom-color: $tabs-border-color !important;
+        }
+
+        &.active {
+          background-color: white;
+          border-color: $tabs-border-color !important;
+          border-bottom-color: transparent !important;
+          color: darken($tabs-border-color, 10%) !important;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    @extend .w-100;
+
+    .tab-pane.fade {
+      transition-duration: .5s !important;
+    }
+  }
 }

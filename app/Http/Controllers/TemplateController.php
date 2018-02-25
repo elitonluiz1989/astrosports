@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\DefaultRepository;
 use App\Repositories\SchedulesRepository;
 use App\Repositories\VideosRepository;
+use Illuminate\Support\Facades\Request;
 
 class TemplateController extends Controller
 {
@@ -47,11 +48,20 @@ class TemplateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return array
      */
     public function navItems()
     {
-        return ['navItems' => config('template.nav')];
+        $current = Request::path();
+        if (\strpos('/', $current) === false) {
+            $current = "/{$current}";
+        }
+
+        return [
+            'navItems' => config('template.nav'),
+            'current' => $current
+        ];
     }
 
     /**
@@ -120,9 +130,7 @@ class TemplateController extends Controller
             'telephones'   => $contacts->get('telephone'),
             'emails'       => $contacts->get('email'),
             'social'       => [
-                'listOrientation' => 'left',
-                'showSocialTitle' => true,
-                'social'          => $this->socialDataTreatment()
+                'social' => $this->socialDataTreatment()
             ],
             'localization' => $contacts->get('localization')
         ];

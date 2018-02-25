@@ -1,0 +1,54 @@
+&__videos {
+  $sidebar-videos-color: #d00;
+
+  border: 1px solid $sidebar-videos-color;
+  background-color: #e3e3e3;
+  display: table;
+
+  &-title {
+    background-color: $sidebar-videos-color;
+
+    @extend .sidebar__title;
+  }
+
+  %videos-item {
+    border: 1px solid $sidebar-videos-color;
+    width: 95%;
+    margin: 0.3rem 2.5%;
+  }
+
+  &-item {
+    height: 8rem;
+    @extend %videos-item;
+
+    @include media-breakpoint-up(xl) {
+      height: 10rem;
+    }
+  }
+
+  &-content {
+    @extend .w-100;
+    @extend .h-100;
+  }
+
+  &--no-videos {
+    padding: 1.7rem 0;
+
+    @extend .text-center;
+    @extend %videos-item;
+  }
+
+  &-more {
+    background-color: white;
+    border-radius: 0;
+    color: $sidebar-videos-color;
+
+    @extend %videos-item;
+
+    &:hover {
+      background-color: #d00;
+
+      @extend .text-white;
+    }
+  }
+}

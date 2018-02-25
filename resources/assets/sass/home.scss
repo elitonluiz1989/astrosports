@@ -1,15 +1,14 @@
 .home {
-  background-color: #fff;
-  padding: 5px;
+  padding-top: 0.5rem;
 
   %home-shadow {
     box-shadow: 2px 2px 4px #333;
   }
 
   &__wrapper {
-    margin-bottom: 10px;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-bottom: 0.8rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
   }
 
   &__title {
@@ -18,44 +17,80 @@
 
     &-text {
       margin: 0;
-      padding: 10px 0 10px 15px;
-      color: #fff;
-      font-size: 1.4em;
+      padding: 0.7rem 0 0.7rem 1.5rem;
+      font-size: 1.4rem;
+
+      @extend .text-white;
     }
   }
 
   &__galery {
     background-color: #222;
-    height: 350px;
-    overflow: hidden;
+    height: auto;
+
+    @extend .o-hidden;
   }
 
   &__photo {
-    img {
-      margin: 0 auto;
-    }
+    max-width: 600px;
+    margin: 0 auto;
+
+    @extend .d-block;
+    @extend .w-100;
   }
 
   &__history {
-    max-height: 500px;
-    overflow: hidden;
+    max-height: 43rem;
     position: relative;
     transition: max-height 1s;
 
+    @extend .o-hidden;
+
+    @include media-query(400px, 499px) {
+      max-height: 35rem;
+    }
+
+    @include media-query(500px, 599px) {
+      max-height: 33rem;
+    }
+
+    @include media-query(600px, 699px) {
+      max-height: 40rem;
+    }
+
+    @include media-query(700px, 799px) {
+      max-height: 36rem;
+    }
+
+    @include media-query(800px, 899px) {
+      max-height: 32rem;
+    }
+
+    @include media-query(900px, 999px) {
+      max-height: 30rem;
+    }
+
+    @include media-query(1000px, 1199px) {
+      max-height: 35rem;
+    }
+
+    @include media-query(1200px) {
+      max-height: 32rem;
+    }
+
     &--expand {
-      max-height: 1800px;
+      max-height: 217rem;
     }
 
     $content-padding: 5%;
     &-content {
-      margin-bottom: 10px;
-      padding: 10px $content-padding;
+      margin-bottom: 0.7rem;
+      padding: 0.7rem $content-padding;
     }
 
     &-toggle {
       background-color: white;
       border: 1px solid #ddd;
-      display: block;
       width: 100% - ($content-padding * 2);
       padding: 5px $content-padding 5px 0;
       position: absolute;
@@ -63,8 +98,10 @@
       left: $content-padding;
       z-index: 1;
       color: $theme-dark;
-      font-weight: bold;
-      text-align: right;
+
+      @extend .d-block;
+      @extend .text-right;
+      @extend .font-weight-bold;
 
       &:hover {
         background-color: #fafafa;
@@ -78,8 +115,19 @@
     }
 
     &-more {
-      width: 100%;
+      border: 1px solid #aaa;
       border-radius: 0;
+
+      @extend .w-100;
+
+      @include media-query($news-breakpoint1) {
+        width: 70% !important;
+        margin-left: 15%;
+      }
+
+      &:hover {
+        border-color: #aaa;
+      }
     }
   }
 }

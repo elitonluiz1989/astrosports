@@ -9,14 +9,14 @@ abstract class ImageBaseAbstract extends Model
     /**
      * @var string
      */
-    protected $imgSrc = 'storage/photos/';
+    protected $path = 'storage/photos/';
 
     /**
      * @return string
      */
     public function getSourceAttribute()
     {
-        return $this->imgSrc . $this->definingImg();
+        return $this->path . $this->setImg();
     }
 
     /**
@@ -27,12 +27,42 @@ abstract class ImageBaseAbstract extends Model
         if (isset($this->attributes['description'])) {
             return substr($this->attributes['description'], 0, 100);
         } else {
-            return 'Imagem ' . \ucfirst($this->definingImg()) . ' não carregada.';
+            return 'Imagem ' . \ucfirst($this->getImgName()) . ' não carregada.';
         }
     }
 
     /**
      * @return string
      */
-    abstract protected function definingImg();
+    protected function setImgSize() {
+        $defaultSize = $this->getDefaultImgSize();
+
+        $width = $defaultSize['width'] ?? 100;
+        $height = $defaultSize['height'] ?? 100;
+
+        return '?w='. $width . '&h=' . $height;
+    }
+
+    /**
+     * @return string
+     */
+    private function setImg() {
+        $imgName = $this->getImgName();
+
+        if (\strpos($imgName, 'http') !== false) {
+            return $imgName;
+        } else {
+            return $imgName . $this->setImgSize();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    abstract protected function getImgName();
+
+    /**
+     * @return array
+     */
+    abstract protected function getDefaultImgSize();
 }

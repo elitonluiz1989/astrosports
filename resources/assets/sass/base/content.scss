@@ -1,64 +1,69 @@
 .content {
-  padding: 5px 5px 0;
+  @include media-breakpoint-up(sm) {
+    margin-top: 0.5rem;
+  }
+
+  &__wrapper {
+    @extend .col-reset
+  }
 
   .sidebar {
+    &__wrapper {
+      margin-bottom: 1rem;
+      @extend .w-100;
+    }
 
     &__title {
       margin: 0;
-      padding: 0.25em;
-      color: #fff;
-      text-align: center;
+      padding: 0.25rem;
       font-size: 1.5em;
+
+      @extend .text-white;
+      @extend .text-center;
     }
 
-    &--left {
-      padding-right: 5px;
-      padding-left: 0;
+    &-left {
+      padding-right: 0;
+      padding-left:  0.5rem;
 
       @include tabs(#333);
-
-      &__wrapper {
-        width: 100%;
-        margin: 0 0 10px 0;
-      }
-
-      @import "sidebar-schedules";
-
-      @import "sidebar-videos";
-      
-      @import "sidebar-assessments";
     }
 
-    @import "content-sidebar-right";
-  }
+    &-right {
+      padding-right: 0.5rem;
+      padding-left: 0;
+    }
 
-  &__main {
-    margin-top: 5px;
+    @import "sidebar/advertising";
+
+    @import "sidebar/assessments";
+
+    @import "sidebar/schedules";
+
+    @import "sidebar/videos";
   }
 
   .page {
     background-color: #fff;
     overflow-x: hidden;
-    @extend .col-reset;
+    margin: 0;
+
+    @include media-query(400px) {
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
+    }
+
+    &--full {
+      margin: 0;
+    }
 
     &__title {
       border-bottom-width: 1px;
       border-bottom-style: solid;
       margin: 0;
       padding: 10px 0 10px 10%;
-      color: white;
-    }
 
-    @include media-query("lm") {
-      & {
-        min-height: 300px;
-      }
-    }
-
-    @include media-query("sm") {
-      & {
-        min-height: 800px;
-      }
+      @extend .text-white;
     }
   }
 }

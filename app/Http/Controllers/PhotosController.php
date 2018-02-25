@@ -47,7 +47,6 @@ class PhotosController extends Controller
         $this->view = $this->data['views']['index'];
         $this->photos->limit = $this->data['limit'];
     }
-
     public function album(int $id)
     {
         $this->validatePage();
@@ -57,7 +56,6 @@ class PhotosController extends Controller
         $records = $this->photos->getPhotos($id);
 
         $this->recordsHandler($records);
-
         return view($this->view, $this->data);
     }
 
@@ -67,7 +65,6 @@ class PhotosController extends Controller
 
         $this->data['display'] = 'albums';
         $this->data['records']['isAlbum'] = true;
-
         $this->photos->fields = ['id', 'name', 'cover_photo'];
         $records = $this->photos->getAlbums();
 
@@ -76,6 +73,11 @@ class PhotosController extends Controller
         return view($this->view, $this->data);
     }
 
+    /**
+     * @param Request $request
+     * @param $filename
+     * @return mixed
+     */
     public function getPhoto(Request $request, $filename) {
         $sizes = $request->all();
         $path = storage_path('app/photos/' . $filename);

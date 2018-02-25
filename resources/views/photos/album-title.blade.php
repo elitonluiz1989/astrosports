@@ -1,11 +1,9 @@
-<div class="row">
-    <div class="photos__album col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
-        <div class="photos__album-back">
-            <a href="{{ config('photos.url.albums') }}">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-        </div>
+<div class="row justify-content-center">
+    <div class="album-title">
+        <a class="album-title__back" href="{{ config('photos.url.albums') }}">
+            <i class="fa fa-lg fa-angle-left"></i>
+        </a>
 
-        <div class="photos__album-title">{{ $name }}</div>
+        <div class="album-title__text">{{ $name }}</div>
     </div>
 </div>

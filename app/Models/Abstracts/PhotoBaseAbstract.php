@@ -5,7 +5,8 @@ namespace App\Models\Abstracts;
 abstract class PhotoBaseAbstract extends ImageBaseAbstract
 {
     /**
-     * @return string
+     * @return mixed|string
+     * @throws \ReflectionException
      */
     public function getLinkAttribute()
     {
@@ -18,13 +19,19 @@ abstract class PhotoBaseAbstract extends ImageBaseAbstract
         }
     }
 
-
-    protected function definingImg()
+    /**
+     * @return string
+     */
+    protected function getImgName()
     {
-        $cover = config('photos.cover');
-        $resize = '?w=' . $cover['width'] . '&h=' . $cover['height'];
-        $img = $this->attributes['cover'] ?? $this->attributes['name'];
+        return $this->attributes['cover'] ?? $this->attributes['name'];
+    }
 
-        return $img . $resize;
+    /**
+     * @return array
+     */
+    protected function getDefaultImgSize()
+    {
+        return config('photos.cover');
     }
 }

@@ -4,107 +4,161 @@
     border-color: #bbb;
   }
 
-  $self: &;
-
   &__item {
-    $news-item-margin: 10px;
-    margin-bottom: $news-item-margin;
+    border-width: 0;
+    margin-bottom: 0.5rem;
 
-    @include media-query('sm') {
+    @extend .float-left;
+    @extend .w-100;
+    @extend %news-item-border;
 
-      &:last-child > * {
-        border-bottom: 0;
+    @include media-query($news-breakpoint1) {
+      border-top: 1px;
+      padding-top: 0.5rem;
+
+      &:first-child {
+        border-top: 0;
       }
-    }
-
-    @include media-query('lg') {
-      margin-bottom: $news-item-margin * 2;
     }
 
     &:first-child {
-      margin-top: $news-item-margin * 2;
-
-      @include media-query('lg') {
-        margin-top: $news-item-margin * 2;
-      }
+      margin-top: 1rem;
     }
   }
 
   &__content {
     background-color: white;
-    @extend %news-item-border;
     border-width: 1px;
-    @extend .left;
-    width: 100%;
+
+    @extend %news-item-border;
+    @extend .float-left;
+    @extend .w-100;
+
+    @include media-query($news-breakpoint1) {
+      border-width: 0;
+      padding: 0.5rem 0;
+      position: relative;
+    }
 
     &:hover {
       $hover-color: #88dab0;
+      $hover-children-color: darken($hover-color, 50%);
       background-color: $hover-color;
       border-bottom-color: transparent;
 
       .news-list__cover {
-        border-right-color: darken($hover-color, 50%);
+        border-right-color: $hover-children-color;
+
+        img {
+          border-color: $hover-children-color;
+        }
       }
 
       .news-list__subject {
-        color: darken($hover-color, 50%);
+        color: $hover-children-color;
       }
 
       .news-list__published {
-        color: darken($hover-color, 30%);
+        color: $hover-children-color;
       }
-    }
-
-    @include media-query('sm') {
-      border-width: 0 0 1px 0;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-left: 5px;
-      height: 100px;
-    }
-
-    @include media-query('lg') {
-      height: 180px;
     }
   }
 
   &__cover {
-    background-color: #f1f1f1;
-    height: 250px;
-    overflow: hidden;
+    $cover-margin: 0.3rem;
+
     @extend .col-reset;
 
-    @include media-query('sm') {
-      background-color: transparent;
+    @include media-query($news-breakpoint1) {
       border-right: 1px solid  #bbb;
-      height: 100%;
-      padding-right: 5px !important;
+      float: left;
+      height: 9rem;
+      padding-right: $cover-margin !important;
+      padding-left: $cover-margin !important;
+    }
+
+    @include media-query($news-breakpoint1, $news-breakpoint1-max) {
+      width: $news-right-width1;
+    }
+
+    @include media-query($news-breakpoint2) {
+      text-align: center;
+    }
+
+    @include media-query($news-breakpoint2, $news-breakpoint2-max) {
+      width: $news-right-width2;
+    }
+
+    @include media-query($news-breakpoint3) {
+      width: $news-right-width3;
+    }
+
+    img {
+      height: auto;
+      margin: 0 auto;
+
+      @extend .w-100;
+
+      @include media-query($news-breakpoint1) {
+        border: 1px solid transparent;
+        height: 100% !important;
+      }
+
+      @include media-query($news-breakpoint2) {
+        width: auto !important;
+        max-width: 100%;
+      }
     }
   }
 
   %news-text {
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: center;
+
+    @extend .text-center;
   }
 
   &__subject {
-    @extend %news-text;
     color: lighten($theme-dark, 20%);
-    @extend .bolder;
 
-    @include media-query('sm') {
-      height: 70%;
+    @extend %news-text;
+    @extend .font-weight-bold;
+
+    @include media-query($news-breakpoint1) {
+      float: left;
     }
 
-    @include media-query('lg') {
-      height: 80%;
+    @include media-query($news-breakpoint1, $news-breakpoint1-max) {
+      width: $news-left-width1;
+    }
+
+    @include media-query($news-breakpoint2, $news-breakpoint2-max) {
+      width: $news-left-width2;
+    }
+
+    @include media-query($news-breakpoint3) {
+      width: $news-left-width3;
     }
   }
 
   &__published {
-    @extend %news-text;
     color: lighten($theme-dark, 40%);
-    font-weight: bold;
+
+    @extend %news-text;
+    @extend .font-weight-bold;
+
+    @include media-query($news-breakpoint1) {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    @include media-query($news-breakpoint1, $news-breakpoint1-max) {
+      width: $news-left-width1;
+    }
+
+    @include media-query($news-breakpoint2) {
+      width: $news-left-width2;
+    }
   }
 }

@@ -11,11 +11,11 @@ export function VideosModal() {
         style: 'width: 100%'
     };
 
+    modal.waitContentLoad = true;
+
     if (window.navigator.maxTouchPoints || 'ontouchstart' in document) {
         contentAttrs.height = 200;
     }
-
-    modal.setCloseButton();
 
     $('#videos .videos__item').click(evt => {
         evt.preventDefault();
@@ -28,8 +28,17 @@ export function VideosModal() {
             attrs: contentAttrs
         }];
 
-        modal.showMask();
+        modal.show();
 
-        modal.showModal();
+        // hide modal mask when content is loaded
+        let  iframe = modal.modal.find('iframe').get(0);
+        let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+        if (iframeDoc.readyState  === 'complete') {
+            iframe.onload = function() {
+                modal.hideMask();
+            }
+        }
+
     });
 }

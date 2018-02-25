@@ -4,48 +4,73 @@
   &__section-title {
     background-color: $theme-green;
     padding: 8px 0;
-    color: #fff;
-    text-align: center;
     font-size: 20px;
 
-    @include media-query('sm') {
-      margin-left: 10px;
+    @extend .col-12;
+    @extend .col-sm-9;
+    @extend .col-md-7;
+    @extend .col-lg-6;
+    @extend .col-xl-4;
+    @extend .text-white;
+    @extend .text-center;
+
+    @include media-breakpoint-up('sm') {
+      margin-top: 1rem;
+      margin-left: 1.5rem;
     }
   }
 
   .contacts {
-    padding-right: 10px;
+    padding-left: 2rem; // -15px from bootstrap col margin
 
     &__subtitle {
       background-color: #333;
-      @extend %left;
-      margin-left: 10px;
-      padding: 5px 0;
+      padding: 0.3rem 0;
       color: $theme-golden;
-      text-align: center;
 
-      @include media-query('sm') {
+      @extend .col-8;
+      @extend .col-sm-6;
+      @extend .col-md-5;
+      @extend .col-lg-4;
+      @extend .col-xl-3;
+      @extend .text-center;
+
+      @include media-breakpoint-up('sm') {
         margin-left: 15px;
       }
     }
 
     &__item {
-      padding: 5px 0 5px 15px;
+      padding: 0.5rem 0 0.5rem 1.3rem;
 
-      @include media-query('sm') {
-        padding-left: 20px;
+      @include media-breakpoint-up('sm') {
+        padding-left: 1.7rem;
       }
     }
   }
 
   .send-email {
+    @extend .col-12;
+    @extend .col-lg-9;
+
+    .control-label {
+      @extend .col-12;
+      @extend .col-3;
+    }
+
     &__message {
       opacity: 0;
       transition: opacity .5s;
+
       @extend .text-center;
 
       &--show {
         opacity: 1;
+      }
+
+      .alert {
+        width: 90%;
+        margin: 0 auto;
       }
     }
 
@@ -59,26 +84,48 @@
 
     &__content {
       min-height: 250px;
-      max-width: 100%;
+
+      @extend .mw-100;
     }
 
     &__submit {
+      border-color: #bbb;
       margin-top: 15px;
     }
   }
 
   .localization {
+    &__title {
+      font-size: 1.4rem;
+
+      @extend .font-weight-bold;
+    }
+
+    &__text {
+      margin-bottom: 0.3rem;
+      padding-left: 1rem;
+
+      @extend .w-100;
+    }
+
     &__error {
-      @extend .alert-danger;
       padding: 15px 0;
+
+      @extend .alert-danger;
       @extend .text-center;
     }
 
     &__map {
       border: 1px solid $theme-green;
-      width: 100%;
+      width: 98%;
       height: 400px;
-      margin-bottom: 10px;
+      margin-bottom: 1rem;
+      margin-left: 1%;
+
+      @include media-breakpoint-up(xl) {
+        width: 97%;
+        margin-left: 1.5%;
+      }
     }
   }
 }
