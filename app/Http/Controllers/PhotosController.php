@@ -82,15 +82,16 @@ class PhotosController extends Controller
     public function getPhoto(Request $request, $filename) {
         $width = $request->get('width');
         $height = $request->get('height');
-        $ratio= $request->get('ratio') ?? false;
-        $upsize= $request->get('upsize') ?? false;
 
         $path = storage_path('app/photos/' . $filename);
 
         $img = Image::make($path);
 
         if ($width || $height) {
-                $img->resize($width, $height);
+                $img->resize($width, $height, function ($contraint) {
+                    $contraint->aspectRatio();
+                    $contraint->upsize();
+                });
         }
 
         $format = $img->extension;

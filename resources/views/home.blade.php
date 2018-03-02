@@ -9,7 +9,7 @@
 @section('content')
     <div class="home page">
         <!-- Photos -->
-        <div id="home-gallery" class="home__galery home__wrapper carousel slide" data-ride="carousel">
+        <div id="home-gallery" class="home__gallery home__wrapper carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 @for ($i = 0; $i < $photosQty; $i++)
@@ -27,7 +27,7 @@
                     @php $homePhotoClass = ($loop->first) ? ' active' : ''; @endphp
 
                     <div class="home__gallery-item carousel-item{{ $homePhotoClass }}">
-                        <img class="img" src="{{ $photo->source }}" alt="{{ $photo->alt }}">
+                        <img class="home__gallery-photo" src="{{ $photo->source }}" alt="{{ $photo->alt }}">
                     </div>
                 @endforeach
             </div>
