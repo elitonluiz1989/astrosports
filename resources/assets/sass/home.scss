@@ -28,15 +28,12 @@
     background-color: #222;
     height: auto;
 
-    @extend .o-hidden;
-  }
+    &-item {
+      width: 100%;
+      height: 17rem;
 
-  &__photo {
-    max-width: 600px;
-    margin: 0 auto;
-
-    @extend .d-block;
-    @extend .w-100;
+      @extend .o-hidden;
+    }
   }
 
   &__history {

@@ -8,7 +8,7 @@
         "php": ">=7.0",
         "alaouy/youtube": "dev-master",
         "facebook/graph-sdk": "^5.6",
-        "intervention/image": "^2.3",
+        "intervention/image": "^2.4",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0"
     },

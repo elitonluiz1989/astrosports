@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Contracts\PhotosRepositoryInterface;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\Response as ImageResponse;
 
 /**
  * Class PhotosController
@@ -79,21 +80,25 @@ class PhotosController extends Controller
      * @return mixed
      */
     public function getPhoto(Request $request, $filename) {
-        $sizes = $request->all();
+        $width = $request->get('width');
+        $height = $request->get('height');
+        $ratio= $request->get('ratio') ?? false;
+        $upsize= $request->get('upsize') ?? false;
+
         $path = storage_path('app/photos/' . $filename);
 
+        $img = Image::make($path);
 
-        if (count($sizes) > 0) {
-            $img = Image::make($path)
-                ->resize($sizes['w'], $sizes['h']);
-        } else {
-            $img = Image::make($path);
+        if ($width || $height) {
+                $img->resize($width, $height);
         }
 
-        $photoExt = explode('.', $filename);
-        $photoExt = end($photoExt);
+        $format = $img->extension;
 
-        return $img->response($photoExt);
+        // Workaround to do the image appear. Before only show a 16x16 transparent square instead of image
+        ob_end_clean();
+
+        return $img->response($format);
     }
 
     /**

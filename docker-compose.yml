@@ -13,36 +13,34 @@ services:
             -   "3000:3000"
 
         links:
-            - mysql
+            - astrosports_mysql
 
         volumes:
             -   .:/var/www/html/
             -   ./docker/vhost.conf:/etc/apache2/sites-available/000-default.conf
 
-    phpmyadmin:
+    astrosports_phpmyadmin:
         image: phpmyadmin/phpmyadmin
 
-        container_name: phpmyadmin
+        container_name: astrosports_phpmyadmin
 
         environment:
             - PMA_ARBITRARY=1
-            - PMA_HOST=mysql
-
-        restart: always
+            - PMA_HOST=astrosports_mysql
 
         ports:
             - "8080:80"
 
         depends_on:
-            - mysql
+            - astrosports_mysql
 
         volumes:
             - /sessions
 
-    mysql:
+    astrosports_mysql:
         image: mysql
 
-        container_name: mysql
+        container_name: astrosports_mysql
 
         ports:
           - "9090:3306"

@@ -24,10 +24,10 @@
             <!-- Conteiner for slides -->
             <div class="carousel-inner">
                 @foreach ($photos as $photo)
-                    @php $class = ($loop->first) ? 'carousel-item active' : 'carousel-item'; @endphp
+                    @php $homePhotoClass = ($loop->first) ? ' active' : ''; @endphp
 
-                    <div class="{{ $class }}">
-                        <img class="home__photo" src="{{ $photo->source }}" alt="{{ $photo->alt }}">
+                    <div class="home__gallery-item carousel-item{{ $homePhotoClass }}">
+                        <img class="img" src="{{ $photo->source }}" alt="{{ $photo->alt }}">
                     </div>
                 @endforeach
             </div>
