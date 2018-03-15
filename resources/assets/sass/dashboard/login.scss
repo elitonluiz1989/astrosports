@@ -1,0 +1,59 @@
+.login {
+  @include media-breakpoint-up(md) {
+    background-color: #fefefe;
+    margin-top: 1rem;
+    box-shadow: 3px 3px 8px #444;
+  }
+
+  %login-text-color {
+    color: #dedede;
+
+    @include media-breakpoint-up(md) {
+      color: #444;
+    }
+  }
+
+  %login-border-color {
+    border-style: solid;
+    border-color: #ddd;
+
+    @include media-breakpoint-up(md) {
+      border-color: transparent;
+    }
+  }
+
+  &__title {
+    border-width: 0 0 1px 0;
+    padding: 0.7rem 0;
+
+    @extend .text-center;
+    @extend %login-border-color;
+    @extend %login-text-color;
+  }
+
+  .control-label {
+    @extend .font-weight-bold;
+    @extend %login-text-color;
+  }
+
+  &__remember-label {
+    font-size: 0.7rem;
+
+    @extend .text-right;
+    @extend .font-weight-bold;
+  }
+
+  &__btn-group {
+    border-width: 1px 0 0 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    @extend %login-border-color;
+
+    @include media-breakpoint-up(md) {
+      .btn-light {
+        border-color: #888;
+      }
+    }
+  }
+}

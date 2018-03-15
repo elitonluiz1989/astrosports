@@ -28,8 +28,8 @@
         </script>
     </head>
 
-    <body>
-        <div id="app" class="main">
+    <body class="default">
+        <div id="app">
             <header class="header container-fluid">
                 @include('layout.header.title')
 

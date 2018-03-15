@@ -31,3 +31,16 @@ Route::get('/json/{jsonFile}', function($jsonFile) {
 
     return \json_decode(\file_get_contents($jsonPath), true);
 });
+
+Route::group(['namespace' => 'Auth'], function() {
+    Route::group(['prefix' => 'login'], function() {
+        Route::get('/', 'LoginController@showLogin')->name('login');
+        Route::post('/', 'LoginController@login')->name('doLogin');
+    });
+
+    Route::get('/logout', 'LoginController@logout')->name('logout');
+});
+
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function() {
+    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+});

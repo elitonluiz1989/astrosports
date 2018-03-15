@@ -1,19 +1,26 @@
+require('./bootstrap');
+
 import {PhotosGallery} from "./components/Photos/PhotosGallery.js";
 import {HomeHistory} from "./components/Home/HomeHistory";
 import {VideosModal} from "./components/Videos/VideosModal";
 
-require('./bootstrap');
+import Vue from 'vue';
 
-Vue.component('main-mask', require('./components/Base/AppMask'));
+import Imc from './components/Imc/Imc';
+import ContactAddress from './components/Contact/ContactAddress';
+import ContactEmail from './components/Contact/ContactEmail';
+import DashboardLogin from './components/Dashboard/DashboardLogin';
+import Dashboard from './components/Dashboard/Dashboard';
 
-Vue.component('imc', require('./components/Imc/Imc'));
-
-Vue.component('contact-address', require('./components/Contact/ContactAddress'));
-
-Vue.component('contact-email', require('./components/Contact/ContactEmail'));
-
-const appImc = new Vue({
-    el: "#app"
+const app = new Vue({
+    el: "#app",
+    components: {
+        Imc,
+        ContactAddress,
+        ContactEmail,
+        DashboardLogin,
+        Dashboard
+    }
 });
 
 HomeHistory();
@@ -21,3 +28,4 @@ HomeHistory();
 PhotosGallery();
 
 VideosModal();
+

@@ -1,0 +1,107 @@
+<template>
+    <div class="form-group form-message" :class="styles.show" ref="formMessage">
+        <p :class="[styles.message.error, styles.message.success]">{{ text }}</p>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'form-message',
+
+        props: {
+            scroll: {
+                type: Boolean,
+                default: true
+            },
+
+            scrollSpeed: {
+                type: Number,
+                default: 500
+            },
+
+            show: {
+                type: Boolean,
+                default: false,
+                required: true
+            },
+
+            text: {
+                type: String,
+                required: true
+            },
+
+            type: {
+                type: String,
+                default: 'error',
+                required: true
+            }
+        },
+
+        data() {
+            return {
+                success: false
+            };
+        },
+
+        computed: {
+            styles() {
+                return {
+                    show: {
+                        'form-message--show': this.show
+                    },
+
+                    message: {
+                        error: {
+                            'alert alert-danger text-center': !this.success
+                        },
+
+                        success: {
+                            'alert alert-success text-center': this.success
+                        }
+                    }
+                };
+            }
+        },
+
+        watch: {
+            type(value) {
+                this.setMessageType();
+
+                this.scrollToMessage();
+            }
+        },
+
+        mounted() {
+            this.setMessageType();
+        },
+
+        methods: {
+            setMessageType() {
+                if (this.type === 'success') {
+                    this.success = true;
+                } else {
+                    this.success = false;
+                }
+            },
+
+            scrollToMessage() {
+                let scrollTo = $(this.$refs.formMessage).offset().top;
+
+                $('window, body').animate({scrollTop: scrollTo}, 500);
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .form-message {
+        display: none;
+        opacity: 0;
+        transition: opacity .5s;
+
+        &--show {
+            display: block;
+            opacity: 1;
+        }
+    }
+</style>
