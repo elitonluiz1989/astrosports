@@ -4,9 +4,11 @@ html, body {
 }
 
 body {
-  font-size: 14px !important;
-
   @extend .position-relative;
+
+  .app {
+    font-size: 14px !important;
+  }
 }
 
 .default #app {

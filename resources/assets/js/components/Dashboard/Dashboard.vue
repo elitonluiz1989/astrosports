@@ -7,12 +7,14 @@
                 <dashboard-navbar :current-page="page" @showLogout="onLogout"></dashboard-navbar>
             </div>
 
-            <div class="col-12 col-md-10 col-xl-11 h-100" style="background-color: white">
+            <div class="col-12 col-md-10 col-xl-11 col-reset h-100">
                 <div class="dashboard__title">
-                    <h1>Painel de controle</h1>
-                    <span v-text="currentPage"></span>
+                    <div class="dashboard__title-text">Painel de controle</div>
+                    <div class="dashboard__title-arrow"> </div>
+                    <div class="dashboard__title-subtitle" v-text="currentPage"></div>
                 </div>
 
+                <div class="dashboard__content h-100"></div>
             </div>
         </div>
     </div>

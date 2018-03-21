@@ -29,7 +29,7 @@
     </head>
 
     <body class="default">
-        <div id="app">
+        <div id="app" class="app">
             <header class="header container-fluid">
                 @include('layout.header.title')
 

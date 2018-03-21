@@ -28,7 +28,7 @@
     </head>
 
     <body class="dashboard">
-        <div id="app">
+        <div id="app" class="app">
             @if (Auth::check())
                 <dashboard></dashboard>
             @else

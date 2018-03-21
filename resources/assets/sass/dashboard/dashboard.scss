@@ -7,11 +7,64 @@
     }
   }
 
-  #app {
-   @extend .h-100;
+  .app {
+    @extend .h-100;
   }
 
   @import "navbar";
 
   @import "user";
+
+  &__title {
+    background-color: $dashboard-nav-color-dark;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 2.6rem;
+
+    @extend .float-left;
+    @extend .w-100;
+    @extend .text-white;
+
+    &-text {
+      background-color: $dashboard-nav-color;
+      width: 60%;
+      padding-left: 2rem;
+
+      @extend .float-left;
+
+      @include media-breakpoint-up(lg) {
+        width: 50%;
+      }
+    }
+
+    &-arrow {
+      background: url("../images/dashboard-title-arrow.png") no-repeat;
+      background-size: contain;
+      width: 70px;
+      height: 62px;
+
+      @extend .float-left;
+    }
+
+    &-subtitle {
+      margin-left: 1.5rem;
+      padding-top: 0.2em;
+      font-size: 0.8em;
+      color: darken($dashboard-color, 3%);
+
+      @extend .float-left;
+
+      @include media-breakpoint-only(lg) {
+        margin-left: 3rem;
+      }
+
+      @include media-breakpoint-up(xl) {
+        margin-left: 4rem;
+      }
+    }
+  }
+
+  &__content {
+    background-color: white;
+  }
 }
