@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->integer('role')->unsigned();
             $table->timestamps();
             $table->rememberToken();
+        });
 
+        Schema::table('users', function($table) {
             $table->foreign('role')->references('id')->on('user_roles');
         });
     }

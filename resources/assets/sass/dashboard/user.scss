@@ -1,0 +1,33 @@
+&__user {
+  background-color: $dashboard-nav-color-dark;
+  padding: 0.2rem 0.1rem 0.1rem;
+
+  &-avatar {
+    height: 4rem;
+    width: 4rem;
+    margin: 0 auto;
+
+    .img {
+      border: 1px solid darken($dashboard-nav-color-dark, 10%);
+      border-radius: 100%;
+    }
+  }
+
+  &-name {
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: darken($dashboard-nav-color-dark, 5%);
+    margin: 0.3rem 0;
+    padding: 0.2rem;
+
+    @extend .w-100;
+    @extend .text-center;
+  }
+
+  &-logout {
+    background-color: darken($dashboard-nav-color-dark, 5%);
+    border: 0;
+    @extend .w-100;
+    @extend .text-white;
+  }
+}

@@ -61,4 +61,7 @@ $news-left-width1: 60%;
 $news-left-width2: 65%;
 $news-left-width3: 70%;
 
+// Dashboard
 $dashboard-color: #2ab27b;
+$dashboard-nav-color: darken($dashboard-color, 15%);
+$dashboard-nav-color-dark: darken($dashboard-nav-color, 10%);
