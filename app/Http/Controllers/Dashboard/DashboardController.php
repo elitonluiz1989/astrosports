@@ -7,8 +7,12 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index($page = 'users')
     {
-        return view('dashboard.index');
+        $data = [
+            'currentPage' => $page
+        ];
+
+        return view('dashboard.index', $data);
     }
 }

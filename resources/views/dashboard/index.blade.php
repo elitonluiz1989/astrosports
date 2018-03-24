@@ -27,10 +27,16 @@
         </script>
     </head>
 
-    <body class="dashboard">
+    @php
+        $authenticaded = Auth::check();
+
+        $bodyClass = ($authenticaded) ? 'dashboard' : 'dashboard--login';
+    @endphp
+
+    <body class="{{ $bodyClass }}">
         <div id="app" class="app">
-            @if (Auth::check())
-                <dashboard></dashboard>
+            @if ($authenticaded)
+                <dashboard :page="{{ $currentPage }}"></dashboard>
             @else
                 <dashboard-login></dashboard-login>
             @endif

@@ -2,63 +2,57 @@ import usersApi  from '../requests/users';
 
 export const users = {
     state: {
-        authUser: {},
         user: {},
-        status: {
-            auth: 0,
-            users: 0
-        }
+        users: [],
+        messageErrors: null,
+        usersRequestStatus: 0
     },
 
     actions: {
-        loadAuthUser({ commit }, id) {
-            commit('setUsersStatus', 'auth', 1);
-
-            usersApi.getAuthUser()
-                .then(response => {
-                    commit('setAuthUser', response.data);
-                    commit('setUsersStatus', 'auth', 2);
-                })
-                .catch(err => {
-                    commit('setAuthUser', {});
-                    commit('setUsersStatus', 'auth', 3);
-                });
-        },
-
         loadUser({commit}, id) {
-            commit('setUsersStatus', 'users', 1);
+            commit('setUsersRequestStatus', 1);
 
             usersApi.loadUsers(id)
                 .then(response => {
-                    commit('setUser', response.data);
-                    commit('setUsersStatus', 'users', 2);
+                    if (response.data.error) {
+                        commit('setUser', {});
+                        commit('setUsersRequestStatus', 3);
+                        commit('setUsersMessageErrors', response.data.error);
+                    } else {
+                        commit('setUser', response.data);
+                        commit('setUsersRequestStatus', 2)
+                    }
                 })
                 .catch(err => {
                     commit('setUser', {});
-                    commit('setUsersStatus', 'users', 3);
+                    commit('setUsersRequestStatus', 3);
+                    commit('setUsersMessageErrors', err);
                 });
         },
 
         loadUsers({commit}) {
-            commit('setUsersStatus', 'users', 1);
+            commit('setUsersRequestStatus', 1);
 
             usersApi.getUsers()
                 .then(response => {
-                    commit('setUsers', response.data);
-                    commit('setUsersStatus', 'users', 2);
+                    if (response.data.error) {
+                        commit('setUsers', []);
+                        commit('setUsersRequestStatus', 3);
+                        commit('setUsersMessageErrors', response.data.error);
+                    } else {
+                        commit('setUsers', response.data);
+                        commit('setUsersRequestStatus', 2)
+                    }
                 })
                 .catch(err => {
-                    commit('setUsers', {});
-                    commit('setUsersStatus', 'users', 3);
+                    commit('setUsers', []);
+                    commit('setUsersRequestStatus', 3);
+                    commit('setUsersMessageErrors', err);
                 });
         }
     },
 
     mutations: {
-        setAuthUser(state, user) {
-            state.authUser = user;
-        },
-
         setUser(state, user) {
             state.user = user;
         },
@@ -67,17 +61,16 @@ export const users = {
             state.users = users;
         },
 
-        setUsersStatus(state, type, status) {
-            state.status[type] = status;
+        setUsersRequestStatus(state, status) {
+            state.usersRequestStatus = status;
+        },
+
+        setUsersMessageErrors(state, message) {
+            state.messageErrors = message;
         }
     },
 
     getters: {
-        getAuthUser(state) {
-            console.log(state.authUser.id)
-            return state.authUser;
-        },
-
         getUser(state) {
             return state.user;
         },
@@ -86,8 +79,12 @@ export const users = {
             return state.users;
         },
 
-        getUsersStatus(state) {
-            return state.status;
+        getUsersRequestStatus(state) {
+            return state.usersRequestStatus;
+        },
+
+        getUsersMessageErrors(state) {
+            return state.messageErrors;
         }
     }
 };

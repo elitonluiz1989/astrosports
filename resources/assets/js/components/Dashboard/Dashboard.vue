@@ -3,18 +3,19 @@
         <dashboard-logout :show="showLogoutModal" @onHideLogoutModal="updateShowLogoutModal"></dashboard-logout>
 
         <div class="row h-100">
-            <div class="col-12 col-md-2 col-xl-1 col-reset h-md-100">
+            <div class="col-12 col-md-2 col-xl-1 col-reset">
                 <dashboard-navbar :current-page="page" @showLogout="onLogout"></dashboard-navbar>
             </div>
 
-            <div class="col-12 col-md-10 col-xl-11 col-reset h-100">
+            <div class="col-12 col-md-10 col-xl-11 col-reset">
                 <div class="dashboard__title">
                     <div class="dashboard__title-text">Painel de controle</div>
                     <div class="dashboard__title-arrow"> </div>
                     <div class="dashboard__title-subtitle" v-text="currentPage"></div>
                 </div>
 
-                <div class="dashboard__content h-100"></div>
+
+                <dashboard-pages :page="page"></dashboard-pages>
             </div>
         </div>
     </div>
@@ -22,6 +23,7 @@
 
 <script>
     import DashboardNavbar from './DashboardNavbar';
+    import DashboardPages from './DashboardPages';
     import DashboardLogout from './User/DashboardLogout';
 
     export default {
@@ -29,7 +31,8 @@
 
         components: {
             DashboardNavbar,
-            DashboardLogout
+            DashboardLogout,
+            DashboardPages
         },
 
         props: {
@@ -50,10 +53,6 @@
             currentPage() {
                 return this.$store.getters.getDashboardNavItems[this.page].text;
             }
-        },
-
-        mounted() {
-            console.log(window.localStorage.getItem('token'))
         },
 
         methods: {

@@ -12,12 +12,9 @@
 
 <script>
     import { CONFIG } from '../../../config';
+
     export default {
         name: "dashboard-user",
-
-        created() {
-            this.$store.dispatch('loadAuthUser');
-        },
 
         computed: {
             avatar() {
@@ -31,6 +28,18 @@
             user() {
                 return this.$store.getters.getAuthUser;
             }
+        },
+
+        created() {
+            this.$store.dispatch('loadAuthUser');
+        },
+
+        mounted() {
+          let messageErrors = this.$store.getters.getAuthMessageErrors;
+
+          if (messageErrors) {
+              console.log(messageErrors);
+          }
         },
 
         methods: {

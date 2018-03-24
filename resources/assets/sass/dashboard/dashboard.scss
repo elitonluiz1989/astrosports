@@ -1,10 +1,16 @@
 .dashboard {
-  background-color: $dashboard-color;
+  background-color: white;
 
-  .h-md-100 {
-    @include media-breakpoint-up(md) {
-      height: 100% !important;
-    }
+  @include media-breakpoint-up(md) {
+    background-color: $dashboard-color;
+  }
+
+  &--login {
+    background-color: lighten($dashboard-nav-color,10%);
+  }
+
+  .min-h-100 {
+     min-height: 100% !important;
   }
 
   .app {
@@ -15,13 +21,16 @@
 
   @import "user";
 
+  $title-height: 2.6rem;
+  $subtitle-font-size: 2rem;
+  $subtitle-padding-top: $title-height - $subtitle-font-size;
   &__title {
     background-color: $dashboard-nav-color-dark;
     padding-top: 0;
     padding-bottom: 0;
-    font-size: 2.6rem;
+    height: 4rem;
+    font-size: $title-height;
 
-    @extend .float-left;
     @extend .w-100;
     @extend .text-white;
 
@@ -30,7 +39,10 @@
       width: 60%;
       padding-left: 2rem;
 
+      @extend .d-none;
+      @extend .d-md-block;
       @extend .float-left;
+      @extend .h-100;
 
       @include media-breakpoint-up(lg) {
         width: 50%;
@@ -38,21 +50,32 @@
     }
 
     &-arrow {
-      background: url("../images/dashboard-title-arrow.png") no-repeat;
+      background: url("../images/dashboard-title-arrow.png") no-repeat left center;
       background-size: contain;
       width: 70px;
-      height: 62px;
 
+      @extend .d-none;
+      @extend .d-md-block;
       @extend .float-left;
+      @extend .h-100;
     }
 
     &-subtitle {
-      margin-left: 1.5rem;
-      padding-top: 0.2em;
-      font-size: 0.8em;
-      color: darken($dashboard-color, 3%);
+      padding-top: $subtitle-padding-top;
+      font-size: $subtitle-font-size;
 
       @extend .float-left;
+      @extend .w-100;
+      @extend .h-100;
+      @extend .text-white;
+      @extend .text-center;
+
+      @include media-breakpoint-up(md) {
+        width: auto !important;
+        margin-left: 1.5rem;
+        color: lighten($dashboard-color, 5%) !important;
+        text-align: left;
+      }
 
       @include media-breakpoint-only(lg) {
         margin-left: 3rem;
@@ -66,5 +89,8 @@
 
   &__content {
     background-color: white;
+
+    @extend .w-100;
+    @extend .min-h-100;
   }
 }
