@@ -10,7 +10,13 @@
   }
 
   .min-h-100 {
-     min-height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  .h-md-100 {
+    @include media-breakpoint-up(md) {
+      height: 100% !important;
+    }
   }
 
   .app {
@@ -93,4 +99,6 @@
     @extend .w-100;
     @extend .min-h-100;
   }
+
+  @import "users";
 }

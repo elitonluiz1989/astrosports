@@ -1,8 +1,8 @@
 <template>
-    <div class="container-fluid h-100">
+    <div class="container-fluid h-md-100">
         <dashboard-logout :show="showLogoutModal" @onHideLogoutModal="updateShowLogoutModal"></dashboard-logout>
 
-        <div class="row h-100">
+        <div class="row h-md-100">
             <div class="col-12 col-md-2 col-xl-1 col-reset">
                 <dashboard-navbar :current-page="page" @showLogout="onLogout"></dashboard-navbar>
             </div>
