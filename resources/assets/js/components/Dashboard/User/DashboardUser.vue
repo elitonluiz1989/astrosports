@@ -12,9 +12,14 @@
 
 <script>
     import { CONFIG } from '../../../config';
+    import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
 
     export default {
         name: "dashboard-user",
+
+        mixins: [
+            StoreRequestStatus
+        ],
 
         computed: {
             avatar() {
@@ -32,14 +37,11 @@
 
         created() {
             this.$store.dispatch('loadAuthUser');
+            this.requestMessageOnLog = true;
         },
 
         mounted() {
-          let messageErrors = this.$store.getters.getAuthMessageErrors;
-
-          if (messageErrors) {
-              console.log(messageErrors);
-          }
+          this.storeRequestStatus('getAuthRequestStatus', 'getAuthMessageErrors');
         },
 
         methods: {
