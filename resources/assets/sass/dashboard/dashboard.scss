@@ -25,7 +25,7 @@
 
   @import "navbar";
 
-  @import "user";
+  @import "auth";
 
   $title-height: 2.6rem;
   $subtitle-font-size: 2rem;
@@ -43,12 +43,12 @@
     &-text {
       background-color: $dashboard-nav-color;
       width: 60%;
-      padding-left: 2rem;
 
       @extend .d-none;
       @extend .d-md-block;
       @extend .float-left;
       @extend .h-100;
+      @extend .text-center;
 
       @include media-breakpoint-up(lg) {
         width: 50%;

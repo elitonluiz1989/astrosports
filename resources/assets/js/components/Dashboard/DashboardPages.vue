@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard__content">
-        <dashboard-users v-show="show.users"></dashboard-users>
+        <dashboard-users v-show="show.usuarios"></dashboard-users>
     </div>
 </template>
 
@@ -24,11 +24,11 @@
         data() {
             return {
                 show: {
-                    users: false,
-                    instutional: false,
-                    news: false,
-                    photos: false,
-                    schedules: false
+                    usuarios: false,
+                    institucional: false,
+                    noticias: false,
+                    fotos: false,
+                    horarios: false
                 }
             };
         },

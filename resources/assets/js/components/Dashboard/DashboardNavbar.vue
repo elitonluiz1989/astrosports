@@ -9,15 +9,15 @@
         <div class="collapse navbar-collapse" id="dashboard-navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item d-none d-md-block">
-                    <dashboard-user @onUserLogout="callShowLogout"></dashboard-user>
+                    <dashboard-auth-user @onUserLogout="callShowLogout"></dashboard-auth-user>
                 </li>
 
-                <li :class="key === currentPage ? 'nav-item active' : 'nav-item'" v-for="(navItem, key) in navItems" :key="key">
-                    <a class="nav-link" :href="navItem.link" v-text="navItem.text" v-show="navItem.active && key !== 'logout'"></a>
+                <li :class="setNavItemStyle(key)" v-for="(navItem, key) in navItems" :key="key">
+                    <a class="nav-link" :href="navItem.link" v-text="navItem.text" v-if="navItem.active && key !== 'logout'"></a>
 
-                    <a class="nav-link d-md-none" :href="navItem.link" v-text="navItem.text" v-show="navItem.active && key === 'logout'" @click.prevent.stop="callShowLogout"></a>
+                    <a class="nav-link d-md-none" :href="navItem.link" v-text="navItem.text" v-if="navItem.active && key === 'logout'" @click.prevent.stop="callShowLogout"></a>
 
-                    <span class="nav-link nav-link--disactive" v-text="navItem.text" v-show="!navItem.active"></span>
+                    <span class="nav-link nav-link--disactive" v-text="navItem.text" v-if="!navItem.active"></span>
                 </li>
             </ul>
         </div>
@@ -25,31 +25,36 @@
 </template>
 
 <script>
-    import DashboardUser from './User/DashboardUser';
+    import DashboardAuthUser from './User/DashboardAuthUser';
+    import { navItems } from './data/navItems';
 
     export default {
         name: "dashboard-navbar",
 
         components: {
-            DashboardUser
+            DashboardAuthUser
         },
 
         props: {
             currentPage: {
                 type: String,
-                default: 'users'
+                required: true
             }
         },
 
-        computed: {
-            navItems() {
-                return this.$store.getters.getDashboardNavItems;
+        data() {
+            return {
+                navItems: navItems
             }
         },
 
         methods: {
             callShowLogout() {
                 this.$emit('showLogout')
+            },
+
+            setNavItemStyle(key) {
+                return key === this.currentPage ? "nav-item active" : "nav-item";
             }
         }
     }

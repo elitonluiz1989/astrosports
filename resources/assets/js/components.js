@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 import Imc from './components/Imc/Imc';
 import ContactAddress from './components/Contact/ContactAddress';
 import ContactEmail from './components/Contact/ContactEmail';

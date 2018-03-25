@@ -4,50 +4,41 @@
             <img :src="avatar" :alt="user.name" class="img">
         </div>
 
-        <div class="dashboard__user-name" v-text="user.name"></div>
+        <div class="dashboard__user-item" v-text="user.name"></div>
 
-        <button class="dashboard__user-logout" @click="userLogout">Sair</button>
+        <div class="dashboard__user-item" v-text="role"></div>
     </div>
 </template>
 
 <script>
-    import { CONFIG } from '../../../config';
-    import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
+    import DashboardUser from '../Mixins/DashboardUserMixin';
 
     export default {
         name: "dashboard-user",
 
         mixins: [
-            StoreRequestStatus
+          DashboardUser
         ],
 
-        computed: {
-            avatar() {
-                if (this.user.avatar) {
-                    return CONFIG.PHOTOS.PATH + this.user.avatar;
-                } else {
-                    return CONFIG.PHOTOS.DEFAULT;
-                }
-            },
-
-            user() {
-                return this.$store.getters.getAuthUser;
+        props: {
+            userKey: {
+                type: Number,
+                required: true,
             }
         },
 
-        created() {
-            this.$store.dispatch('loadAuthUser');
-            this.requestMessageOnLog = true;
-        },
+        computed: {
+            user() {
+                return this.$store.getters.getUsers[this.userKey];
+            },
 
-        mounted() {
-          this.storeRequestStatus('getAuthRequestStatus', 'getAuthMessageErrors');
-        },
-
-        methods: {
-            userLogout() {
-                this.$emit('onUserLogout');
+            role() {
+                return this.user.role.charAt(0).toUpperCase() + this.user.role.slice(1);
             }
         }
     }
 </script>
+
+<style scoped>
+
+</style>

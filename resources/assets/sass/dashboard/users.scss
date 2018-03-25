@@ -1,5 +1,37 @@
 &__users {
-  margin: 0 1%;
-  padding-top: 0.5rem;
-  @extend .list;
+  width: 98%;
+  margin: 0.5rem 1% 0;
+
+  @extend .float-left;
+}
+
+&__user {
+  $dashboard-user: #f6f6f6;
+  $dashboard-user-border: darken($dashboard-user, 10%);
+
+  background-color: $dashboard-user;
+  border: 1px solid $dashboard-user-border;
+  padding: 0.2rem 0 0.1rem;
+
+  &-avatar {
+    height: 6rem;
+    width: 6rem;
+    margin: 0 auto;
+
+    .img {
+      border: 1px solid $dashboard-user-border;
+      border-radius: 100%;
+    }
+  }
+
+  &-item {
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: darken($dashboard-user, 5%);
+    margin: 0.3rem 0;
+    padding: 0.2rem;
+
+    @extend .w-100;
+    @extend .text-center;
+  }
 }

@@ -4,18 +4,17 @@
 
         <div class="row h-md-100">
             <div class="col-12 col-md-2 col-xl-1 col-reset">
-                <dashboard-navbar :current-page="page" @showLogout="onLogout"></dashboard-navbar>
+                <dashboard-navbar :current-page="currentPage" @showLogout="onLogout"></dashboard-navbar>
             </div>
 
             <div class="col-12 col-md-10 col-xl-11 col-reset">
                 <div class="dashboard__title">
                     <div class="dashboard__title-text">Painel de controle</div>
                     <div class="dashboard__title-arrow"> </div>
-                    <div class="dashboard__title-subtitle" v-text="currentPage"></div>
+                    <div class="dashboard__title-subtitle" v-text="currentPageText"></div>
                 </div>
 
-
-                <dashboard-pages :page="page"></dashboard-pages>
+                <dashboard-pages :page="currentPage"></dashboard-pages>
             </div>
         </div>
     </div>
@@ -25,6 +24,8 @@
     import DashboardNavbar from './DashboardNavbar';
     import DashboardPages from './DashboardPages';
     import DashboardLogout from './User/DashboardLogout';
+
+    import { navItems } from './data/navItems';
 
     export default {
         name: "dashboard",
@@ -36,22 +37,21 @@
         },
 
         props: {
-            page: {
+            currentPage: {
                 type: String,
-                default: 'users'
+                default: 'usuarios'
             }
         },
 
         data() {
             return {
-                showLogoutModal: false,
-                tokens: []
+                showLogoutModal: false
             };
         },
 
         computed: {
-            currentPage() {
-                return this.$store.getters.getDashboardNavItems[this.page].text;
+            currentPageText() {
+                return navItems[this.currentPage] ? navItems[this.currentPage].text : this.currentPage;
             }
         },
 

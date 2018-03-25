@@ -1,4 +1,4 @@
-import usersApi  from '../requests/users';
+import usersApi  from '../api/users';
 
 export const auth = {
     state: {

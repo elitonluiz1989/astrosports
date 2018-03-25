@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index($page = 'users')
+    public function index($page = 'usuarios')
     {
         $data = [
             'currentPage' => $page

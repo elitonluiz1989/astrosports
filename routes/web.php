@@ -41,10 +41,16 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::get('/logout', 'LoginController@logout')->name('logout');
 });
 
-Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], function() {
-    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], function() {
+    Route::group(['prefix' => 'dashboard'], function() {
+        Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
-    Route::get('/user', 'UserController@user')->name('dashboard.user');
+        Route::get('/{page}', 'DashboardController@index');
+    });
 
-    Route::get('/users', 'UserController@users')->name('dashboard.users');
+    Route::group(['prefix' => 'api'], function() {
+        Route::get('/user', 'UserController@user')->name('dashboard.user');
+
+        Route::get('/users', 'UserController@users')->name('dashboard.users');
+    });
 });
