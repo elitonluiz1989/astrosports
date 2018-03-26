@@ -5,28 +5,24 @@
   &-avatar {
     height: 4rem;
     width: 4rem;
-    margin: 0 auto;
+
+    @extend %dashboard-user-avatar;
 
     .img {
-      border: 1px solid darken($dashboard-nav-color-dark, 10%);
-      border-radius: 100%;
+      border-color: darken($dashboard-nav-color-dark, 10%);
     }
   }
 
   &-name {
-    border-width: 1px 0 0;
-    border-style: solid;
-    border-color: darken($dashboard-nav-color-dark, 5%);
-    margin: 0.3rem 0;
-    padding: 0.2rem;
+    border-color: darken($dashboard-nav-color-dark, 5%) !important;
 
-    @extend .w-100;
-    @extend .text-center;
+    @extend %dashboard-user-text;
   }
 
   &-logout {
     background-color: darken($dashboard-nav-color-dark, 5%);
     border: 0;
+
     @extend .w-100;
     @extend .text-white;
   }
