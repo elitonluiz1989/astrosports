@@ -19,7 +19,7 @@ export const auth = {
                         commit('setMessageErrors', response.data.error);
                     } else {
                         commit('setAuthUser', response.data);
-                        commit('setUsersRequestStatus', 2)
+                        commit('setAuthRequestStatus', 2)
                     }
                 })
                 .catch(err => {
