@@ -52,5 +52,9 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], func
         Route::get('/user', 'UserController@user')->name('dashboard.user');
 
         Route::get('/users', 'UserController@users')->name('dashboard.users');
+
+        Route::group(['prefix' => 'schedules'], function() {
+            Route::get('/{id?}', 'SchedulesController@schedules')->where('id', '[0-9]+')->name('dashboard.schedules');
+        });
     });
 });

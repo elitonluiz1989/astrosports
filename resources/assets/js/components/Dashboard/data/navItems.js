@@ -26,7 +26,7 @@ export const navItems =  {
     horarios: {
         link: '/dashboard/horarios',
         text: 'Horários',
-        active: false
+        active: true,
     },
 
     logout: {

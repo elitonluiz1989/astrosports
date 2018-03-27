@@ -1,8 +1,5 @@
 &__users {
-  width: 98%;
-  margin: 0.5rem 1% 0;
-
-  @extend .float-left;
+  @extend %dashboard-page;
 }
 
 %dashboard-user-avatar {

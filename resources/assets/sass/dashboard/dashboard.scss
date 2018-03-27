@@ -36,7 +36,6 @@
     padding-bottom: 0;
     height: 4rem;
     font-size: $title-height;
-
     @extend .w-100;
     @extend .text-white;
 
@@ -98,7 +97,20 @@
 
     @extend .w-100;
     @extend .min-h-100;
+
+    &--empty {
+      padding: 2rem 0 0;
+      color: #555;
+
+      @extend .text-center;
+    }
+  }
+
+  %dashboard-page {
+    padding-top: $grid-gutter-width / 2;
   }
 
   @import "users";
+
+  @import "schedules";
 }
