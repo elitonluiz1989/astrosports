@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $user =  Auth::user();
 
-        return response()->json($user, 200);
+        return response()->json($user);
     }
 
     public function users()
