@@ -37,6 +37,7 @@
         }
 
         &:hover .nav-link,
+        &:hover .nav-link-wrapper,
         & .nav-link .nav-info {
           background-color: lighten($dashboard-nav-color, 10%);
         }
@@ -61,9 +62,14 @@
       }
     }
 
+    .nav-link-wrapper {
+      transition: background-color .3s ease-out .3s; // This transition simulate a delay on transition of nav-link's background
+    }
+
     .nav-link {
       padding-left: 50%;
       margin-left: -2.5rem;
+      transition: background-color .5s;
 
       @extend .position-relative;
 
@@ -79,7 +85,8 @@
 
         &:hover {
           .nav-info {
-            display: block;
+            width: 10rem;
+            opacity: 1;
           }
         }
       }
@@ -88,14 +95,16 @@
         border-width: 1px 1px 1px 0;
         border-style: solid;
         border-color: $dashboard-nav-color;
-        display: none;
-        width: 10rem;
+        width: 0;
         padding: 0.39rem 0;
-        transition: opacity 1s;
+        opacity: 0;
+        transition: width .3s .2s, opacity .3s .2s;
         position: absolute;
         z-index: 1;
         top: -1px;
         left: 100%;
+
+        @extend .o-hidden;
       }
     }
   }

@@ -13,7 +13,9 @@
                 </li>
 
                 <li :class="setNavItemStyle(key, navItem.active)" v-for="(navItem, key) in navItems" :key="key">
-                    <dashboard-nav-item :id="'nav-item-' + key" :link="navItem.link" :active="navItem.active" :icon="navItem.icon" :text="navItem.text"></dashboard-nav-item>
+                    <div class="nav-link-wrapper">
+                        <dashboard-nav-item :id="'nav-item-' + key" :link="navItem.link" :active="navItem.active" :icon="navItem.icon" :text="navItem.text"></dashboard-nav-item>
+                    </div>
                 </li>
             </ul>
         </div>
