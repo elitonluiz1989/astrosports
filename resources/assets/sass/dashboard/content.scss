@@ -1,0 +1,82 @@
+$title-height: 2.6rem;
+$subtitle-font-size: 2rem;
+$subtitle-padding-top: $title-height - $subtitle-font-size;
+&__title {
+  background-color: $dashboard-nav-color-dark;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 4rem;
+  font-size: $title-height;
+  @extend .w-100;
+  @extend .text-white;
+
+  &-text {
+    background-color: $dashboard-nav-color;
+    width: 60%;
+
+    @extend .d-none;
+    @extend .d-md-block;
+    @extend .float-left;
+    @extend .h-100;
+    @extend .text-center;
+
+    @include media-breakpoint-up(lg) {
+      width: 50%;
+    }
+  }
+
+  &-arrow {
+    background: url("../images/dashboard-title-arrow.png") no-repeat left center;
+    background-size: contain;
+    width: 70px;
+
+    @extend .d-none;
+    @extend .d-md-block;
+    @extend .float-left;
+    @extend .h-100;
+  }
+
+  &-subtitle {
+    padding-top: $subtitle-padding-top;
+    font-size: $subtitle-font-size;
+
+    @extend .float-left;
+    @extend .w-100;
+    @extend .h-100;
+    @extend .text-white;
+    @extend .text-center;
+
+    @include media-breakpoint-up(md) {
+      width: auto !important;
+      margin-left: 1.5rem;
+      color: lighten($dashboard-color, 5%) !important;
+      text-align: left;
+    }
+
+    @include media-breakpoint-only(lg) {
+      margin-left: 3rem;
+    }
+
+    @include media-breakpoint-up(xl) {
+      margin-left: 4rem;
+    }
+  }
+}
+
+&__content {
+  background-color: white;
+
+  @extend .w-100;
+  @extend .min-h-100;
+
+  &--empty {
+    padding: 2rem 0 0;
+    color: #555;
+
+    @extend .text-center;
+  }
+}
+
+%dashboard-page {
+  padding-top: $grid-gutter-width / 2;
+}

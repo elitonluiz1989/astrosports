@@ -4,8 +4,6 @@
             <img :src="avatar" :alt="user.name" class="img">
         </div>
 
-        <div class="dashboard__auth-name" v-text="user.name"></div>
-
         <button class="dashboard__auth-logout" @click="userLogout">Sair</button>
     </div>
 </template>

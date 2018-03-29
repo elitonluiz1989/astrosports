@@ -7,17 +7,13 @@
         </button>
 
         <div class="collapse navbar-collapse" id="dashboard-navbar-collapse">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" ref="navList">
                 <li class="nav-item d-none d-md-block">
                     <dashboard-auth-user @onUserLogout="callShowLogout"></dashboard-auth-user>
                 </li>
 
-                <li :class="setNavItemStyle(key)" v-for="(navItem, key) in navItems" :key="key">
-                    <a class="nav-link" :href="navItem.link" v-text="navItem.text" v-if="navItem.active && key !== 'logout'"></a>
-
-                    <a class="nav-link d-md-none" :href="navItem.link" v-text="navItem.text" v-if="navItem.active && key === 'logout'" @click.prevent.stop="callShowLogout"></a>
-
-                    <span class="nav-link nav-link--disactive" v-text="navItem.text" v-if="!navItem.active"></span>
+                <li :class="setNavItemStyle(key, navItem.active)" v-for="(navItem, key) in navItems" :key="key">
+                    <dashboard-nav-item :id="'nav-item-' + key" :link="navItem.link" :active="navItem.active" :icon="navItem.icon" :text="navItem.text"></dashboard-nav-item>
                 </li>
             </ul>
         </div>
@@ -25,14 +21,16 @@
 </template>
 
 <script>
-    import DashboardAuthUser from './User/DashboardAuthUser';
     import { navItems } from './data/navItems';
+    import DashboardAuthUser from './User/DashboardAuthUser';
+    import DashboardNavItem from './DashboardNavItem';
 
     export default {
         name: "dashboard-navbar",
 
         components: {
-            DashboardAuthUser
+            DashboardAuthUser,
+            DashboardNavItem
         },
 
         props: {
@@ -48,13 +46,36 @@
             }
         },
 
+        mounted() {
+            document.getElementById('nav-item-logout').addEventListener('click', evt => {
+                evt.preventDefault();
+
+                this.callShowLogout();
+            });
+        },
+
         methods: {
             callShowLogout() {
                 this.$emit('showLogout')
             },
 
-            setNavItemStyle(key) {
-                return key === this.currentPage ? "nav-item active" : "nav-item";
+            setNavItemStyle(key, active) {
+                active = active || false;
+
+                let classes = "nav-item";
+                if (key === "logout") {
+                    classes += " d-md-none";
+                }
+
+                if (active) {
+                    if (key === this.currentPage) {
+                        classes += " active";
+                    }
+                } else {
+                    classes += " disabled";
+                }
+
+                return classes;
             }
         }
     }
