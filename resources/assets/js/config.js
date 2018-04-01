@@ -12,5 +12,6 @@ export const CONFIG = {
     PHOTOS: {
         PATH: photos_path,
         DEFAULT: photo_anonymous
-    }
+    },
+    REQUEST_MESSAGE_ON_LOG: true
 };

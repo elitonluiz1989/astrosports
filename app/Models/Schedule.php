@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Schedules extends Model
+class Schedule extends Model
 {
     /**
-     * Schedules poles
+     * Schedule poles
      * Get poles for schedules
      */
     public function poles()
     {
-        return $this->hasOne('App\Models\SchedulesPoles', 'id', 'pole');
+        return $this->hasOne('App\Models\SchedulesPole', 'id', 'pole');
     }
 
     /**
-     * Schedules categories
+     * Schedule categories
      * Get poles for schedules
      */
     public function categories()
     {
-        return $this->hasOne('App\Models\SchedulesCategories', 'id', 'category');
+        return $this->hasOne('App\Models\SchedulesCategory', 'id', 'category');
     }
 }

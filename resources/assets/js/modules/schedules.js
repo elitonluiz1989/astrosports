@@ -1,53 +1,73 @@
-import schedulesApi  from '../api/schedules';
+import schedulesApi  from "../api/schedules";
 
 export const schedules = {
     state: {
         schedule: {},
         schedules: [],
         messageErrors: null,
-        schedulesRequestStatus: 0
+        loadSchedulesStatus: 0,
+        addScheduleStatus: 0
     },
 
     actions: {
         loadSchedule({commit}, id) {
-            commit('setSchedulesRequestStatus', 1);
+            commit("setLoadSchedulesStatus", 1);
 
-            schedulesApi.loadSchedules(id)
+            schedulesApi.getSchedules(id)
                 .then(response => {
                     if (response.data.error) {
-                        commit('setSchedule', {});
-                        commit('setSchedulesRequestStatus', 3);
-                        commit('setSchedulesMessageErrors', response.data.error);
+                        commit("setSchedule", {});
+                        commit("setLoadSchedulesStatus", 3);
+                        commit("setSchedulesMessageErrors", response.data.error);
                     } else {
-                        commit('setSchedule', response.data);
-                        commit('setSchedulesRequestStatus', 2)
+                        commit("setSchedule", response.data);
+                        commit("setLoadSchedulesStatus", 2)
                     }
                 })
                 .catch(err => {
-                    commit('setSchedule', {});
-                    commit('setSchedulesRequestStatus', 3);
-                    commit('setSchedulesMessageErrors', err);
+                    commit("setSchedule", {});
+                    commit("setLoadSchedulesStatus", 3);
+                    commit("setSchedulesMessageErrors", err);
                 });
         },
 
         loadSchedules({commit}) {
-            commit('setSchedulesRequestStatus', 1);
+            commit("setLoadSchedulesStatus", 1);
 
             schedulesApi.getSchedules()
                 .then(response => {
                     if (response.data.error) {
-                        commit('setSchedules', []);
-                        commit('setSchedulesRequestStatus', 3);
-                        commit('setSchedulesMessageErrors', response.data.error);
+                        commit("setSchedules", []);
+                        commit("setLoadSchedulesStatus", 3);
+                        commit("setSchedulesMessageErrors", response.data.error);
                     } else {
-                        commit('setSchedules', response.data);
-                        commit('setSchedulesRequestStatus', 2)
+                        commit("setSchedules", response.data);
+                        commit("setLoadSchedulesStatus", 2)
                     }
                 })
                 .catch(err => {
-                    commit('setSchedules', []);
-                    commit('setSchedulesRequestStatus', 3);
-                    commit('setSchedulesMessageErrors', err);
+                    commit("setSchedules", []);
+                    commit("setLoadSchedulesStatus", 3);
+                    commit("setSchedulesMessageErrors", err);
+                });
+        },
+
+        addSchedule({commit, dispatch}, schedule) {
+            commit("setAddScheduleStatus", 1);
+
+            schedulesApi.addSchedule(schedule)
+                .then(response => {
+                    if (response.data.error) {
+                        commit("setAddScheduleStatus", 3);
+                        commit("setSchedulesMessageErrors", response.data.error);
+                    } else {
+                        commit("setAddScheduleStatus", 2);
+                        dispatch("loadSchedules")
+                    }
+                })
+                .catch(err => {
+                    commit("setAddScheduleStatus", 3);
+                    commit("setSchedulesMessageErrors", err);
                 });
         }
     },
@@ -61,8 +81,12 @@ export const schedules = {
             state.schedules = schedules;
         },
 
-        setSchedulesRequestStatus(state, status) {
-            state.schedulesRequestStatus = status;
+        setLoadSchedulesStatus(state, status) {
+            state.loadSchedulesStatus = status;
+        },
+
+        setAddScheduleStatus(state, status) {
+            state.addScheduleStatus = status;
         },
 
         setSchedulesMessageErrors(state, message) {
@@ -79,8 +103,12 @@ export const schedules = {
             return state.schedules;
         },
 
-        getSchedulesRequestStatus(state) {
-            return state.schedulesRequestStatus;
+        getLoadSchedulesStatus(state) {
+            return state.loadSchedulesStatus;
+        },
+
+        getAddScheduleStatus(state) {
+            return state.addScheduleStatus;
         },
 
         getSchedulesMessageErrors(state) {

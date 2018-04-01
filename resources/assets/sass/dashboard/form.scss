@@ -1,0 +1,33 @@
+&__form {
+  .btn-success,
+  &-trigger {
+    background-color: darken($dashboard-form-color, 3%);
+  }
+
+  &-trigger {
+    @mixin btnSettings($width, $ml) {
+      width: $width;
+      margin-left: $ml;
+    }
+
+    @include btnSettings(80%, 10%);
+
+    @include media-breakpoint-only(sm) {
+      @include btnSettings(50%, 25%);
+    }
+  }
+
+  .modal-content {
+    background-color: transparent;
+  }
+
+  .modal-header {
+    background-color: $dashboard-form-color;
+
+    @extend .text-white;
+  }
+
+  .modal-footer {
+    background-color: white;
+  }
+}

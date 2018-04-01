@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SchedulesCategories extends Model
+class SchedulesPole extends Model
 {
     /**
      * @var bool
@@ -12,11 +12,11 @@ class SchedulesCategories extends Model
     public $timestamps = false;
 
     /**
-    * SchedulesPoles schedules
-    * Retrive categories associeted with Schedules
+    * SchedulesPole schedules
+    * Retrive poles associeted with Schedule
     */
     public function schedules()
     {
-        return $this->belongsTo('Schedules', 'name', 'category');
+        return $this->belongsTo('Schedule', 'name', 'pole');
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="row justify-content-center" v-show="code !== 2">
+    <div class="row justify-content-center" v-show="code === 1 && code === 3">
         <div class="col-12 col-lg-10">
             <div :class="styles.alert" v-text="messageStatus"></div>
         </div>
@@ -34,7 +34,7 @@
             messageStatus() {
                 if (this.code === 1) {
                     return 'Carregando...';
-                } else {
+                } else if (this.code === 3) {
                     return this.message || 'Houve um erro e os resultados não foram carregados';
                 }
             }

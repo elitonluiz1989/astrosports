@@ -1,18 +1,18 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\Schedules;
+use App\Models\Schedule;
 
 class SchedulesRepository {
     /**
      * @var array
      */
-    private $days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    public $fields = ['hour', 'day', 'pole', 'category'];
 
     /**
      * @var array
      */
-    private $fields = ['hour', 'day', 'pole', 'category'];
+    private $days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
     /**
      * @var string
@@ -35,9 +35,9 @@ class SchedulesRepository {
      */
     public function get($id = null) {
         if (null != $id) {
-            return Schedules::find($id);
+            return Schedule::find($id);
         } else {
-            return Schedules::all();
+            return Schedule::all();
         }
     }
 
@@ -49,7 +49,7 @@ class SchedulesRepository {
         $fields = $this->fieldsTreatment($this->fields);
         $order = $this->target . ' ' . $this->order . ', ' . $this->orderFields;
 
-        $result = Schedules::join('schedules_poles', 'schedules_poles.id', '=', 'schedules.pole')
+        $result = Schedule::join('schedules_poles', 'schedules_poles.id', '=', 'schedules.pole')
                         ->join('schedules_categories', 'schedules_categories.id', '=', 'schedules.category')
                         ->select($fields)
                         ->orderByRaw($order)
@@ -132,6 +132,35 @@ class SchedulesRepository {
         return $this->iterateResultDays($schedules);
     }
 
+
+    public function listSchedules()
+    {
+        $fields = $this->fieldsTreatment($this->fields);
+
+        $result = Schedule::join('schedules_poles', 'schedules_poles.id', '=', 'schedules.pole')
+            ->join('schedules_categories', 'schedules_categories.id', '=', 'schedules.category')
+            ->select($fields)
+            ->get();
+
+        return $result;
+    }
+
+    public function storeSchedule(array $data)
+    {
+        if (isset($data['id'])) {
+            $schedule = $this->get($data['id']);
+        } else {
+            $schedule = new Schedule();
+        }
+
+        $schedule->hour = $data['hour'];
+        $schedule->day = $data['day'];
+        $schedule->pole = $data['pole'];
+        $schedule->category = $data['category'];
+
+        return $schedule->save();
+    }
+
     /**
      * @param $fields
      * @return string
@@ -140,10 +169,16 @@ class SchedulesRepository {
     {
         return str_replace(
             [
+                'id',
+                'hour',
+                'day',
                 'pole',
                 'category'
             ],
             [
+                'schedules.id',
+                'schedules.hour',
+                'schedules.day',
                 'schedules_poles.name as pole',
                 'schedules_categories.name as category'
             ],

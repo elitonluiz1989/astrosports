@@ -162,7 +162,15 @@ body {
 .modal-content {
   @extend .o-hidden;
 
-  .modal-header {
+  &.modal-sm {
+    @include media-breakpoint-up(md) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .modal-header,
+  .modal-footer {
     padding-top: 0.4rem;
     padding-bottom: 0.4rem;
   }
@@ -170,4 +178,8 @@ body {
   .modal-body {
     background-color: white;
   }
+}
+
+.btn-light {
+  border: 1px solid #888;
 }

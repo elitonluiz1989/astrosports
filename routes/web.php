@@ -17,7 +17,7 @@ Route::get(config('photos.url.albums'), 'PhotosController@albums');
 Route::get(config('photos.url.album') . '{id}', 'PhotosController@album')->where('id', '[0-9]+');
 Route::get('storage/photos/{file}', 'PhotosController@getPhoto');
 
-// Schedules
+// Schedule
 Route::get('/horarios/{display?}', 'SchedulesController@index');
 
 Route::get('/videos', 'VideosController@index');
@@ -55,6 +55,17 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], func
 
         Route::group(['prefix' => 'schedules'], function() {
             Route::get('/{id?}', 'SchedulesController@schedules')->where('id', '[0-9]+')->name('dashboard.schedules');
+            Route::post('/', 'SchedulesController@store')->name('dashboard.schedules.store');
+        });
+
+        Route::group(['prefix' => 'schedules-poles'], function() {
+            Route::get('/{id?}', 'SchedulesPolesController@poles')->where('id', '[0-9]+')->name('dashboard.schedules.poles');
+            Route::post('/', 'SchedulesPolesController@store')->name('dashboard.schedules.poles.add');
+        });
+
+        Route::group(['prefix' => 'schedules-categories'], function() {
+            Route::get('/{id?}', 'SchedulesCategoriesController@categories')->where('id', '[0-9]+')->name('dashboard.schedules.categories');
+            Route::post('/', 'SchedulesCategoriesController@store')->name('dashboard.schedules.categories.add');
         });
     });
 });

@@ -1,14 +1,28 @@
 <template>
     <div class="dashboard__schedules container-fluid">
-        <dashboard-request-status-message :code="schedulesRequestStatus.code"></dashboard-request-status-message>
+        <dashboard-request-status-message :code="loadSchedulesStatus.code"></dashboard-request-status-message>
 
-        <div class="row">
-            <div class="col-12" v-for="(schedules, key) in schedules" v-if="schedules.length > 0">
-                <div v-text="schedules"></div>
+        <div class="dashboard__schedules-wrapper row row-reset justify-content-center justify-content-md-start">
+            <div class="dashboard__schedules-control-title col-12 col-reset">
+                Controle de horários
             </div>
 
-            <div class="col-12" v-if="schedules.length === 0">
-                <p class="dashboard__content--empty">Sem registros.</p>
+            <div class="dashboard__schedules-control-item">
+                <dashboard-schedules-form></dashboard-schedules-form>
+            </div>
+
+            <div class="dashboard__schedules-control-item">
+                <dashboard-schedules-form-pole></dashboard-schedules-form-pole>
+            </div>
+
+            <div class="dashboard__schedules-control-item">
+                <dashboard-schedules-form-category></dashboard-schedules-form-category>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <dashboard-schedules-content></dashboard-schedules-content>
             </div>
         </div>
     </div>
@@ -17,12 +31,20 @@
 <script>
     import DashboardRequestStatusMessage from '../DashboardRequestStatusMessage';
     import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
+    import DashboardSchedulesForm from './Forms/DashboardSchedulesForm';
+    import DashboardSchedulesFormPole from './Forms/DashboardSchedulesFormPole';
+    import DashboardSchedulesFormCategory from './Forms/DashboardSchedulesFormCategory';
+    import DashboardSchedulesContent from './Content/DashboardSchedulesContent';
 
     export default {
         name: "dashboard-schedules",
 
         components: {
-            DashboardRequestStatusMessage
+            DashboardRequestStatusMessage,
+            DashboardSchedulesForm,
+            DashboardSchedulesFormPole,
+            DashboardSchedulesFormCategory,
+            DashboardSchedulesContent
         },
 
         mixins: [
@@ -31,17 +53,19 @@
 
         computed: {
             schedules() {
-              return this.$store.getters.getSchedules;
+                console.log(this.$store.getters.getSchedules)
+                return this.$store.getters.getSchedules;
             },
 
-            schedulesRequestStatus() {
-                return this.storeRequestStatus('getSchedulesRequestStatus', 'getSchedulesMessageErrors');
+            loadSchedulesStatus() {
+                return this.storeRequestStatus('getLoadSchedulesStatus', 'getSchedulesMessageErrors');
             }
         },
 
         created() {
             this.$store.dispatch('loadSchedules');
-            this.requestMessageOnLog = true;
+            this.$store.dispatch("loadSchedulesPoles");
+            this.$store.dispatch("loadSchedulesCategories");
         }
     }
 </script>

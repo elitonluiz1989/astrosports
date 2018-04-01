@@ -43,6 +43,7 @@ $theme-golden: #f1b92a;
 $theme-dark: #333;
 $schedule-item-color: #007dd0;
 $spinner-size: 50px;
+$tabs-darken-percentage: 4%;
 
 
 // News list
@@ -65,3 +66,4 @@ $news-left-width3: 70%;
 $dashboard-color: #1b7450;//#2ab27b;
 $dashboard-nav-color: $dashboard-color;
 $dashboard-nav-color-dark: darken($dashboard-nav-color, 10%);
+$dashboard-form-color: saturate(lighten($dashboard-color, 5%), 23%);
