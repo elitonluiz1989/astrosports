@@ -23,9 +23,16 @@ body {
   margin-left: 0!important;
 }
 
-.col-reset {
+.col-reset{
   padding-right: 0;
   padding-left: 0;
+}
+
+.col-sm-reset {
+  @include media-breakpoint-up(md) {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 .pagination {

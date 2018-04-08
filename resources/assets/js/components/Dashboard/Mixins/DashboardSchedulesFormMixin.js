@@ -15,6 +15,7 @@ export default {
         formId() {
             return this.recordId ? this.formName + "-edit" : this.formName + "-insert";
         },
+
         styles() {
             return {
                 label: "control-label col-3",

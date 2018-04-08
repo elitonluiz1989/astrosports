@@ -3,7 +3,6 @@
 
   @extend %dashboard-page;
 
-
   $tabs-item-width: 100% / 3;
   @include tabs($dashboard-schedules-color, $tabs-item-width, 'sm');
 
@@ -54,14 +53,14 @@
     @extend .container-fluid;
 
     @include media-breakpoint-up(sm) {
-      padding-top: 0;
+      border-bottom: 1px solid $dashboard-schedules-list-color;
+      width: 98%;
+      margin: 0 1% 1%;
     }
 
     &-title {
       background-color: lighten($dashboard-schedules-list-color, 30%);
-      border-width: 1px 0;
-      border-style: solid;
-      border-color: $dashboard-schedules-list-color;
+      border: 1px solid $dashboard-schedules-list-color;
       color: darken($dashboard-schedules-list-color, 25%);
 
       @extend .row;
@@ -84,10 +83,14 @@
       cursor: pointer;
 
       @extend .row;
+      @extend .row-reset;
 
       @include media-breakpoint-up(sm) {
-        border: 0;
+        $padding: -($grid-gutter-width / 2);
+        border-top: 0;
+        margin-right: $padding !important;
         margin-bottom: 0;
+        margin-left: $padding !important;
 
         &:nth-child(even) {
           background-color: lighten($dashboard-schedules-list-color, 60%);
@@ -95,34 +98,41 @@
       }
     }
 
+    %dashboard-schedules-item-padding {
+      @include media-breakpoint-up(sm) {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+      }
+    }
+
     &-id {
       @extend .col-12;
-      @extend .col-reset;
       @extend .col-sm-1;
+      @extend .col-sm-reset;
     }
 
     &-hour {
       @extend .col-12;
-      @extend .col-reset;
       @extend .col-sm-2;
+      @extend .col-sm-reset;
     }
 
     &-day {
       @extend .col-12;
-      @extend .col-reset;
       @extend .col-sm-1;
+      @extend .col-sm-reset;
     }
 
     &-pole {
       @extend .col-12;
-      @extend .col-reset;
       @extend .col-sm;
+      @extend .col-sm-reset;
     }
 
     &-category {
       @extend .col-12;
-      @extend .col-reset;
       @extend .col-sm;
+      @extend .col-sm-reset;
     }
 
     &-content {

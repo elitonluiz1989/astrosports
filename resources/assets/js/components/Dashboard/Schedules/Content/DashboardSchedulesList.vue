@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="dashboard__schedules-list-row" :key="key" v-if="schedules.length === 0">
+        <div class="dashboard__schedules-list-row" v-if="schedules.length === 0">
             <div class="col-12">
                 <div class="dashboard__schedules-list-content">Sem registros.</div>
             </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="dashboard__schedules-list-pole">
                 <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Pole</div>
+                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Polo</div>
                     <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedule.pole"></div>
                 </div>
 
@@ -73,7 +73,8 @@
 <script>
     import { weekDays } from '../../data/weekDays';
     import StoreRequestStatusMixin from '../../../Base/Mixins/StoreRequestStatus';
-    import DashboardRequestStatusMessage from '../../DashboardRequestStatusMessage'
+    import DashboardSchedulesListMixin from '../../Mixins/DashboardSchedulesListMixin';
+    import DashboardRequestStatusMessage from '../../DashboardRequestStatusMessage';
 
     export default {
         name: "dashboard-schedules-list",
@@ -83,14 +84,9 @@
         },
 
         mixins: [
-            StoreRequestStatusMixin
+            StoreRequestStatusMixin,
+            DashboardSchedulesListMixin
         ],
-
-        data() {
-            return {
-                sortByDesc: false
-            };
-        },
 
         computed: {
             schedules() {
@@ -102,26 +98,13 @@
             }
         },
 
+        watch: {
+            schedules(value) {
+                this.contentToSort = value;
+            }
+        },
+
         methods: {
-            sortBy(key) {
-                this.schedules.sort((item1, item2) => {
-                    const val1 = typeof item1[key] === "string" ? item1[key].toUpperCase() : item1[key];
-                    const val2 = typeof item2[key] === "string" ? item2[key].toUpperCase() : item2[key];
-
-                    let comparison = 0;
-
-                    if (val1 > val2) {
-                        comparison = 1;
-                    } else {
-                        comparison = -1;
-                    }
-
-                    return this.sortByDesc ? (comparison * - 1) : comparison;
-                });
-
-                this.sortByDesc = !this.sortByDesc;
-            },
-
             translateDay(day) {
                 return weekDays[day].toUpperCase();
             }

@@ -61,7 +61,7 @@ export const schedulesPoles = {
                         commit('setAddSchedulesPolesStatus', 3);
                         commit('setSchedulesPolesMessageErrors', response.data.error);
                     } else {
-                        commit('setAddSchedulesPolesStatus', 2)
+                        commit('setAddSchedulesPolesStatus', 2);
                         dispatch("loadSchedulesPoles");
                     }
                 })
@@ -82,7 +82,7 @@ export const schedulesPoles = {
         },
 
         setLoadSchedulesPolesStatus(state, status) {
-            state.schedulesPolesRequestStatus = status;
+            state.loadSchedulesPolesStatus = status;
         },
 
         setAddSchedulesPolesStatus(state, status) {

@@ -22,7 +22,7 @@
 
         <div class="row">
             <div class="col-12">
-                <dashboard-schedules-content></dashboard-schedules-content>
+                <dashboard-schedules-content :active-tab="activeTab"></dashboard-schedules-content>
             </div>
         </div>
     </div>
@@ -51,12 +51,13 @@
             StoreRequestStatus
         ],
 
-        computed: {
-            schedules() {
-                console.log(this.$store.getters.getSchedules)
-                return this.$store.getters.getSchedules;
-            },
+        data() {
+            return {
+                activeTab: "horarios"
+            }
+        },
 
+        computed: {
             loadSchedulesStatus() {
                 return this.storeRequestStatus('getLoadSchedulesStatus', 'getSchedulesMessageErrors');
             }
@@ -66,6 +67,18 @@
             this.$store.dispatch('loadSchedules');
             this.$store.dispatch("loadSchedulesPoles");
             this.$store.dispatch("loadSchedulesCategories");
+
+            this.setActiveTab();
+        },
+
+        methods: {
+            setActiveTab() {
+                let search = window.location.search;
+
+                if (search.indexOf('mostrar') !== -1) {
+                    this.activeTab = search.split("=")[1];
+                }
+            }
         }
     }
 </script>
