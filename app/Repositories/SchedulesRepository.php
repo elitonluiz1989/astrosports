@@ -137,10 +137,9 @@ class SchedulesRepository {
     {
         $fields = $this->fieldsTreatment($this->fields);
 
-        $result = Schedule::join('schedules_poles', 'schedules_poles.id', '=', 'schedules.pole')
-            ->join('schedules_categories', 'schedules_categories.id', '=', 'schedules.category')
-            ->select($fields)
-            ->get();
+        $result = Schedule::with('pole')
+            ->with('category')
+            ->get($this->fields);
 
         return $result;
     }
@@ -153,12 +152,16 @@ class SchedulesRepository {
             $schedule = new Schedule();
         }
 
-        $schedule->hour = $data['hour'];
-        $schedule->day = $data['day'];
-        $schedule->pole = $data['pole'];
-        $schedule->category = $data['category'];
+        foreach ($data as $field => $value) {
+            $schedule->$field = $value;
+        }
 
         return $schedule->save();
+    }
+
+    public function deleteSchedule(int $id)
+    {
+        return Schedule::destroy($id);
     }
 
     /**

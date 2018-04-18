@@ -2,11 +2,29 @@ export default {
     data() {
         return {
             sortByDesc: false,
-            contentToSort: []
+            contentToSort: [],
+            recordKey: null,
+            recordId: 0,
+            editForm: null,
+            showDeleteModal: false
         };
     },
 
     methods: {
+        hideModal() {
+            this.showDeleteModal = false;
+        },
+
+        showDeleteMessage(id) {
+            this.recordId = id;
+            this.showDeleteModal = true;
+        },
+
+        showEditForm(key) {
+            this.recordKey = key;
+            this.editForm.triggerShowEditForm();
+        },
+
         sortBy(key) {
             this.contentToSort.sort((item1, item2) => {
                 const val1 = typeof item1[key] === "string" ? item1[key].toUpperCase() : item1[key];

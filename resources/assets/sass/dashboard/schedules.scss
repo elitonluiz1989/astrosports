@@ -69,6 +69,8 @@
         border-right: 1px solid $dashboard-schedules-list-color;
         cursor: pointer;
 
+        @extend .col-reset;
+
         &:last-child {
           border-right: 0;
         }
@@ -80,7 +82,6 @@
       border-style: solid;
       border-color: $dashboard-schedules-list-color;
       margin-bottom: 1rem;
-      cursor: pointer;
 
       @extend .row;
       @extend .row-reset;
@@ -96,6 +97,10 @@
           background-color: lighten($dashboard-schedules-list-color, 60%);
         }
       }
+
+      & > .dashboard__schedules-list-* {
+        @extend .col-sm-reset;
+      }
     }
 
     %dashboard-schedules-item-padding {
@@ -108,31 +113,48 @@
     &-id {
       @extend .col-12;
       @extend .col-sm-1;
-      @extend .col-sm-reset;
     }
 
     &-hour {
       @extend .col-12;
       @extend .col-sm-2;
-      @extend .col-sm-reset;
     }
 
     &-day {
       @extend .col-12;
       @extend .col-sm-1;
-      @extend .col-sm-reset;
     }
 
     &-pole {
       @extend .col-12;
       @extend .col-sm;
-      @extend .col-sm-reset;
     }
 
     &-category {
       @extend .col-12;
       @extend .col-sm;
-      @extend .col-sm-reset;
+
+      @include media-breakpoint-up(sm) {
+
+        border-right: 1px solid $dashboard-schedules-list-color;
+      }
+    }
+
+    &-control {
+      @extend .col-12;
+      @extend .col-sm-1;
+
+      @include media-breakpoint-up(sm) {
+        .dashboard__schedules-list-content {
+          border-bottom: 0;
+        }
+      }
+
+      button {
+        background-color: transparent;
+        border-width: 0 0 1px;
+        cursor: pointer;
+      }
     }
 
     &-content {
@@ -150,6 +172,15 @@
 
       &--text {
         border-bottom: 1px solid $dashboard-schedules-list-color;
+      }
+    }
+
+    &--empty {
+      @extend .dashboard__schedules-list-content;
+      @extend .dashboard__schedules-list-content--text;
+
+      @include media-breakpoint-up(sm) {
+        border-bottom: 0;
       }
     }
   }

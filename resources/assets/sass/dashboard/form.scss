@@ -22,9 +22,15 @@
   }
 
   .modal-header {
-    background-color: $dashboard-form-color;
-
     @extend .text-white;
+
+    &.form-header--insert {
+      background-color: $dashboard-form-color;
+    }
+
+    &.form-header--edit {
+      background-color: $danger;
+    }
   }
 
   .modal-footer {

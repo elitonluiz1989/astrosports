@@ -23,12 +23,24 @@ class SchedulesStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'id' => 'integer|unique:schedules-poles|nullable',
-            'hour' => 'date_format:H:i|required',
-            'day' => 'string|max:3|required',
-            'pole' => 'integer|required',
-            'category' => 'integer|required'
-        ];
+        if ($this->method() == 'POST') {
+            $rules = [
+                'id' => 'integer|unique:schedules-poles|nullable',
+                'hour' => 'date_format:H:i|required',
+                'day' => 'string|max:3|required',
+                'pole' => 'integer|required',
+                'category' => 'integer|required'
+            ];
+        } else {
+            $rules = [
+                'id' => 'integer|required',
+                'hour' => 'date_format:H:i|required_without_all:day,pole,category',
+                'day' => 'string|max:3|required_without_all:hour,pole,category',
+                'pole' => 'integer|required_without_all:hour,day,category',
+                'category' => 'integer|required_without_all:hour,day,pole'
+            ];
+        }
+
+        return $rules;
     }
 }

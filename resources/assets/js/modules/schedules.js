@@ -6,7 +6,9 @@ export const schedules = {
         schedules: [],
         messageErrors: null,
         loadSchedulesStatus: 0,
-        addScheduleStatus: 0
+        addScheduleStatus: 0,
+        editScheduleStatus: 0,
+        deleteScheduleStatus: 0
     },
 
     actions: {
@@ -69,6 +71,44 @@ export const schedules = {
                     commit("setAddScheduleStatus", 3);
                     commit("setSchedulesMessageErrors", err);
                 });
+        },
+
+        editSchedule({commit, dispatch}, schedule) {
+            commit("setEditScheduleStatus", 1);
+
+            schedulesApi.editSchedule(schedule)
+                .then(response => {
+                    if (response.data.error) {
+                        commit("setEditScheduleStatus", 3);
+                        commit("setSchedulesMessageErrors", response.data.error);
+                    } else {
+                        commit("setEditScheduleStatus", 2);
+                        dispatch("loadSchedules")
+                    }
+                })
+                .catch(err => {
+                    commit("setEditScheduleStatus", 3);
+                    commit("setSchedulesMessageErrors", err);
+                });
+        },
+
+        deleteSchedule({commit, dispatch}, id) {
+            commit("setDeleteScheduleStatus", 1);
+
+            schedulesApi.deleteSchedule(id)
+                .then(response => {
+                    if (response.data.error) {
+                        commit("setDeleteScheduleStatus", 3);
+                        commit("setSchedulesMessageErrors", response.data.error);
+                    } else {
+                        commit("setDeleteScheduleStatus", 2);
+                        dispatch("loadSchedules")
+                    }
+                })
+                .catch(err => {
+                    commit("setDeleteScheduleStatus", 3);
+                    commit("setSchedulesMessageErrors", err);
+                });
         }
     },
 
@@ -87,6 +127,14 @@ export const schedules = {
 
         setAddScheduleStatus(state, status) {
             state.addScheduleStatus = status;
+        },
+
+        setEditScheduleStatus(state, status) {
+            state.editScheduleStatus = status;
+        },
+
+        setDeleteScheduleStatus(state, status) {
+            state.deleteScheduleStatus = status;
         },
 
         setSchedulesMessageErrors(state, message) {
@@ -109,6 +157,14 @@ export const schedules = {
 
         getAddScheduleStatus(state) {
             return state.addScheduleStatus;
+        },
+
+        getEditScheduleStatus(state) {
+            return state.editScheduleStatus;
+        },
+
+        getDeleteScheduleStatus(state) {
+            return state.deleteScheduleStatus;
         },
 
         getSchedulesMessageErrors(state) {

@@ -53,7 +53,12 @@
 
         data() {
             return {
-                activeTab: "horarios"
+                activeTab: "horarios",
+                recordKey: {
+                    schedules: null,
+                    poles: null,
+                    categories: null
+                }
             }
         },
 

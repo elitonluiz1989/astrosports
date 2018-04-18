@@ -41,4 +41,15 @@ class SchedulesController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
+
+    public function delete(int $id)
+    {
+        try {
+            $schedule = $this->schedules->deleteSchedule($id);
+
+            return response()->json($schedule);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 }

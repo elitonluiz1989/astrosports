@@ -41,7 +41,7 @@
     import FormMessage from "../../../Base/FomMessage";
     import FormMessageMixin from "../../../Base/Mixins/FormMessage";
     import StoreRequestStatusMixin from "../../../Base/Mixins/StoreRequestStatus";
-    import DashboardScheudlesFormMixin from "../../Mixins/DashboardSchedulesFormMixin";
+    import DashboardFormMixin from "../../Mixins/DashboardFormMixin";
 
     export default {
         name: "dashboard-schedules-form-category",
@@ -53,7 +53,7 @@
         mixins: [
             FormMessageMixin,
             StoreRequestStatusMixin,
-            DashboardScheudlesFormMixin,
+            DashboardFormMixin,
         ],
 
         data() {

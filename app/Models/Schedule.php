@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     /**
-     * Schedule poles
-     * Get poles for schedules
+     * Schedule pole
+     * Get pole of schedule
      */
-    public function poles()
+    public function pole()
     {
         return $this->hasOne('App\Models\SchedulesPole', 'id', 'pole');
     }
 
     /**
-     * Schedule categories
-     * Get poles for schedules
+     * Schedule category
+     * Get category of schedule
      */
-    public function categories()
+    public function category()
     {
         return $this->hasOne('App\Models\SchedulesCategory', 'id', 'category');
     }

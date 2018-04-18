@@ -13,5 +13,14 @@ export default {
 
     addSchedule(schedule) {
         return axios.post(this.url, schedule);
+    },
+
+    editSchedule(schedule) {
+        return axios.put(this.url, schedule);
+    },
+
+    deleteSchedule(id) {
+        this.url += '/deletar/' + id;
+        return axios.delete(this.url);
     }
 }

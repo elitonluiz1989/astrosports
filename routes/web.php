@@ -55,7 +55,8 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], func
 
         Route::group(['prefix' => 'schedules'], function() {
             Route::get('/{id?}', 'SchedulesController@schedules')->where('id', '[0-9]+')->name('dashboard.schedules');
-            Route::post('/', 'SchedulesController@store')->name('dashboard.schedules.store');
+            Route::match(['post', 'put'], '/', 'SchedulesController@store')->name('dashboard.schedules.store');
+            Route::delete('/deletar/{id}', 'SchedulesController@delete')->where('id', '[0-9]+')->name('dashboard.schedules.delete');
         });
 
         Route::group(['prefix' => 'schedules-poles'], function() {
