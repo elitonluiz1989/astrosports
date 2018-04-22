@@ -3,10 +3,12 @@
         <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar polo</button>
 
         <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-sm">
                     <form :id="formId" @submit.prevent="submitForm">
-                        <div class="modal-header">
+                        <div :class="styles.formHeader">
                             <h5 class="modal-title">Adicionar polo</h5>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+    import AppMask from '../../../Base/AppMask';
     import FormMessage from "../../../Base/FomMessage";
     import FormMessageMixin from "../../../Base/Mixins/FormMessage";
     import StoreRequestStatusMixin from "../../../Base/Mixins/StoreRequestStatus";
@@ -47,7 +50,8 @@
         name: "dashboard-schedules-form-pole",
 
         components: {
-            FormMessage
+            FormMessage,
+            AppMask
         },
 
         mixins: [
@@ -81,6 +85,7 @@
                     let nameElement = document.getElementById(this.setFieldId("name"));
                     this.showMessageError("Preencha o nome do polo", nameElement);
                 } else {
+                    this.showMask = true;
                     this.$store.dispatch("addSchedulesPole", {name: this.name});
                 }
             }

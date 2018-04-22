@@ -1,6 +1,6 @@
 <template>
     <div :id="modalId" class="modal fade" tabindex="-1" role="dialog" @click.stop="hideModal">
-        <dashboard-schedules-delete-mask :show-mask="showMask" mask-style="dark"></dashboard-schedules-delete-mask>
+        <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-sm">
@@ -24,7 +24,7 @@
         name: "dashboard-schedules-delete-form",
 
         components: {
-          "dashboard-schedules-delete-mask": AppMask
+          AppMask
         },
 
         mixins: [
@@ -56,11 +56,17 @@
         },
 
         methods: {
-            deleteRecord() {
-                if (this.typeRecord === "schedules") {
-                    this.showMask = true;
+            hideModal() {
+                if (!this.showMask) {
+                    this.$emit('hideModal');
+                }
+            },
 
-                    //this.$store.dispatch("deleteSchedule", this.recordId);
+            deleteRecord() {
+                this.showMask = true;
+
+                if (this.typeRecord === "schedules") {
+                    this.$store.dispatch("deleteSchedule", this.recordId);
                 }
             }
         }

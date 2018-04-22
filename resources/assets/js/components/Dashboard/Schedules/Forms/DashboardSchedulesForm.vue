@@ -6,6 +6,8 @@
                 v-show="!hiddenShowButton">Adicionar horário</button>
 
         <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-sm">
                     <form @submit.prevent="submitForm" :id="formId">
@@ -83,6 +85,7 @@
 
 <script>
     import { weekDays } from '../../data/weekDays';
+    import AppMask from '../../../Base/AppMask';
     import FormMessage from "../../../Base/FomMessage";
     import FormMessageMixin from "../../../Base/Mixins/FormMessage";
     import StoreRequestStatusMixin from "../../../Base/Mixins/StoreRequestStatus";
@@ -92,7 +95,8 @@
         name: "dashboard-schedules-form",
 
         components: {
-            FormMessage
+            FormMessage,
+            AppMask
         },
 
         mixins: [
@@ -105,7 +109,7 @@
             return {
                 weekdays: weekDays,
                 hour: "",
-                day: "",
+                day: 0,
                 pole: 0,
                 category: 0
             };
@@ -170,7 +174,7 @@
             },
 
             submitInsertForm() {
-                if (this.hour === null) {
+                if (this.hour === "") {
                     let hourElement = document.getElementById(this.setFieldId('hour'));
 
                     this.showMessageError("Informe uma hora", hourElement);
@@ -187,6 +191,8 @@
 
                     this.showMessageError("Informe a categoria do horário", categoryElement);
                 } else {
+                    this.showMask = true;
+
                     this.$store.dispatch("addSchedule", {
                         hour: this.hour,
                         day: this.day,
@@ -219,6 +225,7 @@
 
                 if (hasChange) {
                     data.id = this.record.id;
+                    this.showMask = true;
 
                     this.$store.dispatch("editSchedule", data);
                 }
