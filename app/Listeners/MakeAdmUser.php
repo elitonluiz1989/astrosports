@@ -33,13 +33,18 @@ class MakeAdmUser
             factory('App\Models\User')->create([
                 'username' => env('ADM_USERNAME'),
                 'name' => env('ADM_NAME'),
+                'avatar' => env('ADM_AVATAR') ?? null,
                 'password' => bcrypt(env('ADM_PASSWORD')),
                 'role' => function () {
                     return factory('App\Models\UserRole')->create([
-                        'name' => "adminstrador"
-                    ])
-                        ->id;
-                }
+                        'name' => "webmaster"
+                    ])->id;
+                },
+                'grant' => function () {
+                    return factory('App\Models\UserGrant')->create([
+                        'name' => "total"
+                    ])->id;
+                },
             ]);
         }
     }

@@ -19,6 +19,12 @@ $factory->define(App\Models\UserRole::class, function(Faker $faker) {
     ];
 });
 
+$factory->define(App\Models\UserGrant::class, function(Faker $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\User::class, function (Faker $faker) {
 
@@ -29,6 +35,9 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'password' => bcrypt($faker->password),
         'role' => function() {
             return factory('App\Models\UserRole')->create()->id;
+        },
+        'role' => function() {
+            return factory('App\Models\UserGrant')->create()->id;
         },
         'remember_token' => str_random(10),
     ];
