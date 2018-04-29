@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid h-md-100">
-        <dashboard-logout :show="showLogoutModal" @onHideLogoutModal="updateShowLogoutModal"></dashboard-logout>
+        <dashboard-logout :show="showLogoutModal" @hideModal="hideModal"></dashboard-logout>
 
         <div class="row h-md-100">
             <div class="dashboard__wapper-nav">
@@ -60,7 +60,7 @@
                 this.showLogoutModal = true;
             },
 
-            updateShowLogoutModal() {
+            hideModal() {
                 this.showLogoutModal = false;
             }
         }

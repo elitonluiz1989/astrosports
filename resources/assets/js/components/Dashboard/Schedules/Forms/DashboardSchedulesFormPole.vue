@@ -62,7 +62,7 @@
 
         data() {
             return {
-                formName: "dashboard-schedules-pole",
+                formId: "schedules-pole-form-insert",
                 name: ""
             }
         },

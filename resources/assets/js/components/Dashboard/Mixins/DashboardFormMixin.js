@@ -1,44 +1,24 @@
 export default {
     data() {
         return {
-            formName: "schedules-form",
-            record: {},
+            formType: "insert",
+            formId: "",
             showMask: false
         };
     },
 
-    props: {
-        type: {
-            type: String,
-            default: "insert"
-        },
-
-        recordKey: {
-            type: Number
-        },
-
-        hiddenShowButton: {
-            type: Boolean,
-            default: false
-        }
-    },
-
     computed: {
-        formId() {
-            return this.formName + this.type;
-        },
-
         styles() {
             return {
                 formHeader: {
-                    "modal-header form-header--insert": this.type === "insert",
-                    "modal-header form-header--edit": this.type === "edit",
+                    "modal-header form-header--insert": this.formType === "insert",
+                    "modal-header form-header--edit": this.formType === "edit",
                 },
                 label: "control-label col-3",
                 inputGroup: "input-group col-9",
                 btnSubmit: {
-                    "btn btn-success": this.type === "insert",
-                    "btn btn-danger": this.type === "edit",
+                    "btn btn-success": this.formType === "insert",
+                    "btn btn-danger": this.formType === "edit",
                 }
             };
         }
@@ -53,6 +33,14 @@ export default {
     },
 
     methods: {
+        disableForm(disable) {
+            disable = disable === undefined;
+
+            $("#" + this.formId).find('input, select').each(function (item) {
+                this.disabled = disable;
+            });
+        },
+
         setFieldId(field) {
             return this.formId + '-' + field;
         },

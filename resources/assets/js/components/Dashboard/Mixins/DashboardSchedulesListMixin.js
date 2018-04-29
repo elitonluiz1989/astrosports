@@ -5,14 +5,17 @@ export default {
             contentToSort: [],
             recordKey: null,
             recordId: 0,
-            editForm: null,
+            showEditModal: false,
             showDeleteModal: false
         };
     },
 
     methods: {
         hideModal() {
+            this.recordKey = null;
+            this.recordId = 0;
             this.showDeleteModal = false;
+            this.showEditModal = false;
         },
 
         showDeleteMessage(id) {
@@ -20,9 +23,10 @@ export default {
             this.showDeleteModal = true;
         },
 
-        showEditForm(key) {
+        showEditForm(key, id) {
             this.recordKey = key;
-            this.editForm.triggerShowEditForm();
+            this.recordId = id;
+            this.showEditModal = true;
         },
 
         sortBy(key) {

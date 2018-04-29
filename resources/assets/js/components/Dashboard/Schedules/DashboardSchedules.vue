@@ -8,7 +8,7 @@
             </div>
 
             <div class="dashboard__schedules-control-item">
-                <dashboard-schedules-form></dashboard-schedules-form>
+                <dashboard-schedules-insert-form></dashboard-schedules-insert-form>
             </div>
 
             <div class="dashboard__schedules-control-item">
@@ -31,7 +31,7 @@
 <script>
     import DashboardRequestStatusMessage from '../DashboardRequestStatusMessage';
     import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesForm from './Forms/DashboardSchedulesForm';
+    import DashboardSchedulesInsertForm from './Forms/DashboardSchedulesInsertForm';
     import DashboardSchedulesFormPole from './Forms/DashboardSchedulesFormPole';
     import DashboardSchedulesFormCategory from './Forms/DashboardSchedulesFormCategory';
     import DashboardSchedulesContent from './Content/DashboardSchedulesContent';
@@ -41,7 +41,7 @@
 
         components: {
             DashboardRequestStatusMessage,
-            DashboardSchedulesForm,
+            DashboardSchedulesInsertForm,
             DashboardSchedulesFormPole,
             DashboardSchedulesFormCategory,
             DashboardSchedulesContent

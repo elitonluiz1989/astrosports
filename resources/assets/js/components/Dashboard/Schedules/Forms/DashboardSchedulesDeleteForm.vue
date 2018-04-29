@@ -1,5 +1,5 @@
 <template>
-    <div :id="modalId" class="modal fade" tabindex="-1" role="dialog" @click.stop="hideModal">
+    <div :id="modalId" class="modal fade" tabindex="-1" role="dialog">
         <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
         <div class="modal-dialog" role="document">
@@ -8,7 +8,7 @@
                     <p v-text="message"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" @click.stop="hideModal">Não</button>
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Não</button>
                     <button type="button"  class="btn btn-danger" @click.stop="deleteRecord">Sim</button>
                 </div>
             </div>

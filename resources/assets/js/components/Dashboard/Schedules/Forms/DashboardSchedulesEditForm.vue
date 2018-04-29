@@ -1,11 +1,6 @@
 <template>
     <div>
-        <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal"
-                :data-target="'#' + formId + '-modal'"
-                ref="showFormBtn"
-                v-show="!hiddenShowButton">Adicionar horário</button>
-
-        <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+        <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
             <div class="modal-dialog" role="document">
@@ -70,9 +65,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <input type="reset" class="btn btn-light" value="Limpar" v-if="type === 'insert'">
-
-                            <input type="reset" class="btn btn-light" value="Resetar" v-if="type === 'edit'" @click.prevent="resetEditForm">
+                            <input type="reset" class="btn btn-light" value="Resetar" @click.prevent="manageFormData('reset')">
 
                             <input  type="submit" :class="styles.btnSubmit" value="Salvar">
                         </div>
@@ -84,48 +77,39 @@
 </template>
 
 <script>
-    import { weekDays } from '../../data/weekDays';
-    import AppMask from '../../../Base/AppMask';
-    import FormMessage from "../../../Base/FomMessage";
-    import FormMessageMixin from "../../../Base/Mixins/FormMessage";
-    import StoreRequestStatusMixin from "../../../Base/Mixins/StoreRequestStatus";
-    import DashboardFormMixin from "../../Mixins/DashboardFormMixin";
+    import DashboardModalMixin from '../../../Base/Mixins/DashboardModalMixin';
+    import DashboardSchedulesFormMixin from '../../Mixins/DashboardSchedulesFormMixin';
 
     export default {
-        name: "dashboard-schedules-form",
-
-        components: {
-            FormMessage,
-            AppMask
-        },
+        name: "dashboard-schedules-edit-form",
 
         mixins: [
-            FormMessageMixin,
-            StoreRequestStatusMixin,
-            DashboardFormMixin,
+            DashboardModalMixin,
+            DashboardSchedulesFormMixin
         ],
+
+        props: {
+            recordKey: {
+                type: Number
+            }
+        },
 
         data() {
             return {
-                weekdays: weekDays,
-                hour: "",
-                day: 0,
-                pole: 0,
-                category: 0
+                modalId: "dashboard-schedules-edit-modal",
+                formId: "schedules-form-edit",
+                formType: "edit", // used in mixin's methods
+                reloadSchedule: false
             };
         },
 
         computed: {
-            poles() {
-                return this.$store.getters.getSchedulesPoles;
+            schedule() {
+                return this.$store.getters.getSchedules[this.recordKey];
             },
 
-            categories() {
-                return this.$store.getters.getSchedulesCategories;
-            },
-
-            addScheduleStatus() {
-                return this.storeRequestStatus("getAddScheduleStatus", "getSchedulesMessageErrors");
+            loadSchedulesStatus() {
+                return this.$store.getters.getLoadSchedulesStatus;
             },
 
             editScheduleStatus() {
@@ -134,105 +118,87 @@
         },
 
         watch: {
-            addScheduleStatus(value) {
-                this.watchSubmitStatus(value, "Horário inserido com sucesso", "Houve um erro na inserção do horário.");
-            },
-
             editScheduleStatus(value) {
                 this.watchSubmitStatus(value, "Horário atualizado com sucesso", "Houve um erro na atualização do horário.");
+
+                if (value.code === 3) {
+                    this.disableForm(false);
+                }
+            },
+
+            loadSchedulesStatus(value) {
+                if (value === 2) {
+                    if (this.editScheduleStatus.code === 2) {
+                        this.manageFormData();
+
+                        this.disableForm(false);
+                    }
+                } else if (value === 3) {
+                    this.formMessageType = "error";
+                    this.formMessageText = "Houve um erro ao carregar o horário. O formulário deverá ser fechado.";
+                }
             },
 
             recordKey(value) {
-                if (value !== null && this.type === "edit") {
-                    this.record = this.$store.getters.getSchedules[this.recordKey];
-
-                    this.hour = this.record.hour;
-                    this.day = this.record.day;
-                    this.pole = this.record.pole.id;
-                    this.category = this.record.category.id;
+                if (value !== null) {
+                    this.manageFormData();
                 }
             }
         },
 
         methods: {
-            resetEditForm() {
-                for (let key in this.record) {
-                    let defaultValue = key === "pole" || key === "category" ? this.record[key].id : this.record[key];
+            hideModal() {
+                if (!this.showMask) {
+                    this.formMessageShow = false;
+                    this.disableForm(false);
+                    this.$emit('hideModal');
+                }
+            },
 
-                    if (this.$data[key] && this.$data[key] !== defaultValue) {
+            manageFormData(type) {
+                console.log(this.hour, this.schedule.hour);
+                for (let key in this.schedule) {
+                    let defaultValue = key === "pole" || key === "category" ? this.schedule[key].id : this.schedule[key];
+
+                    if (type !== "reset") {
                         this.$data[key] = defaultValue;
+                    } else {
+                        if(this.$data[key] !== defaultValue) {
+                            this.$data[key] = defaultValue;
+                        }
                     }
                 }
             },
 
             submitForm() {
-                if (this.type === "insert") {
-                    this.submitInsertForm();
-                } else if (this.type === "edit") {
-                    this.submitEditForm();
-                }
-            },
-
-            submitInsertForm() {
-                if (this.hour === "") {
-                    let hourElement = document.getElementById(this.setFieldId('hour'));
-
-                    this.showMessageError("Informe uma hora", hourElement);
-                } else if (this.day === 0) {
-                    let dayElement = document.getElementById(this.setFieldId('day'));
-
-                    this.showMessageError("Informe o dia da semana do horário", dayElement);
-                } else if (this.pole === 0) {
-                    let poleElement = document.getElementById(this.setFieldId('pole'));
-
-                    this.showMessageError("Informe o polo do horário", poleElement);
-                } else if (this.category === 0) {
-                    let categoryElement = document.getElementById(this.setFieldId('category'));
-
-                    this.showMessageError("Informe a categoria do horário", categoryElement);
-                } else {
-                    this.showMask = true;
-
-                    this.$store.dispatch("addSchedule", {
-                        hour: this.hour,
-                        day: this.day,
-                        pole: this.pole,
-                        category: this.category
-                    });
-                }
-            },
-
-            submitEditForm() {
                 let data = {};
                 let hasChange = false;
 
-                for (let key in this.record) {
+                for (let key in this.schedule) {
                     if (key === "pole") {
-                        if (this.$data[key] !== this.record["pole"].id) {
+                        if (this.$data[key] !== this.schedule.pole.id) {
                             data[key] = this.$data[key];
                             hasChange = true;
                         }
                     } else if (key === "category") {
-                        if (this.$data[key] !== this.record["pole"].id) {
+                        if (this.$data[key] !== this.schedule.category.id) {
                             data[key] = this.$data[key];
                             hasChange = true;
                         }
-                    } else if (key !== "id" && this.$data[key] !== this.record[key]) {
+                    } else if (key !== "id" && this.$data[key] !== this.schedule[key]) {
                         data[key] = this.$data[key];
                         hasChange = true;
                     }
                 }
 
                 if (hasChange) {
-                    data.id = this.record.id;
+                    data.id = this.schedule.id;
                     this.showMask = true;
+
+                    this.disableForm();
 
                     this.$store.dispatch("editSchedule", data);
                 }
-            },
-
-            triggerShowEditForm() {
-                this.$refs.showFormBtn.click();
             }
         }
     }

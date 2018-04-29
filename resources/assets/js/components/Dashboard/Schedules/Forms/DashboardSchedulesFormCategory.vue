@@ -62,7 +62,7 @@
 
         data() {
             return {
-                formName: "dashboard-schedules-category",
+                formId: "schedules-category-form-insert",
                 name: ""
             }
         },

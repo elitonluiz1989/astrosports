@@ -2,7 +2,7 @@
     <div class="dashboard__schedules-list">
         <dashboard-request-status-message :code="loadSchedulesStatus.code"></dashboard-request-status-message>
 
-        <dashboard-schedules-form :type="'edit'" :record-key="recordKey" hidden-show-button></dashboard-schedules-form>
+        <dashboard-schedules-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></dashboard-schedules-edit-form>
 
         <dashboard-schedules-delete-form :record-id="recordId" :message="deleteModalMessage" :show="showDeleteModal" @hideModal="hideModal"></dashboard-schedules-delete-form>
 
@@ -81,7 +81,7 @@
             <div class="dashboard__schedules-list-control">
                 <div class="row">
                     <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showEditForm(key)">
+                            @click.stop="showEditForm(key, schedule.id)">
                         <i class="fa fa-lg fa-pencil"></i>
                     </button>
 
@@ -100,7 +100,7 @@
     import StoreRequestStatusMixin from '../../../Base/Mixins/StoreRequestStatus';
     import DashboardSchedulesListMixin from '../../Mixins/DashboardSchedulesListMixin';
     import DashboardRequestStatusMessage from '../../DashboardRequestStatusMessage';
-    import DashboardSchedulesForm from '../Forms/DashboardSchedulesForm';
+    import DashboardSchedulesEditForm from '../Forms/DashboardSchedulesEditForm';
     import DashboardSchedulesDeleteForm from '../Forms/DashboardSchedulesDeleteForm';
 
     export default {
@@ -108,7 +108,7 @@
 
         components: {
             DashboardRequestStatusMessage,
-            DashboardSchedulesForm,
+            DashboardSchedulesEditForm,
             DashboardSchedulesDeleteForm
         },
 
@@ -137,10 +137,6 @@
             schedules(value) {
                 this.contentToSort = value;
             }
-        },
-
-        mounted() {
-            this.editForm = this.$children[1];
         },
 
         methods: {
