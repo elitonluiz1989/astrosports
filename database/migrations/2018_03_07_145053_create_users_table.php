@@ -19,15 +19,22 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->text('avatar')->nullable();
             $table->string('password');
-            $table->integer('role')->unsigned();
-            $table->integer('grant')->unsigned();
+            $table->integer('role')->unsigned()->nullable();
+            $table->integer('grant')->unsigned()->nullable();
             $table->timestamps();
             $table->rememberToken();
         });
 
         Schema::table('users', function($table) {
-            $table->foreign('role')->references('id')->on('user_roles');
-            $table->foreign('grant')->references('id')->on('user_grants');
+            $table->foreign('role')
+                ->references('id')
+                ->on('user_roles')
+                ->onDelete('set null');
+
+            $table->foreign('grant')
+                ->references('id')
+                ->on('user_grants')
+                ->onDelete('set null');
         });
     }
 

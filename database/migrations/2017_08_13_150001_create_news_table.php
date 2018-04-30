@@ -15,7 +15,7 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author')->unsigned();
+            $table->integer('author')->unsigned()->nullable();
             $table->string('cover')->nullable();
             $table->string('title');
             $table->text('text');
@@ -23,7 +23,10 @@ class CreateNewsTable extends Migration
         });
 
         Schema::table('news', function($table) {
-            $table->foreign('author')->references('id')->on('authors');
+            $table->foreign('author')
+                ->references('id')
+                ->on('authors')
+                ->onDelete('set null');
         });
     }
 
