@@ -33,7 +33,7 @@
 
                                 <div :class="styles.inputGroup">
                                     <select :id="setFieldId('day')" class="form-control" v-model="day">
-                                        <option value="0">...</option>
+                                        <option value="none">...</option>
 
                                         <option :value="key" v-for="(day, key) in weekdays" :key="key" v-text="day.toUpperCase()"></option>
                                     </select>
@@ -103,23 +103,7 @@
 
         methods: {
             submitForm() {
-                if (this.hour === "") {
-                    let hourElement = document.getElementById(this.setFieldId('hour'));
-
-                    this.showMessageError("Informe uma hora", hourElement);
-                } else if (this.day === 0) {
-                    let dayElement = document.getElementById(this.setFieldId('day'));
-
-                    this.showMessageError("Informe o dia da semana do horário", dayElement);
-                } else if (this.pole === 0) {
-                    let poleElement = document.getElementById(this.setFieldId('pole'));
-
-                    this.showMessageError("Informe o polo do horário", poleElement);
-                } else if (this.category === 0) {
-                    let categoryElement = document.getElementById(this.setFieldId('category'));
-
-                    this.showMessageError("Informe a categoria do horário", categoryElement);
-                } else {
+                if (this.validateScheduleForm()) {
                     this.showMask = true;
 
                     this.$store.dispatch("addSchedule", {

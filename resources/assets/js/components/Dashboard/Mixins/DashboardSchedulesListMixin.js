@@ -23,9 +23,8 @@ export default {
             this.showDeleteModal = true;
         },
 
-        showEditForm(key, id) {
+        showEditForm(key) {
             this.recordKey = key;
-            this.recordId = id;
             this.showEditModal = true;
         },
 
