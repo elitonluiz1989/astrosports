@@ -30,7 +30,7 @@
 
                                 <div :class="styles.inputGroup">
                                     <select :id="setFieldId('day')" class="form-control" v-model="day">
-                                        <option value="0">...</option>
+                                        <option value="none">...</option>
 
                                         <option :value="key" v-for="(day, key) in weekdays" :key="key" v-text="day.toUpperCase()"></option>
                                     </select>
@@ -156,7 +156,6 @@
             },
 
             manageFormData(type) {
-                console.log(this.hour, this.schedule.hour);
                 for (let key in this.schedule) {
                     let defaultValue = key === "pole" || key === "category" ? this.schedule[key].id : this.schedule[key];
 
@@ -171,33 +170,35 @@
             },
 
             submitForm() {
-                let data = {};
-                let hasChange = false;
+                if (this.validateScheduleForm()) {
+                    let data = {};
+                    let hasChange = false;
 
-                for (let key in this.schedule) {
-                    if (key === "pole") {
-                        if (this.$data[key] !== this.schedule.pole.id) {
+                    for (let key in this.schedule) {
+                        if (key === "pole") {
+                            if (this.$data[key] !== this.schedule.pole.id) {
+                                data[key] = this.$data[key];
+                                hasChange = true;
+                            }
+                        } else if (key === "category") {
+                            if (this.$data[key] !== this.schedule.category.id) {
+                                data[key] = this.$data[key];
+                                hasChange = true;
+                            }
+                        } else if (key !== "id" && this.$data[key] !== this.schedule[key]) {
                             data[key] = this.$data[key];
                             hasChange = true;
                         }
-                    } else if (key === "category") {
-                        if (this.$data[key] !== this.schedule.category.id) {
-                            data[key] = this.$data[key];
-                            hasChange = true;
-                        }
-                    } else if (key !== "id" && this.$data[key] !== this.schedule[key]) {
-                        data[key] = this.$data[key];
-                        hasChange = true;
                     }
-                }
 
-                if (hasChange) {
-                    data.id = this.schedule.id;
-                    this.showMask = true;
+                    if (hasChange) {
+                        data.id = this.schedule.id;
+                        this.showMask = true;
 
-                    this.disableForm();
+                        this.disableForm();
 
-                    this.$store.dispatch("editSchedule", data);
+                        this.$store.dispatch("editSchedule", data);
+                    }
                 }
             }
         }

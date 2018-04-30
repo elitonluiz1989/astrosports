@@ -1,4 +1,19 @@
+import AppMask from '../../Base/AppMask';
+import FormMessage from "../../Base/FomMessage";
+import FormMessageMixin from "../../Base/Mixins/FormMessage";
+import StoreRequestStatusMixin from "../../Base/Mixins/StoreRequestStatus";
+
 export default {
+    components: {
+        FormMessage,
+        AppMask
+    },
+
+    mixins: [
+        FormMessageMixin,
+        StoreRequestStatusMixin,
+    ],
+
     data() {
         return {
             formType: "insert",
@@ -43,6 +58,12 @@ export default {
 
         setFieldId(field) {
             return this.formId + '-' + field;
+        },
+
+        setFieldMessageError(field, message) {
+            let element = document.getElementById(this.setFieldId(field));
+
+            this.showMessageError(message, element);
         },
 
         watchSubmitStatus(value, messageSuccess, messageError) {

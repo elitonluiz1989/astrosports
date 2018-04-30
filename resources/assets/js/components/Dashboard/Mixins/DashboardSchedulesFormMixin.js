@@ -1,19 +1,8 @@
 import { weekDays } from '../data/weekDays';
-import AppMask from '../../Base/AppMask';
-import FormMessage from "../../Base/FomMessage";
-import FormMessageMixin from "../../Base/Mixins/FormMessage";
-import StoreRequestStatusMixin from "../../Base/Mixins/StoreRequestStatus";
-import DashboardFormMixin from "../Mixins/DashboardFormMixin";
+import DashboardFormMixin from './DashboardFormMixin';
 
 export default {
-    components: {
-        FormMessage,
-        AppMask
-    },
-
     mixins: [
-        FormMessageMixin,
-        StoreRequestStatusMixin,
         DashboardFormMixin,
     ],
 
@@ -21,7 +10,7 @@ export default {
         return {
             weekdays: weekDays,
             hour: "",
-            day: 0,
+            day: "none",
             pole: 0,
             category: 0
         };
@@ -34,6 +23,26 @@ export default {
 
         categories() {
             return this.$store.getters.getSchedulesCategories;
+        }
+    },
+
+    methods: {
+        validateScheduleForm() {
+            let validated = false;
+
+            if (this.hour === "") {
+                this.setFieldMessageError("hour", "Informe uma hora");
+            } else if (this.day === "none") {
+                this.setFieldMessageError("day", "Informe o dia da semana do horário");
+            } else if (this.pole === 0) {
+                this.setFieldMessageError("pole", "Informe o polo do horário");
+            } else if (this.category === 0) {
+                this.setFieldMessageError("category", "Informe a categoria do horário");
+            } else {
+                validated = true;
+            }
+
+            return validated;
         }
     }
 }
