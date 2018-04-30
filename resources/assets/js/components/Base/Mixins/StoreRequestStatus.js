@@ -13,7 +13,7 @@ export default {
             status.code =  this.$store.getters[storeGetterCode];
             status.message = storeGetterMessage ? this.$store.getters[storeGetterMessage] : null;
 
-            if (status.code === 3 && this.requestMessageOnLog && status.message !== null) {
+            if (status.code === 3 && this.requestMessageOnLog && status.message !== null && status.message !== undefined) {
                 if (status.message.response &&
                     status.message.response.status &&
                     status.message.response.status === 422 &&

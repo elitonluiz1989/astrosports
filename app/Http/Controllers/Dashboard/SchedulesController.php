@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\SchedulesStoreRequest;
 use App\Repositories\SchedulesRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class SchedulesController extends Controller
 {
@@ -42,9 +43,13 @@ class SchedulesController extends Controller
         }
     }
 
-    public function delete(int $id)
+    public function delete(Request $request)
     {
         try {
+            $id = $request->validate([
+                'id' => 'integer|required'
+            ])['id'];
+
             $schedule = $this->schedules->deleteSchedule($id);
 
             return response()->json($schedule);

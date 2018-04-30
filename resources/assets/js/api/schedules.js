@@ -20,7 +20,17 @@ export default {
     },
 
     deleteSchedule(id) {
-        this.url += '/deletar/' + id;
-        return axios.delete(this.url);
+        /* Used this way because this event is called by a button and cause a error if simply
+        * concatenate like getSchedules with a id
+        */
+        let url = this.url + '/delete/';
+
+        let data = {
+            params: {
+                id: id
+            }
+        }
+
+        return axios.delete(url, data);
     }
 }
