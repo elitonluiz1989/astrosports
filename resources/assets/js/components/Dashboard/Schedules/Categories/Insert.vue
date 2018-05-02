@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar polo</button>
+        <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar categoria</button>
 
         <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
@@ -9,7 +9,7 @@
                 <div class="modal-content modal-sm">
                     <form :id="formId" @submit.prevent="submitForm">
                         <div :class="styles.formHeader">
-                            <h5 class="modal-title">Adicionar polo</h5>
+                            <h5 class="modal-title">Adicionar categoria</h5>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i class="fa fa-times"></i>
@@ -40,53 +40,41 @@
 </template>
 
 <script>
-    import AppMask from '../../../Base/AppMask';
-    import FormMessage from "../../../Base/FomMessage";
-    import FormMessageMixin from "../../../Base/Mixins/FormMessage";
-    import StoreRequestStatusMixin from "../../../Base/Mixins/StoreRequestStatus";
-    import DashboardFormMixin from "../../Mixins/DashboardFormMixin";
+    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
 
     export default {
-        name: "dashboard-schedules-form-pole",
-
-        components: {
-            FormMessage,
-            AppMask
-        },
+        name: "schedules-category-insert-form",
 
         mixins: [
-            FormMessageMixin,
-            StoreRequestStatusMixin,
             DashboardFormMixin,
         ],
 
         data() {
             return {
-                formId: "schedules-pole-form-insert",
+                formId: "schedules-category-insert-form",
                 name: ""
             }
         },
 
         computed: {
-            addSchedulesPolesStatus() {
-                return this.storeRequestStatus("getAddSchedulesPolesStatus", "getSchedulesPolesMessageErrors");
+            loadSchedulesCategoriesStatus() {
+                return this.storeRequestStatus("getAddSchedulesCategoryStatus", "getSchedulesPolesMessageErrors");
             }
         },
 
         watch: {
-            addSchedulesPolesStatus(value) {
-                this.watchSubmitStatus(value, "Polo inserido com sucesso", "Houve um erro na inserção do polo.");
+            loadSchedulesCategoriesStatus(value) {
+                this.watchSubmitStatus(value, "Categoria inserido com sucesso", "Houve um erro na inserção da categoria.");
             }
         },
 
         methods: {
             submitForm() {
                 if (this.name === "") {
-                    let nameElement = document.getElementById(this.setFieldId("name"));
-                    this.showMessageError("Preencha o nome do polo", nameElement);
+                    this.setFieldMessageError("name", "Preencha o nome da categoria");
                 } else {
                     this.showMask = true;
-                    this.$store.dispatch("addSchedulesPole", {name: this.name});
+                    this.$store.dispatch("addSchedulesCategory", {name: this.name});
                 }
             }
         }

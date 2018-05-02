@@ -80,10 +80,10 @@
 </template>
 
 <script>
-    import DashboardSchedulesFormMixin from "../../Mixins/DashboardSchedulesFormMixin";
+    import DashboardSchedulesFormMixin from "@Dashboard/Mixins/DashboardSchedulesFormMixin";
 
     export default {
-        name: "dashboard-schedules-insert-form",
+        name: "schedules-insert-form",
 
         mixins: [
             DashboardSchedulesFormMixin,

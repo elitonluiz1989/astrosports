@@ -77,22 +77,16 @@
 </template>
 
 <script>
-    import DashboardModalMixin from '../../../Base/Mixins/DashboardModalMixin';
-    import DashboardSchedulesFormMixin from '../../Mixins/DashboardSchedulesFormMixin';
+    import DashboardModalMixin from '@components/Base/Mixins/DashboardModalMixin';
+    import DashboardSchedulesFormMixin from '@Dashboard/Mixins/DashboardSchedulesFormMixin';
 
     export default {
-        name: "dashboard-schedules-edit-form",
+        name: "schedules-edit-form",
 
         mixins: [
             DashboardModalMixin,
             DashboardSchedulesFormMixin
         ],
-
-        props: {
-            recordKey: {
-                type: Number
-            }
-        },
 
         data() {
             return {

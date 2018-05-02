@@ -2,6 +2,8 @@
     <div class="dashboard__schedules-list">
         <dashboard-request-status-message :code="loadSchedulesPolesStatus.code"></dashboard-request-status-message>
 
+        <schedules-poles-edit-from :record-key="recordKey" :show="showEditModal"></schedules-poles-edit-from>
+
         <div class="dashboard__schedules-list-title d-none d-sm-flex">
             <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item" @click.stop="sortBy('id')" title="Clique para ordernar por código">
                 <div class="dashboard__schedules-list-content">Cod.</div>
@@ -9,6 +11,10 @@
 
             <div class="dashboard__schedules-list-pole dashboard__schedules-list-title-item" @click.stop="sortBy('pole')" title="Clique para ordernar por polo">
                 <div class="dashboard__schedules-list-content">Polo</div>
+            </div>
+
+            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item">
+                <div class="dashboard__schedules-list-content"></div>
             </div>
         </div>
 
@@ -28,7 +34,7 @@
                 <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="pole.id"></div>
             </div>
 
-            <div class="dashboard__schedules-list-pole">
+            <div class="dashboard__schedules-list-pole dashboard__schedules-list--bordered">
                 <div class="row d-sm-none">
                     <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Polo</div>
                     <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="pole.name"></div>
@@ -36,20 +42,36 @@
 
                 <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="pole.name"></div>
             </div>
+
+            <div class="dashboard__schedules-list-control">
+                <div class="row">
+                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
+                            @click.stop="showEditForm(key)">
+                        <i class="fa fa-lg fa-pencil"></i>
+                    </button>
+
+                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
+                            @click.stop="showDeleteMessage(schedule.id)">
+                        <i class="fa fa-lg fa-trash"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import StoreRequestStatusMixin from '../../../Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesListMixin from '../../Mixins/DashboardSchedulesListMixin';
-    import DashboardRequestStatusMessage from '../../DashboardRequestStatusMessage';
+    import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
+    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
+    import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
+    import SchedulesPolesEditFrom from './Edit';
 
     export default {
         name: "dashboard-schedules-poles-list",
 
         components: {
-            DashboardRequestStatusMessage
+            DashboardRequestStatusMessage,
+            SchedulesPolesEditFrom
         },
 
         mixins: [

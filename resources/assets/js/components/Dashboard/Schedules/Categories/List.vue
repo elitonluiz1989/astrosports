@@ -41,12 +41,12 @@
 </template>
 
 <script>
-    import StoreRequestStatusMixin from '../../../Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesListMixin from '../../Mixins/DashboardSchedulesListMixin';
-    import DashboardRequestStatusMessage from '../../DashboardRequestStatusMessage';
+    import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
+    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
+    import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
 
     export default {
-        name: "dashboard-schedules-categories-list",
+        name: "schedules-categories-list",
 
         components: {
             DashboardRequestStatusMessage

@@ -15,16 +15,17 @@
 </template>
 
 <script>
-    import DashboardSchedulesList from './DashboardSchedulesList';
-    import DashboardSchedulesPolesList from './DashboardSchedulesPolesList';
-    import DashboardSchedulesCategoriesList from './DashboardSchedulesCategoriesList';
+    import SchedulesList from './Schedules/List';
+    import SchedulesPolesList from './Poles/List';
+    import SchedulesCategoriesList from './Categories/List';
 
     export default {
-        name: "dashboard-schedules-content",
+        name: "schedules-lists",
 
         components: {
-            DashboardSchedulesList,
-            DashboardSchedulesPolesList
+            SchedulesList,
+            SchedulesPolesList,
+            SchedulesCategoriesList
         },
 
         props: {
@@ -43,9 +44,9 @@
                 },
 
                 componentList: {
-                    horarios: DashboardSchedulesList,
-                    polos: DashboardSchedulesPolesList,
-                    categorias: DashboardSchedulesCategoriesList
+                    horarios: SchedulesList,
+                    polos: SchedulesPolesList,
+                    categorias: SchedulesCategoriesList
                 }
             };
         },

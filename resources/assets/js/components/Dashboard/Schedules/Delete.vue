@@ -26,12 +26,12 @@
 </template>
 
 <script>
-    import DashboardModalMixin from '../../../Base/Mixins/DashboardModalMixin';
-    import AppMask from '../../../Base/AppMask';
-    import StoreRequestStatus from '../../../Base/Mixins/StoreRequestStatus';
+    import DashboardModalMixin from '@components/Base/Mixins/DashboardModalMixin';
+    import AppMask from '@components/Base/AppMask';
+    import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
 
     export default {
-        name: "dashboard-schedules-delete-form",
+        name: "schedules-delete-form",
 
         components: {
           AppMask

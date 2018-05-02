@@ -8,21 +8,21 @@
             </div>
 
             <div class="dashboard__schedules-control-item">
-                <dashboard-schedules-insert-form></dashboard-schedules-insert-form>
+                <schedules-insert-form></schedules-insert-form>
             </div>
 
             <div class="dashboard__schedules-control-item">
-                <dashboard-schedules-form-pole></dashboard-schedules-form-pole>
+                <schedules-poles-insert-form></schedules-poles-insert-form>
             </div>
 
             <div class="dashboard__schedules-control-item">
-                <dashboard-schedules-form-category></dashboard-schedules-form-category>
+                <schedules-category-insert-form></schedules-category-insert-form>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                <dashboard-schedules-content :active-tab="activeTab"></dashboard-schedules-content>
+                <schedules-lists :active-tab="activeTab"></schedules-lists>
             </div>
         </div>
     </div>
@@ -30,21 +30,21 @@
 
 <script>
     import DashboardRequestStatusMessage from '../DashboardRequestStatusMessage';
-    import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesInsertForm from './Forms/DashboardSchedulesInsertForm';
-    import DashboardSchedulesFormPole from './Forms/DashboardSchedulesFormPole';
-    import DashboardSchedulesFormCategory from './Forms/DashboardSchedulesFormCategory';
-    import DashboardSchedulesContent from './Content/DashboardSchedulesContent';
+    import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
+    import SchedulesInsertForm from './Schedules/Insert';
+    import SchedulesPolesInsertForm from './Poles/Insert';
+    import SchedulesCategoryInsertForm from './Categories/Insert';
+    import SchedulesLists from './Lists';
 
     export default {
         name: "dashboard-schedules",
 
         components: {
             DashboardRequestStatusMessage,
-            DashboardSchedulesInsertForm,
-            DashboardSchedulesFormPole,
-            DashboardSchedulesFormCategory,
-            DashboardSchedulesContent
+            SchedulesInsertForm,
+            SchedulesPolesInsertForm,
+            SchedulesCategoryInsertForm,
+            SchedulesLists
         },
 
         mixins: [
