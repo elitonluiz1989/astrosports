@@ -1,6 +1,10 @@
 <template>
     <div class="form-group form-message" :class="styles.show" ref="formMessage">
-        <p :class="[styles.message.error, styles.message.success]">{{ text }}</p>
+        <p :class="[styles.message.error, styles.message.success]" v-if="!manyMessages" v-text="text"></p>
+
+        <p :class="[styles.message.error, styles.message.success]" v-if="manyMessages">
+            <span v-for="textMessage in text" v-text="textMessage"></span>
+        </p>
     </div>
 </template>
 
@@ -26,7 +30,7 @@
             },
 
             text: {
-                type: String,
+                type: String|Array,
                 required: true
             },
 
@@ -60,6 +64,10 @@
                         }
                     }
                 };
+            },
+
+            manyMessages() {
+                return Array.isArray(this.text);
             }
         },
 

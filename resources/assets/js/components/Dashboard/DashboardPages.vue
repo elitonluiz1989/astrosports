@@ -8,14 +8,14 @@
 
 <script>
     import DashboardUsers from './User/DashboardUsers';
-    import DasboardSchedules from './Schedules/DashboardSchedules';
+    import DashboardSchedules from './Schedules/Index';
 
     export default {
         name: "dashboard-pages",
 
         components: {
             DashboardUsers,
-            DasboardSchedules
+            DashboardSchedules
         },
 
         props: {
@@ -32,7 +32,7 @@
                     institucional: null,
                     noticias: null,
                     fotos: null,
-                    horarios: DasboardSchedules
+                    horarios: DashboardSchedules
                 }
             };
         },

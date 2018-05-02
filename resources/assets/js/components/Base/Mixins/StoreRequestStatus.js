@@ -12,6 +12,7 @@ export default {
             let status = {};
             status.code =  this.$store.getters[storeGetterCode];
             status.message = storeGetterMessage ? this.$store.getters[storeGetterMessage] : null;
+            status.showUser = [];
 
             if (status.code === 3 && this.requestMessageOnLog && status.message !== null && status.message !== undefined) {
                 if (status.message.response &&
@@ -22,13 +23,20 @@ export default {
 
                     for (let key in errors) {
                         for (let subKey in errors[key]) {
-                            let message = key;
-                            message += '[' + subKey + ']: ';
-                            message += errors[key][subKey];
+                            let message = errors[key][subKey]
+
+                            if (message.indexOf("[show-user]") !== -1) {
+                                message = message.replace("[show-user]", "");
+                                status.showUser.push(message)
+                            }
+
+                            message = key + '[' + subKey + ']: ' + message;
 
                             console.error(message);
                         }
                     }
+
+                    status.message = errors;
                 } else {
                     console.error(status.message)
                 }

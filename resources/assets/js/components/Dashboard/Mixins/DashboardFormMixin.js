@@ -14,6 +14,12 @@ export default {
         StoreRequestStatusMixin,
     ],
 
+    props: {
+        recordKey: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             formType: "insert",
