@@ -10,7 +10,7 @@ class SchedulesCategoriesRepository
      * @param null $id
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getCategories($id = null)
+    public function get($id = null)
     {
         if (null !== $id) {
             return Category::find($id);
@@ -23,10 +23,10 @@ class SchedulesCategoriesRepository
      * @param array $data
      * @return bool
      */
-    public function storeCategory(array $data)
+    public function store(array $data)
     {
         if (isset($data['id'])) {
-            $pole = $this->getCategories($data['id']);
+            $pole = $this->get($data['id']);
             $pole->name = $data['name'];
         } else {
             $pole = new Category();
@@ -34,5 +34,14 @@ class SchedulesCategoriesRepository
         }
 
         return $pole->save();
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id)
+    {
+        return Category::destroy($id);
     }
 }

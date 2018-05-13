@@ -17,5 +17,17 @@ export default {
 
     edit(category) {
         return axios.put(this.url, category);
+    },
+
+    del(id) {
+        let url = this.url + '/delete/';
+
+        let data = {
+            params: {
+                id: id
+            }
+        };
+
+        return axios.delete(url, data);
     }
 }

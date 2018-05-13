@@ -97,7 +97,7 @@ export const schedules = {
         deleteSchedule({commit, dispatch}, id) {
             commit("setDeleteScheduleStatus", 1);
 
-            schedulesApi.deleteSchedule(id)
+            schedulesApi.del(id)
                 .then(response => {
                     if (response.data.error) {
                         commit("setDeleteScheduleStatus", 3);

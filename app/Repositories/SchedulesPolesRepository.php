@@ -20,7 +20,7 @@ class SchedulesPolesRepository
      * @param null $id
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getPoles($id = null)
+    public function get($id = null)
     {
         if (null !== $id) {
             return Pole::find($id);
@@ -35,10 +35,10 @@ class SchedulesPolesRepository
      * @param array $data
      * @return bool
      */
-    public function storePole(array $data)
+    public function store(array $data)
     {
         if (isset($data['id'])) {
-            $pole = $this->getPoles($data['id']);
+            $pole = $this->get($data['id']);
             $pole->name = $data['name'];
         } else {
             $pole = new Pole();
@@ -46,5 +46,14 @@ class SchedulesPolesRepository
         }
 
         return $pole->save();
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id)
+    {
+        return Pole::destroy($id);
     }
 }

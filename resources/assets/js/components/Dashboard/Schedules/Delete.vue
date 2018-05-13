@@ -90,7 +90,11 @@
 
             requestStatus() {
                 if (this.typeRecord === "schedules") {
-                  return this.storeRequestStatus("getDeleteScheduleStatus", "getSchedulesMessageErrors")
+                    return this.storeRequestStatus("getDeleteScheduleStatus", "getSchedulesMessageErrors")
+                } else if (this.typeRecord === "poles") {
+                    return this.storeRequestStatus("getDeleteSchedulesPoleStatus", "getSchedulesPolesMessageErrors")
+                } else if (this.typeRecord === "categories") {
+                    return this.storeRequestStatus("getDeleteSchedulesCategoryStatus", "getSchedulesCategoriesMessageErrors")
                 }
             }
         },

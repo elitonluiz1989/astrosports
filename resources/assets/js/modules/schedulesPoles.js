@@ -86,6 +86,7 @@ export const schedulesPoles = {
                     } else {
                         commit('setEditSchedulesPoleStatus', 2);
                         dispatch("loadSchedulesPoles");
+                        dispatch("loadSchedules");
                     }
                 })
                 .catch(err => {
@@ -94,10 +95,10 @@ export const schedulesPoles = {
                 });
         },
 
-        deleteSchedulesPole({commit, dispatch}, pole) {
+        deleteSchedulesPole({commit, dispatch}, id) {
             commit('setDeleteSchedulesPoleStatus', 1);
 
-            schedulesApi.edit(pole)
+            schedulesApi.del(id)
                 .then(response => {
                     if (response.data.error) {
                         commit('setDeleteSchedulesPoleStatus', 3);
@@ -105,10 +106,11 @@ export const schedulesPoles = {
                     } else {
                         commit('setDeleteSchedulesPoleStatus', 2);
                         dispatch("loadSchedulesPoles");
+                        dispatch("loadSchedules");
                     }
                 })
                 .catch(err => {
-                    commit('setEditSchedulesPoleStatus', 3);
+                    commit('setDeleteSchedulesPoleStatus', 3);
                     commit('setSchedulesPolesMessageErrors', err);
                 });
         }

@@ -4,6 +4,8 @@
 
         <schedules-category-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedules-category-edit-form>
 
+        <schedules-delete-form type-record="categories" :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedules-delete-form>
+
         <div class="dashboard__schedules-list-title d-none d-sm-flex">
             <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item" @click.stop="sortBy('id')" title="Clique para ordernar por código">
                 <div class="dashboard__schedules-list-content">Cod.</div>
@@ -66,13 +68,15 @@
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
     import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
     import SchedulesCategoryEditForm from './Edit';
+    import SchedulesDeleteForm from '../Delete';
 
     export default {
         name: "schedules-categories-list",
 
         components: {
             DashboardRequestStatusMessage,
-            SchedulesCategoryEditForm
+            SchedulesCategoryEditForm,
+            SchedulesDeleteForm
         },
 
         mixins: [

@@ -19,7 +19,7 @@ export default {
         return axios.put(this.url, schedule);
     },
 
-    deleteSchedule(id) {
+    del(id) {
         /* Used this way because this event is called by a button and cause a error if simply
         * concatenate like getSchedules with a id
         */
@@ -29,7 +29,7 @@ export default {
             params: {
                 id: id
             }
-        }
+        };
 
         return axios.delete(url, data);
     }

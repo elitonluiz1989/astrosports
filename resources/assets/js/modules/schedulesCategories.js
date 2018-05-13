@@ -86,10 +86,31 @@ export const schedulesCategories = {
                     } else {
                         commit('setEditSchedulesCategoryStatus', 2);
                         dispatch("loadSchedulesCategories");
+                        dispatch("loadSchedules");
                     }
                 })
                 .catch(err => {
                     commit('setEditSchedulesCategoryStatus', 3);
+                    commit('setSchedulesCategoriesMessageErrors', err);
+                });
+        },
+
+        deleteSchedulesCategory({commit, dispatch}, category) {
+            commit('setDeleteSchedulesCategoryStatus', 1);
+
+            categoriesApi.del(category)
+                .then(response => {
+                    if (response.data.error) {
+                        commit('setDeleteSchedulesCategoryStatus', 3);
+                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
+                    } else {
+                        commit('setDeleteSchedulesCategoryStatus', 2);
+                        dispatch("loadSchedulesCategories");
+                        dispatch("loadSchedules");
+                    }
+                })
+                .catch(err => {
+                    commit('setDeleteSchedulesCategoryStatus', 3);
                     commit('setSchedulesCategoriesMessageErrors', err);
                 });
         }
@@ -116,6 +137,10 @@ export const schedulesCategories = {
             state.status.edit = status;
         },
 
+        setDeleteSchedulesCategoryStatus(state, status) {
+            state.status.delete = status;
+        },
+
         setSchedulesCategoriesMessageErrors(state, message) {
             state.messageErrors = message;
         }
@@ -140,6 +165,10 @@ export const schedulesCategories = {
 
         getEditSchedulesCategoryStatus(state) {
             return state.status.edit;
+        },
+
+        getDeleteSchedulesCategoryStatus(state) {
+            return state.status.delete;
         },
 
         getSchedulesCategoriesMessageErrors(state) {

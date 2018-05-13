@@ -144,7 +144,9 @@
 
             manageFormData(type) {
                 for (let key in this.schedule) {
-                    let defaultValue = key === "pole" || key === "category" ? this.schedule[key].id : this.schedule[key];
+                    let defaultValue = key === "pole" || key === "category" ?
+                                                this.verifyCategoryOrPole(this.schedule[key]) :
+                                                this.schedule[key];
 
                     if (type !== "reset") {
                         this.$data[key] = defaultValue;
@@ -162,13 +164,8 @@
                     let hasChange = false;
 
                     for (let key in this.schedule) {
-                        if (key === "pole") {
-                            if (this.$data[key] !== this.schedule.pole.id) {
-                                data[key] = this.$data[key];
-                                hasChange = true;
-                            }
-                        } else if (key === "category") {
-                            if (this.$data[key] !== this.schedule.category.id) {
+                        if (key === "pole" || key === "category") {
+                            if (this.$data[key] !== this.verifyCategoryOrPole(this.schedule[key])) {
                                 data[key] = this.$data[key];
                                 hasChange = true;
                             }
@@ -188,6 +185,10 @@
                         this.$store.dispatch("editSchedule", data);
                     }
                 }
+            },
+
+            verifyCategoryOrPole(data) {
+                return data !== null ? data.id : 0
             }
         }
     }

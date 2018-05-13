@@ -70,18 +70,18 @@
             <div class="dashboard__schedules-list-pole">
                 <div class="row d-sm-none">
                     <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Polo</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedule.pole.name"></div>
+                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedulePole(schedule)"></div>
                 </div>
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="schedule.pole.name"></div>
+                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="schedulePole(schedule)"></div>
             </div>
             <div class="dashboard__schedules-list-category dashboard__schedules-list--bordered">
                 <div class="row d-sm-none">
                     <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Categoria</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedule.category.name"></div>
+                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="scheduleCategory(schedule)"></div>
                 </div>
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="schedule.category.name"></div>
+                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="scheduleCategory(schedule)"></div>
             </div>
 
             <div class="dashboard__schedules-list-control">
@@ -140,6 +140,14 @@
         },
 
         methods: {
+            scheduleCategory(schedule) {
+                return schedule.category ? schedule.category.name : "-";
+            },
+
+            schedulePole(schedule) {
+                return schedule.pole ? schedule.pole.name : "-";
+            },
+
             translateDay(day) {
                 return weekDays[day].toUpperCase();
             }

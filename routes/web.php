@@ -63,11 +63,13 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], func
             Route::group(['prefix' => 'schedules-poles'], function() {
                 Route::get('/{id?}', 'SchedulesPolesController@poles')->where('id', '[0-9]+')->name('dashboard.schedules.poles');
                 Route::match(['post', 'put'], '/', 'SchedulesPolesController@store')->name('dashboard.schedules.poles.store');
+                Route::any('/delete/', 'SchedulesPolesController@delete')->name('dashboard.schedules.poles.delete');
             });
 
             Route::group(['prefix' => 'schedules-categories'], function() {
                 Route::get('/{id?}', 'SchedulesCategoriesController@categories')->where('id', '[0-9]+')->name('dashboard.schedules.categories');
                 Route::match(['post', 'put'], '/', 'SchedulesCategoriesController@store')->name('dashboard.schedules.categories.store');
+                Route::any('/delete/', 'SchedulesCategoriesController@delete')->name('dashboard.schedules.categories.delete');
             });
         });
     });
