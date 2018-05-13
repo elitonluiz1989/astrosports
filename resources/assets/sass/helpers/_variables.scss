@@ -67,3 +67,4 @@ $dashboard-color: #1b7450;//#2ab27b;
 $dashboard-nav-color: $dashboard-color;
 $dashboard-nav-color-dark: darken($dashboard-nav-color, 10%);
 $dashboard-form-color: saturate(lighten($dashboard-color, 5%), 23%);
+$dashboard-success-color: darken($dashboard-form-color, 3%);

@@ -77,8 +77,10 @@ export default {
                 this.showMask = false; // I included this inside the IFs because code can be 1 (loading or waiting)
                 this.showMessageSuccess(messageSuccess);
             } else if (value.code === 3) {
+                let message = value.showUser.length > 0 ? value.showUser : messageError;
+
                 this.showMask = false;
-                this.showMessageError(messageError);
+                this.showMessageError(message);
             }
         }
     }

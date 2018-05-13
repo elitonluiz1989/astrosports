@@ -31,7 +31,7 @@
                 <div class="dashboard__schedules-list-content">Categoria</div>
             </div>
 
-            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item">
+            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item" v-if="schedules.length > 0">
                 <div class="dashboard__schedules-list-content"></div>
             </div>
         </div>

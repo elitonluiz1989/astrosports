@@ -3,7 +3,7 @@ import {CONFIG} from '../config';
 export default {
     url: CONFIG.API_URL + '/schedules-poles',
 
-    getSchedulesPoles(id) {
+    get(id) {
 
         if (id) {
             this.url += '/' + id;
@@ -12,7 +12,11 @@ export default {
         return axios.get(this.url);
     },
 
-    addSchedulesPole(pole) {
+    add(pole) {
         return axios.post(this.url, pole);
+    },
+
+    edit(pole) {
+        return axios.put(this.url, pole);
     }
 }

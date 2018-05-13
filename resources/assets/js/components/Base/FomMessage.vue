@@ -85,17 +85,13 @@
 
         methods: {
             setMessageType() {
-                if (this.type === 'success') {
-                    this.success = true;
-                } else {
-                    this.success = false;
-                }
+                this.success = this.type === 'success';
             },
 
             scrollToMessage() {
                 let scrollTo = $(this.$refs.formMessage).offset().top;
 
-                $('window, body').animate({scrollTop: scrollTo}, 500);
+                $('html, body').animate({scrollTop: scrollTo}, 500);
             }
         }
     }

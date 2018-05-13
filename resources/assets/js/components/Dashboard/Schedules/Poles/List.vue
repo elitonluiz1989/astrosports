@@ -2,7 +2,7 @@
     <div class="dashboard__schedules-list">
         <dashboard-request-status-message :code="loadSchedulesPolesStatus.code"></dashboard-request-status-message>
 
-        <schedules-poles-edit-from :record-key="recordKey" :show="showEditModal"></schedules-poles-edit-from>
+        <schedules-pole-edit-from :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedules-pole-edit-from>
 
         <div class="dashboard__schedules-list-title d-none d-sm-flex">
             <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item" @click.stop="sortBy('id')" title="Clique para ordernar por código">
@@ -13,7 +13,7 @@
                 <div class="dashboard__schedules-list-content">Polo</div>
             </div>
 
-            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item">
+            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item" v-if="poles.length > 0">
                 <div class="dashboard__schedules-list-content"></div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     </button>
 
                     <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showDeleteMessage(schedule.id)">
+                            @click.stop="showDeleteMessage(pole.id)">
                         <i class="fa fa-lg fa-trash"></i>
                     </button>
                 </div>
@@ -64,14 +64,14 @@
     import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
     import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
-    import SchedulesPolesEditFrom from './Edit';
+    import SchedulesPoleEditFrom from './Edit';
 
     export default {
         name: "dashboard-schedules-poles-list",
 
         components: {
             DashboardRequestStatusMessage,
-            SchedulesPolesEditFrom
+            SchedulesPoleEditFrom
         },
 
         mixins: [

@@ -76,6 +76,16 @@
             this.setActiveTab();
         },
 
+        mounted() {
+            $(".dashboard__form-trigger").on("click", evt => {
+                let targetTab = evt.target.id.replace("-trigger", "");
+
+                if(targetTab !== "") {
+                    this.activeTab = targetTab;
+                }
+            });
+        },
+
         methods: {
             setActiveTab() {
                 let search = window.location.search;

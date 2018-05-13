@@ -1,7 +1,11 @@
 &__form {
   .btn-success,
   &-trigger {
-    background-color: darken($dashboard-form-color, 3%);
+    background-color: $dashboard-success-color;
+
+    &:hover {
+      background-color: lighten($dashboard-success-color, 5%);
+    }
   }
 
   &-trigger {
@@ -25,7 +29,7 @@
     @extend .text-white;
 
     &.form-header--insert {
-      background-color: $dashboard-form-color;
+      background-color: $dashboard-success-color;
     }
 
     &.form-header--edit {

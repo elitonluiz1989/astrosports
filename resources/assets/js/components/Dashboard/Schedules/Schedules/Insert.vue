@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal"
+        <button type="button" id="horarios-trigger" class="dashboard__form-trigger btn btn-success" data-toggle="modal"
                 :data-target="'#' + formId + '-modal'">Adicionar horário</button>
 
         <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
@@ -80,14 +80,22 @@
 </template>
 
 <script>
+    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
     import DashboardSchedulesFormMixin from "@Dashboard/Mixins/DashboardSchedulesFormMixin";
 
     export default {
         name: "schedules-insert-form",
 
         mixins: [
+            DashboardFormMixin,
             DashboardSchedulesFormMixin,
         ],
+
+        data() {
+            return{
+                formId: "schedules-insert-form"
+            };
+        },
 
         computed: {
             addScheduleStatus() {

@@ -53,20 +53,22 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], func
 
         Route::get('/users', 'UserController@users')->name('dashboard.users');
 
-        Route::group(['prefix' => 'schedules'], function() {
-            Route::get('/{id?}', 'SchedulesController@schedules')->where('id', '[0-9]+')->name('dashboard.schedules');
-            Route::match(['post', 'put'], '/', 'SchedulesController@store')->name('dashboard.schedules.store');
-            Route::any('/delete/', 'SchedulesController@delete')->name('dashboard.schedules.delete');
-        });
+        Route::group(['namespace' => 'Schedules'], function() {
+            Route::group(['prefix' => 'schedules'], function() {
+                Route::get('/{id?}', 'SchedulesController@schedules')->where('id', '[0-9]+')->name('dashboard.schedules');
+                Route::match(['post', 'put'], '/', 'SchedulesController@store')->name('dashboard.schedules.store');
+                Route::any('/delete/', 'SchedulesController@delete')->name('dashboard.schedules.delete');
+            });
 
-        Route::group(['prefix' => 'schedules-poles'], function() {
-            Route::get('/{id?}', 'SchedulesPolesController@poles')->where('id', '[0-9]+')->name('dashboard.schedules.poles');
-            Route::post('/', 'SchedulesPolesController@store')->name('dashboard.schedules.poles.add');
-        });
+            Route::group(['prefix' => 'schedules-poles'], function() {
+                Route::get('/{id?}', 'SchedulesPolesController@poles')->where('id', '[0-9]+')->name('dashboard.schedules.poles');
+                Route::match(['post', 'put'], '/', 'SchedulesPolesController@store')->name('dashboard.schedules.poles.store');
+            });
 
-        Route::group(['prefix' => 'schedules-categories'], function() {
-            Route::get('/{id?}', 'SchedulesCategoriesController@categories')->where('id', '[0-9]+')->name('dashboard.schedules.categories');
-            Route::post('/', 'SchedulesCategoriesController@store')->name('dashboard.schedules.categories.add');
+            Route::group(['prefix' => 'schedules-categories'], function() {
+                Route::get('/{id?}', 'SchedulesCategoriesController@categories')->where('id', '[0-9]+')->name('dashboard.schedules.categories');
+                Route::match(['post', 'put'], '/', 'SchedulesCategoriesController@store')->name('dashboard.schedules.categories.store');
+            });
         });
     });
 });

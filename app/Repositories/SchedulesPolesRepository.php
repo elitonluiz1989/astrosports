@@ -7,6 +7,16 @@ use App\Models\SchedulesPole as Pole;
 class SchedulesPolesRepository
 {
     /**
+     * @var array
+     */
+    public $fields = ['id', 'name'];
+
+    /**
+     * @var string
+     */
+    public $order = 'id';
+
+    /**
      * @param null $id
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -15,7 +25,9 @@ class SchedulesPolesRepository
         if (null !== $id) {
             return Pole::find($id);
         } else {
-            return Pole::all();
+            return Pole::select($this->fields)
+                        ->orderBy($this->order)
+                        ->get();
         }
     }
 

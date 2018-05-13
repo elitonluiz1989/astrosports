@@ -1,11 +1,6 @@
 import { weekDays } from '../data/weekDays';
-import DashboardFormMixin from './DashboardFormMixin';
 
 export default {
-    mixins: [
-        DashboardFormMixin,
-    ],
-
     data() {
         return {
             weekdays: weekDays,

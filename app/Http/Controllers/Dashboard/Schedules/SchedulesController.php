@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Schedules;
 
 use App\Http\Requests\SchedulesStoreRequest;
 use App\Repositories\SchedulesRepository;

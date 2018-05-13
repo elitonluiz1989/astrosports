@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar polo</button>
+        <button type="button" id="polos-trigger" class="dashboard__form-trigger btn btn-success"
+                data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar polo</button>
 
         <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
@@ -64,9 +65,7 @@
 
         watch: {
             addSchedulesPolesStatus(value) {
-                let message = value.showUser.length > 0 ? value.showUser : "Houve um erro na inserção do polo."
-
-                this.watchSubmitStatus(value, "Polo inserido com sucesso", message);
+                this.watchSubmitStatus(value, "Polo inserido com sucesso", "Houve um erro na inserção do polo.");
             }
         },
 

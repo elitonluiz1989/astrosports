@@ -78,6 +78,7 @@
 
 <script>
     import DashboardModalMixin from '@components/Base/Mixins/DashboardModalMixin';
+    import DashboardFormEdit from '@Dashboard/Mixins/DashboardFormEditMixin';
     import DashboardSchedulesFormMixin from '@Dashboard/Mixins/DashboardSchedulesFormMixin';
 
     export default {
@@ -85,6 +86,7 @@
 
         mixins: [
             DashboardModalMixin,
+            DashboardFormEdit,
             DashboardSchedulesFormMixin
         ],
 
@@ -102,12 +104,12 @@
                 return this.$store.getters.getSchedules[this.recordKey];
             },
 
-            loadSchedulesStatus() {
-                return this.$store.getters.getLoadSchedulesStatus;
-            },
-
             editScheduleStatus() {
                 return this.storeRequestStatus("getEditScheduleStatus", "getSchedulesMessageErrors");
+            },
+
+            loadSchedulesStatus() {
+                return this.$store.getters.getLoadSchedulesStatus;
             }
         },
 
@@ -121,16 +123,7 @@
             },
 
             loadSchedulesStatus(value) {
-                if (value === 2) {
-                    if (this.editScheduleStatus.code === 2) {
-                        this.manageFormData();
-
-                        this.disableForm(false);
-                    }
-                } else if (value === 3) {
-                    this.formMessageType = "error";
-                    this.formMessageText = "Houve um erro ao carregar o horário. O formulário deverá ser fechado.";
-                }
+                this.watchRecordLoad(value, this.editScheduleStatus.code, "o horário");
             },
 
             recordKey(value) {
@@ -188,6 +181,7 @@
                     if (hasChange) {
                         data.id = this.schedule.id;
                         this.showMask = true;
+                        this.formMessageShow = false;
 
                         this.disableForm();
 

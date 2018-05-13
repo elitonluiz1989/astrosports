@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+        <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
             <div class="modal-dialog" role="document">
@@ -38,43 +38,79 @@
 </template>
 
 <script>
-    import DashboardModalMixin from "@components/Base/Mixin/DashboardModalMixin";
-    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+    import DashboardModalMixin from "@components/Base/Mixins/DashboardModalMixin";
+    import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
 
     export default {
         name: "schedules-category-edit-form",
 
         mixins: [
             DashboardModalMixin,
-            DashboardFormMixin
+            DashboardFormEditMixin
         ],
 
         data() {
             return {
+                modalId: "schedules-category-edit-modal",
                 formId: "schedules-category-edit-form",
+                formType: "edit",
                 name: ""
             }
         },
 
         computed: {
+            category() {
+                return this.$store.getters.getSchedulesCategories[this.recordKey];
+            },
+
+            editSchedulesCategoryStatus() {
+                return this.storeRequestStatus("getEditSchedulesCategoryStatus", "getSchedulesCategoriesMessageErrors");
+            },
+
             loadSchedulesCategoriesStatus() {
-                return this.storeRequestStatus("getAddSchedulesCategoryStatus", "getSchedulesPolesMessageErrors");
+                return this.$store.getters.getLoadSchedulesCategoriesStatus;
             }
         },
 
         watch: {
+            editSchedulesCategoryStatus(value) {
+                this.watchSubmitStatus(value, "Categoria inserido com sucesso", "Houve um erro na atualização da categoria.");
+
+                if (value.code === 3) {
+                    this.disableForm(false);
+                }
+            },
+
             loadSchedulesCategoriesStatus(value) {
-                this.watchSubmitStatus(value, "Categoria inserido com sucesso", "Houve um erro na inserção da categoria.");
+                this.watchRecordLoad(value, this.editSchedulesCategoryStatus.code, "a categoria");
             }
         },
 
         methods: {
+            manageFormData(type) {
+                if (type !== "reset") {
+                    this.name = this.category.name;
+                } else {
+                    if(this.name !== this.category.name) {
+                        this.name = this.category.name;
+                    }
+                }
+            },
+
             submitForm() {
                 if (this.name === "") {
                     this.setFieldMessageError("name", "Preencha o nome da categoria");
                 } else {
-                    this.showMask = true;
-                    this.$store.dispatch("addSchedulesCategory", {name: this.name});
+                    if (this.name !== this.category.name) {
+                        let data = {
+                            id: this.category.id,
+                            name: this.name
+                        };
+
+                        this.showMask = true;
+                        this.disableForm();
+                        this.$store.dispatch("editSchedulesCategory", data);
+                    }
                 }
             }
         }

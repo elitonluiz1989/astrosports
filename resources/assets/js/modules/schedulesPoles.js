@@ -6,14 +6,20 @@ export const schedulesPoles = {
         schedulesPoles: [],
         messageErrors: null,
         loadSchedulesPolesStatus: 0,
-        addSchedulesPolesStatus: 0
+        addSchedulesPolesStatus: 0,
+        status: {
+            add: 0,
+            edit: 0,
+            delete: 0,
+            load: 0
+        }
     },
 
     actions: {
         loadSchedulesPole({commit}, id) {
             commit('setLoadSchedulesPolesStatus', 1);
 
-            schedulesApi.getSchedulesPoles(id)
+            schedulesApi.get(id)
                 .then(response => {
                     if (response.data.error) {
                         commit('setSchedulesPole', {});
@@ -34,7 +40,7 @@ export const schedulesPoles = {
         loadSchedulesPoles({commit}) {
             commit('setLoadSchedulesPolesStatus', 1);
 
-            schedulesApi.getSchedulesPoles()
+            schedulesApi.get()
                 .then(response => {
                     if (response.data.error) {
                         commit('setSchedulesPoles', []);
@@ -55,7 +61,7 @@ export const schedulesPoles = {
         addSchedulesPole({commit, dispatch}, pole) {
             commit('setAddSchedulesPolesStatus', 1);
 
-            schedulesApi.addSchedulesPole(pole)
+            schedulesApi.add(pole)
                 .then(response => {
                     if (response.data.error) {
                         commit('setAddSchedulesPolesStatus', 3);
@@ -67,6 +73,25 @@ export const schedulesPoles = {
                 })
                 .catch(err => {
                     commit('setAddSchedulesPolesStatus', 3);
+                    commit('setSchedulesPolesMessageErrors', err);
+                });
+        },
+
+        editSchedulesPole({commit, dispatch}, pole) {
+            commit('setEditSchedulesPolesStatus', 1);
+
+            schedulesApi.edit(pole)
+                .then(response => {
+                    if (response.data.error) {
+                        commit('setEditSchedulesPolesStatus', 3);
+                        commit('setSchedulesPolesMessageErrors', response.data.error);
+                    } else {
+                        commit('setEditSchedulesPolesStatus', 2);
+                        dispatch("loadSchedulesPoles");
+                    }
+                })
+                .catch(err => {
+                    commit('setEditSchedulesPolesStatus', 3);
                     commit('setSchedulesPolesMessageErrors', err);
                 });
         }
@@ -89,6 +114,10 @@ export const schedulesPoles = {
             state.addSchedulesPolesStatus = status;
         },
 
+        setEditSchedulesPolesStatus(state, status) {
+            state.status.edit = status;
+        },
+
         setSchedulesPolesMessageErrors(state, message) {
             state.messageErrors = message;
         }
@@ -109,6 +138,10 @@ export const schedulesPoles = {
 
         getAddSchedulesPolesStatus(state) {
             return state.addSchedulesPolesStatus;
+        },
+
+        getEditSchedulesPolesStatus(state) {
+            return state.status.edit;
         },
 
         getSchedulesPolesMessageErrors(state) {

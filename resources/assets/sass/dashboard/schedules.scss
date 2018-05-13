@@ -133,7 +133,9 @@
     &-category {
       @extend .col-12;
       @extend .col-sm;
+    }
 
+    &--bordered {
       @include media-breakpoint-up(sm) {
 
         border-right: 1px solid $dashboard-schedules-list-color;

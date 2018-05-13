@@ -40,20 +40,21 @@
 
 <script>
     import DashboardModalMixin from '@components/Base/Mixins/DashboardModalMixin';
-    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+    import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
 
     export default {
-        name: "schedules-poles-edit-form",
+        name: "schedules-pole-edit-form",
 
         mixins: [
             DashboardModalMixin,
-            DashboardFormMixin,
+            DashboardFormEditMixin,
         ],
 
         data() {
             return {
                 modalId: "schedules-poles-edit-modal",
                 formId: "schedules-poles-edit-form",
+                formType: "edit",
                 name: ""
             }
         },
@@ -63,14 +64,26 @@
                 return this.$store.getters.getSchedulesPoles[this.recordKey];
             },
 
-            editSchedulesPolesStatus() {
+            editSchedulesPoleStatus() {
                 return this.storeRequestStatus("getEditSchedulesPolesStatus", "getSchedulesPolesMessageErrors");
+            },
+
+            loadSchedulesPolesStatus() {
+                return this.$store.getters.getLoadSchedulesPolesStatus;
             }
         },
 
         watch: {
-            editSchedulesPolesStatus(value) {
+            editSchedulesPoleStatus(value) {
                 this.watchSubmitStatus(value, "Polo alterado com sucesso", "Houve um erro na alteração do polo.");
+
+                if (value.code === 3) {
+                    this.disableForm(false);
+                }
+            },
+
+            loadSchedulesPolesStatus(value) {
+                this.watchRecordLoad(value, this.editSchedulesPoleStatus.code, "o polo");
             },
 
             recordKey(value) {
@@ -106,6 +119,9 @@
                     if (procced) {
                         data.id = this.pole.id;
                         this.showMask = true;
+                        this.formMessageShow = false;
+
+                        this.disableForm();
 
                         this.$store.dispatch("editSchedulesPole", data);
                     }

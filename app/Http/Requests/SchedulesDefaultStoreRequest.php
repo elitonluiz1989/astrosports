@@ -23,9 +23,26 @@ class SchedulesDefaultStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $table = (strpos($this->getRequestUri(), 'poles')) ? 'schedules_poles' : 'schedules_categories';
+
+        if ($this->method() == 'POST') {
+            return [
+                'name' => "string|unique:{$table}|required"
+            ];
+        } else {
+            return [
+                'id' => 'integer|required',
+                'name' => "string|unique:{$table}|required"
+            ];
+        }
+    }
+
+    public function messages()
+    {
+        $target = (strpos($this->getRequestUri(), 'poles')) ? 'do polo' : 'da categoria';
+
         return [
-            'id' => 'integer|unique:schedules-poles|nullable',
-            'name' => 'string|required'
+            'name.unique' => "[show-user]O nome '{$this->get('name')}' já existe."
         ];
     }
 }

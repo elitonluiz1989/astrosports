@@ -1,19 +1,23 @@
-import schedulesApi  from '../api/schedulesCategories';
+import categoriesApi  from '../api/schedulesCategories';
 
 export const schedulesCategories = {
     state: {
         schedulesCategory: {},
         schedulesCategories: [],
         messageErrors: null,
-        loadSchedulesCategoriesStatus: 0,
-        addSchedulesCategoryStatus: 0
+        status: {
+            add: 0,
+            edit: 0,
+            delete: 0,
+            load: 0
+        }
     },
 
     actions: {
         loadSchedulesCategory({commit}, id) {
             commit('setLoadSchedulesCategoriesStatus', 1);
 
-            schedulesApi.getSchedulesPoles(id)
+            categoriesApi.get(id)
                 .then(response => {
                     if (response.data.error) {
                         commit('setSchedulesCategory', {});
@@ -34,7 +38,7 @@ export const schedulesCategories = {
         loadSchedulesCategories({commit}) {
             commit('setLoadSchedulesCategoriesStatus', 1);
 
-            schedulesApi.getSchedulesCategories()
+            categoriesApi.get()
                 .then(response => {
                     if (response.data.error) {
                         commit('setSchedulesCategories', []);
@@ -55,18 +59,37 @@ export const schedulesCategories = {
         addSchedulesCategory({commit, dispatch}, category) {
             commit('setAddSchedulesCategoryStatus', 1);
 
-            schedulesApi.addSchedulesCategory(category)
+            categoriesApi.add(category)
                 .then(response => {
                     if (response.data.error) {
                         commit('setAddSchedulesCategoryStatus', 3);
                         commit('setSchedulesCategoriesMessageErrors', response.data.error);
                     } else {
-                        commit('setAddSchedulesCategoryStatus', 2)
+                        commit('setAddSchedulesCategoryStatus', 2);
                         dispatch("loadSchedulesCategories");
                     }
                 })
                 .catch(err => {
                     commit('setAddSchedulesCategoryStatus', 3);
+                    commit('setSchedulesCategoriesMessageErrors', err);
+                });
+        },
+
+        editSchedulesCategory({commit, dispatch}, category) {
+            commit('setEditSchedulesCategoryStatus', 1);
+
+            categoriesApi.edit(category)
+                .then(response => {
+                    if (response.data.error) {
+                        commit('setEditSchedulesCategoryStatus', 3);
+                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
+                    } else {
+                        commit('setEditSchedulesCategoryStatus', 2);
+                        dispatch("loadSchedulesCategories");
+                    }
+                })
+                .catch(err => {
+                    commit('setEditSchedulesCategoryStatus', 3);
                     commit('setSchedulesCategoriesMessageErrors', err);
                 });
         }
@@ -82,11 +105,15 @@ export const schedulesCategories = {
         },
 
         setLoadSchedulesCategoriesStatus(state, status) {
-            state.loadSchedulesCategoriesStatus = status;
+            state.status.load = status;
         },
 
         setAddSchedulesCategoryStatus(state, status) {
-            state.addSchedulesCategoryStatus = status;
+            state.status.add = status;
+        },
+
+        setEditSchedulesCategoryStatus(state, status) {
+            state.status.edit = status;
         },
 
         setSchedulesCategoriesMessageErrors(state, message) {
@@ -104,11 +131,15 @@ export const schedulesCategories = {
         },
 
         getLoadSchedulesCategoriesStatus(state) {
-            return state.loadSchedulesCategoriesStatus;
+            return state.status.load;
         },
 
         getAddSchedulesCategoryStatus(state) {
-            return state.addSchedulesCategoryStatus;
+            return state.status.add;
+        },
+
+        getEditSchedulesCategoryStatus(state) {
+            return state.status.edit;
         },
 
         getSchedulesCategoriesMessageErrors(state) {

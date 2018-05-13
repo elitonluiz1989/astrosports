@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button type="button" class="dashboard__form-trigger btn btn-success" data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar categoria</button>
+        <button type="button" id="categorias-trigger" class="dashboard__form-trigger btn btn-success"
+                data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar categoria</button>
 
         <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
@@ -57,13 +58,13 @@
         },
 
         computed: {
-            loadSchedulesCategoriesStatus() {
-                return this.storeRequestStatus("getAddSchedulesCategoryStatus", "getSchedulesPolesMessageErrors");
+            editSchedulesCategoriesStatus() {
+                return this.storeRequestStatus("getAddSchedulesCategoryStatus", "getSchedulesCategoriesMessageErrors");
             }
         },
 
         watch: {
-            loadSchedulesCategoriesStatus(value) {
+            editSchedulesCategoriesStatus(value) {
                 this.watchSubmitStatus(value, "Categoria inserido com sucesso", "Houve um erro na inserção da categoria.");
             }
         },
