@@ -2,9 +2,9 @@
     <div class="dashboard__schedules-list">
         <dashboard-request-status-message :code="loadSchedulesStatus.code"></dashboard-request-status-message>
 
-        <schedules-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedules-edit-form>
+        <schedule-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedule-edit-form>
 
-        <schedules-delete-form :record-id="recordId" :message="deleteModalMessage" :show="showDeleteModal" @hideModal="hideModal"></schedules-delete-form>
+        <schedule-delete-form :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedule-delete-form>
 
         <div class="dashboard__schedules-list-title d-none d-sm-flex">
             <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item"
@@ -106,28 +106,22 @@
     import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
     import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
-    import SchedulesEditForm from './Edit';
-    import SchedulesDeleteForm from '../Delete';
+    import ScheduleEditForm from './Edit';
+    import ScheduleDeleteForm from '../Delete';
 
     export default {
         name: "schedules-list",
 
         components: {
             DashboardRequestStatusMessage,
-            SchedulesEditForm,
-            SchedulesDeleteForm
+            ScheduleEditForm,
+            ScheduleDeleteForm
         },
 
         mixins: [
             StoreRequestStatusMixin,
             DashboardSchedulesListMixin
         ],
-
-        data() {
-            return {
-                deleteModalMessage: 'Deseja deletar o horário?'
-            };
-        },
 
         computed: {
             schedules() {

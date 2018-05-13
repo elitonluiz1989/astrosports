@@ -82,7 +82,7 @@
     import DashboardSchedulesFormMixin from '@Dashboard/Mixins/DashboardSchedulesFormMixin';
 
     export default {
-        name: "schedules-edit-form",
+        name: "schedule-edit-form",
 
         mixins: [
             DashboardModalMixin,
@@ -92,8 +92,8 @@
 
         data() {
             return {
-                modalId: "dashboard-schedules-edit-modal",
-                formId: "schedules-form-edit",
+                modalId: "dashboard-schedule-edit-modal",
+                formId: "schedule-form-edit",
                 formType: "edit", // used in mixin's methods
                 reloadSchedule: false
             };

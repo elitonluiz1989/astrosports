@@ -5,8 +5,6 @@ export const schedulesPoles = {
         schedulesPole: {},
         schedulesPoles: [],
         messageErrors: null,
-        loadSchedulesPolesStatus: 0,
-        addSchedulesPolesStatus: 0,
         status: {
             add: 0,
             edit: 0,
@@ -59,39 +57,58 @@ export const schedulesPoles = {
         },
 
         addSchedulesPole({commit, dispatch}, pole) {
-            commit('setAddSchedulesPolesStatus', 1);
+            commit('setAddSchedulesPoleStatus', 1);
 
             schedulesApi.add(pole)
                 .then(response => {
                     if (response.data.error) {
-                        commit('setAddSchedulesPolesStatus', 3);
+                        commit('setAddSchedulesPoleStatus', 3);
                         commit('setSchedulesPolesMessageErrors', response.data.error);
                     } else {
-                        commit('setAddSchedulesPolesStatus', 2);
+                        commit('setAddSchedulesPoleStatus', 2);
                         dispatch("loadSchedulesPoles");
                     }
                 })
                 .catch(err => {
-                    commit('setAddSchedulesPolesStatus', 3);
+                    commit('setAddSchedulesPoleStatus', 3);
                     commit('setSchedulesPolesMessageErrors', err);
                 });
         },
 
         editSchedulesPole({commit, dispatch}, pole) {
-            commit('setEditSchedulesPolesStatus', 1);
+            commit('setEditSchedulesPoleStatus', 1);
 
             schedulesApi.edit(pole)
                 .then(response => {
                     if (response.data.error) {
-                        commit('setEditSchedulesPolesStatus', 3);
+                        commit('setEditSchedulesPoleStatus', 3);
                         commit('setSchedulesPolesMessageErrors', response.data.error);
                     } else {
-                        commit('setEditSchedulesPolesStatus', 2);
+                        commit('setEditSchedulesPoleStatus', 2);
                         dispatch("loadSchedulesPoles");
                     }
                 })
                 .catch(err => {
-                    commit('setEditSchedulesPolesStatus', 3);
+                    commit('setEditSchedulesPoleStatus', 3);
+                    commit('setSchedulesPolesMessageErrors', err);
+                });
+        },
+
+        deleteSchedulesPole({commit, dispatch}, pole) {
+            commit('setDeleteSchedulesPoleStatus', 1);
+
+            schedulesApi.edit(pole)
+                .then(response => {
+                    if (response.data.error) {
+                        commit('setDeleteSchedulesPoleStatus', 3);
+                        commit('setSchedulesPolesMessageErrors', response.data.error);
+                    } else {
+                        commit('setDeleteSchedulesPoleStatus', 2);
+                        dispatch("loadSchedulesPoles");
+                    }
+                })
+                .catch(err => {
+                    commit('setEditSchedulesPoleStatus', 3);
                     commit('setSchedulesPolesMessageErrors', err);
                 });
         }
@@ -107,15 +124,19 @@ export const schedulesPoles = {
         },
 
         setLoadSchedulesPolesStatus(state, status) {
-            state.loadSchedulesPolesStatus = status;
+            state.status.load = status;
         },
 
-        setAddSchedulesPolesStatus(state, status) {
-            state.addSchedulesPolesStatus = status;
+        setAddSchedulesPoleStatus(state, status) {
+            state.status.add = status;
         },
 
-        setEditSchedulesPolesStatus(state, status) {
+        setEditSchedulesPoleStatus(state, status) {
             state.status.edit = status;
+        },
+
+        setDeleteSchedulesPoleStatus(state, status) {
+            state.status.delete = status;
         },
 
         setSchedulesPolesMessageErrors(state, message) {
@@ -133,15 +154,19 @@ export const schedulesPoles = {
         },
 
         getLoadSchedulesPolesStatus(state) {
-            return state.loadSchedulesPolesStatus;
+            return state.status.load;
         },
 
-        getAddSchedulesPolesStatus(state) {
-            return state.addSchedulesPolesStatus;
+        getAddSchedulesPoleStatus(state) {
+            return state.status.add;
         },
 
-        getEditSchedulesPolesStatus(state) {
+        getEditSchedulesPoleStatus(state) {
             return state.status.edit;
+        },
+
+        getDeleteSchedulesPoleStatus(state) {
+            return state.status.delete;
         },
 
         getSchedulesPolesMessageErrors(state) {

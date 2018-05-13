@@ -44,7 +44,7 @@
     import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
 
     export default {
-        name: "schedules-poles-insert-form",
+        name: "schedules-pole-insert-form",
 
         mixins: [
             DashboardFormMixin,
@@ -58,13 +58,13 @@
         },
 
         computed: {
-            addSchedulesPolesStatus() {
-                return this.storeRequestStatus("getAddSchedulesPolesStatus", "getSchedulesPolesMessageErrors");
+            addSchedulesPoleStatus() {
+                return this.storeRequestStatus("getAddSchedulesPoleStatus", "getSchedulesPolesMessageErrors");
             }
         },
 
         watch: {
-            addSchedulesPolesStatus(value) {
+            addSchedulesPoleStatus(value) {
                 this.watchSubmitStatus(value, "Polo inserido com sucesso", "Houve um erro na inserção do polo.");
             }
         },

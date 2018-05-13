@@ -8,11 +8,11 @@
             </div>
 
             <div class="dashboard__schedules-control-item">
-                <schedules-insert-form></schedules-insert-form>
+                <schedule-insert-form></schedule-insert-form>
             </div>
 
             <div class="dashboard__schedules-control-item">
-                <schedules-poles-insert-form></schedules-poles-insert-form>
+                <schedules-pole-insert-form></schedules-pole-insert-form>
             </div>
 
             <div class="dashboard__schedules-control-item">
@@ -31,8 +31,8 @@
 <script>
     import DashboardRequestStatusMessage from '../DashboardRequestStatusMessage';
     import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
-    import SchedulesInsertForm from './Schedules/Insert';
-    import SchedulesPolesInsertForm from './Poles/Insert';
+    import ScheduleInsertForm from './Schedules/Insert';
+    import SchedulesPoleInsertForm from './Poles/Insert';
     import SchedulesCategoryInsertForm from './Categories/Insert';
     import SchedulesLists from './Lists';
 
@@ -41,8 +41,8 @@
 
         components: {
             DashboardRequestStatusMessage,
-            SchedulesInsertForm,
-            SchedulesPolesInsertForm,
+            ScheduleInsertForm,
+            SchedulesPoleInsertForm,
             SchedulesCategoryInsertForm,
             SchedulesLists
         },

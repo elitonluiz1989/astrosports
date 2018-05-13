@@ -5,10 +5,12 @@ export const schedules = {
         schedule: {},
         schedules: [],
         messageErrors: null,
-        loadSchedulesStatus: 0,
-        addScheduleStatus: 0,
-        editScheduleStatus: 0,
-        deleteScheduleStatus: 0
+        status: {
+            load: 0,
+            add: 0,
+            edit: 0,
+            delete: 0
+        }
     },
 
     actions: {
@@ -122,19 +124,19 @@ export const schedules = {
         },
 
         setLoadSchedulesStatus(state, status) {
-            state.loadSchedulesStatus = status;
+            state.status.load = status;
         },
 
         setAddScheduleStatus(state, status) {
-            state.addScheduleStatus = status;
+            state.status.add = status;
         },
 
         setEditScheduleStatus(state, status) {
-            state.editScheduleStatus = status;
+            state.status.edit = status;
         },
 
         setDeleteScheduleStatus(state, status) {
-            state.deleteScheduleStatus = status;
+            state.status.delete = status;
         },
 
         setSchedulesMessageErrors(state, message) {
@@ -152,19 +154,19 @@ export const schedules = {
         },
 
         getLoadSchedulesStatus(state) {
-            return state.loadSchedulesStatus;
+            return state.status.load;
         },
 
         getAddScheduleStatus(state) {
-            return state.addScheduleStatus;
+            return state.status.add;
         },
 
         getEditScheduleStatus(state) {
-            return state.editScheduleStatus;
+            return state.status.edit;
         },
 
         getDeleteScheduleStatus(state) {
-            return state.deleteScheduleStatus;
+            return state.status.delete;
         },
 
         getSchedulesMessageErrors(state) {

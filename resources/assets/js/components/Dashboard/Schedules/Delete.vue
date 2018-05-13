@@ -13,7 +13,7 @@
                 <div class="modal-body">
                     <p class="text-center" v-text="requestMessage" v-if="showRequestResult"></p>
 
-                    <p v-text="message" v-if="!showRequestResult"></p>
+                    <p v-text="modalMessage" v-if="!showRequestResult"></p>
                 </div>
 
                 <div class="modal-footer" v-if="!showRequestResult">
@@ -48,11 +48,6 @@
                 required: true
             },
 
-            message: {
-                type: String,
-                required: true
-            },
-
             typeRecord: {
                 type: String,
                 default: 'schedules'
@@ -61,11 +56,16 @@
 
         data() {
             return {
-                modalId: "dashboard-schedules-delete-modal",
+                //modalId: "dashboard-schedules-delete-modal",
                 showMask: false,
                 showRequestResult: false,
                 showRequestMessage: false,
                 requestMessage: "",
+                modalText: {
+                    categories: "Deseja remover a categoria?",
+                    poles: "Deseja remover o polo?",
+                    schedules: "Deseja remover a horário?"
+                },
                 messages: {
                     categories: {
                         2: "Categoria removida com sucesso.",
@@ -84,11 +84,21 @@
         },
 
         computed: {
+            modalMessage() {
+                return this.modalText[this.typeRecord];
+            },
+
             requestStatus() {
                 if (this.typeRecord === "schedules") {
                   return this.storeRequestStatus("getDeleteScheduleStatus", "getSchedulesMessageErrors")
                 }
             }
+        },
+
+        created() {
+            this.modalId = (this.typeRecord === "schedules") ?
+                "dashboard-schedule-delete-modal" :
+                "dashboard-schedules-" + this.typeRecord + "-delete-modal";
         },
 
         watch: {
@@ -115,6 +125,10 @@
 
                 if (this.typeRecord === "schedules") {
                     this.$store.dispatch("deleteSchedule", this.recordId);
+                } else if (this.typeRecord === "poles") {
+                    this.$store.dispatch("deleteSchedulesPole", this.recordId);
+                } else if (this.typeRecord === "categories") {
+                    this.$store.dispatch("deleteSchedulesCategory", this.recordId);
                 }
             }
         }

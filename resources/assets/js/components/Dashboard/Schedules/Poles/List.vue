@@ -4,6 +4,8 @@
 
         <schedules-pole-edit-from :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedules-pole-edit-from>
 
+        <schedules-delete-form type-record="poles" :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedules-delete-form>
+
         <div class="dashboard__schedules-list-title d-none d-sm-flex">
             <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item" @click.stop="sortBy('id')" title="Clique para ordernar por código">
                 <div class="dashboard__schedules-list-content">Cod.</div>
@@ -65,13 +67,15 @@
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
     import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
     import SchedulesPoleEditFrom from './Edit';
+    import SchedulesDeleteForm from '../Delete';
 
     export default {
         name: "dashboard-schedules-poles-list",
 
         components: {
             DashboardRequestStatusMessage,
-            SchedulesPoleEditFrom
+            SchedulesPoleEditFrom,
+            SchedulesDeleteForm
         },
 
         mixins: [

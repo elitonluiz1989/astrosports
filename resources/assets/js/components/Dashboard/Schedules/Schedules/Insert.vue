@@ -84,7 +84,7 @@
     import DashboardSchedulesFormMixin from "@Dashboard/Mixins/DashboardSchedulesFormMixin";
 
     export default {
-        name: "schedules-insert-form",
+        name: "schedule-insert-form",
 
         mixins: [
             DashboardFormMixin,
@@ -93,7 +93,7 @@
 
         data() {
             return{
-                formId: "schedules-insert-form"
+                formId: "schedule-insert-form"
             };
         },
 

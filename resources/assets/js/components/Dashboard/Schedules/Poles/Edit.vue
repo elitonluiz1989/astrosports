@@ -52,8 +52,8 @@
 
         data() {
             return {
-                modalId: "schedules-poles-edit-modal",
-                formId: "schedules-poles-edit-form",
+                modalId: "schedules-pole-edit-modal",
+                formId: "schedules-pole-edit-form",
                 formType: "edit",
                 name: ""
             }
@@ -65,7 +65,7 @@
             },
 
             editSchedulesPoleStatus() {
-                return this.storeRequestStatus("getEditSchedulesPolesStatus", "getSchedulesPolesMessageErrors");
+                return this.storeRequestStatus("getEditSchedulesPoleStatus", "getSchedulesPolesMessageErrors");
             },
 
             loadSchedulesPolesStatus() {
