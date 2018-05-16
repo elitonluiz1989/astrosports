@@ -28,11 +28,10 @@
 
         created() {
             this.$store.dispatch('loadAuthUser');
-            this.requestMessageOnLog = true;
         },
 
         mounted() {
-          this.storeRequestStatus('getAuthRequestStatus', 'getAuthMessageErrors');
+            this.storeRequestStatus('getAuthRequestStatus', 'getAuthMessageErrors');
         },
 
         methods: {

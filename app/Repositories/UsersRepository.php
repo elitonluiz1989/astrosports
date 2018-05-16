@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UsersRepository
     {/**
@@ -33,10 +35,17 @@ class UsersRepository
 
     public function get()
     {
-        $users = User::join('user_roles', 'user_roles.id', '=', 'users.role')
-                        ->select($this->fields)
-                        ->paginate($this->limit);
+        $grant = Auth::user()->grant;
 
-        return $users;
+        $users = User::join('user_roles', 'user_roles.id', '=', 'users.role')
+                        ->select($this->fields);
+
+        if ($grant == 1) {
+            $users->where('grant', '<=', 1);
+        } else {
+            $users->where('grant', '<', $grant);
+        }
+
+        return $users->paginate($this->limit);
     }
 }

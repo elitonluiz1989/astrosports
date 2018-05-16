@@ -3,9 +3,11 @@
         <dashboard-resquest-status-message :code="usersRequestStatus.code"></dashboard-resquest-status-message>
 
         <div class="row justify-content-center justify-content-sm-start" v-if="usersRequestStatus.code === 2">
-            <div class="col-8 col-sm-4 col-lg-3 col-xl-2" v-for="(user, key) in users" :key="key">
+            <div class="dashboard__users-item" v-for="(user, key) in users" :key="key">
                 <dashboard-user :user-key="key"></dashboard-user>
             </div>
+
+            <user-insert-form class="dashboard__users-item"></user-insert-form>
         </div>
     </div>
 </template>
@@ -14,11 +16,13 @@
     import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
     import DashboardResquestStatusMessage from '../DashboardRequestStatusMessage'
     import DashboardUser from './DashboardUser';
+    import UserInsertForm from './Insert';
 
     export default {
         name: "dashboard-users",
 
         components: {
+            UserInsertForm,
             DashboardUser,
             DashboardResquestStatusMessage
         },

@@ -1,5 +1,14 @@
 &__users {
   @extend %dashboard-page;
+
+  &-item {
+    margin-bottom: 1rem;
+
+    @extend .col-8;
+    @extend .col-sm-4;
+    @extend .col-lg-3;
+    @extend .col-xl-2;
+  }
 }
 
 %dashboard-user-avatar {
@@ -34,6 +43,7 @@
     height: 6rem;
     width: 6rem;
 
+
     @extend %dashboard-user-avatar;
 
     .img {
@@ -46,5 +56,12 @@
     border-color: $dashboard-user-border;
 
     @extend %dashboard-user-text;
+  }
+
+  &-trigger {
+    color: #888;
+
+    @extend .w-100;
+    @extend .h-100;
   }
 }

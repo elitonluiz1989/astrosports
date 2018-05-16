@@ -12,9 +12,13 @@
                     <dashboard-auth-user @onUserLogout="callShowLogout"></dashboard-auth-user>
                 </li>
 
-                <li :class="setNavItemStyle(key, navItem.active)" v-for="(navItem, key) in navItems" :key="key">
+                <li :class="setNavItemStyle(key, navItem.active)" v-for="(navItem, key) in navItems">
                     <div class="nav-link-wrapper">
-                        <dashboard-nav-item :id="'nav-item-' + key" :link="navItem.link" :active="navItem.active" :icon="navItem.icon" :text="navItem.text"></dashboard-nav-item>
+                        <dashboard-nav-item :id="'nav-item-' + key"
+                                            :link="navItem.link"
+                                            :active="navItem.active"
+                                            :icon="navItem.icon"
+                                            :text="navItem.text"></dashboard-nav-item>
                     </div>
                 </li>
             </ul>
