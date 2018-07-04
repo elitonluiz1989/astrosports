@@ -23,7 +23,7 @@ class SchedulesPolesController extends Controller
 
             return response()->json($poles);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['errors' => $e->getMessage()]);
         }
     }
 
@@ -35,7 +35,7 @@ class SchedulesPolesController extends Controller
 
             return response()->json($pole);
         } catch(\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['errors' => $e->getMessage()]);
         }
     }
 
@@ -50,7 +50,7 @@ class SchedulesPolesController extends Controller
 
             return response()->json($schedule);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['errors' => $e->getMessage()]);
         }
     }
 }

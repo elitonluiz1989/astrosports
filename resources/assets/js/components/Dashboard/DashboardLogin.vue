@@ -47,9 +47,9 @@
 </template>
 
 <script>
-    import LoginMask from '../Base/AppMask';
-    import LoginMessage from '../Base/FomMessage';
-    import FormMessageMixin from '../Base/Mixins/FormMessage';
+    import LoginMask from '@components/Base/AppMask';
+    import LoginMessage from '@components/Base/FomMessage';
+    import FormMessageMixin from '@components/Base/Mixins/FormMessage';
 
     export default {
         name: "dashboard-login",

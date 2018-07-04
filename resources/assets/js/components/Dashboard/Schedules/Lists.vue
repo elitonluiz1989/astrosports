@@ -7,7 +7,7 @@
         </ul>
 
         <div class="tab-content" id="dashboard-schedules-content-tabs-content">
-            <div :class="navTabStyle(key)" :id="key" role="tabpanel" :aria-labelledby="setTabId(key)" v-for="(item, key) in items">
+            <div :class="navTabStyle(key)" :id="key" role="tabpanel" :aria-labelledby="setTabId(key)" v-for="(item, key) in items" :key="key">
                 <component :is="componentList[key]"></component>
             </div>
         </div>

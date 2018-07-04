@@ -1,9 +1,9 @@
 <template>
     <div>
         <button type="button" id="polos-trigger" class="dashboard__form-trigger btn btn-success"
-                data-toggle="modal" :data-target="'#' + formId + '-modal'">Adicionar polo</button>
+                data-toggle="modal" :data-target="'#' + modalId">Adicionar polo</button>
 
-        <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+        <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
             <div class="modal-dialog" role="document">
@@ -53,6 +53,7 @@
         data() {
             return {
                 formId: "schedules-poles-insert-form",
+                modalId: "schedules-poles-insert-modal",
                 name: ""
             }
         },

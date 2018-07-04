@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             modalId: null
-        }
+        };
     },
 
     watch: {
@@ -28,7 +28,7 @@ export default {
         // there's a click/touch in modal content
         $('#' + this.modalId).on('hidden.bs.modal', evt => {
             this.hideModal();
-        })
+        });
     },
 
     methods: {

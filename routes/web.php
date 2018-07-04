@@ -1,21 +1,32 @@
 <?php
+
 Route::get('/', 'HomeController@index');
 
 Route::get('/avaliacoes', 'AssessmentsController@index');
 
-Route::get('/contato', 'ContactController@index');
-Route::get('/contato/email', 'ContactController@email');
-Route::post('/contato/enviar', 'ContactController@sendEmail');
+Route::prefix('contato')
+    ->group(
+        function () {
+            Route::get('/', 'ContactController@index');
+            Route::get('/email', 'ContactController@email');
+            Route::post('/enviar', 'ContactController@sendEmail');
+        }
+    );
 
 // News
-Route::get('/noticias', 'NewsController@index');
-Route::get('/noticias/{news}', 'NewsController@showNews');
+Route::prefix('noticias')
+    ->group(
+        function () {
+            Route::get('/', 'NewsController@index');
+            Route::get('/{news}', 'NewsController@showNews');
+        }
+    );
 
 // Photos
 Route::get(config('photos.url.photos'), 'PhotosController@photos');
 Route::get(config('photos.url.albums'), 'PhotosController@albums');
-Route::get(config('photos.url.album') . '{id}', 'PhotosController@album')->where('id', '[0-9]+');
-Route::get('storage/photos/{file}', 'PhotosController@getPhoto');
+Route::get(config('photos.url.album') . '{id}', 'PhotosController@album')
+    ->where('id', '[0-9]+');
 
 // Schedule
 Route::get('/horarios/{display?}', 'SchedulesController@index');
@@ -24,53 +35,113 @@ Route::get('/videos', 'VideosController@index');
 
 Route::get('/sobre/{display?}', 'AboutController@index');
 
+// Storage
+Route::prefix('storage')
+    ->group(
+        function () {
+            Route::get('/photos/{file}', 'PhotosController@getPhoto');
+
+            Route::prefix('images')
+                ->group(
+                    function () {
+                        Route::get('/view/{image}', 'ImagesController@image')
+                            ->name('storage.images.view');
+                        Route::post('/upload', 'ImagesController@upload');
+                        Route::any('/delete', 'ImagesController@delete');
+                    }
+                );
+        }
+    );
 
 // Json
-Route::get('/json/{jsonFile}', function($jsonFile) {
-    $jsonPath = storage_path() . '/app/json/' . $jsonFile . '.json';
+/*Route::get('/json/{jsonFile}', function ($jsonFile) {
+        $jsonPath = storage_path() . '/app/json/' . $jsonFile . '.json';
 
-    return \json_decode(\file_get_contents($jsonPath), true);
-});
+        return \json_decode(\file_get_contents($jsonPath), true);
+    });*/
 
-Route::group(['namespace' => 'Auth'], function() {
-    Route::group(['prefix' => 'login'], function() {
-        Route::get('/', 'LoginController@showLogin')->name('login');
-        Route::post('/', 'LoginController@login')->name('doLogin');
-    });
+Route::namespace('Auth')
+    ->group(
+        function () {
+            Route::prefix('login')
+                ->group(
+                    function () {
+                        Route::get('/', 'LoginController@showLogin')->name('login');
+                        Route::post('/', 'LoginController@login')->name('doLogin');
+                    }
+                );
 
-    Route::get('/logout', 'LoginController@logout')->name('logout');
-});
+            Route::get('/logout', 'LoginController@logout')->name('logout');
+        }
+    );
 
-Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Dashboard'], function() {
-    Route::group(['prefix' => 'dashboard'], function() {
-        Route::get('/', 'DashboardController@index')->name('dashboard.index');
+Route::middleware(['web', 'auth'])
+    ->namespace('Dashboard')
+    ->group(
+        function () {
+            Route::prefix('dashboard')
+                ->group(
+                    function () {
+                        Route::get('/', 'DashboardController@index')
+                            ->name('dashboard.index');
 
-        Route::get('/{page}', 'DashboardController@index');
-    });
+                        Route::get('/{page}', 'DashboardController@index');
+                    }
+                );
 
-    Route::group(['prefix' => 'api'], function() {
-        Route::get('/user', 'UserController@user')->name('dashboard.user');
+            Route::prefix('api')
+                ->group(
+                    function () {
+                        Route::get('/user', 'UserController@user')
+                            ->name('dashboard.user');
 
-        Route::get('/users', 'UserController@users')->name('dashboard.users');
+                        Route::get('/users', 'UserController@users')
+                            ->name('dashboard.users');
 
-        Route::group(['namespace' => 'Schedules'], function() {
-            Route::group(['prefix' => 'schedules'], function() {
-                Route::get('/{id?}', 'SchedulesController@schedules')->where('id', '[0-9]+')->name('dashboard.schedules');
-                Route::match(['post', 'put'], '/', 'SchedulesController@store')->name('dashboard.schedules.store');
-                Route::any('/delete/', 'SchedulesController@delete')->name('dashboard.schedules.delete');
-            });
+                        Route::namespace('Schedules')
+                            ->group(
+                                function () {
+                                    Route::prefix('schedules')
+                                        ->group(
+                                            function () {
+                                                Route::get('/{id?}', 'SchedulesController@schedules')
+                                                    ->where('id', '[0-9]+')
+                                                    ->name('dashboard.schedules');
+                                                Route::match(['post', 'put'], '/', 'SchedulesController@store')
+                                                    ->name('dashboard.schedules.store');
+                                                Route::any('/delete/', 'SchedulesController@delete')
+                                                    ->name('dashboard.schedules.delete');
+                                            }
+                                        );
 
-            Route::group(['prefix' => 'schedules-poles'], function() {
-                Route::get('/{id?}', 'SchedulesPolesController@poles')->where('id', '[0-9]+')->name('dashboard.schedules.poles');
-                Route::match(['post', 'put'], '/', 'SchedulesPolesController@store')->name('dashboard.schedules.poles.store');
-                Route::any('/delete/', 'SchedulesPolesController@delete')->name('dashboard.schedules.poles.delete');
-            });
+                                        Route::prefix('schedules-poles')
+                                            ->group(
+                                                function () {
+                                                    Route::get('/{id?}', 'SchedulesPolesController@poles')
+                                                        ->where('id', '[0-9]+')
+                                                        ->name('dashboard.schedules.poles');
+                                                    Route::match(['post', 'put'], '/', 'SchedulesPolesController@store')
+                                                        ->name('dashboard.schedules.poles.store');
+                                                    Route::any('/delete/', 'SchedulesPolesController@delete')
+                                                        ->name('dashboard.schedules.poles.delete');
+                                                }
+                                            );
 
-            Route::group(['prefix' => 'schedules-categories'], function() {
-                Route::get('/{id?}', 'SchedulesCategoriesController@categories')->where('id', '[0-9]+')->name('dashboard.schedules.categories');
-                Route::match(['post', 'put'], '/', 'SchedulesCategoriesController@store')->name('dashboard.schedules.categories.store');
-                Route::any('/delete/', 'SchedulesCategoriesController@delete')->name('dashboard.schedules.categories.delete');
-            });
-        });
-    });
-});
+                                    Route::prefix('schedules-categories')
+                                        ->group(
+                                            function () {
+                                                Route::get('/{id?}', 'SchedulesCategoriesController@categories')
+                                                    ->where('id', '[0-9]+')
+                                                    ->name('dashboard.schedules.categories');
+                                                Route::match(['post', 'put'], '/', 'SchedulesCategoriesController@store')
+                                                    ->name('dashboard.schedules.categories.store');
+                                                Route::any('/delete/', 'SchedulesCategoriesController@delete')
+                                                    ->name('dashboard.schedules.categories.delete');
+                                            }
+                                        );
+                                }
+                            );
+                    }
+                );
+        }
+    );

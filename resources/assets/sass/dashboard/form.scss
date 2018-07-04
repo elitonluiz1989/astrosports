@@ -15,7 +15,7 @@
     }
 
     @include btnSettings(80%, 10%);
-
+ 
     @include media-breakpoint-only(sm) {
       @include btnSettings(50%, 25%);
     }
@@ -23,6 +23,8 @@
 
   .modal-content {
     background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .modal-header {
@@ -40,4 +42,8 @@
   .modal-footer {
     background-color: white;
   }
+}
+
+&.modal-open {
+  padding-right: 0;
 }

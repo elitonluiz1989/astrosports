@@ -1,7 +1,7 @@
-import AppMask from '../../Base/AppMask';
-import FormMessage from "../../Base/FomMessage";
-import FormMessageMixin from "../../Base/Mixins/FormMessage";
-import StoreRequestStatusMixin from "../../Base/Mixins/StoreRequestStatus";
+import AppMask from '@components/Base/AppMask';
+import FormMessage from "@components/Base/FomMessage";
+import FormMessageMixin from "@components/Base/Mixins/FormMessage";
+import StoreRequestStatusMixin from "@components/Base/Mixins/StoreRequestStatus";
 
 export default {
     components: {
@@ -24,6 +24,7 @@ export default {
         return {
             formType: "insert",
             formId: "",
+            modalId: "",
             showMask: false
         };
     },
@@ -53,6 +54,12 @@ export default {
         }
     },
 
+    mounted() {
+        $("#" + this.modalId).on('hidden.bs.modal', () => {
+            this.resetFormStatus();
+        });
+    },
+
     methods: {
         disableForm(disable) {
             disable = disable === undefined;
@@ -60,6 +67,13 @@ export default {
             $("#" + this.formId).find('input, select').each(function (item) {
                 this.disabled = disable;
             });
+        },
+
+        resetFormStatus() {
+            this.formMessageShow = false;
+            this.formMessageText = "";
+
+            document.getElementById(this.formId).querySelector('input[type="reset"]').click();
         },
 
         setFieldId(field) {
@@ -77,7 +91,7 @@ export default {
                 this.showMask = false; // I included this inside the IFs because code can be 1 (loading or waiting)
                 this.showMessageSuccess(messageSuccess);
             } else if (value.code === 3) {
-                let message = value.showUser.length > 0 ? value.showUser : messageError;
+                let message = value.messages.length > 0 ? value.messages : messageError;
 
                 this.showMask = false;
                 this.showMessageError(message);

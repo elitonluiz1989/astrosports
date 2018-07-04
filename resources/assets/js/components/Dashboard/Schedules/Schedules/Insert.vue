@@ -1,9 +1,9 @@
 <template>
     <div>
         <button type="button" id="horarios-trigger" class="dashboard__form-trigger btn btn-success" data-toggle="modal"
-                :data-target="'#' + formId + '-modal'">Adicionar horário</button>
+                :data-target="'#' + modalId">Adicionar horário</button>
 
-        <div :id="formId + '-modal'" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+        <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
             <div class="modal-dialog" role="document">
@@ -93,7 +93,8 @@
 
         data() {
             return{
-                formId: "schedule-insert-form"
+                formId: "schedule-insert-form",
+                modalId: "schedule-insert-modal"
             };
         },
 

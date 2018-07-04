@@ -1,51 +1,49 @@
 <template>
-    <div>
-        <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+    <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
+        <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
-            <div class="modal-dialog" role="document">
-                <div class="modal-content modal-sm">
-                    <form :id="formId" @submit.prevent="submitForm">
-                        <div :class="styles.formHeader">
-                            <h5 class="modal-title">Adicionar categoria</h5>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-sm">
+                <form :id="formId" @submit.prevent="submitForm">
+                    <div :class="styles.formHeader">
+                        <h5 class="modal-title">Adicionar categoria</h5>
 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
 
-                        <div class="modal-body">
-                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                    <div class="modal-body">
+                        <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
 
-                            <div class="form-group row">
-                                <label :for="setFieldId('name')" :class="styles.label">Nome</label>
+                        <div class="form-group row">
+                            <label :for="setFieldId('name')" :class="styles.label">Nome</label>
 
-                                <div class="input-group col-9">
-                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
-                                </div>
+                            <div class="input-group col-9">
+                                <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
                             </div>
                         </div>
+                    </div>
 
-                        <div class="modal-footer">
-                            <input type="reset" class="btn btn-light" value="Limpar">
-                            <input  type="submit" :class="styles.btnSubmit" value="Salvar">
-                        </div>
-                    </form>
-                </div>
+                    <div class="modal-footer">
+                        <input type="reset" class="btn btn-light" value="Limpar">
+                        <input  type="submit" :class="styles.btnSubmit" value="Salvar">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import DashboardModalMixin from "@components/Base/Mixins/DashboardModalMixin";
+    import ModalMixin from "@components/Base/Mixins/ModalMixin";
     import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
 
     export default {
         name: "schedules-category-edit-form",
 
         mixins: [
-            DashboardModalMixin,
+            ModalMixin,
             DashboardFormEditMixin
         ],
 

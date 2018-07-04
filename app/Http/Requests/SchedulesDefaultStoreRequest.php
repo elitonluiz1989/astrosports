@@ -32,7 +32,7 @@ class SchedulesDefaultStoreRequest extends FormRequest
         } else {
             return [
                 'id' => 'integer|required',
-                'name' => "string|unique:{$table}|required"
+                'name' => "string|unique:{$table},name,{$this->get('id')}|required"
             ];
         }
     }
@@ -42,7 +42,7 @@ class SchedulesDefaultStoreRequest extends FormRequest
         $target = (strpos($this->getRequestUri(), 'poles')) ? 'do polo' : 'da categoria';
 
         return [
-            'name.unique' => "[show-user]O nome '{$this->get('name')}' já existe."
+            'name.unique' => "[show-user]O nome \"{$this->get('name')}\" já existe."
         ];
     }
 }

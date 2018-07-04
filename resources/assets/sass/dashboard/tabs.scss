@@ -1,0 +1,183 @@
+$dashboard-tabs-color: #0675cd;
+$tabs-item-width: 100% / 3;
+
+@include tabs($dashboard-tabs-color, $tabs-item-width, 'sm');
+
+&-tabs {
+  .tab-content {
+    background-color: white;
+    border-width: 0 1px 1px;
+    border-style: solid;
+  }
+
+  &-wrapper {
+    border-width: 1px 1px 0;
+    border-style: solid;
+    border-color: $dashboard-tabs-color;
+  }
+
+  &-control{
+    &-title {
+      background-color: $dashboard-tabs-color;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      font-size: 1.2rem;
+
+      @extend .col-12;
+      @extend .col-reset;
+      @extend .text-white;
+      @extend .text-center;
+    }
+
+    &-item {
+      border-bottom: 1px solid $dashboard-tabs-color;
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+
+      @extend .col-12;
+      @extend .col-md-4;
+      @extend .col-reset;
+    }
+  }
+
+  &-content {
+    $dashboard-tabs-content-color: darken($dashboard-tabs-color, $tabs-darken-percentage);
+    padding-top: 1rem;
+
+    @extend .container-fluid;
+
+    @include media-breakpoint-up(sm) {
+      border-bottom: 1px solid $dashboard-tabs-content-color;
+      width: 98%;
+      margin: 0 1% 1%;
+    }
+
+    &-title {
+      background-color: lighten($dashboard-tabs-content-color, 30%);
+      border: 1px solid $dashboard-tabs-content-color;
+      color: darken($dashboard-tabs-content-color, 25%);
+
+      @extend .row;
+
+      &-item {
+        border-right: 1px solid $dashboard-tabs-content-color;
+        cursor: pointer;
+
+        @extend .col-reset;
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+
+    &-row {
+      border-width: 1px 1px 0;
+      border-style: solid;
+      border-color: $dashboard-tabs-content-color;
+      margin-bottom: 1rem;
+
+      @extend .row;
+      @extend .row-reset;
+
+      @include media-breakpoint-up(sm) {
+        $padding: -($grid-gutter-width / 2);
+        border-top: 0;
+        margin-right: $padding !important;
+        margin-bottom: 0;
+        margin-left: $padding !important;
+
+        &:nth-child(even) {
+          background-color: lighten($dashboard-tabs-content-color, 60%);
+        }
+      }
+
+      & > .dashboard__schedules-list-* {
+        @extend .col-sm-reset;
+      }
+    }
+
+    %dashboard-schedules-item-padding {
+      @include media-breakpoint-up(sm) {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+      }
+    }
+
+    &-id {
+      @extend .col-12;
+      @extend .col-sm-1;
+    }
+
+    &-hour {
+      @extend .col-12;
+      @extend .col-sm-2;
+    }
+
+    &-day {
+      @extend .col-12;
+      @extend .col-sm-1;
+    }
+
+    &-pole {
+      @extend .col-12;
+      @extend .col-sm;
+    }
+
+    &-category {
+      @extend .col-12;
+      @extend .col-sm;
+    }
+
+    &--bordered {
+      @include media-breakpoint-up(sm) {
+
+        border-right: 1px solid $dashboard-tabs-content-color;
+      }
+    }
+
+    &-control {
+      @extend .col-12;
+      @extend .col-sm-1;
+
+      @include media-breakpoint-up(sm) {
+        .dashboard__schedules-list-content {
+          border-bottom: 0;
+        }
+      }
+
+      button {
+        background-color: transparent;
+        border-width: 0 0 1px;
+        cursor: pointer;
+      }
+    }
+
+    &-content {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+
+      @extend .text-center;
+
+      &--title {
+        background-color: $dashboard-tabs-content-color;
+
+        @extend .text-white;
+        @extend .font-weight-bold;
+      }
+
+      &--text {
+        border-bottom: 1px solid $dashboard-tabs-content-color;
+      }
+    }
+
+    &--empty {
+      @extend .dashboard__schedules-list-content;
+      @extend .dashboard__schedules-list-content--text;
+
+      @include media-breakpoint-up(sm) {
+        border-bottom: 0;
+      }
+    }
+  }
+}

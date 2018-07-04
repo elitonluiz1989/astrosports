@@ -7,5 +7,6 @@
 Homestead.json
 Homestead.yaml
 .env
+.env.production
 .ftpconfig
 .ftpignore

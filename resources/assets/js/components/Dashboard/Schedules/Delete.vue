@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import DashboardModalMixin from '@components/Base/Mixins/DashboardModalMixin';
+    import ModalMixin from '@components/Base/Mixins/ModalMixin';
     import AppMask from '@components/Base/AppMask';
     import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
 
@@ -38,7 +38,7 @@
         },
 
         mixins: [
-            DashboardModalMixin,
+            ModalMixin,
             StoreRequestStatus
         ],
 
