@@ -8,13 +8,17 @@ import Vue from 'vue';
 
 import Utils from './utils';
 import store from './store';
-import components from './components';
+import AppIcon from './components/Base/AppIcon';
+import RootComponents from './components';
 
 Vue.use(Utils);
 
+/** Global components */
+Vue.component("app-icon", AppIcon);
+
 const app = new Vue({
     store,
-    components: components
+    components: RootComponents
 }).$mount("#app");
 
 HomeHistory();

@@ -12,6 +12,11 @@ const Utils = {
 
                 isObject(value) {
                     return value instanceof Object;
+                },
+
+                isSelfDefined(value) {
+                    // Function to validate self-defined attributes on Vue Components
+                    return value !== undefined && value !== false;
                 }
             }
         });
