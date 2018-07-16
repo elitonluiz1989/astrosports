@@ -1,4 +1,5 @@
 import schedulesApi  from '../api/schedulesPoles';
+import {messageErrorHandler} from "../messageErrorHandler";
 
 export const schedulesPoles = {
     state: {
@@ -19,14 +20,8 @@ export const schedulesPoles = {
 
             schedulesApi.get(id)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setSchedulesPole', {});
-                        commit('setLoadSchedulesPolesStatus', 3);
-                        commit('setSchedulesPolesMessageErrors', response.data.error);
-                    } else {
-                        commit('setSchedulesPole', response.data);
-                        commit('setLoadSchedulesPolesStatus', 2)
-                    }
+                    commit('setSchedulesPole', response.data);
+                    commit('setLoadSchedulesPolesStatus', 2);
                 })
                 .catch(err => {
                     commit('setSchedulesPole', {});
@@ -40,14 +35,8 @@ export const schedulesPoles = {
 
             schedulesApi.get()
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setSchedulesPoles', []);
-                        commit('setLoadSchedulesPolesStatus', 3);
-                        commit('setSchedulesPolesMessageErrors', response.data.error);
-                    } else {
-                        commit('setSchedulesPoles', response.data);
-                        commit('setLoadSchedulesPolesStatus', 2)
-                    }
+                    commit('setSchedulesPoles', response.data);
+                    commit('setLoadSchedulesPolesStatus', 2);
                 })
                 .catch(err => {
                     commit('setSchedulesPoles', []);
@@ -61,13 +50,8 @@ export const schedulesPoles = {
 
             schedulesApi.add(pole)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setAddSchedulesPoleStatus', 3);
-                        commit('setSchedulesPolesMessageErrors', response.data.error);
-                    } else {
                         commit('setAddSchedulesPoleStatus', 2);
                         dispatch("loadSchedulesPoles");
-                    }
                 })
                 .catch(err => {
                     commit('setAddSchedulesPoleStatus', 3);
@@ -80,14 +64,9 @@ export const schedulesPoles = {
 
             schedulesApi.edit(pole)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setEditSchedulesPoleStatus', 3);
-                        commit('setSchedulesPolesMessageErrors', response.data.error);
-                    } else {
-                        commit('setEditSchedulesPoleStatus', 2);
-                        dispatch("loadSchedulesPoles");
-                        dispatch("loadSchedules");
-                    }
+                    commit('setEditSchedulesPoleStatus', 2);
+                    dispatch("loadSchedulesPoles");
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit('setEditSchedulesPoleStatus', 3);
@@ -100,14 +79,9 @@ export const schedulesPoles = {
 
             schedulesApi.del(id)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setDeleteSchedulesPoleStatus', 3);
-                        commit('setSchedulesPolesMessageErrors', response.data.error);
-                    } else {
-                        commit('setDeleteSchedulesPoleStatus', 2);
-                        dispatch("loadSchedulesPoles");
-                        dispatch("loadSchedules");
-                    }
+                    commit('setDeleteSchedulesPoleStatus', 2);
+                    dispatch("loadSchedulesPoles");
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit('setDeleteSchedulesPoleStatus', 3);
@@ -142,7 +116,7 @@ export const schedulesPoles = {
         },
 
         setSchedulesPolesMessageErrors(state, message) {
-            state.messageErrors = message;
+            state.messageErrors = messageErrorHandler(message);
         }
     },
 

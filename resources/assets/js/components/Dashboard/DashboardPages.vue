@@ -1,22 +1,20 @@
 <template>
     <div class="dashboard__content">
         <keep-alive>
-            <component :is="getCurrentPage"></component>
+            <component :is="currentPage.component" v-if="isAllowed"></component>
         </keep-alive>
+
+        <div class="dashboard__content--empty" v-if="!isAllowed">
+            <div class="alert alert-danger text-center w-75 m-auto" v-text="isNotAllowedMessage"></div>
+        </div>
     </div>
 </template>
 
 <script>
-    import DashboardUsers from './User/DashboardUsers';
-    import DashboardSchedules from './Schedules/Index';
+    import {pages} from './data/pages';
 
     export default {
         name: "dashboard-pages",
-
-        components: {
-            DashboardUsers,
-            DashboardSchedules
-        },
 
         props: {
             page: {
@@ -27,19 +25,21 @@
 
         data() {
             return {
-                pageList: {
-                    usuarios: DashboardUsers,
-                    institucional: null,
-                    noticias: null,
-                    fotos: null,
-                    horarios: DashboardSchedules
-                }
-            };
+                isNotAllowedMessage: "Seu usuário não possui permissão para acessar essa página."
+            }
         },
 
         computed: {
-            getCurrentPage() {
-                return this.pageList[this.page];
+            currentPage() {
+                return pages[this.page];
+            },
+
+            isAllowed() {
+                if(!this.isNullOrEmpty(this.currentPage.userGrant) && this.currentPage.userGrant > 0) {
+                    return this.userIsAllowed(this.currentPage.userGrant);
+                } else {
+                    return true;
+                }
             }
         }
     }

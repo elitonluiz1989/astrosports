@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Abstracts;
 
+use App\Handlers\Facebook\FacebookPhotoDataHandler;
+use App\Handlers\Facebook\FacebookRequestHandler;
 use App\Models\FacebookPhoto;
-use App\Repositories\Handlers\FacebookPhotoDataHandler;
-use App\Repositories\Handlers\FacebookRequestHandler;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 

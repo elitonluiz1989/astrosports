@@ -1,4 +1,4 @@
-import { CONFIG } from "../../../config";
+import { CONFIG } from "@js/config";
 
 export default {
     computed: {
@@ -10,4 +10,4 @@ export default {
             }
         },
     }
-}
+};

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Handlers;
+namespace App\Handlers\Facebook;
 
 use App\Services\FacebookService;
 

@@ -23,6 +23,7 @@ export default {
     data() {
         return {
             formType: "insert",
+            formTitle: "",
             formId: "",
             modalId: "",
             showMask: false
@@ -43,6 +44,10 @@ export default {
                     "btn btn-danger": this.formType === "edit",
                 }
             };
+        },
+
+        formResetValue() {
+            return this.formType === "edit" ? "Desfazer" : "Limpar";
         }
     },
 

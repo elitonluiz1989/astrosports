@@ -23,9 +23,9 @@
 <script>
     import DashboardNavbar from './DashboardNavbar';
     import DashboardPages from './DashboardPages';
-    import DashboardLogout from './User/DashboardLogout';
+    import DashboardLogout from './Users/Logout';
 
-    import { navItems } from './data/navItems';
+    import { pages } from './data/pages';
 
     export default {
         name: "dashboard",
@@ -51,8 +51,12 @@
 
         computed: {
             currentPageText() {
-                return navItems[this.currentPage] ? navItems[this.currentPage].text : this.currentPage;
+                return !this.isNullOrEmpty(pages[this.currentPage]) ? pages[this.currentPage].text : this.currentPage;
             }
+        },
+
+        created() {
+            this.$store.dispatch('loadAuthUser');
         },
 
         methods: {

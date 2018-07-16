@@ -2,16 +2,17 @@
 
 namespace App\Repositories;
 
-
+use App\Handlers\Dashboard\UserPermissionHandler;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class UsersRepository
-    {/**
+{
+    use UserPermissionHandler;
+
+    /**
      * @var array
      */
-    public $fields = ['users.id', 'users.username', 'users.name', 'users.avatar', 'user_roles.name as role'];
+    public $fields = ['users.id', 'users.username', 'users.name', 'users.avatar', 'users.role as grant', 'user_roles.name as role'];
 
     /**
      * @var int
@@ -35,15 +36,11 @@ class UsersRepository
 
     public function get()
     {
-        $grant = Auth::user()->grant;
-
         $users = User::join('user_roles', 'user_roles.id', '=', 'users.role')
-                        ->select($this->fields);
+                    ->select($this->fields);
 
-        if ($grant == 1) {
-            $users->where('grant', '<=', 1);
-        } else {
-            $users->where('grant', '<', $grant);
+        if (!$this->isWebmaster()) {
+            $users->where('users.role', '<=', $this->getAuthUserGrant());
         }
 
         return $users->paginate($this->limit);

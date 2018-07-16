@@ -1,4 +1,5 @@
 import schedulesApi  from "../api/schedules";
+import {messageErrorHandler} from "../messageErrorHandler";
 
 export const schedules = {
     state: {
@@ -19,14 +20,8 @@ export const schedules = {
 
             schedulesApi.getSchedules(id)
                 .then(response => {
-                    if (response.data.error) {
-                        commit("setSchedule", {});
-                        commit("setLoadSchedulesStatus", 3);
-                        commit("setSchedulesMessageErrors", response.data.error);
-                    } else {
-                        commit("setSchedule", response.data);
-                        commit("setLoadSchedulesStatus", 2)
-                    }
+                    commit("setSchedule", response.data);
+                    commit("setLoadSchedulesStatus", 2);
                 })
                 .catch(err => {
                     commit("setSchedule", {});
@@ -40,14 +35,8 @@ export const schedules = {
 
             schedulesApi.getSchedules()
                 .then(response => {
-                    if (response.data.error) {
-                        commit("setSchedules", []);
-                        commit("setLoadSchedulesStatus", 3);
-                        commit("setSchedulesMessageErrors", response.data.error);
-                    } else {
-                        commit("setSchedules", response.data);
-                        commit("setLoadSchedulesStatus", 2)
-                    }
+                    commit("setSchedules", response.data);
+                    commit("setLoadSchedulesStatus", 2);
                 })
                 .catch(err => {
                     commit("setSchedules", []);
@@ -61,13 +50,8 @@ export const schedules = {
 
             schedulesApi.addSchedule(schedule)
                 .then(response => {
-                    if (response.data.error) {
-                        commit("setAddScheduleStatus", 3);
-                        commit("setSchedulesMessageErrors", response.data.error);
-                    } else {
-                        commit("setAddScheduleStatus", 2);
-                        dispatch("loadSchedules")
-                    }
+                    commit("setAddScheduleStatus", 2);
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit("setAddScheduleStatus", 3);
@@ -80,13 +64,8 @@ export const schedules = {
 
             schedulesApi.editSchedule(schedule)
                 .then(response => {
-                    if (response.data.error) {
-                        commit("setEditScheduleStatus", 3);
-                        commit("setSchedulesMessageErrors", response.data.error);
-                    } else {
-                        commit("setEditScheduleStatus", 2);
-                        dispatch("loadSchedules")
-                    }
+                    commit("setEditScheduleStatus", 2);
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit("setEditScheduleStatus", 3);
@@ -99,13 +78,8 @@ export const schedules = {
 
             schedulesApi.del(id)
                 .then(response => {
-                    if (response.data.error) {
-                        commit("setDeleteScheduleStatus", 3);
-                        commit("setSchedulesMessageErrors", response.data.error);
-                    } else {
-                        commit("setDeleteScheduleStatus", 2);
-                        dispatch("loadSchedules")
-                    }
+                    commit("setDeleteScheduleStatus", 2);
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit("setDeleteScheduleStatus", 3);
@@ -140,7 +114,7 @@ export const schedules = {
         },
 
         setSchedulesMessageErrors(state, message) {
-            state.messageErrors = message;
+            state.messageErrors = messageErrorHandler(message);
         }
     },
 

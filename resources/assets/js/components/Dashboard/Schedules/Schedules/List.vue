@@ -103,9 +103,7 @@
 
 <script>
     import { weekDays } from '@Dashboard/data/weekDays';
-    import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
-    import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
+    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import ScheduleEditForm from './Edit';
     import ScheduleDeleteForm from '../Delete';
 
@@ -113,13 +111,11 @@
         name: "schedules-list",
 
         components: {
-            DashboardRequestStatusMessage,
             ScheduleEditForm,
             ScheduleDeleteForm
         },
 
         mixins: [
-            StoreRequestStatusMixin,
             DashboardSchedulesListMixin
         ],
 

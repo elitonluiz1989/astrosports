@@ -64,9 +64,7 @@
 </template>
 
 <script>
-    import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
-    import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
+    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import SchedulesCategoryEditForm from './Edit';
     import SchedulesDeleteForm from '../Delete';
 
@@ -74,13 +72,11 @@
         name: "schedules-categories-list",
 
         components: {
-            DashboardRequestStatusMessage,
             SchedulesCategoryEditForm,
             SchedulesDeleteForm
         },
 
         mixins: [
-            StoreRequestStatusMixin,
             DashboardSchedulesListMixin
         ],
 

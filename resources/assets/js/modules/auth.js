@@ -1,4 +1,5 @@
 import usersApi  from '../api/users';
+import {messageErrorHandler} from "../messageErrorHandler";
 
 export const auth = {
     state: {
@@ -13,18 +14,13 @@ export const auth = {
 
             usersApi.getAuthUser()
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setAuthUser', {});
-                        commit('setAuthRequestStatus', 3);
-                        commit('setMessageErrors', response.data.error);
-                    } else {
-                        commit('setAuthUser', response.data);
-                        commit('setAuthRequestStatus', 2)
-                    }
+                    commit('setAuthUser', response.data);
+                    commit('setAuthRequestStatus', 2);
                 })
                 .catch(err => {
                     commit('setAuthUser', {});
                     commit('setAuthRequestStatus', 3);
+                    commit('setMessageErrors', err);
                 });
         },
     },
@@ -39,13 +35,17 @@ export const auth = {
         },
 
         setMessageErrors(state, message) {
-            state.messageErrors = message;
+            state.messageErrors = messageErrorHandler(message);
         }
     },
 
     getters: {
         getAuthUser(state) {
             return state.user;
+        },
+
+        getAuthUserGrant(state) {
+            return state.user.role;
         },
 
         getAuthRequestStatus(state) {

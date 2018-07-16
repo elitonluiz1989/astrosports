@@ -1,4 +1,5 @@
 import usersApi  from '../api/users';
+import {messageErrorHandler} from "../messageErrorHandler";
 
 export const users = {
     state: {
@@ -14,14 +15,8 @@ export const users = {
 
             usersApi.loadUsers(id)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setUser', {});
-                        commit('setUsersRequestStatus', 3);
-                        commit('setUsersMessageErrors', response.data.error);
-                    } else {
-                        commit('setUser', response.data);
-                        commit('setUsersRequestStatus', 2)
-                    }
+                    commit('setUser', response.data);
+                    commit('setUsersRequestStatus', 2);
                 })
                 .catch(err => {
                     commit('setUser', {});
@@ -35,14 +30,9 @@ export const users = {
 
             usersApi.getUsers()
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setUsers', []);
-                        commit('setUsersRequestStatus', 3);
-                        commit('setUsersMessageErrors', response.data.error);
-                    } else {
-                        commit('setUsers', response.data);
-                        commit('setUsersRequestStatus', 2)
-                    }
+                    console.log(response)
+                    commit('setUsers', response.data);
+                    commit('setUsersRequestStatus', 2);
                 })
                 .catch(err => {
                     commit('setUsers', []);
@@ -66,7 +56,7 @@ export const users = {
         },
 
         setUsersMessageErrors(state, message) {
-            state.messageErrors = message;
+            state.messageErrors = messageErrorHandler(message);
         }
     },
 

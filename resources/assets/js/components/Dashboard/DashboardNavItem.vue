@@ -1,6 +1,6 @@
 <template>
     <a :class="style" :href="navLink">
-        <i :class="iconStyle" v-if="icon"></i>
+        <app-icon :icon="icon" fixed-width v-if="icon"></app-icon>
 
         <span class="d-md-none" v-text="text"></span>
 
@@ -39,17 +39,9 @@
                 };
             },
 
-            iconStyle() {
-                return 'fa fa-' + this.icon  + ' fa-fw';
-            },
-
             navLink() {
                 return this.active ? this.link : "javascript:;";
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -63,9 +63,7 @@
 </template>
 
 <script>
-    import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
-    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardSchedulesListMixin';
-    import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
+    import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import SchedulesPoleEditFrom from './Edit';
     import SchedulesDeleteForm from '../Delete';
 
@@ -73,13 +71,11 @@
         name: "dashboard-schedules-poles-list",
 
         components: {
-            DashboardRequestStatusMessage,
             SchedulesPoleEditFrom,
             SchedulesDeleteForm
         },
 
         mixins: [
-            StoreRequestStatusMixin,
             DashboardSchedulesListMixin
         ],
 

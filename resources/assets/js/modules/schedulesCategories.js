@@ -1,4 +1,5 @@
 import categoriesApi  from '../api/schedulesCategories';
+import {messageErrorHandler} from "../messageErrorHandler";
 
 export const schedulesCategories = {
     state: {
@@ -19,14 +20,8 @@ export const schedulesCategories = {
 
             categoriesApi.get(id)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setSchedulesCategory', {});
-                        commit('setLoadSchedulesCategoriesStatus', 3);
-                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
-                    } else {
-                        commit('setSchedulesCategory', response.data);
-                        commit('setLoadSchedulesCategoriesStatus', 2)
-                    }
+                    commit('setSchedulesCategory', response.data);
+                    commit('setLoadSchedulesCategoriesStatus', 2);
                 })
                 .catch(err => {
                     commit('setSchedulesCategory', {});
@@ -40,14 +35,8 @@ export const schedulesCategories = {
 
             categoriesApi.get()
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setSchedulesCategories', []);
-                        commit('setLoadSchedulesCategoriesStatus', 3);
-                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
-                    } else {
-                        commit('setSchedulesCategories', response.data);
-                        commit('setLoadSchedulesCategoriesStatus', 2)
-                    }
+                    commit('setSchedulesCategories', response.data);
+                    commit('setLoadSchedulesCategoriesStatus', 2);
                 })
                 .catch(err => {
                     commit('setSchedulesCategories', []);
@@ -61,13 +50,8 @@ export const schedulesCategories = {
 
             categoriesApi.add(category)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setAddSchedulesCategoryStatus', 3);
-                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
-                    } else {
-                        commit('setAddSchedulesCategoryStatus', 2);
-                        dispatch("loadSchedulesCategories");
-                    }
+                    commit('setAddSchedulesCategoryStatus', 2);
+                    dispatch("loadSchedulesCategories");
                 })
                 .catch(err => {
                     commit('setAddSchedulesCategoryStatus', 3);
@@ -80,14 +64,9 @@ export const schedulesCategories = {
 
             categoriesApi.edit(category)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setEditSchedulesCategoryStatus', 3);
-                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
-                    } else {
-                        commit('setEditSchedulesCategoryStatus', 2);
-                        dispatch("loadSchedulesCategories");
-                        dispatch("loadSchedules");
-                    }
+                    commit('setEditSchedulesCategoryStatus', 2);
+                    dispatch("loadSchedulesCategories");
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit('setEditSchedulesCategoryStatus', 3);
@@ -100,14 +79,9 @@ export const schedulesCategories = {
 
             categoriesApi.del(category)
                 .then(response => {
-                    if (response.data.error) {
-                        commit('setDeleteSchedulesCategoryStatus', 3);
-                        commit('setSchedulesCategoriesMessageErrors', response.data.error);
-                    } else {
-                        commit('setDeleteSchedulesCategoryStatus', 2);
-                        dispatch("loadSchedulesCategories");
-                        dispatch("loadSchedules");
-                    }
+                    commit('setDeleteSchedulesCategoryStatus', 2);
+                    dispatch("loadSchedulesCategories");
+                    dispatch("loadSchedules");
                 })
                 .catch(err => {
                     commit('setDeleteSchedulesCategoryStatus', 3);
@@ -142,7 +116,7 @@ export const schedulesCategories = {
         },
 
         setSchedulesCategoriesMessageErrors(state, message) {
-            state.messageErrors = message;
+            state.messageErrors = messageErrorHandler(message);
         }
     },
 

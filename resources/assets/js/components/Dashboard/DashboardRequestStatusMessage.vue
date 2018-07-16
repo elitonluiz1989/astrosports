@@ -1,7 +1,9 @@
 <template>
-    <div class="row justify-content-center" v-show="code === 1 && code === 3">
+    <div class="row justify-content-center" v-show="show">
         <div class="col-12 col-lg-10">
-            <div :class="styles.alert" v-text="messageStatus"></div>
+            <div class="alert" :class="styles.alert">
+                <div class="text-center" v-for="message in messageStatus" v-text="message"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -17,31 +19,36 @@
             },
 
             message: {
-                type: String
+                type: String|Array,
+                default: 'Houve um erro e os resultados não foram carregados'
             }
         },
 
         computed: {
+            show() {
+              return this.code === 1 || this.code === 3;
+            },
+
             styles() {
                 return {
                     alert: {
-                        'alert alert-warning text-center': this.code === 1,
-                        'alert alert-danger text-center': this.code === 3
+                        "alert-warning": this.code === 1,
+                        "alert-danger": this.code === 3
                     }
                 };
             },
 
             messageStatus() {
                 if (this.code === 1) {
-                    return 'Carregando...';
+                    return ['Carregando...'];
                 } else if (this.code === 3) {
-                    return this.message || 'Houve um erro e os resultados não foram carregados';
+                    if (!this.isArray(this.message)) {
+                        this.message = [this.message];
+                    }
+
+                    return this.message;
                 }
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

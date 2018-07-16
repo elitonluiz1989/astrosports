@@ -1,26 +1,13 @@
-const Utils = {
-    install(Vue, options) {
-        Vue.mixin({
-            methods: {
-                isArray(value) {
-                    return value instanceof Array;
-                },
-
-                isNullOrEmpty(string) {
-                    return string === undefined || string === null || string === "";
-                },
-
-                isObject(value) {
-                    return value instanceof Object;
-                },
-
-                isSelfDefined(value) {
-                    // Function to validate self-defined attributes on Vue Components
-                    return value !== undefined && value !== false;
-                }
-            }
-        });
-    }
+const isArray = value => {
+    return value instanceof Array;
 };
 
-export default Utils;
+const isNullOrEmpty = string => {
+    return string === undefined || string === null || string === "";
+};
+
+const isObject = value => {
+    return value instanceof Object;
+};
+
+export { isArray, isNullOrEmpty, isObject };

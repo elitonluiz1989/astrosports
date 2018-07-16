@@ -21,40 +21,22 @@ class SchedulesController extends Controller
 
     public function schedules($id = null)
     {
-        try {
-            $this->schedules->fields = ['id', 'hour', 'day', 'pole', 'category'];
-            $schedules = $this->schedules->listSchedules();
-
-            return response()->json($schedules);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $this->schedules->fields = ['id', 'hour', 'day', 'pole', 'category'];
+        return $this->schedules->listSchedules();
     }
 
     public function store(SchedulesStoreRequest $request)
     {
-        try {
-            $data = $request->validated();
-            $schedule = $this->schedules->storeSchedule($data);
-
-            return response()->json($schedule);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $data = $request->validated();
+        return $this->schedules->storeSchedule($data);
     }
 
     public function delete(Request $request)
     {
-        try {
-            $id = $request->validate([
-                'id' => 'integer|required'
-            ])['id'];
+        $id = $request->validate([
+            'id' => 'integer|required'
+        ])['id'];
 
-            $schedule = $this->schedules->deleteSchedule($id);
-
-            return response()->json($schedule);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        return $this->schedules->deleteSchedule($id);
     }
 }

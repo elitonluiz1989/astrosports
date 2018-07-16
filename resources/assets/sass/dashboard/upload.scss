@@ -1,0 +1,45 @@
+&__upload {
+    @extend .position-relative;
+
+    &-message {
+      margin: 0.2rem;
+      @extend .w-100;
+      @extend .o-hidden;
+      @extend .position-relative;
+
+      div {
+        padding: 0.3rem 0;
+        @extend .w-100;
+        @extend .text-center
+      }
+    }
+
+    &-progress {
+      background-color: #0a7701;
+      max-width: 100%;
+      height: 100%;
+      opacity: 0;
+      content: "";
+      transition: opacity .5s;
+      z-index: 1051;
+      top: 0;
+      left: 0;
+
+      @extend .position-absolute;
+      &--show {
+        opacity: .6;
+      }
+    }
+
+    &-field {
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      z-index: 1052;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+
+      @extend .position-absolute;
+    }
+}

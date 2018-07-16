@@ -9,6 +9,30 @@
     @extend .col-lg-3;
     @extend .col-xl-2;
   }
+
+  &-insert {
+    @extend .dashboard__form;
+
+    @include media-breakpoint-up(md) {
+      .modal-content {
+        max-width: 400px;
+      }
+    }
+  }  
+ 
+  .dashboard__upload {
+    border: 1px solid #ddd;
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+    &.alert-danger {
+      @extend .border-danger;
+
+      .dashboard__user-avatar img {
+        @extend .border-danger;
+      }
+    }
+  }
 }
 
 %dashboard-user-avatar {
@@ -17,7 +41,8 @@
   .img {
     border-width: 1px;
     border-style: solid;
-    border-radius: 100%;
+
+    @extend .rounded-circle;
   }
 }
 
@@ -38,6 +63,27 @@
   border: 1px solid $dashboard-user-border;
   box-shadow: 1px 2px 3px #eee;
   padding: 0.2rem 0 0.1rem;
+
+  @extend .position-relative;
+
+  .mask__content {
+    z-index: 1;
+  }
+
+  &-controls {
+    margin-top: -1rem; // To centralize vertically get to reference the .fa-2x size
+    top: 50%;
+    z-index: 2;
+
+    @extend .w-100;
+    @extend .position-absolute;
+    @extend .text-white;
+    @extend .text-center;
+
+    .fa + .fa {
+      margin-left: 1.5rem;
+    }
+  }
 
   &-avatar {
     height: 6rem;
@@ -60,6 +106,7 @@
 
   &-trigger {
     color: #888;
+    cursor: pointer;
 
     @extend .w-100;
     @extend .h-100;

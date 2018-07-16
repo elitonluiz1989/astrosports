@@ -15,13 +15,13 @@
 </template>
 
 <script>
-    import DashboardModalMixin from '../../Base/Mixins/DashboardModalMixin';
+    import ModalMixin from '@components/Base/Mixins/ModalMixin';
 
     export default {
         name: "dashboard-logout",
 
         mixins: [
-            DashboardModalMixin
+            ModalMixin
         ],
 
         data() {

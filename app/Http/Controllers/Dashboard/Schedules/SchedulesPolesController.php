@@ -18,39 +18,21 @@ class SchedulesPolesController extends Controller
 
     public function poles($id = null)
     {
-        try {
-            $poles = $this->poles->get($id);
-
-            return response()->json($poles);
-        } catch (\Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
-        }
+        return $this->poles->get($id);
     }
 
     public function store(SchedulesDefaultStoreRequest $request)
     {
-        try {
-            $data = $request->validated();
-            $pole = $this->poles->store($data);
-
-            return response()->json($pole);
-        } catch(\Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
-        }
+        $data = $request->validated();
+        return $this->poles->store($data);
     }
 
     public function delete(Request $request)
     {
-        try {
-            $id = $request->validate([
-                'id' => 'integer|required'
-            ])['id'];
+        $id = $request->validate([
+            'id' => 'integer|required'
+        ])['id'];
 
-            $schedule = $this->poles->delete($id);
-
-            return response()->json($schedule);
-        } catch (\Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
-        }
+        return $this->poles->delete($id);
     }
 }

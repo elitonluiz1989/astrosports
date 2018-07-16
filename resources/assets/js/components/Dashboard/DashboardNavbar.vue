@@ -12,11 +12,11 @@
                     <dashboard-auth-user @onUserLogout="callShowLogout"></dashboard-auth-user>
                 </li>
 
-                <li :class="setNavItemStyle(key, navItem.active)" v-for="(navItem, key) in navItems">
+                <li :class="setNavItemStyle(key, navItem)" v-for="(navItem, key) in pages" :key="key">
                     <div class="nav-link-wrapper">
                         <dashboard-nav-item :id="'nav-item-' + key"
                                             :link="navItem.link"
-                                            :active="navItem.active"
+                                            :active="isActive(navItem)"
                                             :icon="navItem.icon"
                                             :text="navItem.text"></dashboard-nav-item>
                     </div>
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-    import { navItems } from './data/navItems';
-    import DashboardAuthUser from './User/DashboardAuthUser';
+    import {pages} from './data/pages';
+    import DashboardAuthUser from './Users/Auth';
     import DashboardNavItem from './DashboardNavItem';
 
     export default {
@@ -48,8 +48,8 @@
 
         data() {
             return {
-                navItems: navItems
-            }
+                pages: pages
+            };
         },
 
         mounted() {
@@ -65,6 +65,18 @@
                 this.$emit('showLogout')
             },
 
+            isActive(item) {
+                return this.isAllowed(item.userGrant) && item.active;
+            },
+
+            isAllowed(userGrant) {
+                if (!this.isNullOrEmpty(userGrant) && userGrant > 0) {
+                    return this.userIsAllowed(userGrant, 'user');
+                } else {
+                    return true;
+                }
+            },
+
             setNavItemStyle(key, active) {
                 active = active || false;
 
@@ -73,7 +85,7 @@
                     classes += " d-md-none";
                 }
 
-                if (active) {
+                if (this.isActive(active)) {
                     if (key === this.currentPage) {
                         classes += " active";
                     }

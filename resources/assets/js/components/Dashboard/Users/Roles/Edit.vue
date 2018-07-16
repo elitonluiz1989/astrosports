@@ -7,7 +7,7 @@
                 <div class="modal-content modal-sm">
                     <form :id="formId" @submit.prevent="submitForm">
                         <div :class="styles.formHeader">
-                            <h5 class="modal-title">Adicionar polo</h5>
+                            <h5 class="modal-title" v-text="formTitle"></h5>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i class="fa fa-times"></i>
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <input type="reset" class="btn btn-light" value="Limpar" @click.prevent="manageFormData('reset')">
+                            <input type="reset" class="btn btn-light" :value="formResetValue" @click.prevent="manageFormData()">
 
                             <input  type="submit" :class="styles.btnSubmit" value="Salvar">
                         </div>
@@ -39,11 +39,11 @@
 </template>
 
 <script>
-    import DashboardModalMixin from '@components/Base/Mixins/DashboardModalMixin';
+    import DashboardModalMixin from '@components/Base/Mixins/ModalMixin';
     import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
 
     export default {
-        name: "schedules-pole-edit-form",
+        name: "users-role-edit-form",
 
         mixins: [
             DashboardModalMixin,
@@ -52,38 +52,39 @@
 
         data() {
             return {
-                modalId: "schedules-pole-edit-modal",
-                formId: "schedules-pole-edit-form",
+                modalId: "users-role-edit-modal",
+                formId: "users-role-edit-form",
+                formTitle: "Editar cargo",
                 formType: "edit",
                 name: ""
             }
         },
 
         computed: {
-            pole() {
-                return this.$store.getters.getSchedulesPoles[this.recordKey];
+            role() {
+                return this.$store.getters.getUserRoles[this.recordKey];
             },
 
-            editSchedulesPoleStatus() {
-                return this.storeRequestStatus("getEditSchedulesPoleStatus", "getSchedulesPolesMessageErrors");
+            editUsersRoleStatus() {
+                return this.storeRequestStatus("getEditUsersRoleStatus", "getUsersRolesMessageErrors");
             },
 
-            loadSchedulesPolesStatus() {
-                return this.$store.getters.getLoadSchedulesPolesStatus;
+            loadUsersRolesStatus() {
+                return this.$store.getters.getLoadUsersRolesStatus;
             }
         },
 
         watch: {
-            editSchedulesPoleStatus(value) {
-                this.watchSubmitStatus(value, "Polo alterado com sucesso", "Houve um erro na alteração do polo.");
+            editUsersRoleStatus(value) {
+                this.watchSubmitStatus(value, "Cargo alterado com sucesso", "Houve um erro na alteração do cargo.");
 
                 if (value.code === 3) {
                     this.disableForm(false);
                 }
             },
 
-            loadSchedulesPolesStatus(value) {
-                this.watchRecordLoad(value, this.editSchedulesPoleStatus.code, "o polo");
+            loadUsersRolesStatus(value) {
+                this.watchRecordLoad(value, this.editUsersRoleStatus.code, "o cargo");
             },
 
             recordKey(value) {
@@ -96,34 +97,34 @@
         methods: {
             manageFormData(type) {
                 if (type !== "reset") {
-                    this.name = this.pole.name;
+                    this.name = this.role.name;
                 } else {
-                    if(this.name !== this.pole.name) {
-                        this.name = this.pole.name;
+                    if(this.name !== this.role.name) {
+                        this.name = this.role.name;
                     }
                 }
             },
 
             submitForm() {
                 if (this.name === "") {
-                    this.setFieldMessageError("name", "Preencha o nome do polo");
+                    this.setFieldMessageError("name", "Preencha o nome do cargo");
                 } else {
-                    let procced = false,
+                    let proceed = false,
                         data = {};
 
-                    if (this.name !== this.pole.name) {
+                    if (this.name !== this.role.name) {
                         data.name = this.name;
-                        procced = true;
+                        proceed = true;
                     }
 
-                    if (procced) {
-                        data.id = this.pole.id;
+                    if (proceed) {
+                        data.id = this.role.id;
                         this.showMask = true;
                         this.formMessageShow = false;
 
                         this.disableForm();
 
-                        this.$store.dispatch("editSchedulesPole", data);
+                        this.$store.dispatch("editUsersRole", data);
                     }
                 }
             }

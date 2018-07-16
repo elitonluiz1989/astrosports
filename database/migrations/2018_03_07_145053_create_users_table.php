@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->text('avatar')->nullable();
             $table->string('password');
             $table->integer('role')->unsigned()->nullable();
-            $table->integer('grant')->unsigned()->nullable();
+            $table->integer('commission_role')->unsigned()->nullable();
             $table->timestamps();
             $table->rememberToken();
         });
@@ -31,9 +31,9 @@ class CreateUsersTable extends Migration
                 ->on('user_roles')
                 ->onDelete('set null');
 
-            $table->foreign('grant')
+            $table->foreign('commission_role')
                 ->references('id')
-                ->on('user_grants')
+                ->on('commission_roles')
                 ->onDelete('set null');
         });
     }

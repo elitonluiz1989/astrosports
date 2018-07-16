@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div class="dashboard__auth">
         <div class="dashboard__auth-avatar">
             <img :src="avatar" :alt="user.name" class="img">
@@ -9,25 +9,21 @@
 </template>
 
 <script>
-    import StoreRequestStatus from '../../Base/Mixins/StoreRequestStatus';
-    import DashboardUserMixin from '../Mixins/DashboardUserMixin';
+    import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
+    import UserInfoMixin from './Mixins/UserInfoMixin';
 
     export default {
         name: "dashboard-auth-user",
 
         mixins: [
             StoreRequestStatus,
-            DashboardUserMixin
+            UserInfoMixin
         ],
 
         computed: {
             user() {
                 return this.$store.getters.getAuthUser;
             }
-        },
-
-        created() {
-            this.$store.dispatch('loadAuthUser');
         },
 
         mounted() {
