@@ -26,7 +26,7 @@ class UsersPermissions
         }
 
         if ($grant == "adm" && !$this->isWebmaster() && !$this->isAdministrator()) {
-            return response([$this->responseMessages], 422);
+            return response($this->responseMessages, 422);
         }
 
         return $next($request);
