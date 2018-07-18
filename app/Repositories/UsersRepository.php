@@ -40,7 +40,7 @@ class UsersRepository
                     ->select($this->fields);
 
         if (!$this->isWebmaster()) {
-            $users->where('users.role', '<=', $this->getAuthUserGrant());
+            $users->where('users.role', '>=', $this->getAuthUserGrant());
         }
 
         return $users->paginate($this->limit);

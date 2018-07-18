@@ -1,12 +1,16 @@
-import { isArray, isObject, isNullOrEmpty } from './utils';
+import { cleanArray, isArray, isNullOrEmpty, isNullOrUndefined, isObject } from './utils';
 
 const Utils = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
+                cleanArray,
+
                 isArray,
 
                 isNullOrEmpty,
+
+                isNullOrUndefined,
 
                 isObject,
 

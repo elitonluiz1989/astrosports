@@ -2,10 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Handlers\Dashboard\UserPermissionHandler;
 use App\Models\UserRole as Role;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class UsersRolesRepository
 {
+    use UserPermissionHandler;
+
     /**
      * @var array
      */
@@ -25,9 +29,14 @@ class UsersRolesRepository
         if (null !== $id) {
             return Role::find($id);
         } else {
-            return Role::select($this->fields)
-                        ->orderBy($this->order)
-                        ->get();
+            $query = Role::select($this->fields);
+
+            if (!$this->isWebmaster()) {
+                $query->where('id', '>=', $this->getAuthUserGrant());
+            }
+
+            return $query->orderBy($this->order)
+                         ->get();
         }
     }
 

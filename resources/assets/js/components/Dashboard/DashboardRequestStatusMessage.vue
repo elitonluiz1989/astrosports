@@ -20,7 +20,13 @@
 
             message: {
                 type: String|Array,
-                default: 'Houve um erro e os resultados não foram carregados'
+                default: "Houve um erro e os resultados não foram carregados"
+            }
+        },
+
+        data() {
+            return {
+                defaultMessage: "Houve um erro e os resultados não foram carregados"
             }
         },
 
@@ -42,11 +48,18 @@
                 if (this.code === 1) {
                     return ['Carregando...'];
                 } else if (this.code === 3) {
-                    if (!this.isArray(this.message)) {
-                        this.message = [this.message];
+                    if (this.isArray(this.message)) {
+                        let messages = this.cleanArray(this.message);
+                        console.log(messages)
+
+                        if (messages.length > 0) {
+                            return messages;
+                        } else {
+                            return [this.defaultMessage];
+                        }
                     }
 
-                    return this.message;
+                    return [this.message];
                 }
             }
         }

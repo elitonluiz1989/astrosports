@@ -13,6 +13,16 @@ import RootComponents from './components';
 
 Vue.use(Utils);
 
+/** Global filters */
+Vue.filter("Capitalize", function(value) {
+    if (!value) {
+        return '';
+    }
+
+    value = value.toString();
+    return value.charAt(0).toUpperCase() + value.slice(1);
+});
+
 /** Global components */
 Vue.component("app-icon", AppIcon);
 
@@ -20,6 +30,9 @@ const app = new Vue({
     store,
     components: RootComponents
 }).$mount("#app");
+
+
+console.log(app)
 
 HomeHistory();
 

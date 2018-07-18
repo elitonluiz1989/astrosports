@@ -17,7 +17,7 @@ Route::namespace('Users')
             });
 
         Route::prefix('users-roles')
-            ->middleware('dashboard.users:webmaster')
+            ->middleware('dashboard.users:adm')
             ->group(function () {
                 Route::get('/{id?}', 'UsersRolesController@roles')
                     ->where('id', '[0-9]+')
