@@ -1,6 +1,6 @@
-
 &-list {
   $dashboard-list-color-darken: darken($dashboard-list-color, $tabs-darken-percentage);
+  $list: &;
   padding-top: 1rem;
 
   @extend .container-fluid;
@@ -61,15 +61,8 @@
       }
     }
 
-    & > .dashboard-list__* {
+    & > #{$list}__* {
       @extend .col-sm-reset;
-    }
-  }
-
-  %dashboard-schedules-item-padding {
-    @include media-breakpoint-up(sm) {
-      padding-right: 0 !important;
-      padding-left: 0 !important;
     }
   }
 
@@ -86,7 +79,6 @@
 
   &--bordered {
     @include media-breakpoint-up(sm) {
-
       border-right: 1px solid $dashboard-list-color-darken;
     }
   }
@@ -96,7 +88,7 @@
     @extend .col-sm-1;
 
     @include media-breakpoint-up(sm) {
-      .dashboard__schedules-list-content {
+      #{$list}__content {
         border-bottom: 0;
       }
     }

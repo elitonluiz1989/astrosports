@@ -5,60 +5,87 @@ $subtitle-padding-top: $title-height - $subtitle-font-size;
   background-color: $dashboard-nav-color-dark;
   padding-top: 0;
   padding-bottom: 0;
-  height: 4rem;
-  font-size: $title-height;
+
+  @extend .d-flex;
+  @extend .flex-column;
   @extend .w-100;
   @extend .text-white;
+  @extend .o-hidden;
+
+  @include media-breakpoint-up(sm) {
+    flex-direction: row !important;
+    height: 4rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    align-items: center;
+  }
 
   &-text {
     background-color: $dashboard-nav-color;
-    width: 60%;
+    flex: 0 0 60%;
+    font-size: $title-height;
 
     @extend .d-none;
-    @extend .d-md-block;
-    @extend .float-left;
-    @extend .h-100;
-    @extend .text-center;
+    @extend .d-md-flex;
 
     @include media-breakpoint-up(lg) {
-      width: 50%;
+      flex: 0 0 50%;
     }
   }
 
   &-arrow {
     background: url("../images/dashboard-title-arrow.png") no-repeat left center;
     background-size: contain;
-    width: 70px;
+    flex: 0 0 70px;
 
     @extend .d-none;
-    @extend .d-md-block;
-    @extend .float-left;
+    @extend .d-md-flex;
     @extend .h-100;
   }
 
   &-subtitle {
-    padding-top: $subtitle-padding-top;
+    //padding-top: $subtitle-padding-top;
     font-size: $subtitle-font-size;
+    flex: 0 0 100%;
 
-    @extend .float-left;
-    @extend .w-100;
-    @extend .h-100;
     @extend .text-white;
     @extend .text-center;
 
+    @include media-breakpoint-between(sm, md) {
+      flex-basis: 50%;
+    }
+
     @include media-breakpoint-up(md) {
-      width: auto !important;
-      margin-left: 1.5rem;
+      flex-basis: auto;
+      padding-left: 1.5rem;
       color: lighten($dashboard-color, 5%) !important;
       text-align: left;
     }
 
     @include media-breakpoint-only(lg) {
-      margin-left: 3rem;
+      padding-left: 3rem;
     }
 
     @include media-breakpoint-up(xl) {
-      margin-left: 4rem;
+      padding-left: 4rem;
+    }
+  }
+
+  &-user {
+    border-top: 1px solid $auth-border-color;
+    flex: 0 0 100%;
+
+    @include media-breakpoint-up(sm) {
+      border-top: 0;
+    }
+
+    @include media-breakpoint-between(sm, md) {
+      flex-basis: 50%;
+    }
+
+    @include media-breakpoint-up(md) {
+      display: none !important;
     }
   }
 }

@@ -12,6 +12,9 @@
                     <div class="dashboard__title-text">Painel de controle</div>
                     <div class="dashboard__title-arrow"> </div>
                     <div class="dashboard__title-subtitle" v-text="currentPageText"></div>
+
+
+                    <auth-user :class="'dashboard__title-user'" @onUserLogout="onLogout"></auth-user>
                 </div>
 
                 <dashboard-pages :page="currentPage"></dashboard-pages>
@@ -26,11 +29,13 @@
     import DashboardLogout from './Users/Logout';
 
     import { pages } from './data/pages';
+    import AuthUser from "./Users/Auth";
 
     export default {
         name: "dashboard",
 
         components: {
+            AuthUser,
             DashboardNavbar,
             DashboardLogout,
             DashboardPages

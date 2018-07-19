@@ -1,5 +1,5 @@
 <template>
-    <nav class="dashboard__navbar navbar navbar-expand-md">
+    <nav class="dashboard__navbar navbar navbar-expand-md fixed-top">
         <a class="navbar-brand d-md-none" href="#">Painel de controle</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboard-navbar-collapse" aria-controls="dashboard-navbar-collapse" aria-expanded="false" aria-label="Dashboard navbar">
@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="dashboard-navbar-collapse">
             <ul class="navbar-nav mr-auto" ref="navList">
                 <li class="nav-item d-none d-md-block">
-                    <dashboard-auth-user @onUserLogout="callShowLogout"></dashboard-auth-user>
+                    <auth-user @onUserLogout="callShowLogout"></auth-user>
                 </li>
 
                 <li :class="setNavItemStyle(key, navItem)" v-for="(navItem, key) in pages" :key="key">
@@ -28,14 +28,14 @@
 
 <script>
     import {pages} from './data/pages';
-    import DashboardAuthUser from './Users/Auth';
+    import AuthUser from './Users/Auth';
     import DashboardNavItem from './DashboardNavItem';
 
     export default {
         name: "dashboard-navbar",
 
         components: {
-            DashboardAuthUser,
+            AuthUser,
             DashboardNavItem
         },
 

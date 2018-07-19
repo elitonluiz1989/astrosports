@@ -24,9 +24,15 @@
   }
 
   &__wapper-nav {
+    height: 56px; // navbar height
+
     @extend .col-12;
     @extend .col-md-1;
     @extend .col-reset;
+
+    @include media-breakpoint-up(md) {
+      height: auto;
+    }
 
     @include media-breakpoint-up(xl) {
       flex-basis: 5%;

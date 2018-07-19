@@ -70,3 +70,7 @@ $dashboard-form-color: saturate(lighten($dashboard-color, 5%), 23%);
 $dashboard-success-color: darken($dashboard-form-color, 3%);
 
 $dashboard-list-color: #0675cd;
+
+$auth-color: darken($dashboard-nav-color-dark, 3%);
+$auth-border-color: darken($auth-color, 4%);
+$auth-avatar-border-color: darken($auth-color, 7%);
