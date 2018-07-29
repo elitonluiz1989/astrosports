@@ -6,12 +6,15 @@ import {VideosModal} from "./components/Videos/VideosModal";
 
 import Vue from 'vue';
 
-import Utils from './vue-utils';
+import VueUtils from './vue-utils';
+import VueRequest from './vue-request';
 import store from './store';
 import AppIcon from './components/Base/AppIcon';
 import RootComponents from './components';
 
-Vue.use(Utils);
+Vue.use(VueUtils);
+
+Vue.use(VueRequest);
 
 /** Global filters */
 Vue.filter("Capitalize", function(value) {
@@ -28,11 +31,8 @@ Vue.component("app-icon", AppIcon);
 
 const app = new Vue({
     store,
-    components: RootComponents
+    components: RootComponents,
 }).$mount("#app");
-
-
-console.log(app)
 
 HomeHistory();
 

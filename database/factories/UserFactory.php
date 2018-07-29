@@ -36,9 +36,6 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'role' => function() {
             return factory('App\Models\UserRole')->create()->id;
         },
-        'role' => function() {
-            return factory('App\Models\UserGrant')->create()->id;
-        },
         'remember_token' => str_random(10),
     ];
 });

@@ -1,6 +1,6 @@
 import { cleanArray, isArray, isNullOrEmpty, isNullOrUndefined, isObject } from './utils';
 
-const Utils = {
+const VueUtils = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
@@ -19,6 +19,22 @@ const Utils = {
                     return value !== undefined && value !== false;
                 },
 
+                getRequestParam(param) {
+                    console.log(this.$request.params, this.$request.params.mostrar);
+                    return 'sss';
+                },
+
+                setRequestParams() {
+                    let queryString = window.location.search.replace("?", "").split("&");
+                    let params = [];
+
+                    for (let param of queryString) {
+                        let values = param.split("=");
+
+                        this.$request.params[values[0]] = values[1];
+                    }
+                },
+
                 userIsAllowed(userGrant, tipo) {
                     if (!this.isNullOrEmpty(this.$store.getters.getAuthUserGrant)) {
                         return this.$store.getters.getAuthUserGrant <= userGrant;
@@ -31,4 +47,4 @@ const Utils = {
     }
 };
 
-export default Utils;
+export default VueUtils;
