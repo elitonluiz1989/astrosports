@@ -39,6 +39,7 @@ export default {
                 },
                 label: "control-label col-3",
                 inputGroup: "input-group col-9",
+                btnTrigger: "btn btn-success w-100",
                 btnSubmit: {
                     "btn btn-success": this.formType === "insert",
                     "btn btn-danger": this.formType === "edit",
@@ -59,12 +60,6 @@ export default {
         }
     },
 
-    mounted() {
-        $("#" + this.modalId).on('hidden.bs.modal', () => {
-            this.resetFormStatus();
-        });
-    },
-
     methods: {
         disableForm(disable) {
             disable = disable === undefined;
@@ -72,13 +67,6 @@ export default {
             $("#" + this.formId).find('input, select').each(function (item) {
                 this.disabled = disable;
             });
-        },
-
-        resetFormStatus() {
-            this.formMessageShow = false;
-            this.formMessageText = "";
-
-            document.getElementById(this.formId).querySelector('input[type="reset"]').click();
         },
 
         setFieldId(field) {
