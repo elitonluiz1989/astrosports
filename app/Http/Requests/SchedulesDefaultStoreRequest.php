@@ -27,7 +27,7 @@ class SchedulesDefaultStoreRequest extends FormRequest
 
         if ($this->method() == 'POST') {
             return [
-                'name' => "string|unique:{$table}|required"
+                'name' => "string|unique:{$table},name|required"
             ];
         } else {
             return [
@@ -39,8 +39,6 @@ class SchedulesDefaultStoreRequest extends FormRequest
 
     public function messages()
     {
-        $target = (strpos($this->getRequestUri(), 'poles')) ? 'do polo' : 'da categoria';
-
         return [
             'name.unique' => "[show-user]O nome \"{$this->get('name')}\" já existe."
         ];
