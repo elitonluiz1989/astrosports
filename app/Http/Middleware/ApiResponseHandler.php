@@ -15,12 +15,12 @@ class ApiResponseHandler
      */
     public function handle($request, Closure $next)
     {
-        try {
-            $response = $next($request);
+        $response = $next($request);
 
+        if ($response->exception) {
+            return $response;
+        } else {
             return response()->json($response->original, $response->status());
-        } catch(\Exception $ex) {
-            return response()->json($ex->getMessage(), 422);
         }
     }
 }
