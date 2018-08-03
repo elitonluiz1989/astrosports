@@ -1,70 +1,73 @@
 <template>
     <div class="dashboard__schedules container-fluid">
-        <dashboard-request-status-message :code="loadSchedulesStatus.code"></dashboard-request-status-message>
+        <div class="dashboard-tabs">
+            <ul class="nav nav-tabs" id="dashboard-schedules-content-tabs" role="tablist">
+                <li class="nav-item" v-for="(item, key) in items" :key="key">
+                    <a :class="navLinkStyle(key)"
+                       :id="setTabId(key)"
+                       data-toggle="tab"
+                       :href="'#' + key"
+                       role="tab"
+                       :aria-controls="key"
+                       aria-selected="true"
+                       v-text="item"
+                       @click="changeUrl(key)"></a>
+                </li>
+            </ul>
 
-        <div class="dashboard__schedules-wrapper row row-reset justify-content-center justify-content-md-start">
-            <div class="dashboard__schedules-control-title col-12 col-reset">
-                Controle de horários
-            </div>
-
-            <div class="dashboard__schedules-control-item">
-                <schedule-insert-form></schedule-insert-form>
-            </div>
-
-            <div class="dashboard__schedules-control-item">
-                <schedules-pole-insert-form></schedules-pole-insert-form>
-            </div>
-
-            <div class="dashboard__schedules-control-item">
-                <schedules-category-insert-form></schedules-category-insert-form>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <schedules-lists :active-tab="activeTab"></schedules-lists>
+            <div class="tab-content" id="dashboard-schedules-content-tabs-content">
+                <div :class="navTabStyle(key)"
+                     :id="key"
+                     role="tabpanel"
+                     :aria-labelledby="setTabId(key)"
+                     v-for="(item, key) in items"
+                     :key="key">
+                    <keep-alive>
+                        <component :is="componentList[key]" />
+                    </keep-alive>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import DashboardRequestStatusMessage from '../DashboardRequestStatusMessage';
-    import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
-    import ScheduleInsertForm from './Schedules/Insert';
-    import SchedulesPoleInsertForm from './Poles/Insert';
-    import SchedulesCategoryInsertForm from './Categories/Insert';
-    import SchedulesLists from './Lists';
+    import TabsMixin from '@components/Base/Mixins/TabsMixin';
+    import SchedulesList from './Schedules/List';
+    import SchedulesPolesList from './Poles/List';
+    import SchedulesCategoriesList from './Categories/List';
 
     export default {
         name: "dashboard-schedules",
 
         components: {
-            DashboardRequestStatusMessage,
-            ScheduleInsertForm,
-            SchedulesPoleInsertForm,
-            SchedulesCategoryInsertForm,
-            SchedulesLists
+            SchedulesList,
+            SchedulesPolesList,
+            SchedulesCategoriesList
         },
 
         mixins: [
-            StoreRequestStatus
+            TabsMixin
         ],
 
         data() {
             return {
-                activeTab: "horarios",
                 recordKey: {
                     schedules: null,
                     poles: null,
                     categories: null
-                }
-            }
-        },
+                },
+                items: {
+                    "horarios": "Horários",
+                    "polos": "Polos",
+                    "categorias": "Categorias"
+                },
 
-        computed: {
-            loadSchedulesStatus() {
-                return this.storeRequestStatus('getLoadSchedulesStatus', 'getSchedulesMessageErrors');
+                componentList: {
+                    horarios: SchedulesList,
+                    polos: SchedulesPolesList,
+                    categorias: SchedulesCategoriesList
+                }
             }
         },
 
@@ -73,27 +76,7 @@
             this.$store.dispatch("loadSchedulesPoles");
             this.$store.dispatch("loadSchedulesCategories");
 
-            this.setActiveTab();
-        },
-
-        mounted() {
-            $(".dashboard__form-trigger").on("click", evt => {
-                let targetTab = evt.target.id.replace("-trigger", "");
-
-                if(targetTab !== "") {
-                    this.activeTab = targetTab;
-                }
-            });
-        },
-
-        methods: {
-            setActiveTab() {
-                let search = window.location.search;
-
-                if (search.indexOf('mostrar') !== -1) {
-                    this.activeTab = search.split("=")[1];
-                }
-            }
+            this.defaultTab = "horarios";
         }
     }
 </script>

@@ -41,13 +41,13 @@
 </template>
 
 <script>
-    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+    import DashboardFormInsertMixin from "@Dashboard/Mixins/DashboardFormInsertMixin";
 
     export default {
         name: "schedules-category-insert-form",
 
         mixins: [
-            DashboardFormMixin,
+            DashboardFormInsertMixin,
         ],
 
         data() {
@@ -71,6 +71,10 @@
         },
 
         methods: {
+            resetFormFields() {
+                this.name = "";
+            },
+
             submitForm() {
                 if (this.name === "") {
                     this.setFieldMessageError("name", "Preencha o nome da categoria");

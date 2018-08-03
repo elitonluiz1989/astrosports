@@ -1,4 +1,6 @@
 .dashboard {
+  $dashboard-element: &;
+
   background-color: white;
 
   @include media-breakpoint-up(md) {
@@ -7,6 +9,15 @@
 
   &--login {
     background-color: lighten($dashboard-nav-color,10%);
+  }
+
+  /* Modal open trick */
+  &.modal-open {
+    #{$dashboard-element}__navbar {
+      @include media-breakpoint-up(md) {
+        padding-right: 0.2rem !important;
+      }
+    }
   }
 
   .min-h-100 {
@@ -24,7 +35,7 @@
   }
 
   &__wapper-nav {
-    height: 56px; // navbar height
+    height: 56px;
 
     @extend .col-12;
     @extend .col-md-1;

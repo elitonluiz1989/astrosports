@@ -1,103 +1,76 @@
 <template>
-    <div class="dashboard__schedules-list">
-        <dashboard-request-status-message :code="loadSchedulesStatus.code"></dashboard-request-status-message>
+    <div class="dashboard-list">
+        <dashboard-request-status-message :code="loadSchedulesStatus.code"
+                                          :message="loadSchedulesStatus.messages" />
 
         <schedule-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedule-edit-form>
 
         <schedule-delete-form :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedule-delete-form>
 
-        <div class="dashboard__schedules-list-title d-none d-sm-flex">
-            <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item"
-                 @click.stop="sortBy('id')" title="Clique para ordernar por código">
-                <div class="dashboard__schedules-list-content">Cod.</div>
-            </div>
+        <dashboard-list-row row-type="control">
+            <schedule-insert-form />
+        </dashboard-list-row>
 
-            <div class="dashboard__schedules-list-hour dashboard__schedules-list-title-item"
-                 @click.stop="sortBy('hour')" title="Clique para ordernar por horário">
-                <div class="dashboard__schedules-list-content">Horário</div>
-            </div>
+        <dashboard-list-row row-type="header">
+            <dashboard-list-item item-id="id"
+                                 item-type="header"
+                                 :item-title="listItems.id.message"
+                                 :item-text="listItems.id.title"
+                                 @click.stop="sortBy('id')" />
 
-            <div class="dashboard__schedules-list-day dashboard__schedules-list-title-item">
-                <div class="dashboard__schedules-list-content">Dia</div>
-            </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-hour"
+                                 item-type="header"
+                                 :item-title="listItems.hour.message"
+                                 :item-text="listItems.hour.title"
+                                 @click.stop="sortBy('hour')" />
 
-            <div class="dashboard__schedules-list-pole dashboard__schedules-list-title-item"
-                 @click.stop="sortBy('pole')" title="Clique para ordernar por polo">
-                <div class="dashboard__schedules-list-content">Polo</div>
-            </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-day"
+                                 item-type="header"
+                                 item-text="Dia" />
 
-            <div class="dashboard__schedules-list-category dashboard__schedules-list-title-item"
-                 @click.stop="sortBy('category')" title="Clique para ordernar por categoria">
-                <div class="dashboard__schedules-list-content">Categoria</div>
-            </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-pole"
+                                 item-type="header"
+                                 :item-title="listItems.pole.message"
+                                 :item-text="listItems.pole.title"
+                                 @click.stop="sortBy('pole')" />
 
-            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item" v-if="schedules.length > 0">
-                <div class="dashboard__schedules-list-content"></div>
-            </div>
-        </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-category"
+                                 item-type="header"
+                                 :item-title="listItems.category.message"
+                                 :item-text="listItems.category.title"
+                                 @click.stop="sortBy('category')" />
 
-        <div class="dashboard__schedules-list-row" v-if="schedules.length === 0">
-            <div class="col-12 col-reset">
-                <div class="dashboard__schedules-list--empty">Sem registros.</div>
-            </div>
-        </div>
+            <dashboard-list-item item-id="control"
+                                 item-type="header" />
+        </dashboard-list-row>
 
-        <div class="dashboard__schedules-list-row" v-for="(schedule, key) in schedules" :key="key" v-if="loadSchedulesStatus.code === 2 && schedules.length > 0">
-            <div class="dashboard__schedules-list-id">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Cod.</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedule.id"></div>
-                </div>
+        <dashboard-list-row row-type="empty" v-if="schedules.length === 0" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="schedule.id"></div>
-            </div>
-            <div class="dashboard__schedules-list-hour">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Horário</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedule.hour"></div>
-                </div>
+        <dashboard-list-row v-for="(schedule, key) in schedules" :key="key" v-if="loadSchedulesStatus.code === 2 && schedules.length > 0">
+            <dashboard-list-item item-id="id"
+                                 :item-title="listItems.id.title"
+                                 :item-text="schedule.id" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="schedule.hour"></div>
-            </div>
-            <div class="dashboard__schedules-list-day">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Dia da semana</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="translateDay(schedule.day)"></div>
-                </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-hour"
+                                 :item-title="listItems.hour.title"
+                                 :item-text="schedule.hour" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="translateDay(schedule.day)"></div>
-            </div>
-            <div class="dashboard__schedules-list-pole">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Polo</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="schedulePole(schedule)"></div>
-                </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-day"
+                                 item-title="Dia"
+                                 :item-text="translateDay(schedule.day)" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="schedulePole(schedule)"></div>
-            </div>
-            <div class="dashboard__schedules-list-category dashboard__schedules-list--bordered">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Categoria</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="scheduleCategory(schedule)"></div>
-                </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-pole"
+                                 :item-title="listItems.pole.title"
+                                 :item-text="schedulePole(schedule)" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="scheduleCategory(schedule)"></div>
-            </div>
+            <dashboard-list-item item-class="dashboard__schedules-list-category"
+                                 :item-title="listItems.category.title"
+                                 :item-text="scheduleCategory(schedule)" />
 
-            <div class="dashboard__schedules-list-control">
-                <div class="row">
-                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showEditForm(key)">
-                        <i class="fa fa-lg fa-pencil"></i>
-                    </button>
-
-                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showDeleteMessage(schedule.id)">
-                        <i class="fa fa-lg fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+            <dashboard-list-item item-type="control"
+                                 :item-edit-key="key"
+                                 :item-delete-id="schedule.id" />
+        </dashboard-list-row>
     </div>
 </template>
 
@@ -106,11 +79,13 @@
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import ScheduleEditForm from './Edit';
     import ScheduleDeleteForm from '../Delete';
+    import ScheduleInsertForm from "./Insert";
 
     export default {
         name: "schedules-list",
 
         components: {
+            ScheduleInsertForm,
             ScheduleEditForm,
             ScheduleDeleteForm
         },
@@ -118,6 +93,29 @@
         mixins: [
             DashboardSchedulesListMixin
         ],
+
+        data() {
+            return {
+                listItems: {
+                    id: {
+                        message: "Clique para ordernar por código",
+                        title: "Cod."
+                    },
+                    hour: {
+                        message: "Clique para ordernar por horário",
+                        title: "Horário"
+                    },
+                    pole: {
+                        message: "Clique para ordernar por polo",
+                        title: "Polo"
+                    },
+                    category: {
+                        message: "Clique para ordernar por categoria",
+                        title: "Categoria"
+                    }
+                }
+            }
+        },
 
         computed: {
             schedules() {

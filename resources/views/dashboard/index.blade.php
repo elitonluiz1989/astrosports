@@ -36,7 +36,7 @@
     <body class="{{ $bodyClass }}">
         <div id="app" class="app">
             @if ($authenticaded)
-                <dashboard :current-page="'{{ $currentPage }}'"></dashboard>
+                <dashboard current-page="{{ $currentPage }}"></dashboard>
             @else
                 <dashboard-login></dashboard-login>
             @endif

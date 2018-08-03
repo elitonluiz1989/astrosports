@@ -1,6 +1,7 @@
 $title-height: 2.6rem;
 $subtitle-font-size: 2rem;
 $subtitle-padding-top: $title-height - $subtitle-font-size;
+
 &__title {
   background-color: $dashboard-nav-color-dark;
   padding-top: 0;
@@ -45,7 +46,6 @@ $subtitle-padding-top: $title-height - $subtitle-font-size;
   }
 
   &-subtitle {
-    //padding-top: $subtitle-padding-top;
     font-size: $subtitle-font-size;
     flex: 0 0 100%;
 
@@ -73,11 +73,14 @@ $subtitle-padding-top: $title-height - $subtitle-font-size;
   }
 
   &-user {
-    border-top: 1px solid $auth-border-color;
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: $auth-border-color;
     flex: 0 0 100%;
 
     @include media-breakpoint-up(sm) {
-      border-top: 0;
+      border-top-width: 0;
+      border-left-width: 1px;
     }
 
     @include media-breakpoint-between(sm, md) {

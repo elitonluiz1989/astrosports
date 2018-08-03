@@ -1,9 +1,14 @@
 import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
 import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
+import DashboardListRow from "@Dashboard/List/Row";
+import DashboardListItem from "@Dashboard/List/Item";
+
 
 export default {
     components: {
-        DashboardRequestStatusMessage
+        DashboardRequestStatusMessage,
+        DashboardListItem,
+        DashboardListRow,
     },
 
     mixins: [
@@ -17,7 +22,13 @@ export default {
             recordKey: null,
             recordId: 0,
             showEditModal: false,
-            showDeleteModal: false
+            showDeleteModal: false,
+            listItems: {
+                id: {
+                    title: "Cod.",
+                    message: "Clique para ordernar por código"
+                }
+            }
         };
     },
 
@@ -58,4 +69,4 @@ export default {
             this.sortByDesc = !this.sortByDesc;
         },
     }
-}
+};

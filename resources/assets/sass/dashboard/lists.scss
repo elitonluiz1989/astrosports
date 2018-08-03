@@ -15,13 +15,13 @@
     margin-bottom: 1rem;
 
     @extend .col-12;
-    @extend .col-sm-7;
+    @extend .col-sm-6;
     @extend .col-md-5;
     @extend .col-lg-4;
     @extend .col-xl-3;
   }
 
-  &__title {
+  &__header {
     background-color: lighten($dashboard-list-color-darken, 30%);
     border: 1px solid $dashboard-list-color-darken;
     color: darken($dashboard-list-color-darken, 25%);
@@ -29,14 +29,9 @@
     @extend .row;
 
     &-item {
-      border-right: 1px solid $dashboard-list-color-darken;
       cursor: pointer;
 
       @extend .col-reset;
-
-      &:last-child {
-        border-right: 0;
-      }
     }
   }
 
@@ -47,7 +42,6 @@
     margin-bottom: 1rem;
 
     @extend .row;
-    @extend .row-reset;
 
     @include media-breakpoint-up(sm) {
       $padding: -($grid-gutter-width / 2);
@@ -74,7 +68,6 @@
   &--default {
     @extend .col-12;
     @extend .col-sm;
-    @extend .col-reset;
   }
 
   &--bordered {

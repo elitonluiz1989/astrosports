@@ -4,7 +4,7 @@
                 data-toggle="modal" :data-target="'#' + modalId">Adicionar polo</button>
 
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+            <app-mask :show-mask="showMask" mask-style="dark" />
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-sm">
@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType" />
 
                             <div class="form-group row">
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
@@ -41,13 +41,13 @@
 </template>
 
 <script>
-    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+    import DashboardFormInsertMixin from "@Dashboard/Mixins/DashboardFormInsertMixin";
 
     export default {
         name: "schedules-pole-insert-form",
 
         mixins: [
-            DashboardFormMixin,
+            DashboardFormInsertMixin,
         ],
 
         data() {
@@ -59,18 +59,22 @@
         },
 
         computed: {
-            addSchedulesPoleStatus() {
+            addStatus() {
                 return this.storeRequestStatus("getAddSchedulesPoleStatus", "getSchedulesPolesMessageErrors");
             }
         },
 
         watch: {
-            addSchedulesPoleStatus(value) {
+            addStatus(value) {
                 this.watchSubmitStatus(value, "Polo inserido com sucesso", "Houve um erro na inserção do polo.");
             }
         },
 
         methods: {
+            resetFormFields() {
+                this.name = "";
+            },
+
             submitForm() {
                 if (this.name === "") {
                     this.setFieldMessageError("name", "Preencha o nome do polo");

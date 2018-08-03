@@ -50,7 +50,6 @@
                 } else if (this.code === 3) {
                     if (this.isArray(this.message)) {
                         let messages = this.cleanArray(this.message);
-                        console.log(messages)
 
                         if (messages.length > 0) {
                             return messages;

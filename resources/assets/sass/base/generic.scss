@@ -4,6 +4,7 @@ html, body {
 
 body {
   @extend .position-relative;
+  //overflow-x: hidden; // Modal open trick
 
   .app {
     font-size: 14px !important;

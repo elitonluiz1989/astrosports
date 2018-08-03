@@ -1,64 +1,52 @@
 <template>
-    <div class="dashboard__schedules-list">
-        <dashboard-request-status-message :code="loadSchedulesPolesStatus.code"></dashboard-request-status-message>
+    <div class="dashboard-list">
+        <dashboard-request-status-message :code="loadStatus.code"
+                                           :message="loadStatus.messages" />
 
-        <schedules-pole-edit-from :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedules-pole-edit-from>
+        <dashboard-list-row row-type="control">
+            <schedules-pole-insert-form />
 
-        <schedules-delete-form type-record="poles" :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedules-delete-form>
+            <schedules-pole-edit-from :record-key="recordKey"
+                                      :show="showEditModal"
+                                      @hideModal="hideModal" />
 
-        <div class="dashboard__schedules-list-title d-none d-sm-flex">
-            <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item" @click.stop="sortBy('id')" title="Clique para ordernar por código">
-                <div class="dashboard__schedules-list-content">Cod.</div>
-            </div>
+            <schedules-delete-form type-record="poles"
+                                   :record-id="recordId"
+                                   :show="showDeleteModal"
+                                   @hideModal="hideModal" />
+        </dashboard-list-row>
 
-            <div class="dashboard__schedules-list-pole dashboard__schedules-list-title-item" @click.stop="sortBy('pole')" title="Clique para ordernar por polo">
-                <div class="dashboard__schedules-list-content">Polo</div>
-            </div>
+        <dashboard-list-row row-type="header">
+            <dashboard-list-item item-id="id"
+                                 item-type="header"
+                                 :item-title="listItems.id.message"
+                                 :item-text="listItems.id.title"
+                                 @click.stop="sortBy('id')" />
 
-            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item" v-if="poles.length > 0">
-                <div class="dashboard__schedules-list-content"></div>
-            </div>
-        </div>
+            <dashboard-list-item item-type="header"
+                                 :item-title="listItems.pole.message"
+                                 :item-text="listItems.pole.title"
+                                 @click.stop="sortBy('pole')"  />
 
-        <div class="dashboard__schedules-list-row" v-if="poles.length === 0">
-            <div class="col-12">
-                <div class="dashboard__schedules-list-content">Sem registros.</div>
-            </div>
-        </div>
+            <dashboard-list-item item-id="control"
+                                 item-type="header"
+                                 v-if="hasPoles"/>
+        </dashboard-list-row>
 
-        <div class="dashboard__schedules-list-row" v-for="(pole, key) in poles" :key="key" v-if="loadSchedulesPolesStatus.code === 2">
-            <div class="dashboard__schedules-list-id">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Cod.</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="pole.id"></div>
-                </div>
+        <dashboard-list-row row-type="empty" v-if="!hasPoles" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="pole.id"></div>
-            </div>
+        <dashboard-list-row  v-for="(pole, key) in poles" :key="key" v-if="loadStatus.code === 2">
+            <dashboard-list-item item-id="id"
+                                 :item-title="listItems.id.title"
+                                 :item-text="pole.id" />
 
-            <div class="dashboard__schedules-list-pole dashboard__schedules-list--bordered">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Polo</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="pole.name"></div>
-                </div>
+            <dashboard-list-item :item-title="listItems.pole.title"
+                                 :item-text="pole.name" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="pole.name"></div>
-            </div>
-
-            <div class="dashboard__schedules-list-control">
-                <div class="row">
-                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showEditForm(key)">
-                        <i class="fa fa-lg fa-pencil"></i>
-                    </button>
-
-                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showDeleteMessage(pole.id)">
-                        <i class="fa fa-lg fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+            <dashboard-list-item item-type="control"
+                                 :itemEditKey="key"
+                                 :itemDeleteId="pole.id" />
+        </dashboard-list-row>
     </div>
 </template>
 
@@ -66,11 +54,13 @@
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import SchedulesPoleEditFrom from './Edit';
     import SchedulesDeleteForm from '../Delete';
+    import SchedulesPoleInsertForm from "./Insert";
 
     export default {
         name: "dashboard-schedules-poles-list",
 
         components: {
+            SchedulesPoleInsertForm,
             SchedulesPoleEditFrom,
             SchedulesDeleteForm
         },
@@ -80,11 +70,15 @@
         ],
 
         computed: {
+            hasPoles() {
+                return this.poles.length > 0;
+            },
+
             poles() {
                 return this.$store.getters.getSchedulesPoles;
             },
 
-            loadSchedulesPolesStatus() {
+            loadStatus() {
                 return this.storeRequestStatus("getLoadSchedulesPolesStatus", "getSchedulesPolesMessageErrors")
             }
         },
@@ -93,6 +87,13 @@
             poles(value) {
                 this.contentToSort = value;
             }
+        },
+
+        created() {
+            this.listItems.pole = {
+                message: "Clique para ordernar pelo polo",
+                title: "Polo"
+            };
         }
     }
 </script>

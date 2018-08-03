@@ -4,7 +4,7 @@
                 :data-target="'#' + modalId">Adicionar horário</button>
 
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+            <app-mask :show-mask="showMask" mask-style="dark" />
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-sm">
@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType" />
 
                             <div class="form-group row">
                                 <label :for="setFieldId('hour')" :class="styles.label">Horário</label>
@@ -80,14 +80,14 @@
 </template>
 
 <script>
-    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+    import DashboardFormInsertMixin from "@Dashboard/Mixins/DashboardFormInsertMixin";
     import DashboardSchedulesFormMixin from "@Dashboard/Mixins/DashboardSchedulesFormMixin";
 
     export default {
         name: "schedule-insert-form",
 
         mixins: [
-            DashboardFormMixin,
+            DashboardFormInsertMixin,
             DashboardSchedulesFormMixin,
         ],
 
@@ -99,18 +99,25 @@
         },
 
         computed: {
-            addScheduleStatus() {
+            addStatus() {
                 return this.storeRequestStatus("getAddScheduleStatus", "getSchedulesMessageErrors");
             }
         },
 
         watch: {
-            addScheduleStatus(value) {
+            addStatus(value) {
                 this.watchSubmitStatus(value, "Horário inserido com sucesso", "Houve um erro na inserção do horário.");
             }
         },
 
         methods: {
+            resetFormFields() {
+                this.hour = "";
+                this.day = "none";
+                this.pole = 0;
+                this.category = 0;
+            },
+
             submitForm() {
                 if (this.validateScheduleForm()) {
                     this.showMask = true;

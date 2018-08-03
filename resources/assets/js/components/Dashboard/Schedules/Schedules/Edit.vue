@@ -1,6 +1,6 @@
 <template>
     <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-        <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+        <app-mask :show-mask="showMask" mask-style="dark" />
 
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-sm">
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                        <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType" />
 
                         <div class="form-group row">
                             <label :for="setFieldId('hour')" :class="styles.label">Horário</label>
@@ -102,17 +102,17 @@
                 return this.$store.getters.getSchedules[this.recordKey];
             },
 
-            editScheduleStatus() {
+            editStatus() {
                 return this.storeRequestStatus("getEditScheduleStatus", "getSchedulesMessageErrors");
             },
 
-            loadSchedulesStatus() {
+            loadStatus() {
                 return this.$store.getters.getLoadSchedulesStatus;
             }
         },
 
         watch: {
-            editScheduleStatus(value) {
+            editStatus(value) {
                 this.watchSubmitStatus(value, "Horário atualizado com sucesso", "Houve um erro na atualização do horário.");
 
                 if (value.code === 3) {
@@ -120,8 +120,8 @@
                 }
             },
 
-            loadSchedulesStatus(value) {
-                this.watchRecordLoad(value, this.editScheduleStatus.code, "o horário");
+            loadStatus(value) {
+                this.watchRecordLoad(value, this.editStatus.code, "o horário");
             },
 
             recordKey(value) {

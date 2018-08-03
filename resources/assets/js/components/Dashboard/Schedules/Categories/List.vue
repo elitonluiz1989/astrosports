@@ -1,65 +1,54 @@
 <template>
-    <div class="dashboard__schedules-list">
-        <dashboard-request-status-message :code="loadSchedulesCategoriesStatus.code"></dashboard-request-status-message>
+    <div class="dashboard-list">
+        <dashboard-request-status-message :code="loadStatus.code"
+                                          :message="loadStatus.messages" />
 
-        <schedules-category-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedules-category-edit-form>
+        <dashboard-list-row row-type="control">
+            <schedules-category-insert-form />
 
-        <schedules-delete-form type-record="categories" :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedules-delete-form>
+            <schedules-category-edit-form :record-key="recordKey"
+                                          :show="showEditModal"
+                                          @hideModal="hideModal" />
 
-        <div class="dashboard__schedules-list-title d-none d-sm-flex">
-            <div class="dashboard__schedules-list-id dashboard__schedules-list-title-item" @click.stop="sortBy('id')" title="Clique para ordernar por código">
-                <div class="dashboard__schedules-list-content">Cod.</div>
-            </div>
+            <schedules-delete-form type-record="categories"
+                                   :record-id="recordId"
+                                   :show="showDeleteModal"
+                                   @hideModal="hideModal" />
+        </dashboard-list-row>
 
-            <div class="dashboard__schedules-list-pole dashboard__schedules-list-title-item" @click.stop="sortBy('category')" title="Clique para ordernar por categoria">
-                <div class="dashboard__schedules-list-content">Categoria</div>
-            </div>
+        <dashboard-list-row row-type="header">
+            <dashboard-list-item item-id="id"
+                                 item-type="header"
+                                 :item-title="listItems.id.message"
+                                 :item-text="listItems.id.title"
+                                 @click.stop="sortBy('id')" />
 
+            <dashboard-list-item item-type="header"
+                                 :item-title="listItems.category.message"
+                                 :item-text="listItems.category.title"
+                                 @click.stop="sortBy('category')"  />
 
-            <div class="dashboard__schedules-list-control dashboard__schedules-list-title-item" v-if="categories.length > 0">
-                <div class="dashboard__schedules-list-content"></div>
-            </div>
-        </div>
+            <dashboard-list-item item-id="control"
+                                 item-type="header"
+                                 v-if="hasCategories"/>
+        </dashboard-list-row>
 
-        <div class="dashboard__schedules-list-row" v-if="categories.length === 0">
-            <div class="col-12">
-                <div class="dashboard__schedules-list-content">Sem registros.</div>
-            </div>
-        </div>
+        <dashboard-list-row row-type="empty" v-if="!hasCategories" />
 
-        <div class="dashboard__schedules-list-row" v-for="(category, key) in categories" :key="key" v-if="loadSchedulesCategoriesStatus.code === 2">
-            <div class="dashboard__schedules-list-id">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Cod.</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="category.id"></div>
-                </div>
+        <dashboard-list-row  v-for="(category, key) in categories" :key="key" v-if="loadStatus.code === 2">
+            <dashboard-list-item item-id="id"
+                                 :item-title="listItems.id.title"
+                                 :item-text="category.id"
+                                 @click.stop="sortBy('id')" />
 
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="category.id"></div>
-            </div>
+            <dashboard-list-item :item-title="listItems.category.title"
+                                 :item-text="category.name"
+                                 @click.stop="sortBy('category')" />
 
-            <div class="dashboard__schedules-list-category dashboard__schedules-list--bordered">
-                <div class="row d-sm-none">
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--title col-6 col-reset">Categoria</div>
-                    <div class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset" v-text="category.name"></div>
-                </div>
-
-                <div class="dashboard__schedules-list-content d-none d-sm-block" v-text="category.name"></div>
-            </div>
-
-            <div class="dashboard__schedules-list-control">
-                <div class="row">
-                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showEditForm(key)">
-                        <i class="fa fa-lg fa-pencil"></i>
-                    </button>
-
-                    <button class="dashboard__schedules-list-content dashboard__schedules-list-content--text col-6 col-reset"
-                            @click.stop="showDeleteMessage(category.id)">
-                        <i class="fa fa-lg fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+            <dashboard-list-item item-type="control"
+                                 :itemEditKey="key"
+                                 :itemDeleteId="category.id" />
+        </dashboard-list-row>
     </div>
 </template>
 
@@ -67,11 +56,13 @@
     import DashboardSchedulesListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import SchedulesCategoryEditForm from './Edit';
     import SchedulesDeleteForm from '../Delete';
+    import SchedulesCategoryInsertForm from "./Insert";
 
     export default {
         name: "schedules-categories-list",
 
         components: {
+            SchedulesCategoryInsertForm,
             SchedulesCategoryEditForm,
             SchedulesDeleteForm
         },
@@ -85,7 +76,11 @@
                 return this.$store.getters.getSchedulesCategories;
             },
 
-            loadSchedulesCategoriesStatus() {
+            hasCategories() {
+                return this.categories.length > 0;
+            },
+
+            loadStatus() {
                 return this.storeRequestStatus("getLoadSchedulesCategoriesStatus", "getSchedulesCategoriesMessageErrors")
             }
         },
@@ -94,6 +89,13 @@
             categories(value) {
                 this.contentToSort = value;
             }
+        },
+
+        created() {
+            this.listItems.category = {
+                message: "Clique para ordernar pela categoria",
+                title: "Categoria"
+            };
         }
     }
 </script>

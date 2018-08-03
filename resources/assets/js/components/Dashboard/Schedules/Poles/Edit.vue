@@ -1,6 +1,6 @@
 <template>
     <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-        <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+        <app-mask :show-mask="showMask" mask-style="dark" />
 
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-sm">
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                        <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType" />
 
                         <div class="form-group row">
                             <label :for="setFieldId('name')" :class="styles.label">Nome</label>
@@ -62,17 +62,17 @@
                 return this.$store.getters.getSchedulesPoles[this.recordKey];
             },
 
-            editSchedulesPoleStatus() {
+            editStatus() {
                 return this.storeRequestStatus("getEditSchedulesPoleStatus", "getSchedulesPolesMessageErrors");
             },
 
-            loadSchedulesPolesStatus() {
+            loadStatus() {
                 return this.$store.getters.getLoadSchedulesPolesStatus;
             }
         },
 
         watch: {
-            editSchedulesPoleStatus(value) {
+            editStatus(value) {
                 this.watchSubmitStatus(value, "Polo alterado com sucesso", "Houve um erro na alteração do polo.");
 
                 if (value.code === 3) {
@@ -80,8 +80,8 @@
                 }
             },
 
-            loadSchedulesPolesStatus(value) {
-                this.watchRecordLoad(value, this.editSchedulesPoleStatus.code, "o polo");
+            loadStatus(value) {
+                this.watchRecordLoad(value, this.editStatus.code, "o polo");
             },
 
             recordKey(value) {

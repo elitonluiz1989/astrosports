@@ -1,13 +1,13 @@
-&__form {
-  .btn-success,
-  &-trigger {
-    background-color: $dashboard-success-color;
+.btn-success,
+&-trigger {
+  background-color: $dashboard-success-color;
 
-    &:hover {
-      background-color: lighten($dashboard-success-color, 5%);
-    }
+  &:hover {
+    background-color: lighten($dashboard-success-color, 5%);
   }
+}
 
+&__form {
   &-trigger {
     @mixin btnSettings($width, $ml) {
       width: $width;

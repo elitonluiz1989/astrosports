@@ -50,7 +50,7 @@
             styles() {
                 return {
                     "row": this.isControlRow,
-                    "dashboard-list__row": this.isDefaultRow,
+                    "dashboard-list__row": this.isDefaultRow || this.isEmptyRow,
                     "dashboard-list__header d-none d-sm-flex": this.isHeaderRow
                 };
             }

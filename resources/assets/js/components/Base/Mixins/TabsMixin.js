@@ -2,15 +2,15 @@ export default {
     data() {
         return {
             tabIdPrefix: "",
-            tabActive: ""
-        }
+            defaultTab: ""
+        };
     },
 
-    props: {
-        activeTab: {
-            type: String
+    computed: {
+        activeTab() {
+            return this.getRequestParam("mostrar") || this.defaultTab;
         }
-    },    
+    },
 
     methods: {
         changeUrl(key) {
