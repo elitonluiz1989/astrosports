@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" id="horarios-trigger" class="dashboard__form-trigger btn btn-success" data-toggle="modal"
+        <button type="button" id="horarios-trigger" :class="styles.btnTrigger" data-toggle="modal"
                 :data-target="'#' + modalId">Adicionar horário</button>
 
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">

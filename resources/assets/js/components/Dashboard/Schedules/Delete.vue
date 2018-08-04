@@ -26,20 +26,13 @@
 </template>
 
 <script>
-    import ModalMixin from '@components/Base/Mixins/ModalMixin';
-    import AppMask from '@components/Base/AppMask';
-    import StoreRequestStatus from '@components/Base/Mixins/StoreRequestStatus';
+    import DashboardDeleteMessageMixin from "@Dashboard/Mixins/DashboardDeleteMessageMixin";
 
     export default {
         name: "schedules-delete-form",
 
-        components: {
-          AppMask
-        },
-
         mixins: [
-            ModalMixin,
-            StoreRequestStatus
+            DashboardDeleteMessageMixin
         ],
 
         props: {
@@ -56,54 +49,42 @@
 
         data() {
             return {
-                //modalId: "dashboard-schedules-delete-modal",
                 showMask: false,
                 showRequestResult: false,
                 showRequestMessage: false,
                 requestMessage: "",
                 modalText: {
-                    categories: "Deseja remover a categoria?",
-                    poles: "Deseja remover o polo?",
-                    schedules: "Deseja remover a horário?"
+                    schedules: "Deseja remover a horário?",
+                    "schedules-categories": "Deseja remover a categoria?",
+                    "schedules-poles": "Deseja remover o polo?"
                 },
                 messages: {
-                    categories: {
-                        2: "Categoria removida com sucesso.",
-                        3: "Não foi possível remover a categoria."
-                    },
-                    poles: {
-                        2: "Pole removido com sucesso.",
-                        3: "Não foi possível remover o pole."
-                    },
                     schedules: {
                         2: "Horário removido com sucesso.",
                         3: "Não foi possível remover o horário."
+                    },
+                    "schedules-categories": {
+                        2: "Categoria removida com sucesso.",
+                        3: "Não foi possível remover a categoria."
+                    },
+                    "schedules-poles": {
+                        2: "Pole removido com sucesso.",
+                        3: "Não foi possível remover o pole."
                     }
                 }
             }
         },
 
         computed: {
-            modalMessage() {
-                return this.modalText[this.typeRecord];
-            },
-
             requestStatus() {
                 if (this.typeRecord === "schedules") {
                     return this.storeRequestStatus("getDeleteScheduleStatus", "getSchedulesMessageErrors")
-                } else if (this.typeRecord === "poles") {
+                } else if (this.typeRecord === "schedules-poles") {
                     return this.storeRequestStatus("getDeleteSchedulesPoleStatus", "getSchedulesPolesMessageErrors")
-                } else if (this.typeRecord === "categories") {
+                } else if (this.typeRecord === "schedules-categories") {
                     return this.storeRequestStatus("getDeleteSchedulesCategoryStatus", "getSchedulesCategoriesMessageErrors")
                 }
             }
-        },
-
-
-        created() {
-            this.modalId = (this.typeRecord === "schedules") ?
-                "dashboard-schedule-delete-modal" :
-                "dashboard-schedules-" + this.typeRecord + "-delete-modal";
         },
 
         watch: {
@@ -117,22 +98,14 @@
         },
 
         methods: {
-            hideModal() {
-                if (!this.showMask) {
-                    this.showRequestResult = false;
-
-                    this.$emit('hideModal');
-                }
-            },
-
             deleteRecord() {
                 this.showMask = true;
 
                 if (this.typeRecord === "schedules") {
                     this.$store.dispatch("deleteSchedule", this.recordId);
-                } else if (this.typeRecord === "poles") {
+                } else if (this.typeRecord === "schedules-poles") {
                     this.$store.dispatch("deleteSchedulesPole", this.recordId);
-                } else if (this.typeRecord === "categories") {
+                } else if (this.typeRecord === "schedules-categories") {
                     this.$store.dispatch("deleteSchedulesCategory", this.recordId);
                 }
             }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" id="categorias-trigger" class="dashboard__form-trigger btn btn-success"
+        <button type="button" id="categorias-trigger" :class="styles.btnTrigger"
                 data-toggle="modal" :data-target="'#' + modalId">Adicionar categoria</button>
 
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">

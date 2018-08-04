@@ -16,9 +16,9 @@ export default {
     watch: {
         show(value) {
             if (value) {
-                $('#' + this.modalId).modal('show')
+                $('#' + this.modalId).modal('show');
             } else {
-                $('#' + this.modalId).modal('hide')
+                $('#' + this.modalId).modal('hide');
             }
         }
     },

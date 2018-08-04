@@ -1,8 +1,6 @@
 import { CONFIG } from "@js/config";
 import {isArray, isObject} from "./utils";
 
-let showOnLog;
-
 function manageMessage(messages) {
     let errorMessages = [];
     for (let key in messages) {

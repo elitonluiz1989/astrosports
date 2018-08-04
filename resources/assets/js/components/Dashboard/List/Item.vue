@@ -1,15 +1,15 @@
 <template>
     <div :class="itemStyle">
         <!-- Shows when list item type is header list -->
-        <div class="dashboard-list__content" :title="itemTitle" v-text="itemText" v-if="isHeader"></div>
+        <div class="dashboard-list__content" :title="itemTitle" v-text="itemTextFormatted" v-if="isHeader"></div>
 
         <!-- Shows when list item type is list content -->
         <div class="row d-sm-none" v-if="isDefault">
             <div class="dashboard-list__content dashboard-list__content--title col-6 col-reset" v-text="itemTitle"></div>
-            <div class="dashboard-list__content dashboard-list__content--text col-6 col-reset" v-text="itemText"></div>
+            <div class="dashboard-list__content dashboard-list__content--text col-6 col-reset" v-text="itemTextFormatted"></div>
         </div>
 
-        <div class="dashboard-list__content d-none d-sm-block" v-text="itemText" v-if="isDefault"></div>
+        <div class="dashboard-list__content d-none d-sm-block" v-text="itemTextFormatted" v-if="isDefault"></div>
 
         <!-- Shows when list item type is control buttons -->
         <div class="row" v-if="isController">
@@ -117,6 +117,10 @@
                 }
 
                 return style;
+            },
+
+            itemTextFormatted() {
+                return this.$options.filters.Capitalize(this.itemText);
             }
         },
 

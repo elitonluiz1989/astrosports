@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" id="polos-trigger" class="dashboard__form-trigger btn btn-success"
+        <button type="button" id="polos-trigger" :class="styles.btnTrigger"
                 data-toggle="modal" :data-target="'#' + modalId">Adicionar polo</button>
 
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">

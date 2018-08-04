@@ -10,7 +10,7 @@
                                       :show="showEditModal"
                                       @hideModal="hideModal" />
 
-            <schedules-delete-form type-record="poles"
+            <schedules-delete-form type-record="schedules-poles"
                                    :record-id="recordId"
                                    :show="showDeleteModal"
                                    @hideModal="hideModal" />

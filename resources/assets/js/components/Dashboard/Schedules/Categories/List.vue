@@ -10,7 +10,7 @@
                                           :show="showEditModal"
                                           @hideModal="hideModal" />
 
-            <schedules-delete-form type-record="categories"
+            <schedules-delete-form type-record="schedules-categories"
                                    :record-id="recordId"
                                    :show="showDeleteModal"
                                    @hideModal="hideModal" />

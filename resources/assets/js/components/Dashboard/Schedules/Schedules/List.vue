@@ -3,12 +3,16 @@
         <dashboard-request-status-message :code="loadSchedulesStatus.code"
                                           :message="loadSchedulesStatus.messages" />
 
-        <schedule-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></schedule-edit-form>
-
-        <schedule-delete-form :record-id="recordId" :show="showDeleteModal" @hideModal="hideModal"></schedule-delete-form>
-
         <dashboard-list-row row-type="control">
             <schedule-insert-form />
+
+            <schedule-edit-form :record-key="recordKey"
+                                :show="showEditModal"
+                                @hideModal="hideModal" />
+
+            <schedule-delete-form :record-id="recordId"
+                                  :show="showDeleteModal"
+                                  @hideModal="hideModal" />
         </dashboard-list-row>
 
         <dashboard-list-row row-type="header">
