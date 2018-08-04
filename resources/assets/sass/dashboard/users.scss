@@ -10,6 +10,14 @@
     @extend .col-xl-2;
   }
 
+  &-grants-trigger {
+    font-size: 0.9em;
+
+    @include media-breakpoint-between(sm, md) {
+      font-size: 0.7em;
+    }
+  }
+
   &-insert {
     @extend .dashboard__form;
 
@@ -37,6 +45,8 @@
 
 %dashboard-user-avatar {
   margin: 0 auto 0.4rem;
+
+  @extend .text-center;
 
   .img {
     border-width: 1px;

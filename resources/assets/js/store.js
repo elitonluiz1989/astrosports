@@ -2,8 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { auth } from './modules/auth';
-import { users } from './modules/users';
-import { usersRoles } from './modules/users/userRoles';
+import { userGrants } from './modules/users/userGrants';
 
 import { schedules } from './modules/schedules';
 import { schedulesPoles } from './modules/schedulesPoles';
@@ -14,8 +13,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         auth: auth,
-        user: users,
-        usersRoles: usersRoles,
+        userGrants: userGrants,
         schedules: schedules,
         schedulesPoles: schedulesPoles,
         schedulesCategories: schedulesCategories

@@ -27,4 +27,16 @@ Route::namespace('Users')
                 Route::any('/delete/', 'UsersRolesController@delete')
                     ->name('dashboard.users.roles.delete');
             });
+
+        Route::prefix('user-grants')
+            ->middleware('dashboard.users:webmaster')
+            ->group(function () {
+                Route::get('/{id?}', 'UserGrantsController@grants')
+                    ->where('id', '[0-9]+')
+                    ->name('dashboard.user.grants');
+                Route::match(['post', 'put'], '/', 'UserGrantsController@store')
+                    ->name('dashboard.user.grants.store');
+                Route::any('/delete/', 'UserGrantsController@delete')
+                    ->name('dashboard.user.grants.delete');
+            });
         });

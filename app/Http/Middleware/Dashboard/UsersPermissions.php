@@ -9,8 +9,6 @@ class UsersPermissions
 {
     use UserPermissionHandler;
 
-    private $responseMessages = "[show-user]Usuário sem permissão.";
-
     /**
      * Handle an incoming request.
      *
@@ -21,12 +19,13 @@ class UsersPermissions
      */
     public function handle($request, Closure $next, $grant)
     {
+        $accessDeniedMessage = config("dashboard.users.accessDeniedMessage");
         if ($grant == "webmaster" && !$this->isWebmaster()) {
-            return response()->json($this->responseMessages, 422);
+            abort(403, $accessDeniedMessage);
         }
 
         if ($grant == "adm" && !$this->isWebmaster() && !$this->isAdministrator()) {
-            return response($this->responseMessages, 422);
+            abort(403, $accessDeniedMessage);
         }
 
         return $next($request);

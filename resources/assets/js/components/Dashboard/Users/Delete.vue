@@ -31,23 +31,27 @@
     export default {
         name: "user-delete-modal",
 
+        mixins: [
+            DashboardDeleteMessageMixin
+        ],
+
         data() {
             return {
                 modalText: {
-                    users: "Deseja remover o usuário?",
-                    "users-roles": "Deseja remover o tipo função de usuário?",
-                    "users-grants": "Deseja remover o tipo privilégio de usuário?"
+                    user: "Deseja remover o usuário?",
+                    "user-role": "Deseja remover o tipo função de usuário?",
+                    "user-grant": "Deseja remover o tipo privilégio de usuário?"
                 },
                 messages: {
-                    users: {
+                    user: {
                         2: "Usuário removido com sucesso.",
                         3: "Não foi possível remover o usuário."
                     },
-                    "users-roles": {
+                    "user-role": {
                         2: "Tipo função de usuário removida com sucesso.",
                         3: "Não foi possível remover o tipo função de usuário."
                     },
-                    "users-grants": {
+                    "user-grant": {
                         2: "Tipo privilégio de usuário removido com sucesso.",
                         3: "Não foi possível remover o tipo privilégio de usuário."
                     }
@@ -56,18 +60,12 @@
         },
 
         computed: {
-            modalMessage() {
-                return this.modalText[this.typeRecord];
-            },
-
             requestStatus() {
-                /*if (this.typeRecord === "schedules") {
-                    return this.storeRequestStatus("getDeleteScheduleStatus", "getSchedulesMessageErrors")
-                } else if (this.typeRecord === "poles") {
-                    return this.storeRequestStatus("getDeleteSchedulesPoleStatus", "getSchedulesPolesMessageErrors")
-                } else if (this.typeRecord === "categories") {
-                    return this.storeRequestStatus("getDeleteSchedulesCategoryStatus", "getSchedulesCategoriesMessageErrors")
-                }*/
+                if (this.typeRecord === "user") {
+                } else if (this.typeRecord === "user-role") {
+                } else if (this.typeRecord === "user-grant") {
+                    return this.storeRequestStatus("getDeleteUserGrantStatus", "getUserGrantMessageErrors")
+                }
             }
         },
 
@@ -75,13 +73,11 @@
             deleteRecord() {
                 this.showMask = true;
 
-                /*if (this.typeRecord === "schedules") {
-                    this.$store.dispatch("deleteSchedule", this.recordId);
-                } else if (this.typeRecord === "poles") {
-                    this.$store.dispatch("deleteSchedulesPole", this.recordId);
-                } else if (this.typeRecord === "categories") {
-                    this.$store.dispatch("deleteSchedulesCategory", this.recordId);
-                }*/
+                if (this.typeRecord === "user") {
+                } else if (this.typeRecord === "user-role") {
+                } else if (this.typeRecord === "user-grant") {
+                    this.$store.dispatch("deleteUserGrant", this.recordId);
+                }
             }
         }
     }

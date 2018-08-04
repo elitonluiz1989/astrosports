@@ -16,9 +16,14 @@
             </ul>
 
             <div class="tab-content" id="dashboard-users-tabs-content">
-                <div :class="navTabStyle(key)" :id="key" role="tabpanel" :aria-labelledby="setTabId(key)" v-for="(item, key) in items" :key="key">
+                <div :class="navTabStyle(key)"
+                     :id="key"
+                     role="tabpanel"
+                     :aria-labelledby="setTabId(key)"
+                     v-for="(item, key) in items"
+                     :key="key">
                     <keep-alive>
-                        <component :is="componentList[key]"></component>
+                        <component :is="componentList[key]" />
                     </keep-alive>
                 </div>
             </div>
@@ -28,41 +33,35 @@
 
 <script>
     import TabsMixin from '@components/Base/Mixins/TabsMixin';
-    import RolesList from './Roles/List';
+    import GrantsList from './Grants/List';
 
     export default {
         name: "dashboard-users",
 
         components: {
-            RolesList
+            GrantsList
         },
 
         mixins: [
             TabsMixin
         ],
 
-        props: {
-            activeTab: {
-                type: String,
-                default: "cargos"
-            }
-        },
-
         data() {
             return {
                 items: {
-                    cargos: "Cargos"
+                    permissoes: "Permissões"
                 },
 
                 componentList: {
-                    cargos: RolesList
+                    permissoes: GrantsList
                 }
             };
         },
 
         created() {
-            this.$store.dispatch('loadUsers');
-            this.$store.dispatch('loadUsersRoles');
+            this.$store.dispatch('loadUserGrants');
+
+            this.defaultTab = "permissoes";
         }
     }
 </script>

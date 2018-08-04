@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\OnShowLogin;
 use App\Models\User;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class MakeAdmUser
 {
@@ -40,7 +38,16 @@ class MakeAdmUser
                     'password' => bcrypt(env("{$user}_PASSWORD")),
                     'role' => function () use ($user) {
                         return factory('App\Models\UserRole')->create([
-                            'name' => str_replace('adm', 'administrador', strtolower($user))
+                            'name' => str_replace('adm', 'administrador', strtolower($user)),
+                            'grant' => function() use ($user) {
+                                if (null != env("{$user}_GRANT")) {
+                                    return factory('App\Models\UserGrant')->create([
+                                        'name' => env("{$user}_GRANT")
+                                    ])->id;
+                                } else {
+                                    return null;
+                                }
+                            }
                         ])->id;
                     },
                 ]);
