@@ -24,7 +24,8 @@ class SchedulesPolesController extends Controller
     public function store(SchedulesDefaultStoreRequest $request)
     {
         $data = $request->validated();
-        return $this->poles->store($data);
+        // This string cast is necessary because RESPONSE doesn't allow BOOLEAN values with return
+        return (string)$this->poles->store($data);
     }
 
     public function delete(Request $request)

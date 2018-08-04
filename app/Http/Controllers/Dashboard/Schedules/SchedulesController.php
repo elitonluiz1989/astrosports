@@ -28,7 +28,8 @@ class SchedulesController extends Controller
     public function store(SchedulesStoreRequest $request)
     {
         $data = $request->validated();
-        return $this->schedules->storeSchedule($data);
+        // This string cast is necessary because RESPONSE doesn't allow BOOLEAN values with return
+        return (string) $this->schedules->storeSchedule($data);
     }
 
     public function delete(Request $request)
