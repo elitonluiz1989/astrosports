@@ -1,83 +1,66 @@
 <template>
     <div class="dashboard-list">
-        <dashboard-request-status-message :code="loadUsersRolesStatus.code"
-                                          :message="loadUsersRolesStatus.messages"></dashboard-request-status-message>
+        <dashboard-request-status-message :code="loadUserRolesStatus.code"
+                                          :message="loadUserRolesStatus.messages" />
 
-        <users-role-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></users-role-edit-form>
+        <dashboard-list-row row-type="control">
+            <user-role-insert-form />
 
-        <div class="row">
-            <div class="dashboard-list__controller">
-                <users-role-insert-form></users-role-insert-form>
-            </div>
-        </div>
+            <user-role-edit-form :record-key="recordKey"
+                                  :show="showEditModal"
+                                  @hideModal="hideModal" />
 
-        <div class="dashboard-list__title d-none d-sm-flex">
-            <div class="dashboard-list__id dashboard-list__title-item" @click.stop="sortBy('id')" :title="listItems.id.message">
-                <div class="dashboard-list__content" v-text="listItems.id.title"></div>
-            </div>
+            <user-delete-modal type-record="user-role"
+                               :record-id="recordId"
+                               :show="showDeleteModal"
+                               @hideModal="hideModal" />
+        </dashboard-list-row>
 
-            <div class="dashboard-list--default dashboard-list__title-item" @click.stop="sortBy('role')" :title="listItems.role.message">
-                <div class="dashboard-list__content" v-text="listItems.role.title"></div>
-            </div>
+        <dashboard-list-row row-type="header">
+            <dashboard-list-item item-id="id"
+                                 item-type="header"
+                                 :item-title="listItems.id.message"
+                                 :item-text="listItems.id.title" />
 
-            <div class="dashboard-list__control dashboard-list__title-item" v-if="roles.length > 0">
-                <div class="dashboard-list__content"></div>
-            </div>
-        </div>
+            <dashboard-list-item item-type="header"
+                                 :item-title="listItems.role.message"
+                                 :item-text="listItems.role.title" />
 
-        <div class="dashboard-list__row" v-if="roles.length === 0">
-            <div class="dashboard-list--default">
-                <div class="dashboard-list--empty">Sem registros.</div>
-            </div>
-        </div>
+            <dashboard-list-item item-id="control"
+                                 item-type="header" />
+        </dashboard-list-row>
 
-        <div class="dashboard-list__row" v-for="(role, key) in roles" :key="key" v-if="loadUsersRolesStatus.code === 2">
-            <div class="dashboard-list__id">
-                <div class="row d-sm-none">
-                    <div class="dashboard-list__content dashboard-list__content--title col-6 col-reset" v-text="listItems.id.title"></div>
-                    <div class="dashboard-list__content dashboard-list__content--text col-6 col-reset" v-text="role.id"></div>
-                </div>
+        <dashboard-list-row row-type="empty" v-if="roles.length === 0" />
 
-                <div class="dashboard-list__content d-none d-sm-block" v-text="role.id"></div>
-            </div>
+        <dashboard-list-row  v-for="(role, key) in roles" :key="key" v-if="loadUserRolesStatus.code === 2">
+            <dashboard-list-item item-id="id"
+                                 :item-title="listItems.id.title"
+                                 :item-text="role.id" />
 
-            <div class="dashboard-list--default dashboard__list--bordered">
-                <div class="row d-sm-none">
-                    <div class="dashboard-list__content dashboard-list__content--title col-6 col-reset" v-text="listItems.role.title"></div>
-                    <div class="dashboard-list__content dashboard-list__content--text col-6 col-reset" v-text="role.name"></div>
-                </div>
+            <dashboard-list-item :item-title="listItems.role.title"
+                                 :item-text="role.name"
+                                 bordered />
 
-                <div class="dashboard-list__content d-none d-sm-block" v-text="role.name"></div>
-            </div>
-
-            <div class="dashboard-list__control">
-                <div class="row">
-                    <button class="dashboard-list__content dashboard-list__content--text col-6 col-reset"
-                            @click.stop="showEditForm(key)">
-                        <app-icon icon="pencil" size="lg"></app-icon>
-                    </button>
-
-                    <button class="dashboard-list__content dashboard-list__content--text col-6 col-reset"
-                            @click.stop="showDeleteMessage(role.id)">
-                        <app-icon icon="trash" size="lg"></app-icon>
-                    </button>
-                </div>
-            </div>
-        </div>
+            <dashboard-list-item item-type="control"
+                                 :itemEditKey="key"
+                                 :itemDeleteId="role.id" />
+        </dashboard-list-row>
     </div>
 </template>
 
 <script>
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
-    import UsersRoleInsertForm from './Insert';
-    import UsersRoleEditForm from './Edit';
+    import UserRoleInsertForm from './Insert';
+    import UserRoleEditForm from "./Edit";
+    import UserDeleteModal from "../Delete";
 
     export default {
-        name: "users-roles-list",
+        name: "user-roles-list",
 
         components: {
-            UsersRoleInsertForm,
-            UsersRoleEditForm
+            UserDeleteModal,
+            UserRoleEditForm,
+            UserRoleInsertForm
         },
 
         mixins: [
@@ -93,7 +76,7 @@
                     },
                     role: {
                         title: "Cargo",
-                        message: "Clique para ordernar por código"
+                        message: "Clique para ordernar pelo cargo"
                     }
                 }
             };
@@ -101,11 +84,11 @@
 
         computed: {
             roles() {
-                return this.$store.getters.getUsersRoles;
+                return this.$store.getters.getUserRoles;
             },
 
-            loadUsersRolesStatus() {
-                return this.storeRequestStatus("getLoadUsersRolesStatus", "getUsersRolesMessageErrors")
+            loadUserRolesStatus() {
+                return this.storeRequestStatus("getLoadUserRolesStatus", "getUserRoleMessageErrors")
             }
         },
 

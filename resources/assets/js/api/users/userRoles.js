@@ -1,7 +1,7 @@
 import {CONFIG} from '@js/config';
 
 export default {
-    url: CONFIG.API_URL + '/users-roles',
+    url: CONFIG.API_URL + '/user-roles',
 
     get(id) {
 

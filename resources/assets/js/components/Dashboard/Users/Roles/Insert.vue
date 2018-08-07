@@ -1,10 +1,10 @@
 <template>
     <div>
-        <button type="button" id="polos-trigger" class="dashboard__form-trigger btn btn-success"
+        <button type="button" :class="styles.btnTrigger"
                 data-toggle="modal" :data-target="'#' + modalId" v-text="formTitle"></button>
 
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+            <app-mask :show-mask="showMask" mask-style="dark" />
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-sm">
@@ -13,12 +13,12 @@
                             <h5 class="modal-title" v-text="formTitle"></h5>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-times"></i>
+                                <app-icon icon="times" />
                             </button>
                         </div>
 
                         <div class="modal-body">
-                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType" />
 
                             <div class="form-group row">
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
@@ -31,6 +31,7 @@
 
                         <div class="modal-footer">
                             <input type="reset" class="btn btn-light" :value="formResetValue">
+
                             <input  type="submit" :class="styles.btnSubmit" value="Salvar">
                         </div>
                     </form>
@@ -44,7 +45,7 @@
     import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
 
     export default {
-        name: "users-role-insert-form",
+        name: "user-role-insert-form",
 
         mixins: [
             DashboardFormMixin,
@@ -52,32 +53,33 @@
 
         data() {
             return {
-                formId: "users-role-insert-form",
+                formId: "user-role-insert-form",
                 formTitle: "Adicionar cargo",
-                modalId: "users-role-insert-modal",
-                name: ""
+                modalId: "user-role-insert-modal",
+                name: "",
+                role: 0
             }
         },
 
         computed: {
-            addUsersRoleStatus() {
-                return this.storeRequestStatus("getAddUsersRoleStatus", "getUsersRolesMessageErrors");
+            addStatus() {
+                return this.storeRequestStatus("getAddUserRoleStatus", "getUserRoleMessageErrors");
             }
         },
 
         watch: {
-            addUsersRoleStatus(value) {
-                this.watchSubmitStatus(value, "Cargo inserido com sucesso", "Houve um erro na inserção do cargo.");
+            addStatus(value) {
+                this.watchSubmitStatus(value, "Cargo de usuário inserido com sucesso", "Houve um erro na inserção do cargo de usuário.");
             }
         },
 
         methods: {
             submitForm() {
                 if (this.name === "") {
-                    this.setFieldMessageError("name", "Preencha o nome do cargo");
+                    this.setFieldMessageError("name", "Preencha o nome do cargo de usuário");
                 } else {
                     this.showMask = true;
-                    this.$store.dispatch("addUsersRole", {name: this.name});
+                    this.$store.dispatch("addUserRole", {name: this.name});
                 }
             }
         }

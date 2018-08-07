@@ -36,7 +36,7 @@ const VueUtils = {
                 },
 
                 userIsAllowed(userGrant, tipo) {
-                    if (!this.isNullOrEmpty(this.$store.getters.getAuthUserGrant)) {
+                    if (!this.isNullOrEmpty(this.$store.getters.getAuthUserGrant) && this.$store.getters.getAuthUserGrant > 0) {
                         return this.$store.getters.getAuthUserGrant <= userGrant;
                     } else {
                         return  true;

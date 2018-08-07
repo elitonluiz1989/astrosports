@@ -4,9 +4,8 @@ namespace App\Repositories;
 
 use App\Handlers\Dashboard\UserPermissionHandler;
 use App\Models\UserRole as Role;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
-class UsersRolesRepository
+class UserRolesRepository
 {
     use UserPermissionHandler;
 

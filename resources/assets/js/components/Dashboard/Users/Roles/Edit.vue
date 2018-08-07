@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :id="modalId" class="dashboard__form modal fade" tabindex="-1" role="dialog">
-            <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+            <app-mask :show-mask="showMask" mask-style="dark" />
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-sm">
@@ -10,12 +10,12 @@
                             <h5 class="modal-title" v-text="formTitle"></h5>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-times"></i>
+                                <app-icon icon="times" />
                             </button>
                         </div>
 
                         <div class="modal-body">
-                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
+                            <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType" />
 
                             <div class="form-group row">
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
@@ -43,7 +43,7 @@
     import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
 
     export default {
-        name: "users-role-edit-form",
+        name: "user-role-edit-form",
 
         mixins: [
             DashboardModalMixin,
@@ -65,17 +65,17 @@
                 return this.$store.getters.getUserRoles[this.recordKey];
             },
 
-            editUsersRoleStatus() {
-                return this.storeRequestStatus("getEditUsersRoleStatus", "getUsersRolesMessageErrors");
+            editStatus() {
+                return this.storeRequestStatus("getEditUserRoleStatus", "getUserRoleMessageErrors");
             },
 
-            loadUsersRolesStatus() {
-                return this.$store.getters.getLoadUsersRolesStatus;
+            loadStatus() {
+                return this.$store.getters.getLoadUserRolesStatus;
             }
         },
 
         watch: {
-            editUsersRoleStatus(value) {
+            editStatus(value) {
                 this.watchSubmitStatus(value, "Cargo alterado com sucesso", "Houve um erro na alteração do cargo.");
 
                 if (value.code === 3) {
@@ -83,8 +83,8 @@
                 }
             },
 
-            loadUsersRolesStatus(value) {
-                this.watchRecordLoad(value, this.editUsersRoleStatus.code, "o cargo");
+            loadStatus(value) {
+                this.watchRecordLoad(value, this.editStatus.code, "o cargo");
             },
 
             recordKey(value) {
@@ -107,7 +107,7 @@
 
             submitForm() {
                 if (this.name === "") {
-                    this.setFieldMessageError("name", "Preencha o nome do cargo");
+                    this.setFieldMessageError("name", "Preencha o nome do cargo.");
                 } else {
                     let proceed = false,
                         data = {};
@@ -124,7 +124,7 @@
 
                         this.disableForm();
 
-                        this.$store.dispatch("editUsersRole", data);
+                        this.$store.dispatch("editUserRole", data);
                     }
                 }
             }

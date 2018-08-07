@@ -16,15 +16,15 @@ Route::namespace('Users')
                     ->name('dashboard.users.delete');
             });
 
-        Route::prefix('users-roles')
+        Route::prefix('user-roles')
             ->middleware('dashboard.users:adm')
             ->group(function () {
-                Route::get('/{id?}', 'UsersRolesController@roles')
+                Route::get('/{id?}', 'UserRolesController@roles')
                     ->where('id', '[0-9]+')
                     ->name('dashboard.users.roles');
-                Route::match(['post', 'put'], '/', 'UsersRolesController@store')
+                Route::match(['post', 'put'], '/', 'UserRolesController@store')
                     ->name('dashboard.users.roles.store');
-                Route::any('/delete/', 'UsersRolesController@delete')
+                Route::any('/delete/', 'UserRolesController@delete')
                     ->name('dashboard.users.roles.delete');
             });
 

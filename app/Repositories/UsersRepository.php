@@ -4,15 +4,12 @@ namespace App\Repositories;
 
 use App\Handlers\Dashboard\UserPermissionHandler;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class UsersRepository
 {
     use UserPermissionHandler;
-
-    /**
-     * @var array
-     */
-    public $fields = ['users.id', 'users.username', 'users.name', 'users.avatar', 'users.role as grant', 'user_roles.name as role'];
 
     /**
      * @var int
@@ -34,15 +31,23 @@ class UsersRepository
      */
     public $where = [];
 
-    public function get()
+    public function get($id = null)
     {
-        $users = User::join('user_roles', 'user_roles.id', '=', 'users.role')
-                    ->select($this->fields);
+        $query = User::with('role')
+                    ->with('role.grant');
 
-        if (!$this->isWebmaster()) {
-            $users->where('users.role', '>=', $this->getAuthUserGrant());
+        if (null != $id) {
+            return $query->find($id);
+        } else {
+            if (!$this->isWebmaster()) {
+                if (null == $this->getAuthUserGrant()) {
+                    return $this->get(Auth::user()->id); // If the logged user does not have a grant, will only show himself
+                } else {
+                    $query->where('user_roles.grant', '>=', $this->getAuthUserGrant());
+                }
+            }
+
+            return $query->paginate($this->limit);
         }
-
-        return $users->paginate($this->limit);
     }
 }

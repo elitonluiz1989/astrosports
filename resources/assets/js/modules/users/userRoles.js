@@ -1,10 +1,10 @@
-import schedulesApi  from '@js/api/users/usersRoles';
+import schedulesApi  from '@js/api/users/userRoles';
 import {messageErrorHandler} from "@js/messageErrorHandler";
 
-export const usersRoles = {
+export const userRoles = {
     state: {
         usersRole: {},
-        usersRoles: [],
+        userRoles: [],
         messageErrors: null,
         status: {
             add: 0,
@@ -15,137 +15,138 @@ export const usersRoles = {
     },
 
     actions: {
-        loadUsersRole({commit}, id) {
-            commit('setLoadUsersRolesStatus', 1);
+        loadUserRole({commit}, id) {
+            commit('setLoadUserRolesStatus', 1);
 
             schedulesApi.get(id)
                 .then(response => {
-                    commit('setUsersRole', response.data);
-                    commit('setLoadUsersRolesStatus', 2);
+                    commit('setUserRole', response.data);
+                    commit('setLoadUserRolesStatus', 2);
                 })
                 .catch(err => {
-                    commit('setUsersRole', {});
-                    commit('setLoadUsersRolesStatus', 3);
-                    commit('setUsersRolesMessageErrors', err);
+                    commit('setUserRole', {});
+                    commit('setLoadUserRolesStatus', 3);
+                    commit('setUserRoleMessageErrors', err);
                 });
         },
 
-        loadUsersRoles({commit}) {
-            commit('setLoadUsersRolesStatus', 1);
+        loadUserRoles({commit}) {
+            commit('setLoadUserRolesStatus', 1);
 
             schedulesApi.get()
                 .then(response => {
-                    commit('setUsersRoles', response.data);
-                    commit('setLoadUsersRolesStatus', 2);
+                    commit('setUserRoles', response.data);
+                    commit('setLoadUserRolesStatus', 2);
                 })
                 .catch(err => {
-                    commit('setUsersRoles', []);
-                    commit('setLoadUsersRolesStatus', 3);
-                    commit('setUsersRolesMessageErrors', err);
+                    commit('setUserRoles', []);
+                    commit('setLoadUserRolesStatus', 3);
+                    commit('setUserRoleMessageErrors', err);
                 });
         },
 
-        addUsersRole({commit, dispatch}, role) {
-            commit('setAddUsersRoleStatus', 1);
+        addUserRole({commit, dispatch}, role) {
+            commit('setAddUserRoleStatus', 1);
 
             schedulesApi.add(role)
                 .then(response => {
-                    commit('setAddUsersRoleStatus', 2);
-                    dispatch("loadUsersRoles");
+                    commit('setAddUserRoleStatus', 2);
+                    dispatch("loadUserRoles");
                 })
                 .catch(err => {
-                    commit('setAddUsersRoleStatus', 3);
-                    commit('setUsersRolesMessageErrors', err);
+                    console.log(err, err.response)
+                    commit('setAddUserRoleStatus', 3);
+                    commit('setUserRoleMessageErrors', err);
                 });
         },
 
-        editUsersRole({commit, dispatch}, role) {
-            commit('setEditUsersRoleStatus', 1);
+        editUserRole({commit, dispatch}, role) {
+            commit('setEditUserRoleStatus', 1);
 
             schedulesApi.edit(role)
                 .then(response => {
-                    commit('setEditUsersRoleStatus', 2);
-                    dispatch("loadUsersRoles");
-                    dispatch("loadSchedules");
+                    commit('setEditUserRoleStatus', 2);
+                    dispatch("loadUserRoles");
+                    dispatch("loadUsers");
                 })
                 .catch(err => {
-                    commit('setEditUsersRoleStatus', 3);
-                    commit('setUsersRolesMessageErrors', err);
+                    commit('setEditUserRoleStatus', 3);
+                    commit('setUserRoleMessageErrors', err);
                 });
         },
 
-        deleteUsersRole({commit, dispatch}, id) {
-            commit('setDeleteUsersRoleStatus', 1);
+        deleteUserRole({commit, dispatch}, id) {
+            commit('setDeleteUserRoleStatus', 1);
 
             schedulesApi.del(id)
                 .then(response => {
-                    commit('setDeleteUsersRoleStatus', 2);
-                    dispatch("loadUsersRoles");
-                    dispatch("loadSchedules");
+                    commit('setDeleteUserRoleStatus', 2);
+                    dispatch("loadUserRoles");
+                    dispatch("loadUsers");
                 })
                 .catch(err => {
-                    commit('setDeleteUsersRoleStatus', 3);
-                    commit('setUsersRolesMessageErrors', err);
+                    commit('setDeleteUserRoleStatus', 3);
+                    commit('setUserRoleMessageErrors', err);
                 });
         }
     },
 
     mutations: {
-        setUsersRole(state, usersRole) {
+        setUserRole(state, usersRole) {
             state.usersRole = usersRole;
         },
 
-        setUsersRoles(state, usersRoles) {
-            state.usersRoles = usersRoles;
+        setUserRoles(state, userRoles) {
+            state.userRoles = userRoles;
         },
 
-        setLoadUsersRolesStatus(state, status) {
+        setLoadUserRolesStatus(state, status) {
             state.status.load = status;
         },
 
-        setAddUsersRoleStatus(state, status) {
+        setAddUserRoleStatus(state, status) {
             state.status.add = status;
         },
 
-        setEditUsersRoleStatus(state, status) {
+        setEditUserRoleStatus(state, status) {
             state.status.edit = status;
         },
 
-        setDeleteUsersRoleStatus(state, status) {
+        setDeleteUserRoleStatus(state, status) {
             state.status.delete = status;
         },
 
-        setUsersRolesMessageErrors(state, message) {
+        setUserRoleMessageErrors(state, message) {
             state.messageErrors = messageErrorHandler(message);
         }
     },
 
     getters: {
-        getUsersRole(state) {
+        getUserRole(state) {
             return state.usersRole;
         },
 
-        getUsersRoles(state) {
-            return state.usersRoles;
+        getUserRoles(state) {
+            return state.userRoles;
         },
 
-        getLoadUsersRolesStatus(state) {
+        getLoadUserRolesStatus(state) {
             return state.status.load;
         },
 
-        getAddUsersRoleStatus(state) {
+        getAddUserRoleStatus(state) {
             return state.status.add;
         },
 
-        getEditUsersRoleStatus(state) {
+        getEditUserRoleStatus(state) {
             return state.status.edit;
         },
 
-        getDeleteUsersRoleStatus(state) {
+        getDeleteUserRoleStatus(state) {
             return state.status.delete;
         },
 
-        getUsersRolesMessageErrors(state) {
+        getUserRoleMessageErrors(state) {
             return state.messageErrors;
         }
     }

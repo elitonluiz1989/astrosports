@@ -1,12 +1,12 @@
 <template>
     <div :id="modalId" class="modal fade" tabindex="-1" role="dialog">
-        <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
+        <app-mask :show-mask="showMask" mask-style="dark" />
 
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-sm">
                 <div class="modal-header" v-if="showRequestResult">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-times"></i>
+                        <app-icon icon="times" />
                     </button>
                 </div>
 
@@ -48,8 +48,8 @@
                         3: "Não foi possível remover o usuário."
                     },
                     "user-role": {
-                        2: "Tipo função de usuário removida com sucesso.",
-                        3: "Não foi possível remover o tipo função de usuário."
+                        2: "Cargo de usuário removida com sucesso.",
+                        3: "Não foi possível remover o cargo de usuário."
                     },
                     "user-grant": {
                         2: "Tipo privilégio de usuário removido com sucesso.",
@@ -63,6 +63,7 @@
             requestStatus() {
                 if (this.typeRecord === "user") {
                 } else if (this.typeRecord === "user-role") {
+                    return this.storeRequestStatus("getDeleteUserRoleStatus", "getUserRoleMessageErrors")
                 } else if (this.typeRecord === "user-grant") {
                     return this.storeRequestStatus("getDeleteUserGrantStatus", "getUserGrantMessageErrors")
                 }
@@ -75,6 +76,7 @@
 
                 if (this.typeRecord === "user") {
                 } else if (this.typeRecord === "user-role") {
+                    this.$store.dispatch("deleteUserRole", this.recordId);
                 } else if (this.typeRecord === "user-grant") {
                     this.$store.dispatch("deleteUserGrant", this.recordId);
                 }
