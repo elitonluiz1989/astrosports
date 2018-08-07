@@ -21,11 +21,11 @@ class UsersController extends Controller
     /**
      * Retrieve the authenticated user
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
     public function user()
     {
-        return Auth::user();
+        return $this->repo->get(Auth::user()->id);
     }
 
     /**

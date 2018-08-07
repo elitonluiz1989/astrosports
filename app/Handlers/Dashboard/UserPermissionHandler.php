@@ -8,7 +8,7 @@ trait UserPermissionHandler
 {
     private function getAuthUserGrant()
     {
-        return Auth::user()->roles->grant;
+        return Auth::user()->role->grant->id ?? null;
     }
 
     public function isWebmaster()

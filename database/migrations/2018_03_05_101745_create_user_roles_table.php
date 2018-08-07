@@ -16,11 +16,11 @@ class CreateUserRolesTable extends Migration
         Schema::create('user_roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('grant')->unsigned()->nullable();
+            $table->integer('grant_id')->unsigned()->nullable();
         });
 
         Schema::table('user_roles', function($table) {
-            $table->foreign('grant')
+            $table->foreign('grant_id')
                 ->references('id')
                 ->on('user_grants')
                 ->onDelete('set null');

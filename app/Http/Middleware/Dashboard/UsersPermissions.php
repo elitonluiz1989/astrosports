@@ -20,12 +20,13 @@ class UsersPermissions
     public function handle($request, Closure $next, $grant)
     {
         $accessDeniedMessage = config("dashboard.users.accessDeniedMessage");
+
         if ($grant == "webmaster" && !$this->isWebmaster()) {
-            abort(403, $accessDeniedMessage);
+            return response($accessDeniedMessage, 403);
         }
 
         if ($grant == "adm" && !$this->isWebmaster() && !$this->isAdministrator()) {
-            abort(403, $accessDeniedMessage);
+            return response($accessDeniedMessage, 403);
         }
 
         return $next($request);
