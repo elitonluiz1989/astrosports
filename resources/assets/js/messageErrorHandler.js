@@ -1,5 +1,5 @@
 import { CONFIG } from "@js/config";
-import {isArray, isObject} from "./utils";
+import {isArray, isNullOrEmpty, isObject} from "./utils";
 
 function manageMessage(messages) {
     let errorMessages = [];
@@ -8,10 +8,10 @@ function manageMessage(messages) {
             errorMessages.push(...manageMessage(messages[key]));
         } else {
             let message = messages[key];
-            if (message.indexOf("[show-user]") !== -1) {
+            if (typeof message === "string" && message.indexOf("[show-user]") !== -1) {
                 errorMessages.push(message.replace("[show-user]", ""));
             } else {
-                if (CONFIG.REQUEST_MESSAGE_ON_LOG) {
+                if (CONFIG.REQUEST.MESSAGE_ON_LOG && !isNullOrEmpty(message)) {
                     console.error(message);
                 }
             }
@@ -21,9 +21,15 @@ function manageMessage(messages) {
     return errorMessages;
 }
 
-export function messageErrorHandler(errors) {
-    let messageReturn = {};
-    errors = errors.response.data || errors;
+export function messageErrorHandler(err) {
+    let messageReturn = [];
+    let errors = null;
+
+    if (err.response.data !== undefined) {
+        errors = err.response.data;
+    } else {
+        errors = err;
+    }
 
     if (errors !== null) {
         if (!isArray(errors) && !isObject(errors)) {
@@ -31,6 +37,10 @@ export function messageErrorHandler(errors) {
         }
 
         messageReturn = manageMessage(errors);
+    }
+
+    if (messageReturn.length === 0) {
+        messageReturn[0] = CONFIG.REQUEST.DEFAULT_ERROR_MESSAGE;
     }
 
     return messageReturn;

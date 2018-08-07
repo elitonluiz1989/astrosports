@@ -13,5 +13,8 @@ export const CONFIG = {
         PATH: photos_path,
         DEFAULT: photo_anonymous
     },
-    REQUEST_MESSAGE_ON_LOG: true
+    REQUEST: {
+        DEFAULT_ERROR_MESSAGE: "Houve um erro no carregamento da página.",
+        MESSAGE_ON_LOG: true
+    }
 };
