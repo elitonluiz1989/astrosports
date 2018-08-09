@@ -74,6 +74,10 @@
         },
 
         methods: {
+            resetFormFields() {
+                this.name = "";
+            },
+
             submitForm() {
                 if (this.name === "") {
                     this.setFieldMessageError("name", "Preencha o nome da permissão de usuário");

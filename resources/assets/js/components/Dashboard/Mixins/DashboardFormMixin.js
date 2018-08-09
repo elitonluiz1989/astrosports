@@ -60,6 +60,15 @@ export default {
         }
     },
 
+    mounted() {
+        $("#" + this.modalId).on('show.bs.modal', () => {
+            this.formMessageShow = false;
+            this.formMessageText = "";
+
+            this.resetFormFields();
+        });
+    },
+
     methods: {
         disableForm(disable) {
             disable = disable === undefined;
@@ -68,6 +77,8 @@ export default {
                 this.disabled = disable;
             });
         },
+
+        resetFormFields() {},
 
         setFieldId(field) {
             return this.formId + '-' + field;

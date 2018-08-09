@@ -74,6 +74,11 @@
         },
 
         methods: {
+            resetFormFields() {
+                console.log('aa')
+                this.name = "";
+            },
+
             submitForm() {
                 if (this.name === "") {
                     this.setFieldMessageError("name", "Preencha o nome do cargo de usuário");

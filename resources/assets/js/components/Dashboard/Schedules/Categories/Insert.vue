@@ -41,13 +41,13 @@
 </template>
 
 <script>
-    import DashboardFormInsertMixin from "@Dashboard/Mixins/DashboardFormInsertMixin";
+    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
 
     export default {
         name: "schedules-category-insert-form",
 
         mixins: [
-            DashboardFormInsertMixin,
+            DashboardFormMixin,
         ],
 
         data() {
