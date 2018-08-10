@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Handlers\Dashboard\UserPermissionHandler;
 use App\Models\User;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class UsersRepository

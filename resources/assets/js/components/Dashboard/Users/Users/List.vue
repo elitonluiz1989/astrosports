@@ -5,11 +5,11 @@
         <user-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></user-edit-form>
 
         <div class="row justify-content-center justify-content-sm-start" v-if="loadUsersStatus.code === 2">
-            <div class="dashboard__users-item" 
-                v-for="(user, key) in users" 
+            <div class="dashboard__users-item"
+                v-for="(user, key) in users"
                 :key="key">
-                <user-info :user-key="key" 
-                            @triggerShowEditForm="showEditForm" 
+                <user-info :user-key="key"
+                            @triggerShowEditForm="showEditForm"
                             @triggerShowDeleteForm="showDeleteMessage"></user-info>
             </div>
 
@@ -40,6 +40,10 @@
         computed: {
             users() {
                 return this.$store.getters.getUsers;
+            },
+
+            pagination() {
+                return this.$store.getters.getUsersPagination;
             },
 
             loadUsersStatus() {

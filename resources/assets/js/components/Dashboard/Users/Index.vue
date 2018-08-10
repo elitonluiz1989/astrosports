@@ -35,13 +35,15 @@
     import TabsMixin from '@components/Base/Mixins/TabsMixin';
     import GrantsList from './Grants/List';
     import RolesList from './Roles/List';
+    import UsersList from './Users/List';
 
     export default {
         name: "dashboard-users",
 
         components: {
             GrantsList,
-            RolesList
+            RolesList,
+            UsersList
         },
 
         mixins: [
@@ -51,11 +53,13 @@
         data() {
             return {
                 items: {
+                    usuarios: "Usuários",
                     cargos: "Cargos",
                     permissoes: "Permissões"
                 },
 
                 componentList: {
+                    usuarios: UsersList,
                     cargos: RolesList,
                     permissoes: GrantsList
                 }
@@ -65,8 +69,9 @@
         created() {
             this.$store.dispatch('loadUserGrants');
             this.$store.dispatch('loadUserRoles');
+            this.$store.dispatch('loadUsers');
 
-            this.defaultTab = "cargos";
+            this.defaultTab = "usuarios";
         }
     }
 </script>

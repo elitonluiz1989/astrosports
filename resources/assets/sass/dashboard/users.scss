@@ -10,14 +10,6 @@
     @extend .col-xl-2;
   }
 
-  &-grants-trigger {
-    font-size: 0.9em;
-
-    @include media-breakpoint-between(sm, md) {
-      font-size: 0.7em;
-    }
-  }
-
   &-insert {
     @extend .dashboard__form;
 
@@ -73,14 +65,30 @@
   border: 1px solid $dashboard-user-border;
   box-shadow: 1px 2px 3px #eee;
   padding: 0.2rem 0 0.1rem;
+  height: auto;
 
   @extend .position-relative;
+
+  &:hover {
+    .mask {
+      display: block !important;
+
+      &__content {
+        opacity: .5;
+      }
+    }
+
+    .dashboard__user-controls {
+      display: block;
+    }
+  }
 
   .mask__content {
     z-index: 1;
   }
 
   &-controls {
+    display: none;
     margin-top: -1rem; // To centralize vertically get to reference the .fa-2x size
     top: 50%;
     z-index: 2;
@@ -89,6 +97,10 @@
     @extend .position-absolute;
     @extend .text-white;
     @extend .text-center;
+
+    .fa {
+      cursor: pointer;
+    }
 
     .fa + .fa {
       margin-left: 1.5rem;
@@ -117,6 +129,7 @@
   &-trigger {
     color: #888;
     cursor: pointer;
+    min-height: 10rem;
 
     @extend .w-100;
     @extend .h-100;

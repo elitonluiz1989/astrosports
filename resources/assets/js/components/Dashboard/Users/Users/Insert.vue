@@ -156,6 +156,10 @@
         },
 
         methods: {
+            resetFormFields() {
+                this.name = "";
+            },
+
             submitForm() {
                 if (this.validateForm()) {
                     console.log('dwegtwe')

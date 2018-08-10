@@ -60,7 +60,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         // Custom
-        'api.response' => ApiResponseHandler::class,
         'dashboard.users' => UsersPermissions::class,
     ];
 }

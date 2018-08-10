@@ -74,7 +74,6 @@ Route::middleware(['web', 'auth'])
             });
 
         Route::prefix('api')
-            ->middleware('api.response')
             ->group(function () {
                 require_once __DIR__ . '/dashboard/users.php';
 

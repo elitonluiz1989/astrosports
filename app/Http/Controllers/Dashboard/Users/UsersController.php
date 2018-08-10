@@ -35,8 +35,8 @@ class UsersController extends Controller
      */
     public function users()
     {
-        $users = $this->repo->get()->toArray();
+        $users = $this->repo->get();
 
-        return $users;
+        return $this->repo->get();
     }
 }

@@ -16,6 +16,8 @@
         <div class="dashboard__user-item" v-text="user.name"></div>
 
         <div class="dashboard__user-item" v-text="role"></div>
+
+        <div class="dashboard__user-item" v-text="grant"></div>
     </div>
 </template>
 
@@ -49,7 +51,11 @@
             },
 
             role() {
-                return this.user.role.charAt(0).toUpperCase() + this.user.role.slice(1);
+                return this.validateUserInfo(this.user.role);
+            },
+
+            grant() {
+                return this.validateUserInfo(this.user.role.grant);
             }
         },
 
@@ -60,33 +66,14 @@
 
             triggerShowEditForm() {
                 this.$emit("triggerShowEditForm", this.userKey);
+            },
+
+            validateUserInfo(info) {
+                let result = info || "-";
+                result = result.name || "-";
+
+                return this.$options.filters.Capitalize(result);
             }
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .dashboard__user {
-        &-controls {
-            display: none;
-
-            .fa {
-                cursor: pointer;
-            }
-        }
-
-        &:hover {
-            .mask {
-                display: block !important;
-                
-                &__content {
-                    opacity: .5;
-                }
-            }
-
-            .dashboard__user-controls {
-                display: block;
-            }
-        }
-    }
-</style>

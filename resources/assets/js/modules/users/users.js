@@ -1,12 +1,19 @@
-import usersApi  from '../api/users';
-import {messageErrorHandler} from "../messageErrorHandler";
+import usersApi  from '../../api/users';
+import {messageErrorHandler} from "../../messageErrorHandler";
 
 export const users = {
     state: {
         user: {},
         users: [],
         messageErrors: null,
-        usersRequestStatus: 0
+        usersRequestStatus: 0,
+        pagination: {
+            total: 0,
+            page: 0,
+            next: 0,
+            prev: 0,
+            limit: 0
+        }
     },
 
     actions: {
@@ -30,7 +37,6 @@ export const users = {
 
             usersApi.getUsers()
                 .then(response => {
-                    console.log(response)
                     commit('setUsers', response.data);
                     commit('setUsersRequestStatus', 2);
                 })
@@ -48,7 +54,13 @@ export const users = {
         },
 
         setUsers(state, users) {
-            state.users = users;
+            state.pagination.total = users.total;
+            state.pagination.page = users.current_page;
+            state.pagination.next = users.to;
+            state.pagination.prev = users.from;
+            state.pagination.limit = users.per_page;
+
+            state.users = users.data;
         },
 
         setUsersRequestStatus(state, status) {
@@ -75,6 +87,10 @@ export const users = {
 
         getUsersMessageErrors(state) {
             return state.messageErrors;
+        },
+
+        getUsersPagination(state) {
+            return state.pagination;
         }
     }
 };
