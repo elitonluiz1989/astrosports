@@ -1,12 +1,13 @@
 <template>
     <div class="dashboard__users container-fluid">
-        <dashboard-request-status-message :code="loadUsersStatus.code"></dashboard-request-status-message>
+        <dashboard-request-message :code="loadStatus.code"
+                                   :message="loadStatus.messages" />
 
         <user-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></user-edit-form>
 
-        <div class="row justify-content-center justify-content-sm-start" v-if="loadUsersStatus.code === 2">
+        <div class="row justify-content-center justify-content-sm-start" v-if="dataLoaded">
             <div class="dashboard__users-item"
-                v-for="(user, key) in users"
+                v-for="(user, key) in records"
                 :key="key">
                 <user-info :user-key="key"
                             @triggerShowEditForm="showEditForm"
@@ -38,7 +39,7 @@
         ],
 
         computed: {
-            users() {
+            records() {
                 return this.$store.getters.getUsers;
             },
 
@@ -46,7 +47,7 @@
                 return this.$store.getters.getUsersPagination;
             },
 
-            loadUsersStatus() {
+            loadStatus() {
                 return this.storeRequestStatus('getUsersRequestStatus', 'getUsersMessageErrors')
             }
         },

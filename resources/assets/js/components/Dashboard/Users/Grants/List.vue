@@ -1,9 +1,9 @@
 <template>
     <div class="dashboard-list">
-        <dashboard-request-status-message :code="loadUserGrantsStatus.code"
-                                          :message="loadUserGrantsStatus.messages" />
+        <dashboard-request-message :code="loadStatus.code"
+                                   :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control">
+        <dashboard-list-row row-type="control" v-if="dataLoaded">
             <user-grant-insert-form />
 
             <user-grant-edit-form :record-key="recordKey"
@@ -16,7 +16,7 @@
                                @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header">
+        <dashboard-list-row row-type="header" v-if="dataLoaded">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -30,9 +30,9 @@
                                  item-type="header" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="empty" v-if="grants.length === 0" />
+        <dashboard-list-row row-type="empty" v-if="!hasRecords && dataLoaded" />
 
-        <dashboard-list-row  v-for="(grant, key) in grants" :key="key" v-if="loadUserGrantsStatus.code === 2">
+        <dashboard-list-row  v-for="(grant, key) in records" :key="key" v-if="hasRecords && dataLoaded">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="grant.id" />
@@ -83,17 +83,17 @@
         },
 
         computed: {
-            grants() {
+            records() {
                 return this.$store.getters.getUserGrants;
             },
 
-            loadUserGrantsStatus() {
+            loadStatus() {
                 return this.storeRequestStatus("getLoadUserGrantsStatus", "getUserGrantMessageErrors")
-            }
+            },
         },
 
         watch: {
-            grants(value) {
+            records(value) {
                 this.contentToSort = value;
             }
         }

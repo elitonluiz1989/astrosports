@@ -3,7 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control" v-if="statusSuccess">
+        <dashboard-list-row row-type="control" v-if="dataLoaded">
             <schedule-insert-form />
 
             <schedule-edit-form :record-key="recordKey"
@@ -15,7 +15,7 @@
                                   @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header" v-if="statusSuccess">
+        <dashboard-list-row row-type="header" v-if="dataLoaded">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -48,9 +48,9 @@
                                  item-type="header" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="empty" v-if="!hasSchedules && statusSuccess" />
+        <dashboard-list-row row-type="empty" v-if="!hasSchedules && dataLoaded" />
 
-        <dashboard-list-row v-for="(schedule, key) in schedules" :key="key" v-if="hasSchedules && statusSuccess">
+        <dashboard-list-row v-for="(schedule, key) in schedules" :key="key" v-if="hasSchedules && dataLoaded">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="schedule.id" />

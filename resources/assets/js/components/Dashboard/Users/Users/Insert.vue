@@ -76,21 +76,6 @@
                             </div>
 
                             <div class="form-group row">
-                                <label :for="setFieldId('grant')" :class="userStyles.label">Privilégios</label>
-
-                                <div :class="userStyles.selectGroup">
-                                    <select :id="setFieldId('grant')" class="form-control" v-model="grant">
-                                        <option value="0">...</option>
-                                        <option :value="grant.id"
-                                                v-for="(grant, key) in userGrants"
-                                                v-text="grant.name"
-                                                v-if="userGrants.length > 0"
-                                                :key="key"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
                                 <label :for="setFieldId('passowrd')" :class="userStyles.label">Senha</label>
 
                                 <div :class="userStyles.inputGroup">
@@ -136,28 +121,30 @@
         },
 
         computed: {
-            addUserStatus() {
+            addStatus() {
                 return this.storeRequestStatus("getAddUserStatus", "getUsersMessageErrors");
             },
 
             userRoles() {
-                return [];
-            },
-
-            userGrants() {
-                return [];
+                return this.$store.getters.getUserRoles;
             }
         },
 
         watch: {
-            addUserStatus(value) {
+            addStatus(value) {
                 this.watchSubmitStatus(value, "Usuário inserido com sucesso", "Houve um erro na inserção do usuário.");
             }
         },
 
         methods: {
             resetFormFields() {
+                this.username = "";
                 this.name = "";
+                this.avatar = "";
+                this.role = 0;
+                this.grant = 0;
+                this.password = "";
+                this.confirmPassword = "";
             },
 
             submitForm() {

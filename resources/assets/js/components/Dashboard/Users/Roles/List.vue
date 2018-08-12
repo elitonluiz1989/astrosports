@@ -1,9 +1,9 @@
 <template>
     <div class="dashboard-list">
-        <dashboard-request-status-message :code="loadUserRolesStatus.code"
-                                          :message="loadUserRolesStatus.messages" />
+        <dashboard-request-message :code="loadStatus.code"
+                                   :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control">
+        <dashboard-list-row row-type="control" v-if="dataLoaded">
             <user-role-insert-form />
 
             <user-role-edit-form :record-key="recordKey"
@@ -16,7 +16,7 @@
                                @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header">
+        <dashboard-list-row row-type="header" v-if="dataLoaded">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -30,9 +30,9 @@
                                  item-type="header" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="empty" v-if="roles.length === 0" />
+        <dashboard-list-row row-type="empty" v-if="!hasRecords && dataLoaded" />
 
-        <dashboard-list-row  v-for="(role, key) in roles" :key="key" v-if="loadUserRolesStatus.code === 2">
+        <dashboard-list-row  v-for="(role, key) in records" :key="key" v-if="hasRecords && dataLoaded">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="role.id" />
@@ -83,17 +83,17 @@
         },
 
         computed: {
-            roles() {
+            records() {
                 return this.$store.getters.getUserRoles;
             },
 
-            loadUserRolesStatus() {
+            loadStatus() {
                 return this.storeRequestStatus("getLoadUserRolesStatus", "getUserRoleMessageErrors")
             }
         },
 
         watch: {
-            roles(value) {
+            records(value) {
                 this.contentToSort = value;
             }
         }

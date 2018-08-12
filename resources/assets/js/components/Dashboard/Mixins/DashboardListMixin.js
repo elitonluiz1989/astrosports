@@ -33,11 +33,11 @@ export default {
     },
 
     computed: {
-        statusError() {
-            return this.loadStatus.code === 3;
+        hasRecords() {
+            return this.records.length > 0;
         },
 
-        statusSuccess() {
+        dataLoaded() {
             return this.loadStatus.code === 2;
         }
     },

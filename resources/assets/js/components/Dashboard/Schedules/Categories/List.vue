@@ -3,7 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control" v-if="statusSuccess">
+        <dashboard-list-row row-type="control" v-if="dataLoaded">
             <schedules-category-insert-form />
 
             <schedules-category-edit-form :record-key="recordKey"
@@ -16,7 +16,7 @@
                                    @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header" v-if="statusSuccess">
+        <dashboard-list-row row-type="header" v-if="dataLoaded">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -30,12 +30,12 @@
 
             <dashboard-list-item item-id="control"
                                  item-type="header"
-                                 v-if="hasCategories"/>
+                                 v-if="hasRecords"/>
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="empty" v-if="!hasCategories" />
+        <dashboard-list-row row-type="empty" v-if="!hasRecords && dataLoaded" />
 
-        <dashboard-list-row  v-for="(category, key) in categories" :key="key" v-if="statusSuccess">
+        <dashboard-list-row  v-for="(category, key) in records" :key="key" v-if="hasRecords && dataLoaded">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="category.id"
@@ -72,12 +72,8 @@
         ],
 
         computed: {
-            categories() {
+            records() {
                 return this.$store.getters.getSchedulesCategories;
-            },
-
-            hasCategories() {
-                return this.statusSuccess && this.categories.length > 0;
             },
 
             loadStatus() {
@@ -86,7 +82,7 @@
         },
 
         watch: {
-            categories(value) {
+            records(value) {
                 this.contentToSort = value;
             }
         },

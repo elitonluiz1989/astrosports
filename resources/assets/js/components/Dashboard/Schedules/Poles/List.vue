@@ -3,7 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control" v-if="statusSuccess">
+        <dashboard-list-row row-type="control" v-if="dataLoaded">
             <schedules-pole-insert-form />
 
             <schedules-pole-edit-from :record-key="recordKey"
@@ -16,7 +16,7 @@
                                    @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header" v-if="statusSuccess">
+        <dashboard-list-row row-type="header" v-if="dataLoaded">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -30,12 +30,12 @@
 
             <dashboard-list-item item-id="control"
                                  item-type="header"
-                                 v-if="hasPoles"/>
+                                 v-if="hasRecords"/>
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="empty" v-if="!hasPoles" />
+        <dashboard-list-row row-type="empty" v-if="!hasRecords && dataLoaded" />
 
-        <dashboard-list-row  v-for="(pole, key) in poles" :key="key" v-if="statusSuccess">
+        <dashboard-list-row  v-for="(pole, key) in records" :key="key" v-if="hasRecords && dataLoaded">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="pole.id" />
@@ -70,11 +70,7 @@
         ],
 
         computed: {
-            hasPoles() {
-                return this.statusSuccess && this.poles.length > 0;
-            },
-
-            poles() {
+            records() {
                 return this.$store.getters.getSchedulesPoles;
             },
 
@@ -84,7 +80,7 @@
         },
 
         watch: {
-            poles(value) {
+            records(value) {
                 this.contentToSort = value;
             }
         },
