@@ -1,9 +1,9 @@
 <template>
     <div class="dashboard-list">
-        <dashboard-request-status-message :code="loadStatus.code"
-                                          :message="loadStatus.messages" />
+        <dashboard-request-message :code="loadStatus.code"
+                                   :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control">
+        <dashboard-list-row row-type="control" v-if="statusSuccess">
             <schedules-category-insert-form />
 
             <schedules-category-edit-form :record-key="recordKey"
@@ -16,7 +16,7 @@
                                    @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header">
+        <dashboard-list-row row-type="header" v-if="statusSuccess">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -35,7 +35,7 @@
 
         <dashboard-list-row row-type="empty" v-if="!hasCategories" />
 
-        <dashboard-list-row  v-for="(category, key) in categories" :key="key" v-if="loadStatus.code === 2">
+        <dashboard-list-row  v-for="(category, key) in categories" :key="key" v-if="statusSuccess">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="category.id"
@@ -77,7 +77,7 @@
             },
 
             hasCategories() {
-                return this.categories.length > 0;
+                return this.statusSuccess && this.categories.length > 0;
             },
 
             loadStatus() {

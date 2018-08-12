@@ -1,12 +1,12 @@
 import StoreRequestStatusMixin from '@components/Base/Mixins/StoreRequestStatus';
-import DashboardRequestStatusMessage from '@Dashboard/DashboardRequestStatusMessage';
+import DashboardRequestMessage from '@Dashboard/DashboardRequestMessage';
 import DashboardListRow from "@Dashboard/List/Row";
 import DashboardListItem from "@Dashboard/List/Item";
 
 
 export default {
     components: {
-        DashboardRequestStatusMessage,
+        DashboardRequestMessage,
         DashboardListItem,
         DashboardListRow,
     },
@@ -30,6 +30,16 @@ export default {
                 }
             }
         };
+    },
+
+    computed: {
+        statusError() {
+            return this.loadStatus.code === 3;
+        },
+
+        statusSuccess() {
+            return this.loadStatus.code === 2;
+        }
     },
 
     methods: {

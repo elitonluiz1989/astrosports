@@ -22,11 +22,11 @@ class UsersPermissions
         $accessDeniedMessage = config("dashboard.users.accessDeniedMessage");
 
         if ($grant == "webmaster" && !$this->isWebmaster()) {
-            return response($accessDeniedMessage, 403);
+            return response($accessDeniedMessage, 401);
         }
 
         if ($grant == "adm" && !$this->isWebmaster() && !$this->isAdministrator()) {
-            return response($accessDeniedMessage, 403);
+            return response($accessDeniedMessage, 401);
         }
 
         return $next($request);

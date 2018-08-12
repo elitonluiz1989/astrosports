@@ -1,9 +1,9 @@
 <template>
     <div class="dashboard-list">
-        <dashboard-request-status-message :code="loadSchedulesStatus.code"
-                                          :message="loadSchedulesStatus.messages" />
+        <dashboard-request-message :code="loadStatus.code"
+                                   :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control">
+        <dashboard-list-row row-type="control" v-if="statusSuccess">
             <schedule-insert-form />
 
             <schedule-edit-form :record-key="recordKey"
@@ -15,7 +15,7 @@
                                   @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header">
+        <dashboard-list-row row-type="header" v-if="statusSuccess">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -48,9 +48,9 @@
                                  item-type="header" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="empty" v-if="schedules.length === 0" />
+        <dashboard-list-row row-type="empty" v-if="!hasSchedules && statusSuccess" />
 
-        <dashboard-list-row v-for="(schedule, key) in schedules" :key="key" v-if="loadSchedulesStatus.code === 2 && schedules.length > 0">
+        <dashboard-list-row v-for="(schedule, key) in schedules" :key="key" v-if="hasSchedules && statusSuccess">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="schedule.id" />
@@ -122,11 +122,15 @@
         },
 
         computed: {
+            hasSchedules() {
+                return this.schedules.length > 0;
+            },
+
             schedules() {
                 return this.$store.getters.getSchedules;
             },
 
-            loadSchedulesStatus() {
+            loadStatus() {
                 return this.storeRequestStatus("getLoadSchedulesStatus", "getSchedulesMessageErrors")
             }
         },

@@ -1,9 +1,9 @@
 <template>
     <div class="dashboard-list">
-        <dashboard-request-status-message :code="loadStatus.code"
-                                           :message="loadStatus.messages" />
+        <dashboard-request-message :code="loadStatus.code"
+                                   :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control">
+        <dashboard-list-row row-type="control" v-if="statusSuccess">
             <schedules-pole-insert-form />
 
             <schedules-pole-edit-from :record-key="recordKey"
@@ -16,7 +16,7 @@
                                    @hideModal="hideModal" />
         </dashboard-list-row>
 
-        <dashboard-list-row row-type="header">
+        <dashboard-list-row row-type="header" v-if="statusSuccess">
             <dashboard-list-item item-id="id"
                                  item-type="header"
                                  :item-title="listItems.id.message"
@@ -35,7 +35,7 @@
 
         <dashboard-list-row row-type="empty" v-if="!hasPoles" />
 
-        <dashboard-list-row  v-for="(pole, key) in poles" :key="key" v-if="loadStatus.code === 2">
+        <dashboard-list-row  v-for="(pole, key) in poles" :key="key" v-if="statusSuccess">
             <dashboard-list-item item-id="id"
                                  :item-title="listItems.id.title"
                                  :item-text="pole.id" />
@@ -71,7 +71,7 @@
 
         computed: {
             hasPoles() {
-                return this.poles.length > 0;
+                return this.statusSuccess && this.poles.length > 0;
             },
 
             poles() {

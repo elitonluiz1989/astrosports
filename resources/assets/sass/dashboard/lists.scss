@@ -6,7 +6,6 @@
   @extend .container-fluid;
 
   @include media-breakpoint-up(sm) {
-    border-bottom: 1px solid $dashboard-list-color-darken;
     width: 98%;
     margin: 0 1% 1%;
   }
@@ -52,6 +51,10 @@
 
       &:nth-child(even) {
         background-color: lighten($dashboard-list-color-darken, 60%);
+      }
+
+      &:last-child {
+        border-bottom: 1px solid $dashboard-list-color-darken;
       }
     }
 

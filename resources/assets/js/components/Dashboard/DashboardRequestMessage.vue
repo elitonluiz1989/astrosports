@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        name: "dashboard-request-status-message",
+        name: "dashboard-request-message",
 
         props: {
             code: {
