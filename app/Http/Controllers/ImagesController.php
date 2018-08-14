@@ -34,17 +34,13 @@ class ImagesController extends Controller
      *
      * @param ImagesRequest $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return string
      */
     public function delete(ImagesRequest $request)
     {
-        try {
-            $images = $request->validated()['images'];
+        $images = $request->validated()['images'];
 
-            return response()->json($this->_image->delete($images));
-        } catch (\Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
-        }
+        return (string)$this->_image->delete($images);
     }
 
     /**
@@ -52,7 +48,7 @@ class ImagesController extends Controller
      * 
      * @param Request $request - Request class
      * @param string  $image   - image source string
-     * 
+     *
      * @return \Intervention\Image\Response
      */
     public function image(Request $request, string $image)
@@ -85,19 +81,15 @@ class ImagesController extends Controller
 
     /**
      * Store an image
-     * 
+     *
      * @param ImagesRequest $request
-     * 
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return string
      */
     public function upload(ImagesRequest $request)
     {
-        try {
-            $image = $request->validated()['images'];
+        $image = $request->validated()['images'];
 
-            return response()->json($this->_image->upload($image));
-        } catch (\Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
-        }
+        return $this->_image->upload($image);
     }
 }

@@ -30,7 +30,7 @@ class ImagesRequest extends FormRequest
         } else {
             return [
                 'images' => 'array|required',
-                'images.*' => 'image|mimes:jpg,png,jpeg'
+                'images.*' => 'string|required'
             ];
         }
     }

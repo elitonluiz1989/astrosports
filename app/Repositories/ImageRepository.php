@@ -38,18 +38,14 @@ class ImageRepository
      */
     public function delete($images)
     {
-        $images = collect($images);
+        $files = [];
 
-        $files = $images->map(
-            function ($image) {
-                $filename = $this->removePath($image);
-                $path = $this->_imagePath . $filename;
+        foreach ($images as $image) {
+            $filename = $this->removePath($image);
+            \array_push($files, $this->_imagePath . '/' . $filename);
+        }
 
-                return $path;
-            }
-        );
-
-        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($files->toArray());
+        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($files);
     }
 
     /**

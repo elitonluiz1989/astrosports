@@ -45,10 +45,6 @@
                 required: true
             },
 
-            formId: {
-                type: String
-            },
-
             formats: {
                 type: String,
                 default: "*"
@@ -82,6 +78,10 @@
             messageSending: {
                 type: String,
                 default: "Enviando..."
+            },
+
+            modalId: {
+                type: String
             },
 
             serverFileName: {
@@ -171,8 +171,8 @@
         },
 
         mounted() {
-            if (this.formId !== null) {
-                $("#" + this.formId + "-modal").on('hidden.bs.modal', () => {
+            if (this.modalId !== null) {
+                $("#" + this.modalId).on('hidden.bs.modal', () => {
                     this.uploadCloseForm();
                 });
             }
@@ -260,14 +260,15 @@
 
                 if (this.files.length > 0) {
                     data.params[this.serverFileName] = this.status.saved ?
-                                                                    this.toRemove :
-                                                                    this.toRemove.concat(this.files);
+                                                       this.toRemove :
+                                                       this.toRemove.concat(this.files);
                 }
 
-                if (data.params[this.serverFileName].length > 0) {
-                    axios.delete(data)
+                if (!this.isNullOrUndefined(data.params[this.serverFileName]) &&
+                    data.params[this.serverFileName].length > 0) {
+                    axios.delete(this.deleteUrl, data)
                         .then(response => {
-                            if (response.data) {
+                            if (response.data === 1) {
                                 console.log("Os arquivos enviados foram removidos.");
                             } else {
                                 console.error("Os arquivos enviados não foram removidos.");
@@ -280,6 +281,7 @@
             },
 
             uploadStatusReset() {
+                this.uploaded = 0;
                 this.status.style = "";
                 this.status.error = false;
                 this.status.uploading = false;
