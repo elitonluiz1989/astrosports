@@ -77,7 +77,7 @@
             iconClass() {
                 let icon = this.prefix + " fa-" + this.icon;
 
-                if (!this.isNullOrEmpty(this.flip)) {
+                if (!this.isEmptyString(this.flip)) {
                     icon += this.flipOptions[this.flip];
                 }
 
@@ -89,7 +89,7 @@
                     icon += " fa-border";
                 }
 
-                if (!this.isNullOrEmpty(this.pull)) {
+                if (!this.isEmptyString(this.pull)) {
                     icon += this.pullOptions[this.pull];
                 }
 
@@ -97,7 +97,7 @@
                     icon += this.rotateDegrees[this.rotate];
                 }
 
-                if (!this.isNullOrEmpty(this.size)) {
+                if (!this.isEmptyString(this.size)) {
                     icon += this.sizes[this.size];
                 }
 

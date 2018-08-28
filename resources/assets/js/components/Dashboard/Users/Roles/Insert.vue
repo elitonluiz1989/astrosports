@@ -23,8 +23,22 @@
                             <div class="form-group row">
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
 
-                                <div class="input-group col-9">
-                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
+                                <div :class="styles.inputGroup">
+                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label :for="setFieldId('grant')" :class="styles.label">Permissão</label>
+
+                                <div :class="styles.selectGroup">
+                                    <select :id="setFieldId('grant')" class="form-control" v-model="fields.grant">
+                                        <option value="0">...</option>
+                                        <option :value="grant.id"
+                                                v-for="(grant, key) in grants" v-text="grant.name"
+                                                v-if="grants.length > 0"
+                                                :key="key"></option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -42,13 +56,14 @@
 </template>
 
 <script>
-    import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+    import { mapState } from 'vuex';
+    import UserRolesMixin from "../Mixins/UserRolesMixin";
 
     export default {
         name: "user-role-insert-form",
 
         mixins: [
-            DashboardFormMixin,
+            UserRolesMixin,
         ],
 
         data() {
@@ -56,35 +71,36 @@
                 formId: "user-role-insert-form",
                 formTitle: "Adicionar cargo",
                 modalId: "user-role-insert-modal",
-                name: "",
-                role: 0
+                submitMessages: {
+                    error: "Houve um erro na inserção do cargo de usuário.",
+                    success: "Cargo de usuário inserido com sucesso"
+                }
             }
         },
 
         computed: {
             addStatus() {
-                return this.storeRequestStatus("getAddUserRoleStatus", "getUserRoleMessageErrors");
+                return this.$store.getters['userRoles/getStatus']('add');
+            },
+
+            grants() {
+                return this.$store.state.userGrants.records;
             }
         },
 
         watch: {
             addStatus(value) {
-                this.watchSubmitStatus(value, "Cargo de usuário inserido com sucesso", "Houve um erro na inserção do cargo de usuário.");
+                this.watchSubmitStatus(value);
             }
         },
 
         methods: {
-            resetFormFields() {
-                console.log('aa')
-                this.name = "";
-            },
-
             submitForm() {
-                if (this.name === "") {
-                    this.setFieldMessageError("name", "Preencha o nome do cargo de usuário");
-                } else {
+                if (this.validateForm()) {
+                    let data = this.setFormData();
+
                     this.showMask = true;
-                    this.$store.dispatch("addUserRole", {name: this.name});
+                    this.$store.dispatch("userRoles/add", data);
                 }
             }
         }

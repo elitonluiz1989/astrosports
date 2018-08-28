@@ -6,8 +6,8 @@ import {VideosModal} from "./components/Videos/VideosModal";
 
 import Vue from 'vue';
 
-import VueUtils from './vue-utils';
-import VueRequest from './vue-request';
+import VueUtils from './helpers/vue-utils';
+import VueRequest from './helpers/vue-request';
 import store from './store';
 import AppIcon from './components/Base/AppIcon';
 import RootComponents from './components';

@@ -70,7 +70,7 @@
             },
 
             isAllowed(userGrant) {
-                if (!this.isNullOrEmpty(userGrant) && userGrant > 0) {
+                if (!this.isEmptyString(userGrant) && userGrant > 0) {
                     return this.userIsAllowed(userGrant, 'user');
                 } else {
                     return true;

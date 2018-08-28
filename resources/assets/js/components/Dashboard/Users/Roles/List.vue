@@ -3,7 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control" v-if="dataLoaded">
+        <dashboard-list-row row-type="control">
             <user-role-insert-form />
 
             <user-role-edit-form :record-key="recordKey"
@@ -26,6 +26,10 @@
                                  :item-title="listItems.role.message"
                                  :item-text="listItems.role.title" />
 
+            <dashboard-list-item item-type="header"
+                                 :item-title="listItems.grant.message"
+                                 :item-text="listItems.grant.title" />
+
             <dashboard-list-item item-id="control"
                                  item-type="header" />
         </dashboard-list-row>
@@ -38,7 +42,10 @@
                                  :item-text="role.id" />
 
             <dashboard-list-item :item-title="listItems.role.title"
-                                 :item-text="role.name"
+                                 :item-text="role.name" />
+
+            <dashboard-list-item :item-title="listItems.grant.title"
+                                 :item-text="getGrantName(role.grant)"
                                  bordered />
 
             <dashboard-list-item item-type="control"
@@ -49,6 +56,7 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import UserRoleInsertForm from './Insert';
     import UserRoleEditForm from "./Edit";
@@ -77,24 +85,37 @@
                     role: {
                         title: "Cargo",
                         message: "Clique para ordernar pelo cargo"
+                    },
+                    grant: {
+                        title: "Permissão",
+                        message: "Clique para ordernar pela permissão"
                     }
                 }
             };
         },
 
         computed: {
+            ...mapState({store: 'userRoles'}),
+
             records() {
-                return this.$store.getters.getUserRoles;
+                return this.store.records;
             },
 
             loadStatus() {
-                return this.storeRequestStatus("getLoadUserRolesStatus", "getUserRoleMessageErrors")
+                return this.store.status.load;
             }
         },
 
         watch: {
             records(value) {
                 this.contentToSort = value;
+            }
+        },
+
+        methods: {
+            getGrantName(grant) {
+                let result = grant || "-";
+                return result.name || "-";
             }
         }
     }

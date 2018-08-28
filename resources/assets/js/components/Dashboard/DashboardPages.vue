@@ -35,7 +35,7 @@
             },
 
             isAllowed() {
-                if(!this.isNullOrEmpty(this.currentPage.userGrant) && this.currentPage.userGrant > 0) {
+                if(!this.isEmptyString(this.currentPage.userGrant) && this.currentPage.userGrant > 0) {
                     return this.userIsAllowed(this.currentPage.userGrant);
                 } else {
                     return true;

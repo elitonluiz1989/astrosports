@@ -21,7 +21,7 @@
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
 
                                 <div class="input-group col-9">
-                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
+                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
                                 </div>
                             </div>
                         </div>
@@ -56,64 +56,53 @@
                 formId: "users-grant-edit-form",
                 formTitle: "Editar permissão",
                 formType: "edit",
-                name: ""
+                fields: {
+                    name: null
+                },
+                submitMessages: {
+                    error: "Houve um erro na alteração da permissão.",
+                    success: "Permissão alterada com sucesso"
+                }
             }
         },
 
         computed: {
             grant() {
-                return this.$store.getters.getUserGrants[this.recordKey];
+                return this.$store.state.userGrants.records[this.recordKey];
             },
 
             editStatus() {
-                return this.storeRequestStatus("getEditUserGrantStatus", "getUserGrantMessageErrors");
+                return this.$store.getters['userGrants/getStatus']('edit');
             },
 
             loadStatus() {
-                return this.$store.getters.getLoadUserGrantsStatus;
+                return this.$store.getters['userGrants/getStatus']('load');
             }
         },
 
         watch: {
-            editStatus(value) {
-                this.watchSubmitStatus(value, "Permissão alterada com sucesso", "Houve um erro na alteração da permissão.");
-
-                if (value.code === 3) {
-                    this.disableForm(false);
-                }
-            },
-
-            loadStatus(value) {
-                this.watchRecordLoad(value, this.editStatus.code, "a permissão");
-            },
-
-            recordKey(value) {
-                if (value !== null) {
-                    this.manageFormData();
-                }
-            }
         },
 
         methods: {
             manageFormData(type) {
                 if (type !== "reset") {
-                    this.name = this.grant.name;
+                    this.fields.name = this.grant.name;
                 } else {
-                    if(this.name !== this.grant.name) {
-                        this.name = this.grant.name;
+                    if(this.fields.name !== this.grant.name) {
+                        this.fields.name = this.grant.name;
                     }
                 }
             },
 
             submitForm() {
-                if (this.name === "") {
+                if (this.isEmptyString(this.fields.name)) {
                     this.setFieldMessageError("name", "Preencha o nome da permissão.");
                 } else {
                     let proceed = false,
                         data = {};
 
-                    if (this.name !== this.grant.name) {
-                        data.name = this.name;
+                    if (this.fields.name !== this.grant.name) {
+                        data.name = this.fields.name;
                         proceed = true;
                     }
 
@@ -124,7 +113,7 @@
 
                         this.disableForm();
 
-                        this.$store.dispatch("editUserGrant", data);
+                        this.$store.dispatch("userGrants/edit", data);
                     }
                 }
             }

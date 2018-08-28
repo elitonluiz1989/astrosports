@@ -3,7 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control" v-if="dataLoaded">
+        <dashboard-list-row row-type="control">
             <user-grant-insert-form />
 
             <user-grant-edit-form :record-key="recordKey"
@@ -50,6 +50,7 @@
 
 <script>
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
+    import { mapState } from 'vuex';
     import UserGrantInsertForm from './Insert';
     import UserGrantEditForm from "./Edit";
     import UserDeleteModal from "../Delete";
@@ -83,12 +84,14 @@
         },
 
         computed: {
+            ...mapState({store: 'userGrants'}),
+
             records() {
-                return this.$store.getters.getUserGrants;
+                return this.store.records;
             },
 
             loadStatus() {
-                return this.storeRequestStatus("getLoadUserGrantsStatus", "getUserGrantMessageErrors")
+                return this.store.status.load;
             },
         },
 

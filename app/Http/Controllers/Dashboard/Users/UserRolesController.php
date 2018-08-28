@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Users;
 
 use App\Handlers\Dashboard\UserPermissionHandler;
-use App\Http\Requests\UsersDefaultStoreRequest;
+use App\Http\Requests\UserRolesStoreRequest;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ class UserRolesController extends Controller
     /**
      * @var UserRolesRepository
      */
-    private $roles;
+    private $_roles;
 
     /**
      * UsersRolesController constructor.
@@ -23,7 +23,7 @@ class UserRolesController extends Controller
      */
     public function __construct(UserRolesRepository $roles)
     {
-        $this->roles = $roles;
+        $this->_roles = $roles;
     }
 
     /**
@@ -34,23 +34,24 @@ class UserRolesController extends Controller
     {
         if (null !== $id) {
             if ($this->isWebmaster() || $id >= $this->getAuthUserGrant()) {
-                return $this->roles->get($id);
+                return $this->_roles->get($id);
             } else {
                 abort(403, config('dashboard.users.accessDeniedMessage'));
             }
         } else {
-            return $this->roles->get();
+            return $this->_roles->get();
         }
     }
 
     /**
-     * @param UsersDefaultStoreRequest $request
+     * @param UserRolesStoreRequest $request
      * @return string
      */
-    public function store(UsersDefaultStoreRequest $request)
+    public function store(UserRolesStoreRequest $request)
     {
         $data = $request->validated();
-        return (string)$this->roles->store($data);
+
+        return (string)$this->_roles->store($data);
     }
 
     /**
@@ -63,6 +64,6 @@ class UserRolesController extends Controller
             'id' => 'integer|required'
         ])['id'];
 
-        return $this->roles->delete($id);
+        return $this->_roles->delete($id);
     }
 }

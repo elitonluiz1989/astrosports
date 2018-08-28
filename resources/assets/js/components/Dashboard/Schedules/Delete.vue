@@ -76,7 +76,7 @@
         },
 
         computed: {
-            requestStatus() {
+            deleteStatus() {
                 if (this.typeRecord === "schedules") {
                     return this.storeRequestStatus("getDeleteScheduleStatus", "getSchedulesMessageErrors")
                 } else if (this.typeRecord === "schedules-poles") {

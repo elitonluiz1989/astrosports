@@ -1,4 +1,4 @@
-import { cleanArray, isArray, isNullOrEmpty, isNullOrUndefined, isObject } from './utils';
+import { cleanArray, isArray, isEmptyArray, isEmptyString, isNullOrUndefined, isObject } from './utils';
 
 const VueUtils = {
     install(Vue, options) {
@@ -8,7 +8,9 @@ const VueUtils = {
 
                 isArray,
 
-                isNullOrEmpty,
+                isEmptyArray,
+
+                isEmptyString,
 
                 isNullOrUndefined,
 
@@ -36,7 +38,7 @@ const VueUtils = {
                 },
 
                 userIsAllowed(userGrant, tipo) {
-                    if (!this.isNullOrEmpty(this.$store.getters.getAuthUserGrant) && this.$store.getters.getAuthUserGrant > 0) {
+                    if (!this.isEmptyString(this.$store.getters.getAuthUserGrant) && this.$store.getters.getAuthUserGrant > 0) {
                         return this.$store.getters.getAuthUserGrant <= userGrant;
                     } else {
                         return  true;

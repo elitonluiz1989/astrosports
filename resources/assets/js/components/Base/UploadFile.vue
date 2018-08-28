@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import {messageErrorHandler} from "@js/messageErrorHandler";
+    import {messageErrorHandler} from "@js/helpers/messageErrorHandler";
 
     export default {
         name: "upload-file",
@@ -114,7 +114,6 @@
                     headers: { 'content-type': 'multipart/form-data' }
                 },
                 data: new FormData(),
-                deleteData: { params: {} },
                 uploaded: 0,
                 messageType: "default",
                 status: {
@@ -209,7 +208,7 @@
             },
 
             addSingleFile(filePath) {
-                if (this.files.length > 0 && !this.isNullOrEmpty(this.files[0])) {
+                if (this.files.length > 0 && !this.isEmptyString(this.files[0])) {
                     this.toRemove.push(this.files[0]);
                 }
 
@@ -298,7 +297,7 @@
             },
 
             uploadInputFileReset() {
-                if (!this.isNullOrEmpty(this.$refs.inputFile.value)) {
+                if (!this.isEmptyString(this.$refs.inputFile.value)) {
                     this.$refs.inputFile.value = "";
                 }
             },

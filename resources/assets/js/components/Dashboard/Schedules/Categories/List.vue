@@ -3,7 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <dashboard-list-row row-type="control" v-if="dataLoaded">
+        <dashboard-list-row row-type="control">
             <schedules-category-insert-form />
 
             <schedules-category-edit-form :record-key="recordKey"

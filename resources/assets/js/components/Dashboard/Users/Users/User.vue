@@ -47,7 +47,7 @@
 
         computed: {
             user() {
-                return this.$store.getters.getUsers[this.userKey];
+                return this.$store.state.users.users[this.userKey];
             },
 
             role() {

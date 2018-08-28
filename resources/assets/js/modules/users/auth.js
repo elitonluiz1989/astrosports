@@ -1,5 +1,5 @@
-import usersApi  from '../../api/users';
-import {messageErrorHandler} from "../../messageErrorHandler";
+import usersApi  from '@js/api/users';
+import {messageErrorHandler} from "@js/helpers/messageErrorHandler";
 
 export const auth = {
     state: {

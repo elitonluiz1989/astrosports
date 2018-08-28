@@ -60,12 +60,12 @@
         },
 
         computed: {
-            requestStatus() {
+            deleteStatus() {
                 if (this.typeRecord === "user") {
                 } else if (this.typeRecord === "user-role") {
-                    return this.storeRequestStatus("getDeleteUserRoleStatus", "getUserRoleMessageErrors")
+                    return this.$store.getters['userRoles/getStatus']('delete');
                 } else if (this.typeRecord === "user-grant") {
-                    return this.storeRequestStatus("getDeleteUserGrantStatus", "getUserGrantMessageErrors")
+                    return this.$store.getters['userGrants/getStatus']('delete');
                 }
             }
         },
@@ -76,9 +76,9 @@
 
                 if (this.typeRecord === "user") {
                 } else if (this.typeRecord === "user-role") {
-                    this.$store.dispatch("deleteUserRole", this.recordId);
+                    this.$store.dispatch("userRoles/delete", this.recordId);
                 } else if (this.typeRecord === "user-grant") {
-                    this.$store.dispatch("deleteUserGrant", this.recordId);
+                    this.$store.dispatch("userGrants/delete", this.recordId);
                 }
             }
         }

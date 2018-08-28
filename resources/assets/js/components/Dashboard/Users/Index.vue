@@ -3,14 +3,14 @@
         <div class="dashboard-tabs">
             <ul class="nav nav-tabs" id="dashboard-users-tabs-item" role="tablist">
                 <li class="nav-item" v-for="(item, key) in items" :key="key">
-                    <a :class="navLinkStyle(key)" 
-                        :id="setTabId(key)" 
-                        data-toggle="tab" 
-                        :href="'#' + key" 
-                        role="tab" 
-                        :aria-controls="key" 
-                        aria-selected="true" 
-                        v-text="item" 
+                    <a :class="navLinkStyle(key)"
+                        :id="setTabId(key)"
+                        data-toggle="tab"
+                        :href="'#' + key"
+                        role="tab"
+                        :aria-controls="key"
+                        aria-selected="true"
+                        v-text="item"
                         @click="changeUrl(key)"></a>
                 </li>
             </ul>
@@ -33,6 +33,7 @@
 
 <script>
     import TabsMixin from '@components/Base/Mixins/TabsMixin';
+    import { mapActions } from 'vuex';
     import GrantsList from './Grants/List';
     import RolesList from './Roles/List';
     import UsersList from './Users/List';
@@ -67,11 +68,19 @@
         },
 
         created() {
-            this.$store.dispatch('loadUserGrants');
-            this.$store.dispatch('loadUserRoles');
-            this.$store.dispatch('loadUsers');
+            this.loadGrants();
+            this.loadRoles();
+            this.loadUsers();
 
             this.defaultTab = "usuarios";
+        },
+
+        methods: {
+            ...mapActions({
+                loadGrants: 'userGrants/load',
+                loadRoles: 'userRoles/load',
+                loadUsers: 'users/load'
+            })
         }
     }
 </script>

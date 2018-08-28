@@ -1,5 +1,5 @@
-import schedulesApi  from '../api/schedulesPoles';
-import {messageErrorHandler} from "../messageErrorHandler";
+import schedulesApi  from '@js/api/schedulesPoles';
+import {messageErrorHandler} from "@js/helpers/messageErrorHandler";
 
 export const schedulesPoles = {
     state: {

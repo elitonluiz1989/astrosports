@@ -1,5 +1,5 @@
-import categoriesApi  from '../api/schedulesCategories';
-import {messageErrorHandler} from "../messageErrorHandler";
+import categoriesApi  from '@js/api/schedulesCategories';
+import {messageErrorHandler} from "@js/helpers/messageErrorHandler";
 
 export const schedulesCategories = {
     state: {

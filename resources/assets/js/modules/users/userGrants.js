@@ -1,154 +1,61 @@
-import schedulesApi  from '@js/api/users/userGrants';
-import {messageErrorHandler} from "@js/messageErrorHandler";
+import server  from '@js/api/users/userGrants';
+import base from '../base';
 
-export const userGrants = {
-    state: {
-        userGrant: {},
-        userGrants: [],
-        messageErrors: null,
-        status: {
-            add: 0,
-            edit: 0,
-            delete: 0,
-            load: 0
-        }
-    },
-
+export const userGrants = base.extend({
     actions: {
-        loadUserGrant({commit}, id) {
-            commit('setLoadUserGrantsStatus', 1);
+        load({commit}) {
+            commit('setStatus', ['load', 1]);
 
-            schedulesApi.get(id)
+            server.get()
                 .then(response => {
-                    commit('setUserGrant', response.data);
-                    commit('setLoadUserGrantsStatus', 2);
+                    commit('setRecords', response.data);
+                    commit('setStatus', ['load', 2]);
                 })
                 .catch(err => {
-                    commit('setUserGrant', {});
-                    commit('setLoadUserGrantsStatus', 3);
-                    commit('setUserGrantMessageErrors', err);
+                    commit('setRecords', []);
+                    commit('setStatus', ['load', 3, err]);
                 });
         },
 
-        loadUserGrants({commit}) {
-            commit('setLoadUserGrantsStatus', 1);
+        add({commit, dispatch}, grant) {
+            commit('setStatus', ['add', 1]);
 
-            schedulesApi.get()
+            server.add(grant)
                 .then(response => {
-                    commit('setUserGrants', response.data);
-                    commit('setLoadUserGrantsStatus', 2);
+                    commit('setStatus', ['add', 2]);
+                    dispatch("load");
                 })
                 .catch(err => {
-                    commit('setUserGrants', []);
-                    commit('setLoadUserGrantsStatus', 3);
-                    commit('setUserGrantMessageErrors', err);
+                    commit('setStatus', ['add', 3, err]);
                 });
         },
 
-        addUserGrant({commit, dispatch}, role) {
-            commit('setAddUserGrantStatus', 1);
+        edit({commit, dispatch}, grant) {
+            commit('setStatus', ['edit', 1]);
 
-            schedulesApi.add(role)
+            server.edit(grant)
                 .then(response => {
-                    commit('setAddUserGrantStatus', 2);
-                    dispatch("loadUserGrants");
+                    commit('setStatus', ['edit', 2]);
+                    dispatch("load");
+                    dispatch("users/load", null, {root: true});
                 })
                 .catch(err => {
-                    commit('setAddUserGrantStatus', 3);
-                    commit('setUserGrantMessageErrors', err);
+                    commit('setStatus', ['edit', 3, err]);
                 });
         },
 
-        editUserGrant({commit, dispatch}, role) {
-            commit('setEditUserGrantStatus', 1);
-
-            schedulesApi.edit(role)
+        delete({commit, dispatch}, id) {
+            commit('setStatus', ['delete', 1]);
+            
+            server.del(id)
                 .then(response => {
-                    commit('setEditUserGrantStatus', 2);
-                    dispatch("loadUserGrants");
-                    dispatch("loadUsers");
+                    commit('setStatus', ['delete', 2]);
+                    dispatch("load");
+                    dispatch("users/load", null, {root: true});
                 })
                 .catch(err => {
-                    commit('setEditUserGrantStatus', 3);
-                    commit('setUserGrantMessageErrors', err);
+                    commit('setStatus', ['delete', 3, err]);
                 });
-        },
-
-        deleteUserGrant({commit, dispatch}, id) {
-            commit('setDeleteUserGrantStatus', 1);
-            console.log(id);
-
-            schedulesApi.del(id)
-                .then(response => {
-                    console.log(response)
-                    commit('setDeleteUserGrantStatus', 2);
-                    dispatch("loadUserGrants");
-                    dispatch("loadUsers");
-                })
-                .catch(err => {
-                    commit('setDeleteUserGrantStatus', 3);
-                    commit('setUserGrantMessageErrors', err);
-                });
-        }
-    },
-
-    mutations: {
-        setUserGrant(state, userGrant) {
-            state.userGrant = userGrant;
-        },
-
-        setUserGrants(state, userGrants) {
-            state.userGrants = userGrants;
-        },
-
-        setLoadUserGrantsStatus(state, status) {
-            state.status.load = status;
-        },
-
-        setAddUserGrantStatus(state, status) {
-            state.status.add = status;
-        },
-
-        setEditUserGrantStatus(state, status) {
-            state.status.edit = status;
-        },
-
-        setDeleteUserGrantStatus(state, status) {
-            state.status.delete = status;
-        },
-
-        setUserGrantMessageErrors(state, message) {
-            state.messageErrors = messageErrorHandler(message);
-        }
-    },
-
-    getters: {
-        getUserGrant(state) {
-            return state.userGrant;
-        },
-
-        getUserGrants(state) {
-            return state.userGrants;
-        },
-
-        getLoadUserGrantsStatus(state) {
-            return state.status.load;
-        },
-
-        getAddUserGrantStatus(state) {
-            return state.status.add;
-        },
-
-        getEditUserGrantStatus(state) {
-            return state.status.edit;
-        },
-
-        getDeleteUserGrantStatus(state) {
-            return state.status.delete;
-        },
-
-        getUserGrantMessageErrors(state) {
-            return state.messageErrors;
         }
     }
-};
+});

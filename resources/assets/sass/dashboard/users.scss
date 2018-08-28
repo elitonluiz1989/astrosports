@@ -4,8 +4,9 @@
   &-item {
     margin-bottom: 1rem;
 
-    @extend .col-8;
-    @extend .col-sm-4;
+    @extend .col-10;
+    @extend .col-sm-5;
+    @extend .col-md-4;
     @extend .col-lg-3;
     @extend .col-xl-2;
   }

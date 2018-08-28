@@ -8,7 +8,7 @@ class UserRole extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'grant_id'];
 
     public function grant() {
         return $this->hasOne('App\Models\UserGrant', 'id', 'grant_id');

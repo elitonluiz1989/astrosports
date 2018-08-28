@@ -1,5 +1,5 @@
 import { CONFIG } from "@js/config";
-import {isArray, isNullOrEmpty, isObject} from "./utils";
+import {isArray, isEmptyString, isObject} from "./utils";
 
 function manageMessage(messages) {
     let errorMessages = [];
@@ -11,7 +11,7 @@ function manageMessage(messages) {
             if (typeof message === "string" && message.indexOf("[show-user]") !== -1) {
                 errorMessages.push(message.replace("[show-user]", ""));
             } else {
-                if (CONFIG.REQUEST.MESSAGE_ON_LOG && !isNullOrEmpty(message)) {
+                if (CONFIG.REQUEST.MESSAGE_ON_LOG && !isEmptyString(message)) {
                     console.error(message);
                 }
             }

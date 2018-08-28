@@ -26,7 +26,7 @@
 
                             <upload-file :class="'form-group row'"
                                          delete-url="/storage/images/delete"
-                                         :form-id="formId"
+                                         :modal-id="modalId"
                                          formats="image/*"
                                          :limit="1"
                                          :list-uploaded="false"
@@ -36,7 +36,7 @@
                                          :show-progress="true"
                                          server-file-name="images"
                                          url="/storage/images/upload"
-                                         v-model="avatar">
+                                         v-model="fields.avatar">
                             </upload-file>
 
                             <div class="form-group row">
@@ -49,7 +49,7 @@
                                 <label :for="setFieldId('username')" :class="userStyles.label">Nome de usuário</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text" :id="setFieldId('username')" class="form-control" v-model="username">
+                                    <input type="text" :id="setFieldId('username')" class="form-control" v-model="fields.username">
                                 </div>
                             </div>
 
@@ -57,7 +57,7 @@
                                 <label :for="setFieldId('name')" :class="userStyles.label">Nome</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
+                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
                                 </div>
                             </div>
 
@@ -65,11 +65,11 @@
                                 <label :for="setFieldId('role')" :class="userStyles.label">Tipo de usuário</label>
 
                                 <div :class="userStyles.selectGroup">
-                                    <select :id="setFieldId('role')" class="form-control" v-model="role">
+                                    <select :id="setFieldId('role')" class="form-control" v-model="fields.role">
                                         <option value="0">...</option>
                                         <option :value="role.id"
-                                                v-for="(role, key) in userRoles" v-text="role.name"
-                                                v-if="userRoles.length > 0"
+                                                v-for="(role, key) in roles" v-text="role.name"
+                                                v-if="roles.length > 0"
                                                 :key="key"></option>
                                     </select>
                                 </div>
@@ -79,7 +79,7 @@
                                 <label :for="setFieldId('passowrd')" :class="userStyles.label">Senha</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text" :id="setFieldId('password')" class="form-control" v-model="password">
+                                    <input type="text" :id="setFieldId('password')" class="form-control" v-model="fields.password">
                                 </div>
                             </div>
 
@@ -87,7 +87,7 @@
                                 <label :for="setFieldId('confirm-password')" :class="userStyles.label">Confirme a senha</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text" :id="setFieldId('confirm-password')" class="form-control" v-model="confirmPassword">
+                                    <input type="text" :id="setFieldId('confirm-password')" class="form-control" v-model="fields.confirmPassword">
                                 </div>
                             </div>
                         </div>
@@ -122,11 +122,11 @@
 
         computed: {
             addStatus() {
-                return this.storeRequestStatus("getAddUserStatus", "getUsersMessageErrors");
+                return this.$store.getters["users/getStatus"]("add");
             },
 
-            userRoles() {
-                return this.$store.getters.getUserRoles;
+            roles() {
+                return this.$store.state.userRoles.userRoles;
             }
         },
 
@@ -137,19 +137,12 @@
         },
 
         methods: {
-            resetFormFields() {
-                this.username = "";
-                this.name = "";
-                this.avatar = "";
-                this.role = 0;
-                this.grant = 0;
-                this.password = "";
-                this.confirmPassword = "";
-            },
-
             submitForm() {
                 if (this.validateForm()) {
-                    console.log('dwegtwe')
+                    let data = this.setFormData();
+
+                    console.log(data)
+
                     //this.showMask = true;
                     //this.$store.dispatch("addSchedulesPole", {name: this.name});
                 }

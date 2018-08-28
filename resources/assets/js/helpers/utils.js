@@ -15,8 +15,12 @@ const isArray = value => {
     return value instanceof Array;
 };
 
-const isNullOrEmpty = string => {
-    return string === undefined || string === null || string === "";
+const isEmptyArray = arr => {
+    return isNullOrUndefined(arr) || arr.length === 0;
+};
+
+const isEmptyString = string => {
+    return isNullOrUndefined(string) || string === "";
 };
 
 const isNullOrUndefined = value => {
@@ -27,4 +31,4 @@ const isObject = value => {
     return value instanceof Object;
 };
 
-export { cleanArray, isArray, isNullOrEmpty, isNullOrUndefined, isObject };
+export { cleanArray, isArray, isEmptyArray, isEmptyString, isNullOrUndefined, isObject };

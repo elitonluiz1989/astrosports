@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Users;
 
 use App\Handlers\Dashboard\UserPermissionHandler;
-use App\Http\Requests\UsersDefaultStoreRequest;
+use App\Http\Requests\UserGrantsStoreRequest;
 use App\Repositories\UserGrantsRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,7 +32,7 @@ class UserGrantsController extends Controller
         }
     }
 
-    public function store(UsersDefaultStoreRequest $request)
+    public function store(UserGrantsStoreRequest $request)
     {
         $data = $request->validated();
         return (string)$this->grants->store($data);

@@ -26,7 +26,14 @@ export default {
             formTitle: "",
             formId: "",
             modalId: "",
-            showMask: false
+            showMask: false,
+            formData: {},
+            fields: {},
+            rules: {},
+            submitMessages: {
+                error: null,
+                success: null
+            }
         };
     },
 
@@ -37,8 +44,9 @@ export default {
                     "modal-header form-header--insert": this.formType === "insert",
                     "modal-header form-header--edit": this.formType === "edit",
                 },
-                label: "control-label col-3",
-                inputGroup: "input-group col-9",
+                label: "control-label col-4",
+                inputGroup: "input-group col-8",
+                selectGroup: "input-group col-6",
                 btnTrigger: "btn btn-success w-100",
                 btnSubmit: {
                     "btn btn-success": this.formType === "insert",
@@ -78,7 +86,33 @@ export default {
             });
         },
 
-        resetFormFields() {},
+        setFormData() {
+            let data = {};
+
+            for (let item in this.fields) {
+                if (!this.isNullOrUndefined(this.rules[item])) {
+                    if (this.fields[item] !== this.rules[item]) {
+                        data[item] = this.fields[item];
+                    }
+                } else {
+                    if (!this.isEmptyString(this.fields[item])) {
+                        data[item] = this.fields[item];
+                    }
+                }
+            }
+
+            return data;
+        },
+
+        resetFormFields() {
+            for (let item in this.fields) {
+                if (!this.isNullOrUndefined(this.rules[item])) {
+                    this.fields[item] = this.rules[item];
+                } else {
+                    this.fields[item] = this.isNullOrUndefined(this.rules.default) ? null : this.rules.default;
+                }
+            }
+        },
 
         setFieldId(field) {
             return this.formId + '-' + field;
@@ -91,14 +125,23 @@ export default {
         },
 
         watchSubmitStatus(value, messageSuccess, messageError) {
+            messageSuccess = messageSuccess || this.submitMessages.success;
+            messageError = messageError || this.submitMessages.error;
+
             if (value.code === 2) {
                 this.showMask = false; // I included this inside the IFs because code can be 1 (loading or waiting)
                 this.showMessageSuccess(messageSuccess);
             } else if (value.code === 3) {
-                let message = value.messages.length > 0 ? value.messages : messageError;
+                let messages = null;
+
+                if (!this.isEmptyArray(value.messages)) {
+                    messages = value.messages;
+                } else {
+                    messages = messageError;
+                }
 
                 this.showMask = false;
-                this.showMessageError(message);
+                this.showMessageError(messages);
             }
         }
     }

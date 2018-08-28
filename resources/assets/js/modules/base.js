@@ -11,12 +11,25 @@ const baseState = (addOns = {}) => {
             limit: 0
         },
 
+        records: [],
+
         status: {
-            add: 0,
-            edit: 0,
-            delete: 0,
-            load: 0,
-            message: null
+            add: {
+                code: 0,
+                messages: null
+            },
+            edit: {
+                code: 0,
+                messages: null
+            },
+            delete: {
+                code: 0,
+                messages: null
+            },
+            load: {
+                code: 0,
+                messages: null
+            },
         }
     };
 
@@ -39,11 +52,15 @@ const baseMutations = (state = {}, addOns = {}) => {
             }
         },
 
+        setRecords(state, records) {
+            state.records = records;
+        },
+
         setStatus(state, values) {
-            state.status[values[0]] = values[1];
+            state.status[values[0]].code = values[1];
 
             if (!isEmptyString(values[2])) {
-                state.status.message = messageErrorHandler(values[2]);
+                state.status[values[0]].messages = messageErrorHandler(values[2]);
             }
         }
     };
@@ -51,11 +68,26 @@ const baseMutations = (state = {}, addOns = {}) => {
     return Object.assign(mutations, addOns);
 };
 
+const baseGetters = (state = {}, addOns = {}) => {
+    const getters = {
+        getStatus: state => action => {            
+            return {
+                code: state.status[action].code,
+                messages: state.status[action].messages
+            };
+        }
+    };
+
+    return Object.assign(getters, addOns);
+};
+
 export default {
     extend(base) {
         const module = Object.assign({}, base);
+        module.namespaced = true;
         module.state = baseState(base.state);
         module.mutations = baseMutations(base.state, base.mutations);
+        module.getters = baseGetters(base.state, base.getters);
 
         return module;
     }

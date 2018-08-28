@@ -13,19 +13,23 @@ export default {
 
     data() {
         return {
-            username: "",
-            name: "",
-            avatar: "",
-            role: 0,
-            grant: 0,
-            password: "",
-            confirmPassword: "",
+            rules: {
+                role: 0
+            },
+            fields: {
+                username: null,
+                name: null,
+                avatar: null,
+                role: 0,
+                password: null,
+                confirmPassword: null
+            }
         };
     },
 
     computed: {
         avatarSrc() {
-            return this.avatar || CONFIG.PHOTOS.DEFAULT;
+            return this.fields.avatar || CONFIG.PHOTOS.DEFAULT;
         },
 
         userStyles() {
@@ -37,37 +41,15 @@ export default {
         },
     },
 
-    mounted() {
-        $("#" + this.formId + "-modal").on('hidden.bs.modal', () => {
-            this.resetForm();
-        });
-    },
-
     methods: {
-        setAvatar(avatarSrc) {
-            this.avatar = avatarSrc;
-        },
-
-        resetForm() {
-            this.username = "";
-            this.name = "";
-            this.avatar = CONFIG.PHOTOS.DEFAULT;
-            this.role = 0;
-            this.grant = 0;
-            this.password = "";
-            this.confirmPassword = "";
-        },
-
         validateForm() {
-            if (this.username === "") {
+            if (this.isEmptyString(this.fields.username)) {
                 this.setFieldMessageError("username", "Informe o nome de usuário.");
-            } else if (this.role === 0) {
-                this.setFieldMessageError("role", "Informe o tipo de usuário.");
-            } else if (this.grant === "") {
-                this.setFieldMessageError("grant", "Informe nível de privilégio do usuário.");
-            } else if (this.password === "") {
+            } else if (this.fields.role === 0) {
+                this.setFieldMessageError("role", "Informe o cargo de usuário.");
+            } else if (this.isEmptyString(this.fields.password === "")) {
                 this.setFieldMessageError("password", "Informe uma senha para o usuário.");
-            } else if (this.confirmPassword !== this.password) {
+            } else if (this.fields.confirmPassword !== this.fields.password) {
                 this.setFieldMessageError("confirm-password", "As senhas informadas diferem.");
             } else {
                 return true;

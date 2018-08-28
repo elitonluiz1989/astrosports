@@ -20,8 +20,22 @@
                             <div class="form-group row">
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
 
-                                <div class="input-group col-9">
-                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
+                                <div  :class="styles.inputGroup">
+                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label :for="setFieldId('grant')" :class="styles.label">Permissão</label>
+
+                                <div :class="styles.selectGroup">
+                                    <select :id="setFieldId('grant')" class="form-control" v-model="fields.grant">
+                                        <option value="0">...</option>
+                                        <option :value="grant.id"
+                                                v-for="(grant, key) in grants" v-text="grant.name"
+                                                v-if="grants.length > 0"
+                                                :key="key"></option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -41,6 +55,7 @@
 <script>
     import DashboardModalMixin from '@components/Base/Mixins/ModalMixin';
     import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
+    import UserRolesMixin from "../Mixins/UserRolesMixin";
 
     export default {
         name: "user-role-edit-form",
@@ -48,6 +63,7 @@
         mixins: [
             DashboardModalMixin,
             DashboardFormEditMixin,
+            UserRolesMixin
         ],
 
         data() {
@@ -56,27 +72,35 @@
                 formId: "users-role-edit-form",
                 formTitle: "Editar cargo",
                 formType: "edit",
-                name: ""
+                submitMessages: {
+                    error: "Houve um erro na alteração do cargo.",
+                    success: "Cargo alterado com sucesso"
+                }
             }
         },
 
         computed: {
-            role() {
-                return this.$store.getters.getUserRoles[this.recordKey];
+
+            grants() {
+                return this.$store.state.userGrants.records;
+            },
+
+            record() {
+                return this.$store.state.userRoles.records[this.recordKey];
             },
 
             editStatus() {
-                return this.storeRequestStatus("getEditUserRoleStatus", "getUserRoleMessageErrors");
+                return this.$store.getters['userRoles/getStatus']('edit');
             },
 
             loadStatus() {
-                return this.$store.getters.getLoadUserRolesStatus;
+                return this.$store.getters['userRoles/getStatus']('load');
             }
         },
 
         watch: {
             editStatus(value) {
-                this.watchSubmitStatus(value, "Cargo alterado com sucesso", "Houve um erro na alteração do cargo.");
+                this.watchSubmitStatus(value);
 
                 if (value.code === 3) {
                     this.disableForm(false);
@@ -85,46 +109,21 @@
 
             loadStatus(value) {
                 this.watchRecordLoad(value, this.editStatus.code, "o cargo");
-            },
-
-            recordKey(value) {
-                if (value !== null) {
-                    this.manageFormData();
-                }
             }
         },
 
         methods: {
-            manageFormData(type) {
-                if (type !== "reset") {
-                    this.name = this.role.name;
-                } else {
-                    if(this.name !== this.role.name) {
-                        this.name = this.role.name;
-                    }
-                }
-            },
-
             submitForm() {
-                if (this.name === "") {
-                    this.setFieldMessageError("name", "Preencha o nome do cargo.");
-                } else {
-                    let proceed = false,
-                        data = {};
+                if (this.validateForm()) {
+                    if (this.setUpadeData()) {
+                        this.formData.id = this.record.id;
 
-                    if (this.name !== this.role.name) {
-                        data.name = this.name;
-                        proceed = true;
-                    }
-
-                    if (proceed) {
-                        data.id = this.role.id;
                         this.showMask = true;
                         this.formMessageShow = false;
 
                         this.disableForm();
 
-                        this.$store.dispatch("editUserRole", data);
+                        this.$store.dispatch("userRoles/edit", this.formData);
                     }
                 }
             }

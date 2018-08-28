@@ -86,16 +86,16 @@
             },
 
             itemRowStyle() {
-                return this.isNullOrEmpty(this.itemType) ? "row d-sm-none" : "row d-sm-none";
+                return this.isEmptyString(this.itemType) ? "row d-sm-none" : "row d-sm-none";
             },
 
             itemStyle() {
                 let style = "";
 
-                if (this.isNullOrEmpty(this.itemClass)) {
+                if (this.isEmptyString(this.itemClass)) {
                     style = "dashboard-list";
 
-                    if (!this.isNullOrEmpty(this.itemId)) {
+                    if (!this.isEmptyString(this.itemId)) {
                         style += "__" + this.itemId;
                     } else {
                         style += "--default"

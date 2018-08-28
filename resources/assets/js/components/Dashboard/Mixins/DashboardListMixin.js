@@ -3,7 +3,6 @@ import DashboardRequestMessage from '@Dashboard/DashboardRequestMessage';
 import DashboardListRow from "@Dashboard/List/Row";
 import DashboardListItem from "@Dashboard/List/Item";
 
-
 export default {
     components: {
         DashboardRequestMessage,

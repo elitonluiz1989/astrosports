@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UsersDefaultStoreRequest extends FormRequest
+class UserRolesStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,20 +23,27 @@ class UsersDefaultStoreRequest extends FormRequest
      */
     public function rules()
     {
-        $table = (strpos($this->getRequestUri(), 'grants')) ? 'user_grants' : 'user_roles';
-
         if ($this->method() == 'POST') {
             return [
-                'name' => "string|unique:{$table},name|required"
+                'name' => "string|unique:user_roles,name|required",
+                'grant' => "integer|required"
             ];
         } else {
+            $id = $this->get('id');
+
             return [
                 'id' => 'integer|required',
-                'name' => "string|unique:{$table},name,{$this->get('id')}|required"
+                'name' => "string|unique:user_roles,name,{$id}|required",
+                'grant' => "integer|required"
             ];
         }
     }
 
+    /**
+     * Get the validation messages.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [

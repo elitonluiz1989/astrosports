@@ -26,9 +26,10 @@ class UserRolesRepository
     public function get($id = null)
     {
         if (null !== $id) {
-            return Role::find($id);
+            return Role::with('grant')
+                        ->find($id);
         } else {
-            $query = Role::select($this->fields);
+            $query = Role::with('grant');
 
             if (!$this->isWebmaster()) {
                 $query->where('id', '>=', $this->getAuthUserGrant());
@@ -46,14 +47,15 @@ class UserRolesRepository
     public function store(array $data)
     {
         if (isset($data['id'])) {
-            $pole = $this->get($data['id']);
-            $pole->name = $data['name'];
+            $role = $this->get($data['id']);
         } else {
-            $pole = new Role();
-            $pole->name = $data['name'];
+            $role = new Role();
         }
 
-        return $pole->save();
+        $role->name = $data['name'];
+        $role->grant_id = (int)$data['grant'];
+
+        return $role->save();
     }
 
     /**

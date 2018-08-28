@@ -3,9 +3,7 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
 
-        <user-edit-form :record-key="recordKey" :show="showEditModal" @hideModal="hideModal"></user-edit-form>
-
-        <div class="row justify-content-center justify-content-sm-start" v-if="dataLoaded">
+        <div class="row justify-content-center justify-content-sm-around justify-content-md-start" v-if="dataLoaded">
             <div class="dashboard__users-item"
                 v-for="(user, key) in records"
                 :key="key">
@@ -21,17 +19,16 @@
 
 <script>
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
+    import { mapState } from 'vuex';
     import UserInfo from './User';
     import UserInsertForm from './Insert';
-    import UserEditForm from "./Edit";
 
     export default {
         name: "users-lists",
-        
+
         components: {
             UserInfo,
-            UserInsertForm,
-            UserEditForm
+            UserInsertForm
         },
 
         mixins: [
@@ -39,17 +36,19 @@
         ],
 
         computed: {
+            ...mapState({store: 'users'}),
+
             records() {
-                return this.$store.getters.getUsers;
+                return this.store.users;
             },
 
             pagination() {
-                return this.$store.getters.getUsersPagination;
+                return this.store.pagination;
             },
 
             loadStatus() {
-                return this.storeRequestStatus('getUsersRequestStatus', 'getUsersMessageErrors')
+                return this.store.status.load;
             }
-        },
+        }
     }
 </script>

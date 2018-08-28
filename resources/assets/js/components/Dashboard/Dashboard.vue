@@ -56,7 +56,7 @@
 
         computed: {
             currentPageText() {
-                return !this.isNullOrEmpty(pages[this.currentPage]) ? pages[this.currentPage].text : this.currentPage;
+                return !this.isEmptyString(pages[this.currentPage]) ? pages[this.currentPage].text : this.currentPage;
             }
         },
 

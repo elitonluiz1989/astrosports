@@ -24,7 +24,7 @@
                                 <label :for="setFieldId('name')" :class="styles.label">Nome</label>
 
                                 <div class="input-group col-9">
-                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="name">
+                                    <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
                                 </div>
                             </div>
                         </div>
@@ -56,34 +56,35 @@
                 formId: "user-grant-insert-form",
                 formTitle: "Adicionar permissão",
                 modalId: "user-grant-insert-modal",
-                name: "",
-                grant: 0
+                submitMessages: {
+                    error: "Houve um erro na inserção da permissão de usuário.",
+                    success: "Permissão de usuário inserida com sucesso"
+                },
+                fields: {
+                    name: null
+                }
             }
         },
 
         computed: {
             addStatus() {
-                return this.storeRequestStatus("getAddUserGrantStatus", "getUserGrantsMessageErrors");
+                return this.$store.getters['userGrants/getStatus']('add');
             }
         },
 
         watch: {
             addStatus(value) {
-                this.watchSubmitStatus(value, "Permissão de usuário inserida com sucesso", "Houve um erro na inserção da permissão de usuário.");
+                this.watchSubmitStatus(value);
             }
         },
 
         methods: {
-            resetFormFields() {
-                this.name = "";
-            },
-
             submitForm() {
-                if (this.name === "") {
+                if (this.isEmptyString(this.fields.name)) {
                     this.setFieldMessageError("name", "Preencha o nome da permissão de usuário");
                 } else {
                     this.showMask = true;
-                    this.$store.dispatch("addUserGrant", {name: this.name});
+                    this.$store.dispatch("userGrants/add", {name: this.fields.name});
                 }
             }
         }
