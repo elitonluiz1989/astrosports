@@ -1,3 +1,12 @@
+const capitalize = value => {
+    if (!value) {
+        return '';
+    }
+
+    value = value.toString().toLowerCase();
+    return value.charAt(0).toUpperCase() + value.slice(1);
+};
+
 const cleanArray = value => {
     let len = value.length;
     let _arr = [];
@@ -31,4 +40,8 @@ const isObject = value => {
     return value instanceof Object;
 };
 
-export { cleanArray, isArray, isEmptyArray, isEmptyString, isNullOrUndefined, isObject };
+const isString = value => {
+    return typeof value == 'string' || value instanceof String;
+};
+
+export { capitalize, cleanArray, isArray, isEmptyArray, isEmptyString, isNullOrUndefined, isObject, isString };

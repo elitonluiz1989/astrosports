@@ -20,7 +20,7 @@ export default {
 
         recordKey(value) {
             if (value !== null) {
-                this.manageFormData(); // This method must be implemented in Vue component that include this mixin
+                this.manageFormData();
             }
         }
     },
@@ -44,7 +44,18 @@ export default {
 
         manageFormData() {
             for (let item in this.fields) {
-                this.fields[item] = this.getRecordData(item);
+                let data = this.getRecordData(item);
+
+                if (this.isNullOrUndefined(data) &&
+                    !this.isNullOrUndefined(this.rules[item])) {
+                    data = this.rules[item];
+                }
+
+                if (this.isString(data)) {
+                    data = this.capitalize(data);
+                }
+
+                this.fields[item] = data;
             }
         },
 

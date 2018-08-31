@@ -126,7 +126,7 @@
             },
 
             roles() {
-                return this.$store.state.userRoles.userRoles;
+                return this.$store.state.userRoles.records;
             }
         },
 

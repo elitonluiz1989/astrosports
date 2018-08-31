@@ -35,6 +35,7 @@ export const userRoles = base.extend({
 
             server.edit(role)
                 .then(response => {
+                    commit('setStatus', ['edit', 2]);
                     dispatch("load");
                     dispatch("users/load", null, {root: true});
                 })

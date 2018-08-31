@@ -22,4 +22,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\UserRole', 'id', 'role_id');
     }
+
+    public function setUsernameAttribute($value)
+    {
+        $this->attributes['username'] = strtolower($value);
+    }
 }

@@ -47,7 +47,6 @@ export default {
 
     watch: {
         deleteStatus(value) {
-            console.log(value);
             if (value.code > 1) {
                 this.showMask = false;
                 this.showRequestResult = true;

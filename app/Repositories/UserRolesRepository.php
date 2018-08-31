@@ -52,8 +52,11 @@ class UserRolesRepository
             $role = new Role();
         }
 
-        $role->name = $data['name'];
-        $role->grant_id = (int)$data['grant'];
+        foreach ($data as $field => $value) {
+            $field = str_replace('grant', 'grant_id', $field);
+
+            $role->$field = $value;
+        }
 
         return $role->save();
     }

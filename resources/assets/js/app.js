@@ -6,6 +6,7 @@ import {VideosModal} from "./components/Videos/VideosModal";
 
 import Vue from 'vue';
 
+import { capitalize } from './helpers/utils';
 import VueUtils from './helpers/vue-utils';
 import VueRequest from './helpers/vue-request';
 import store from './store';
@@ -17,14 +18,7 @@ Vue.use(VueUtils);
 Vue.use(VueRequest);
 
 /** Global filters */
-Vue.filter("Capitalize", function(value) {
-    if (!value) {
-        return '';
-    }
-
-    value = value.toString();
-    return value.charAt(0).toUpperCase() + value.slice(1);
-});
+Vue.filter("Capitalize", capitalize);
 
 /** Global components */
 Vue.component("app-icon", AppIcon);
@@ -39,4 +33,3 @@ HomeHistory();
 PhotosGallery();
 
 VideosModal();
-

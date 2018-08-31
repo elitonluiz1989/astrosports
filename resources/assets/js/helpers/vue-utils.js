@@ -1,9 +1,11 @@
-import { cleanArray, isArray, isEmptyArray, isEmptyString, isNullOrUndefined, isObject } from './utils';
+import { capitalize, cleanArray, isArray, isEmptyArray, isEmptyString, isNullOrUndefined, isObject, isString } from './utils';
 
 const VueUtils = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
+                capitalize,
+
                 cleanArray,
 
                 isArray,
@@ -20,6 +22,8 @@ const VueUtils = {
                     // Function to validate self-defined attributes on Vue Components
                     return value !== undefined && value !== false;
                 },
+
+                isString,
 
                 getRequestParam(param) {
                     console.log(this.$request.params, this.$request.params.mostrar);

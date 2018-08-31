@@ -13,4 +13,9 @@ class UserRole extends Model
     public function grant() {
         return $this->hasOne('App\Models\UserGrant', 'id', 'grant_id');
     }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
 }

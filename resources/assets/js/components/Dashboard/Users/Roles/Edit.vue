@@ -32,9 +32,9 @@
                                     <select :id="setFieldId('grant')" class="form-control" v-model="fields.grant">
                                         <option value="0">...</option>
                                         <option :value="grant.id"
-                                                v-for="(grant, key) in grants" v-text="grant.name"
+                                                v-for="(grant, key) in grants"
                                                 v-if="grants.length > 0"
-                                                :key="key"></option>
+                                                :key="key">{{ grant.name | Capitalize }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,25 +98,13 @@
             }
         },
 
-        watch: {
-            editStatus(value) {
-                this.watchSubmitStatus(value);
-
-                if (value.code === 3) {
-                    this.disableForm(false);
-                }
-            },
-
-            loadStatus(value) {
-                this.watchRecordLoad(value, this.editStatus.code, "o cargo");
-            }
-        },
-
         methods: {
             submitForm() {
                 if (this.validateForm()) {
                     if (this.setUpadeData()) {
                         this.formData.id = this.record.id;
+
+                        console.log(this.formData)
 
                         this.showMask = true;
                         this.formMessageShow = false;

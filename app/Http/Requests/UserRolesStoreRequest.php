@@ -33,8 +33,8 @@ class UserRolesStoreRequest extends FormRequest
 
             return [
                 'id' => 'integer|required',
-                'name' => "string|unique:user_roles,name,{$id}|required",
-                'grant' => "integer|required"
+                'name' => "string|unique:user_roles,name,{$id}|required_without:grant",
+                'grant' => "integer|required_without:name"
             ];
         }
     }
