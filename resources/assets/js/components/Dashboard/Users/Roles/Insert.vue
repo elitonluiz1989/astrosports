@@ -97,10 +97,10 @@
         methods: {
             submitForm() {
                 if (this.validateForm()) {
-                    let data = this.setFormData();
+                    this.setFormData();
 
                     this.showMask = true;
-                    this.$store.dispatch("userRoles/add", data);
+                    this.$store.dispatch("userRoles/add", this.formData);
                 }
             }
         }

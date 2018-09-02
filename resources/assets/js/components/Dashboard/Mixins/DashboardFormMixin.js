@@ -87,21 +87,19 @@ export default {
         },
 
         setFormData() {
-            let data = {};
-
             for (let item in this.fields) {
                 if (!this.isNullOrUndefined(this.rules[item])) {
                     if (this.fields[item] !== this.rules[item]) {
-                        data[item] = this.fields[item];
+                        this.formData[item] = this.fields[item];
                     }
                 } else {
                     if (!this.isEmptyString(this.fields[item])) {
-                        data[item] = this.fields[item];
+                        this.formData[item] = this.fields[item];
                     }
                 }
             }
 
-            return data;
+            return this.formData;
         },
 
         resetFormFields() {
