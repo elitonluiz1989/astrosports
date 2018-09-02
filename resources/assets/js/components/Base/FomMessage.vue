@@ -2,9 +2,9 @@
     <div class="form-group form-message" :class="styles.show" ref="formMessage">
         <p :class="[styles.message.error, styles.message.success]" v-if="!manyMessages" v-text="text"></p>
 
-        <p :class="[styles.message.error, styles.message.success]" v-if="manyMessages">
-            <span v-for="textMessage in text" v-text="textMessage"></span>
-        </p>
+        <div :class="[styles.message.error, styles.message.success]" v-if="manyMessages">
+            <div class="w-100" v-for="(textMessage, key) in text" v-text="textMessage" :key="key"></div>
+        </div>
     </div>
 </template>
 
