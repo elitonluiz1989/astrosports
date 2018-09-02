@@ -1,5 +1,5 @@
 import { CONFIG } from "@js/config";
-import {isArray, isEmptyString, isObject} from "./utils";
+import {isArray, isEmptyString, isNullOrUndefined, isObject} from "./utils";
 
 function manageMessage(messages) {
     let errorMessages = [];
@@ -24,8 +24,8 @@ function manageMessage(messages) {
 export function messageErrorHandler(err) {
     let messageReturn = [];
     let errors = null;
-
-    if (err.response.data !== undefined) {
+    
+    if (!isNullOrUndefined(err.response) && !isNullOrUndefined(err.response.data)) {
         errors = err.response.data;
     } else {
         errors = err;
