@@ -2,8 +2,15 @@
     <div class="dashboard__users container-fluid">
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
+        
+        <user-insert-form :show="showInsertModal" 
+                           @hideModal="hideModal" />
 
-        <div class="row justify-content-center justify-content-sm-around justify-content-md-start" v-if="dataLoaded">
+        <div :class="styles.usersRow" v-if="!dataLoaded && loadStatus.code == 2">
+            <insert-user-button @showInsertForm="showInsertForm" />
+        </div>
+
+        <div :class="styles.usersRow" v-if="dataLoaded">
             <div class="dashboard__users-item"
                 v-for="(user, key) in records"
                 :key="key">
@@ -12,7 +19,7 @@
                             @triggerShowDeleteForm="showDeleteMessage"></user-info>
             </div>
 
-            <user-insert-form class="dashboard__users-item"></user-insert-form>
+            <insert-user-button @showInsertForm="showInsertForm" />
         </div>
     </div>
 </template>
@@ -20,6 +27,7 @@
 <script>
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import { mapState } from 'vuex';
+    import InsertUserButton from './InsertUserButton.vue';
     import UserInfo from './User';
     import UserInsertForm from './Insert';
 
@@ -27,6 +35,7 @@
         name: "users-lists",
 
         components: {
+            InsertUserButton,
             UserInfo,
             UserInsertForm
         },
@@ -39,7 +48,13 @@
             ...mapState({store: 'users'}),
 
             records() {
-                return this.store.users;
+                return this.store.records;
+            },
+
+            styles() {
+                return {
+                    usersRow: 'row justify-content-center justify-content-sm-around justify-content-md-start'
+                }
             },
 
             pagination() {

@@ -74,7 +74,7 @@
                 formType: "edit",
                 submitMessages: {
                     error: "Houve um erro na alteração do cargo.",
-                    success: "Cargo alterado com sucesso"
+                    success: "Cargo alterado com sucesso."
                 }
             }
         },
@@ -103,8 +103,6 @@
                 if (this.validateForm()) {
                     if (this.setUpadeData()) {
                         this.formData.id = this.record.id;
-
-                        console.log(this.formData)
 
                         this.showMask = true;
                         this.formMessageShow = false;

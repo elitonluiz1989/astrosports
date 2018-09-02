@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\Dashboard\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UsersStoreRequest;
 use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
     /**
+     * Users repository var
+     * 
      * @var UsersRepository
      */
-    private $repo;
+    private $_repo;
 
     public function __construct(UsersRepository $repo)
     {
-        $this->repo = $repo;
+        $this->_repo = $repo;
     }
 
     /**
@@ -25,7 +28,7 @@ class UsersController extends Controller
      */
     public function user()
     {
-        return $this->repo->get(Auth::user()->id);
+        return $this->_repo->get(Auth::user()->id);
     }
 
     /**
@@ -35,8 +38,18 @@ class UsersController extends Controller
      */
     public function users()
     {
-        $users = $this->repo->get();
+        return $this->_repo->get();
+    }
 
-        return $this->repo->get();
+    /**
+     * Save an user record
+     * 
+     * @return string
+     */
+    public function store(UsersStoreRequest $request)
+    {
+        $data = $request->validated();
+
+        return (string)$this->_repo->store($data);
     }
 }

@@ -1,12 +1,5 @@
 <template>
     <div>
-        <button type="button"
-                class="dashboard__user dashboard__user-trigger"
-                data-toggle="modal"
-                :data-target="'#' + modalId">
-            <i class="fa fa-plus fa-5x"></i>
-        </button>
-
         <div :id="modalId" class="dashboard__users-insert modal fade" tabindex="-1" role="dialog">
             <app-mask :show-mask="showMask" mask-style="dark"></app-mask>
 
@@ -87,7 +80,7 @@
                                 <label :for="setFieldId('confirm-password')" :class="userStyles.label">Confirme a senha</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text" :id="setFieldId('confirm-password')" class="form-control" v-model="fields.confirmPassword">
+                                    <input type="text" :id="setFieldId('confirm-password')" class="form-control" v-model="fields.password_confirmation">
                                 </div>
                             </div>
                         </div>
@@ -105,18 +98,25 @@
 
 <script>
     import UsersFormMixin from "../Mixins/UsersFormMixin";
+    import ModalMixin from "@components/Base/Mixins/ModalMixin";
 
     export default {
         name: "user-insert-form",
-
+     
         mixins: [
             UsersFormMixin,
+            ModalMixin
         ],
 
         data() {
             return {
                 formId: "user-insert-form",
-                modalId: "user-insert-modal"
+                modalId: "user-insert-modal",
+                formTitle: "Adicionar usuário",
+                submitMessages: {
+                    error: "Houve um erro ao adicionar o usuário.",
+                    success: "Usuário salvo com sucesso."
+                }
             }
         },
 
@@ -132,7 +132,7 @@
 
         watch: {
             addStatus(value) {
-                this.watchSubmitStatus(value, "Usuário inserido com sucesso", "Houve um erro na inserção do usuário.");
+                this.watchSubmitStatus(value);
             }
         },
 
@@ -141,10 +141,8 @@
                 if (this.validateForm()) {
                     let data = this.setFormData();
 
-                    console.log(data)
-
-                    //this.showMask = true;
-                    //this.$store.dispatch("addSchedulesPole", {name: this.name});
+                    this.showMask = true;
+                    this.$store.dispatch("users/add", this.formData);
                 }
             }
         }

@@ -18,11 +18,23 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
+    /**
+     * Gets the user role relationship
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function role()
     {
         return $this->hasOne('App\Models\UserRole', 'id', 'role_id');
     }
-
+    
+    /**
+     * Set username attribute to lowercase
+     * 
+     * @param mixed $value Value property
+     * 
+     * @return void
+     */
     public function setUsernameAttribute($value)
     {
         $this->attributes['username'] = strtolower($value);

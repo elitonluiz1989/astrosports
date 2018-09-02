@@ -1,7 +1,7 @@
 <?php
 
 Route::namespace('Users')
-    ->group(function() {
+    ->group(function () {
         Route::get('/user', 'UsersController@user')->name('dashboard.user');
 
         Route::prefix('users')

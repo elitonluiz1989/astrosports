@@ -1,4 +1,4 @@
-import usersApi  from '@js/api/users';
+import usersApi  from '@js/api/users/users';
 import {messageErrorHandler} from "@js/helpers/messageErrorHandler";
 
 export const auth = {

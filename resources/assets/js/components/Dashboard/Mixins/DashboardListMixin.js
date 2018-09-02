@@ -20,8 +20,9 @@ export default {
             contentToSort: [],
             recordKey: null,
             recordId: 0,
-            showEditModal: false,
             showDeleteModal: false,
+            showEditModal: false,
+            showInsertModal: false,
             listItems: {
                 id: {
                     title: "Cod.",
@@ -47,6 +48,7 @@ export default {
             this.recordId = 0;
             this.showDeleteModal = false;
             this.showEditModal = false;
+            this.showInsertModal = false;
         },
 
         showDeleteMessage(id) {
@@ -57,6 +59,10 @@ export default {
         showEditForm(key) {
             this.recordKey = key;
             this.showEditModal = true;
+        },
+
+        showInsertForm(key) {
+            this.showInsertModal = true;
         },
 
         sortBy(key) {

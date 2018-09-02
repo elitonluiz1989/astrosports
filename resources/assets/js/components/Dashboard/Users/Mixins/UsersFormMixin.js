@@ -22,7 +22,7 @@ export default {
                 avatar: null,
                 role: 0,
                 password: null,
-                confirmPassword: null
+                "password_confirmation": null
             }
         };
     },
@@ -49,7 +49,7 @@ export default {
                 this.setFieldMessageError("role", "Informe o cargo de usuário.");
             } else if (this.isEmptyString(this.fields.password === "")) {
                 this.setFieldMessageError("password", "Informe uma senha para o usuário.");
-            } else if (this.fields.confirmPassword !== this.fields.password) {
+            } else if (this.fields.password_confirmation !== this.fields.password) {
                 this.setFieldMessageError("confirm-password", "As senhas informadas diferem.");
             } else {
                 return true;

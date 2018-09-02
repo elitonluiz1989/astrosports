@@ -47,7 +47,7 @@
 
         computed: {
             user() {
-                return this.$store.state.users.users[this.userKey];
+                return this.$store.state.users.records[this.userKey];
             },
 
             role() {

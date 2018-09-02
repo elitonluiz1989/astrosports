@@ -30,6 +30,13 @@ class UsersRepository
      */
     public $where = [];
 
+    /**
+     * Retrieves users
+     * 
+     * @param integer|null $id User id to search
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function get($id = null)
     {
         $query = User::with('role')
@@ -48,5 +55,42 @@ class UsersRepository
 
             return $query->paginate($this->limit);
         }
+    }
+
+    /**
+     * Store or update an user
+     * 
+     * @param array $data User data to be stored
+     * 
+     * @return bool
+     */
+    public function store(array $data)
+    {
+        if (isset($data['id'])) {
+            $user = $this->get($data['id']);
+
+            unset($data['id']);
+        } else {
+            $user = new User();
+        }
+
+        foreach ($data as $field => $value) {
+            $user->$field = $value;
+        }
+
+
+        return $user->save();
+    }
+
+    /**
+     * Delete an user by your id
+     * 
+     * @param int $id User id
+     * 
+     * @return int
+     */
+    public function delete(int $id)
+    {
+        return Role::destroy($id);
     }
 }
