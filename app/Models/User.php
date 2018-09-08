@@ -31,12 +31,24 @@ class User extends Authenticatable
     /**
      * Set username attribute to lowercase
      * 
-     * @param mixed $value Value property
+     * @param string $value Value property
      * 
      * @return void
      */
     public function setUsernameAttribute($value)
     {
         $this->attributes['username'] = strtolower($value);
+    }
+    
+    /**
+     * Encrypt user password
+     * 
+     * @param string $value Value property
+     * 
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 }

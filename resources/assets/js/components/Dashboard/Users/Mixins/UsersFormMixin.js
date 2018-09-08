@@ -13,9 +13,6 @@ export default {
 
     data() {
         return {
-            rules: {
-                role: 0
-            },
             fields: {
                 username: null,
                 name: null,
@@ -23,6 +20,10 @@ export default {
                 role: 0,
                 password: null,
                 "password_confirmation": null
+            },
+            deleteUploaded: true,
+            rules: {
+                role: 0
             }
         };
     },

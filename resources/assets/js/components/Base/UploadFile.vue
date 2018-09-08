@@ -40,6 +40,11 @@
         name: "upload-file",
 
         props: {
+            deleteUploaded: {
+                type: Boolean,
+                default: true,
+            },
+
             deleteUrl: {
                 type: String,
                 required: true
@@ -263,7 +268,8 @@
                                                        this.toRemove.concat(this.files);
                 }
 
-                if (!this.isNullOrUndefined(data.params[this.serverFileName]) &&
+                if (this.deleteUploaded &&
+                    !this.isNullOrUndefined(data.params[this.serverFileName]) &&
                     data.params[this.serverFileName].length > 0) {
                     axios.delete(this.deleteUrl, data)
                         .then(response => {

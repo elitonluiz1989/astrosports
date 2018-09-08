@@ -18,6 +18,7 @@
                             <form-message :show="formMessageShow" :text="formMessageText" :type="formMessageType"></form-message>
 
                             <upload-file :class="'form-group row'"
+                                         :delete-uploaded="deleteUploaded"
                                          delete-url="/storage/images/delete"
                                          :modal-id="modalId"
                                          formats="image/*"
@@ -29,8 +30,7 @@
                                          :show-progress="true"
                                          server-file-name="images"
                                          url="/storage/images/upload"
-                                         v-model="fields.avatar">
-                            </upload-file>
+                                         v-model="fields.avatar" />
 
                             <div class="form-group row">
                                 <div class="dashboard__user-avatar">
@@ -133,6 +133,11 @@
         watch: {
             addStatus(value) {
                 this.watchSubmitStatus(value);
+
+                // When save user data is successful,
+                // set to doesn't remove the uploaded images
+                console.log(value.code, !(value.code === 2))
+                this.deleteUploaded = !(value.code === 2);
             }
         },
 

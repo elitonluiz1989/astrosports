@@ -25,7 +25,7 @@ class UsersStoreRequest extends FormRequest
     {
         return [
             'avatar'   => 'string|nullable',
-            'username' => 'string|required',
+            'username' => 'string|unique:users,username|required',
             'name'     => 'string|nullable',
             'role'     => 'integer|required',
             'password' => 'string|confirmed|required',
@@ -39,8 +39,10 @@ class UsersStoreRequest extends FormRequest
      */
     public function messages()
     {
+        $username = $this->get('username');
+
         return [
-            'password.confirmed' => "[show-user]As senhas informadas diferem."
+            'username.unique' => "[show-user]O nome de usuário '{$username} já foi usado.'.",
         ];
     }
 }

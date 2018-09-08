@@ -34,7 +34,7 @@ class UsersController extends Controller
     /**
      * Retrieve all users
      *
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function users()
     {
@@ -43,7 +43,9 @@ class UsersController extends Controller
 
     /**
      * Save an user record
-     * 
+     *
+     * @param UsersStoreRequest $request
+     *
      * @return string
      */
     public function store(UsersStoreRequest $request)

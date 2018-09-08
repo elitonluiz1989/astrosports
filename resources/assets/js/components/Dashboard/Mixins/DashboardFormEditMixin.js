@@ -65,7 +65,7 @@ export default {
             for (let item in this.fields) {
                 let recordData = this.getRecordData(item);
 
-                if (this.fields[item] != recordData) {
+                if (this.fields[item] !== recordData) {
                     this.formData[item] = this.fields[item];
 
                     proceed = true;
@@ -88,4 +88,4 @@ export default {
             }
         }
     }
-}
+};

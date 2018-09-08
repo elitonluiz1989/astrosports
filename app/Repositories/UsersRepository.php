@@ -75,9 +75,10 @@ class UsersRepository
         }
 
         foreach ($data as $field => $value) {
+            $field = str_replace('role', 'role_id', $field);
+
             $user->$field = $value;
         }
-
 
         return $user->save();
     }
@@ -91,6 +92,6 @@ class UsersRepository
      */
     public function delete(int $id)
     {
-        return Role::destroy($id);
+        return User::destroy($id);
     }
 }

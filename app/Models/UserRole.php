@@ -10,6 +10,10 @@ class UserRole extends Model
 
     protected $fillable = ['name', 'grant_id'];
 
+    public function users() {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function grant() {
         return $this->hasOne('App\Models\UserGrant', 'id', 'grant_id');
     }
