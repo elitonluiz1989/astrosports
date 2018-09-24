@@ -30,6 +30,19 @@ export const users = base.extend({
                 .catch(err => {
                     commit('setStatus', ['add', 3, err]);
                 });
+        },
+
+        edit({commit, dispatch}, user) {
+            commit('setStatus', ['edit', 1]);
+
+            server.edit(user)
+                .then(response => {
+                    commit('setStatus', ['edit', 2]);
+                    dispatch('load');
+                })
+                .catch(err => {
+                    commit('setStatus', ['edit', 3, err]);
+                });
         }
     }
 });

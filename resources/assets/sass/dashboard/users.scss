@@ -11,7 +11,7 @@
     @extend .col-xl-2;
   }
 
-  &-insert {
+  &-form {
     @extend .dashboard__form;
 
     @include media-breakpoint-up(md) {
@@ -19,8 +19,15 @@
         max-width: 400px;
       }
     }
-  }  
- 
+  }
+
+  &-password-update {
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+
+    @extend .pull-left;
+  }
+
   .dashboard__upload {
     border: 1px solid #ddd;
     margin-right: 1rem;

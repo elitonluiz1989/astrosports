@@ -1,9 +1,11 @@
 import { CONFIG } from '@js/config';
-import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
+import ModalMixin from "@components/Base/Mixins/ModalMixin";
 import UploadFile from "@components/Base/UploadFile";
+import DashboardFormMixin from "@Dashboard/Mixins/DashboardFormMixin";
 
 export default {
     mixins: [
+        ModalMixin,
         DashboardFormMixin
     ],
 
@@ -22,6 +24,7 @@ export default {
                 "password_confirmation": null
             },
             deleteUploaded: true,
+            allowPasswordUpdate: false,
             rules: {
                 role: 0
             }

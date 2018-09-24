@@ -56,7 +56,6 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
     import UserRolesMixin from "../Mixins/UserRolesMixin";
 
     export default {

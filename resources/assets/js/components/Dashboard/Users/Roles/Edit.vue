@@ -80,7 +80,6 @@
         },
 
         computed: {
-
             grants() {
                 return this.$store.state.userGrants.records;
             },
@@ -101,7 +100,7 @@
         methods: {
             submitForm() {
                 if (this.validateForm()) {
-                    if (this.setUpadeData()) {
+                    if (this.setUpdateData()) {
                         this.formData.id = this.record.id;
 
                         this.showMask = true;

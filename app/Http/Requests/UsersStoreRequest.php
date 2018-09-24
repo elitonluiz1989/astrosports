@@ -23,13 +23,26 @@ class UsersStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'avatar'   => 'string|nullable',
-            'username' => 'string|unique:users,username|required',
-            'name'     => 'string|nullable',
-            'role'     => 'integer|required',
-            'password' => 'string|confirmed|required',
-        ];
+        if ($this->method() == 'POST') {
+            return [
+                'avatar'   => 'string|nullable',
+                'username' => 'string|unique:users,username|required',
+                'name'     => 'string|nullable',
+                'role'     => 'integer|required',
+                'password' => 'string|confirmed|required',
+            ];
+        } else {
+            $id = $this->get('id');
+
+            return [
+                'id'       => 'integer|required',
+                'avatar'   => 'string|required_without_all:username,name,role,password',
+                'username' => "string|unique:users,username,{$id}|required_without_all:avatar,name,role,password",
+                'name'     => 'string|required_without_all:avatar,username,role,password',
+                'role'     => 'integer|required_without_all:avatar,username,name,password',
+                'password' => 'string|confirmed|required_without_all:avatar,username,name,role',
+            ];
+        }
     }
 
     /**
@@ -42,7 +55,7 @@ class UsersStoreRequest extends FormRequest
         $username = $this->get('username');
 
         return [
-            'username.unique' => "[show-user]O nome de usuário '{$username} já foi usado.'.",
+            'username.unique' => "[show-user]O nome de usuário \"{$username}\" já foi usado."
         ];
     }
 }

@@ -5,6 +5,9 @@
         
         <user-insert-form :show="showInsertModal" 
                            @hideModal="hideModal" />
+        <user-edit-form :record-key="recordKey"
+                        :show="showEditModal"
+                        @hideModal="hideModal" />
 
         <div :class="styles.usersRow" v-if="!dataLoaded && loadStatus.code == 2">
             <insert-user-button @showInsertForm="showInsertForm" />
@@ -30,6 +33,7 @@
     import InsertUserButton from './InsertUserButton.vue';
     import UserInfo from './User';
     import UserInsertForm from './Insert';
+    import UserEditForm from './Edit';
 
     export default {
         name: "users-lists",
@@ -37,7 +41,8 @@
         components: {
             InsertUserButton,
             UserInfo,
-            UserInsertForm
+            UserInsertForm,
+            UserEditForm
         },
 
         mixins: [

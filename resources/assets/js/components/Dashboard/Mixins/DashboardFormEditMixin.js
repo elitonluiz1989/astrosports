@@ -33,33 +33,32 @@ export default {
 
     methods: {
         getRecordData(item) {
+            let data = null;
             if (this.isObject(this.record[item])) {
                 // Probably is an object that result of entities models relationship
                 // tries get id
-                return this.record[item]['id'] || this.record[item];
+                data = this.record[item].id || this.record[item];
             } else {
-                return this.record[item];
+                data = this.record[item];
             }
+
+            // This validate is necessary because any cases the value can be undefined
+            return data || null;
         },
 
         manageFormData() {
             for (let item in this.fields) {
                 let data = this.getRecordData(item);
 
-                if (this.isNullOrUndefined(data) &&
-                    !this.isNullOrUndefined(this.rules[item])) {
-                    data = this.rules[item];
-                }
-
-                if (this.isString(data)) {
-                    data = this.capitalize(data);
+                if (this.isNullOrUndefined(data)) {
+                    data = this.rules[item] || null;
                 }
 
                 this.fields[item] = data;
             }
         },
 
-        setUpadeData() {
+        setUpdateData() {
             let proceed = false;
 
             for (let item in this.fields) {

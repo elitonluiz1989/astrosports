@@ -73,7 +73,9 @@ export default {
             this.formMessageShow = false;
             this.formMessageText = "";
 
-            this.resetFormFields();
+            if (this.formType !== 'edit') {
+                this.resetFormFields();
+            }
         });
     },
 
