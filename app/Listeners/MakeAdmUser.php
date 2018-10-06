@@ -32,17 +32,17 @@ class MakeAdmUser
 
             if (null == $hasUser) {
                 factory('App\Models\User')->create([
-                    'username' => env("{$user}_USERNAME"),
-                    'name' => env("{$user}_NAME"),
-                    'avatar' => env("{$user}_AVATAR") ?? null,
-                    'password' => bcrypt(env("{$user}_PASSWORD")),
-                    'role' => function () use ($user) {
+                    'username' => trim(env("{$user}_USERNAME")),
+                    'name' => trim(env("{$user}_NAME")),
+                    'avatar' => trim(env("{$user}_AVATAR")) ?? null,
+                    'password' => bcrypt(trim(env("{$user}_PASSWORD"))),
+                    'role_id' => function () use ($user) {
                         return factory('App\Models\UserRole')->create([
-                            'name' => str_replace('adm', 'administrador', strtolower($user)),
-                            'grant' => function() use ($user) {
+                            'name' => trim(str_replace('adm', 'administrador', strtolower($user))),
+                            'grant_id' => function() use ($user) {
                                 if (null != env("{$user}_GRANT")) {
                                     return factory('App\Models\UserGrant')->create([
-                                        'name' => env("{$user}_GRANT")
+                                        'name' => trim(env("{$user}_GRANT"))
                                     ])->id;
                                 } else {
                                     return null;

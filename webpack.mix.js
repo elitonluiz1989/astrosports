@@ -1,5 +1,5 @@
-const { mix } = require('laravel-mix');
-let path = require('path');
+const {mix} = require("laravel-mix");
+let path = require("path");
 
 mix.webpackConfig({
     resolve: {
@@ -11,7 +11,7 @@ mix.webpackConfig({
     }
 });
 
-mix.js('resources/assets/js/app.js', 'public/js/app.js')
-    .extract([ 'vue', 'jquery' ])
-    .sass('resources/assets/sass/app.scss', 'public/css')
-    .browserSync('astrosports.dev');
+mix.js("resources/assets/js/app.js", "public/js/app.js")
+    .extract([ "vue", "jquery" ])
+    .sass("resources/assets/sass/app.scss", "public/css")
+    .browserSync("localhost");

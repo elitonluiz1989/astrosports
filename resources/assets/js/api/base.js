@@ -1,12 +1,12 @@
-import {CONFIG} from '@js/config';
+import {CONFIG} from "@js/config";
 
 const base = {    
     serverUrl: CONFIG.API_URL,
-    url: CONFIG.API_URL + '/',
+    url: CONFIG.API_URL + "/",
 
-    get(id)  {        
-        let url = id ? this.url + '/' + id : this.url;
-    
+    get(id)  {
+        let url = id ? this.url + "/" + id : this.url;
+        
         return axios.get(url);
     },
 
@@ -19,7 +19,7 @@ const base = {
     },
 
     delete(id) {
-        let url = this.url + '/delete/';
+        let url = this.url + "/delete/";
     
         let data = {
             params: {

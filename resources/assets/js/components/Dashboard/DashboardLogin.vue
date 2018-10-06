@@ -112,7 +112,6 @@
                             }
                         })
                         .catch(err => {
-                            console.log(err);
                             this.showMask = false;
 
                             this.showMessageError("Usuário/senha incorretos.");

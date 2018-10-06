@@ -22,7 +22,11 @@ class LoginController extends Controller
     {
         event(new OnShowLogin());
 
-        return view('dashboard.index');
+        $data = [
+            'currentPage' => config('dashboard.defaultPage'),
+        ];
+
+        return view('dashboard.index', $data);
     }
 
     /**
@@ -32,7 +36,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
-
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
             return response()->json(['login' => true], 200);

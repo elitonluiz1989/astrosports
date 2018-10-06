@@ -13,15 +13,18 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\UserRole::class, function(Faker $faker) {
+$factory->define(App\Models\UserGrant::class, function(Faker $faker) {
     return [
         'name' => $faker->name
     ];
 });
 
-$factory->define(App\Models\UserGrant::class, function(Faker $faker) {
+$factory->define(App\Models\UserRole::class, function(Faker $faker) {
     return [
-        'name' => $faker->name
+        'name' => $faker->name,
+        'grant_id' => function() {
+            return factory('App\Models\UserGrant')->create()->id;
+        }
     ];
 });
 
@@ -33,7 +36,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'name' => $faker->name,
         'avatar' => $faker->image(),
         'password' => bcrypt($faker->password),
-        'role' => function() {
+        'role_id' => function() {
             return factory('App\Models\UserRole')->create()->id;
         },
         'remember_token' => str_random(10),

@@ -31,6 +31,7 @@
         $authenticaded = Auth::check();
 
         $bodyClass = ($authenticaded) ? 'dashboard' : 'dashboard--login';
+
     @endphp
 
     <body class="{{ $bodyClass }}">

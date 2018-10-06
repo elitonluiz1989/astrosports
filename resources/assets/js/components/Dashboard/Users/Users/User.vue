@@ -55,7 +55,11 @@
             },
 
             grant() {
-                return this.validateUserInfo(this.user.role.grant);
+                if (!this.isNullOrUndefined(this.user.role)) {
+                    return this.validateUserInfo(this.user.role.grant)
+                } else {
+                    return this.validateUserInfo(null);
+                }
             }
         },
 
