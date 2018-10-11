@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Handlers\AppLog;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,7 +33,7 @@ class ImageRepository
     /**
      * Delete stored images
      * 
-     * @param array $images - images list
+     * @param array|string $images - One image or an images list
      * 
      * @return bool
      */
@@ -40,12 +41,22 @@ class ImageRepository
     {
         $files = [];
 
+        if (!is_array($images)) {
+            $images = [$images];
+        }
+
         foreach ($images as $image) {
             $filename = $this->removePath($image);
             \array_push($files, $this->_imagePath . '/' . $filename);
         }
 
-        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($files);
+        $deleted = Storage::disk(env('FILESYSTEM_DRIVER'))->delete($files);
+
+        if (!$deleted) {
+            AppLog::write('warning', '[images][not-deleted]', $files);
+        }
+
+        return $deleted;
     }
 
     /**

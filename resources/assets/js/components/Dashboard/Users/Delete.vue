@@ -62,6 +62,7 @@
         computed: {
             deleteStatus() {
                 if (this.typeRecord === "user") {
+                    return this.$store.getters['users/getStatus']('delete');
                 } else if (this.typeRecord === "user-role") {
                     return this.$store.getters['userRoles/getStatus']('delete');
                 } else if (this.typeRecord === "user-grant") {
@@ -75,6 +76,7 @@
                 this.showMask = true;
 
                 if (this.typeRecord === "user") {
+                    this.$store.dispatch("users/delete", this.recordId);
                 } else if (this.typeRecord === "user-role") {
                     this.$store.dispatch("userRoles/delete", this.recordId);
                 } else if (this.typeRecord === "user-grant") {

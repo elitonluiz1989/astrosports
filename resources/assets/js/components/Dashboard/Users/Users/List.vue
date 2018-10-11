@@ -5,11 +5,17 @@
         
         <user-insert-form :show="showInsertModal" 
                            @hideModal="hideModal" />
+
         <user-edit-form :record-key="recordKey"
                         :show="showEditModal"
                         @hideModal="hideModal" />
 
-        <div :class="styles.usersRow" v-if="!dataLoaded && loadStatus.code == 2">
+        <user-delete-modal type-record="user"
+                           :record-id="recordId"
+                           :show="showDeleteModal"
+                           @hideModal="hideModal" />
+
+        <div :class="styles.usersRow" v-if="!dataLoaded && loadStatus.code === 2">
             <insert-user-button @showInsertForm="showInsertForm" />
         </div>
 
@@ -19,7 +25,7 @@
                 :key="key">
                 <user-info :user-key="key"
                             @triggerShowEditForm="showEditForm"
-                            @triggerShowDeleteForm="showDeleteMessage"></user-info>
+                            @triggerShowDeleteForm="showDeleteMessage" />
             </div>
 
             <insert-user-button @showInsertForm="showInsertForm" />
@@ -34,6 +40,7 @@
     import UserInfo from './User';
     import UserInsertForm from './Insert';
     import UserEditForm from './Edit';
+    import UserDeleteModal from '../Delete';
 
     export default {
         name: "users-lists",
@@ -42,7 +49,8 @@
             InsertUserButton,
             UserInfo,
             UserInsertForm,
-            UserEditForm
+            UserEditForm,
+            UserDeleteModal
         },
 
         mixins: [

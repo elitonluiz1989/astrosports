@@ -31,6 +31,16 @@ class UsersRepository
     public $where = [];
 
     /**
+     * @var ImageRepository
+     */
+    private $imageRepo;
+
+    public function __construct(ImageRepository $image)
+    {
+        $this->imageRepo = $image;
+    }
+
+    /**
      * Retrieves users
      * 
      * @param integer|null $id User id to search
@@ -92,6 +102,19 @@ class UsersRepository
      */
     public function delete(int $id)
     {
-        return User::destroy($id);
+        $userAvatar = User::select('avatar')
+                            ->where('id', $id)
+                            ->get()
+                            ->first()
+                            ->avatar;
+
+
+
+        $deleted = User::destroy($id);
+        if ($deleted > 0) {
+            $this->imageRepo->delete($userAvatar);
+        }
+
+        return $deleted;
     }
 }
