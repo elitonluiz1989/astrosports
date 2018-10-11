@@ -60,7 +60,8 @@
                                 <select :id="setFieldId('role')" class="form-control" v-model="fields.role">
                                     <option value="0">...</option>
                                     <option :value="role.id"
-                                            v-for="(role, key) in roles" v-text="role.name"
+                                            v-for="(role, key) in roles"
+                                            v-text="role.name"
                                             v-if="roles.length > 0"
                                             :key="key"></option>
                                 </select>
@@ -71,7 +72,7 @@
                             <label :for="setFieldId('passowrd')" :class="userStyles.label">Senha</label>
 
                             <div :class="userStyles.inputGroup">
-                                <input type="text" :id="setFieldId('password')" class="form-control" v-model="fields.password">
+                                <input type="password" :id="setFieldId('password')" class="form-control" v-model="fields.password">
                             </div>
                         </div>
 
@@ -79,13 +80,13 @@
                             <label :for="setFieldId('password-confirmation')" :class="userStyles.label">Confirme a senha</label>
 
                             <div :class="userStyles.inputGroup">
-                                <input type="text" :id="setFieldId('password-confirmation')" class="form-control" v-model="fields.password_confirmation">
+                                <input type="password" :id="setFieldId('password-confirmation')" class="form-control" v-model="fields.password_confirmation">
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <input type="reset" class="btn btn-light" value="Limpar">
+                        <input type="reset" class="btn btn-light" value="Limpar" @click.prevent="resetFormFields">
                         <input  type="submit" :class="styles.btnSubmit" value="Salvar">
                     </div>
                 </form>

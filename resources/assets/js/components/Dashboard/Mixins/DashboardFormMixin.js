@@ -1,4 +1,4 @@
-import AppMask from '@components/Base/AppMask';
+import AppMask from "@components/Base/AppMask";
 import FormMessage from "@components/Base/FomMessage";
 import FormMessageMixin from "@components/Base/Mixins/FormMessage";
 import StoreRequestStatusMixin from "@components/Base/Mixins/StoreRequestStatus";
@@ -69,11 +69,11 @@ export default {
     },
 
     mounted() {
-        $("#" + this.modalId).on('show.bs.modal', () => {
+        $("#" + this.modalId).on("show.bs.modal", () => {
             this.formMessageShow = false;
             this.formMessageText = "";
 
-            if (this.formType !== 'edit') {
+            if (this.formType !== "edit") {
                 this.resetFormFields();
             }
         });
@@ -83,7 +83,7 @@ export default {
         disableForm(disable) {
             disable = disable === undefined;
 
-            $("#" + this.formId).find('input, select').each(function (item) {
+            $("#" + this.formId).find("input, select").each(function (item) {
                 this.disabled = disable;
             });
         },
@@ -115,7 +115,7 @@ export default {
         },
 
         setFieldId(field) {
-            return this.formId + '-' + field;
+            return this.formId + "-" + field;
         },
 
         setFieldMessageError(field, message) {

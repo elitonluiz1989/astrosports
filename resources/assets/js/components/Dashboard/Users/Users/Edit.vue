@@ -82,7 +82,7 @@
                                 <label :for="setFieldId('password')" :class="userStyles.label">Senha</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text"
+                                    <input type="password"
                                            :id="setFieldId('password')"
                                            class="form-control"
                                            v-model="fields.password">
@@ -93,7 +93,7 @@
                                 <label :for="setFieldId('password-confirmation')" :class="userStyles.label">Confirme a senha</label>
 
                                 <div :class="userStyles.inputGroup">
-                                    <input type="text"
+                                    <input type="password"
                                            :id="setFieldId('password-confirmation')"
                                            class="form-control"
                                            v-model="fields.password_confirmation">
@@ -102,7 +102,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <input type="reset" class="btn btn-light" value="Limpar">
+                            <input type="reset" class="btn btn-light" value="Limpar" @click.prevent="manageFormData">
                             <input  type="submit" :class="styles.btnSubmit" value="Salvar">
                         </div>
                     </form>
