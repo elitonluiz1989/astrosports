@@ -38,7 +38,7 @@ services:
             - /sessions
 
     astrosports_mysql:
-        image: mysql
+        image: mysql:5.7
 
         container_name: astrosports_mysql
 
@@ -51,5 +51,5 @@ services:
           - MYSQL_USER=elitonluiz
           - MYSQL_PASSWORD=5119191413
 
-        volumes:
-          - ./docker/astrosports.sql:/docker-entrypoint-initdb.d/astrosports.sql
+        #volumes:
+        #  - ./docker/astrosports.sql:/docker-entrypoint-initdb.d/astrosports.sql

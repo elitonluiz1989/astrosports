@@ -1,0 +1,25 @@
+&__schedules {
+  @extend %dashboard-page;
+
+  &-list {
+    &-hour {
+      @extend .col-12;
+      @extend .col-sm-2;
+    }
+
+    &-day {
+      @extend .col-12;
+      @extend .col-sm-1;
+    }
+
+    &-pole {
+      @extend .col-12;
+      @extend .col-sm;
+    }
+
+    &-category {
+      @extend .col-12;
+      @extend .col-sm;
+    }
+  }
+}

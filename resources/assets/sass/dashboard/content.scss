@@ -1,0 +1,112 @@
+$title-height: 2.6rem;
+$subtitle-font-size: 2rem;
+$subtitle-padding-top: $title-height - $subtitle-font-size;
+
+&__title {
+  background-color: $dashboard-nav-color-dark;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .w-100;
+  @extend .text-white;
+  @extend .o-hidden;
+
+  @include media-breakpoint-up(sm) {
+    flex-direction: row !important;
+    height: 4rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    align-items: center;
+  }
+
+  &-text {
+    background-color: $dashboard-nav-color;
+    flex: 0 0 60%;
+    font-size: $title-height;
+
+    @extend .d-none;
+    @extend .d-md-flex;
+
+    @include media-breakpoint-up(lg) {
+      flex: 0 0 50%;
+    }
+  }
+
+  &-arrow {
+    background: url("../images/dashboard-title-arrow.png") no-repeat left center;
+    background-size: contain;
+    flex: 0 0 70px;
+
+    @extend .d-none;
+    @extend .d-md-flex;
+    @extend .h-100;
+  }
+
+  &-subtitle {
+    font-size: $subtitle-font-size;
+    flex: 0 0 100%;
+
+    @extend .text-white;
+    @extend .text-center;
+
+    @include media-breakpoint-between(sm, md) {
+      flex-basis: 50%;
+    }
+
+    @include media-breakpoint-up(md) {
+      flex-basis: auto;
+      padding-left: 1.5rem;
+      color: lighten($dashboard-color, 5%) !important;
+      text-align: left;
+    }
+
+    @include media-breakpoint-only(lg) {
+      padding-left: 3rem;
+    }
+
+    @include media-breakpoint-up(xl) {
+      padding-left: 4rem;
+    }
+  }
+
+  &-user {
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: $auth-border-color;
+    flex: 0 0 100%;
+
+    @include media-breakpoint-up(sm) {
+      border-top-width: 0;
+      border-left-width: 1px;
+    }
+
+    @include media-breakpoint-between(sm, md) {
+      flex-basis: 50%;
+    }
+
+    @include media-breakpoint-up(md) {
+      display: none !important;
+    }
+  }
+}
+
+&__content {
+  background-color: white;
+
+  @extend .w-100;
+  @extend .min-h-100;
+
+  &--empty {
+    padding: 2rem 0 0;
+    color: #555;
+
+    @extend .text-center;
+  }
+}
+
+%dashboard-page {
+  padding-top: $grid-gutter-width / 2;
+}

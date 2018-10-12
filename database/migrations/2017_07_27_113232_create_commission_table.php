@@ -17,12 +17,15 @@ class CreateCommissionTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('avatar')->nullable();
-            $table->integer('role')->unsigned();
+            $table->integer('role')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('commission', function($table) {
-            $table->foreign('role')->references('id')->on('commission_roles');
+            $table->foreign('role')
+                ->references('id')
+                ->on('commission_roles')
+                ->onDelete('set null');
         });
     }
 

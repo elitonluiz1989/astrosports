@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import Config from './Config';
+    import { CONFIG } from '../../config';
 
     export default {
         name: 'app-map',
@@ -59,7 +59,7 @@
                 errorMessage: 'Houve um erro ao carregar o mapa',
                 hasErrors: false,
                 geocoder: null,
-                googleKey: Config.googleKey,
+                googleKey: CONFIG.GOOGLE_KEY,
                 googleMaps: null,
                 mapId: this.name || 'map-' + Math.random()
             };

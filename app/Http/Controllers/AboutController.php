@@ -25,7 +25,7 @@ class AboutController extends Controller
      * @var CommissionRepository
      */
     private $commission;
-
+    
     public function __construct(
         DefaultRepository $repo,
         CommissionRepository $commission

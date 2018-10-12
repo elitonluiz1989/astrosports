@@ -11,7 +11,7 @@
 @endsection
 
 @section('tabs-content')
-    <!-- Schedules -->
+    <!-- Schedule -->
     @component('partials.tabs.content')
         @slot('tabContentId', 'horarios')
 

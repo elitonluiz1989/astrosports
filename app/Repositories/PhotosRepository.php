@@ -111,7 +111,7 @@ class PhotosRepository implements PhotosRepositoryInterface
 
     public function __destruct()
     {
-        config()->set('photos.cover.width', $this->imgSize['width']);
-        config()->set('photos.cover.height', $this->imgSize['height']);
+        //config()->set('photos.cover.width', $this->imgSize['width']);
+        //config()->set('photos.cover.height', $this->imgSize['height']);
     }
 }

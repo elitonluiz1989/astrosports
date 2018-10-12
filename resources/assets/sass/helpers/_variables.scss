@@ -43,7 +43,7 @@ $theme-golden: #f1b92a;
 $theme-dark: #333;
 $schedule-item-color: #007dd0;
 $spinner-size: 50px;
-
+$tabs-darken-percentage: 4%;
 
 // News list
 $news-breakpoint1: 800px;
@@ -60,3 +60,16 @@ $news-right-width3: 30%;
 $news-left-width1: 60%;
 $news-left-width2: 65%;
 $news-left-width3: 70%;
+
+// Dashboard
+$dashboard-color: #1b7450;//#2ab27b;
+$dashboard-nav-color: $dashboard-color;
+$dashboard-nav-color-dark: darken($dashboard-nav-color, 10%);
+$dashboard-form-color: saturate(lighten($dashboard-color, 5%), 23%);
+$dashboard-success-color: darken($dashboard-form-color, 3%);
+
+$dashboard-list-color: #0675cd;
+
+$auth-color: darken($dashboard-nav-color-dark, 3%);
+$auth-border-color: darken($auth-color, 4%);
+$auth-avatar-border-color: darken($auth-color, 7%);

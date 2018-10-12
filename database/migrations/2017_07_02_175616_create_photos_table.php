@@ -17,12 +17,15 @@ class CreatePhotosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('album')->unsigned();
+            $table->integer('album')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('photos', function($table) {
-            $table->foreign('album')->references('id')->on('albums');
+            $table->foreign('album')
+                ->references('id')
+                ->on('albums')
+                ->onDelete('set null');
         });
     }
 

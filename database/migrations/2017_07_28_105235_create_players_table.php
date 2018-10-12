@@ -17,12 +17,15 @@ class CreatePlayersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('avatar')->nullable();
-            $table->integer('position')->unsigned();
+            $table->integer('position')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('players', function($table) {
-            $table->foreign('position')->references('id')->on('players_positions');
+            $table->foreign('position')
+                ->references('id')
+                ->on('players_positions')
+                ->onDelete('set null');
         });
     }
 

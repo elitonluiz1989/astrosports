@@ -12,7 +12,11 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+        'App\Events\OnShowLogin' => [
+            'App\Listeners\MakeAdmUser'
+        ]
+    ];
 
     /**
      * Register any events for your application.
