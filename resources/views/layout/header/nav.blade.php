@@ -16,6 +16,10 @@
                         <a class="{{ $navLinkClass }}" href="{{ $url }}">{{ $title }}</a>
                     </li>
                 @endforeach
+
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link dashboard__link">Área restrita</a>
+                </li>
             </ul>
         </div>
     </nav>

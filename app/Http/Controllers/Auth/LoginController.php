@@ -20,8 +20,6 @@ class LoginController extends Controller
      */
     public function showLogin()
     {
-        event(new OnShowLogin());
-
         $data = [
             'currentPage' => config('dashboard.defaultPage'),
         ];
@@ -45,13 +43,12 @@ class LoginController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function logout()
     {
         Auth::logout();
 
-        return redirect('/login');
-        //return response()->json(['logout' => true], 200);
+        return redirect('/');
     }
 }

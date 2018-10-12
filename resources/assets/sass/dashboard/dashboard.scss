@@ -7,6 +7,15 @@
     background-color: $dashboard-color;
   }
 
+  &__link {
+    background-color: darken($dashboard-color, 5%);
+    font-weight: bolder;
+
+    @include media-breakpoint-up(xl) {
+      font-weight: normal;
+    }
+  }
+
   &--login {
     background-color: lighten($dashboard-nav-color,10%);
   }
