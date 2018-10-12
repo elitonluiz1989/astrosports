@@ -55,7 +55,7 @@
             @slot('isActive', false)
         @endif
 
-        @if (isset($players))
+        @if (isset($players) && $players->isNotEmpty())
             @include('about.content', ['records' => $players])
         @else
             {!! $emptyMessage !!}
@@ -72,7 +72,7 @@
             @slot('isActive', false)
         @endif
 
-        @if (isset($commission))
+        @if (isset($commission) && $commission->isNotEmpty())
             @include('about.content', ['records' => $commission])
         @else
             {!! $emptyMessage !!}

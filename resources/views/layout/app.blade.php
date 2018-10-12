@@ -28,8 +28,8 @@
         </script>
     </head>
 
-    <body>
-        <div id="app" class="main">
+    <body class="default">
+        <div id="app" class="app">
             <header class="header container-fluid">
                 @include('layout.header.title')
 
@@ -51,7 +51,6 @@
                     @endphp
 
                     @if ($showSidebar)
-                        @php $contentClass .= ' col-sm-7 col-md-8 col-lg-9 col-xl-7'; @endphp
 
                         @php
                             $advertising = $template->advertising();
@@ -65,6 +64,12 @@
                             $sidebarRight = [
                                 'advertising' => $advertising
                             ];
+
+                            $contentClass .= ' col-sm-7 col-md-8 col-lg-9';
+
+                            if ($advertising->isNotEmpty()) {
+                                $contentClass .= ' col-xl-7';
+                            }
                         @endphp
 
                         @include('layout.sidebar.sidebar-left', $sidebarLeft)

@@ -1,0 +1,49 @@
+.btn-success,
+&-trigger {
+  background-color: $dashboard-success-color;
+
+  &:hover {
+    background-color: lighten($dashboard-success-color, 5%);
+  }
+}
+
+&__form {
+  &-trigger {
+    @mixin btnSettings($width, $ml) {
+      width: $width;
+      margin-left: $ml;
+    }
+
+    @include btnSettings(80%, 10%);
+ 
+    @include media-breakpoint-only(sm) {
+      @include btnSettings(50%, 25%);
+    }
+  }
+
+  .modal-content {
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .modal-header {
+    @extend .text-white;
+
+    &.form-header--insert {
+      background-color: $dashboard-success-color;
+    }
+
+    &.form-header--edit {
+      background-color: $danger;
+    }
+  }
+
+  .modal-footer {
+    background-color: white;
+  }
+}
+
+&.modal-open {
+  padding-right: 0;
+}

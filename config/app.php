@@ -180,7 +180,7 @@ return [
         // Custom
         Intervention\Image\ImageServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
-        App\Providers\PhotosServiceProvider::class
+        App\Providers\PhotosServiceProvider::class,
 
     ],
 

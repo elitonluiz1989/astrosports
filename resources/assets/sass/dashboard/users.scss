@@ -1,0 +1,145 @@
+&__users {
+  @extend %dashboard-page;
+
+  &-item {
+    margin-bottom: 1rem;
+
+    @extend .col-10;
+    @extend .col-sm-5;
+    @extend .col-md-4;
+    @extend .col-lg-3;
+    @extend .col-xl-2;
+  }
+
+  &-form {
+    @extend .dashboard__form;
+
+    @include media-breakpoint-up(md) {
+      .modal-content {
+        max-width: 400px;
+      }
+    }
+  }
+
+  &-password-update {
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+
+    @extend .pull-left;
+  }
+
+  .dashboard__upload {
+    border: 1px solid #ddd;
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+    &.alert-danger {
+      @extend .border-danger;
+
+      .dashboard__user-avatar img {
+        @extend .border-danger;
+      }
+    }
+  }
+}
+
+%dashboard-user-avatar {
+  margin: 0 auto 0.4rem;
+
+  @extend .text-center;
+
+  .img {
+    border-width: 1px;
+    border-style: solid;
+
+    @extend .rounded-circle;
+  }
+}
+
+%dashboard-user-text {
+  border-width: 1px 0 0;
+  border-style: solid;
+  padding: 0.3rem 0.2rem;
+
+  @extend .w-100;
+  @extend .text-center;
+ }
+
+&__user {
+  $dashboard-user: #f8f8f8;
+  $dashboard-user-border: darken($dashboard-user, 10%);
+
+  background-color: $dashboard-user;
+  border: 1px solid $dashboard-user-border;
+  box-shadow: 1px 2px 3px #eee;
+  padding: 0.2rem 0 0.1rem;
+  height: auto;
+
+  @extend .position-relative;
+
+  &:hover {
+    .mask {
+      display: block !important;
+
+      &__content {
+        opacity: .5;
+      }
+    }
+
+    .dashboard__user-controls {
+      display: block;
+    }
+  }
+
+  .mask__content {
+    z-index: 1;
+  }
+
+  &-controls {
+    display: none;
+    margin-top: -1rem; // To centralize vertically get to reference the .fa-2x size
+    top: 50%;
+    z-index: 2;
+
+    @extend .w-100;
+    @extend .position-absolute;
+    @extend .text-white;
+    @extend .text-center;
+
+    .fa {
+      cursor: pointer;
+    }
+
+    .fa + .fa {
+      margin-left: 1.5rem;
+    }
+  }
+
+  &-avatar {
+    height: 6rem;
+    width: 6rem;
+
+
+    @extend %dashboard-user-avatar;
+
+    .img {
+      border-color: $dashboard-user-border;
+    }
+  }
+
+  &-item {
+    background-color: lighten($dashboard-user, 10%);
+    border-color: $dashboard-user-border;
+
+    @extend %dashboard-user-text;
+  }
+
+  &-trigger {
+    color: #888;
+    cursor: pointer;
+    min-height: 12rem;
+
+    @extend .w-100;
+    @extend .h-100;
+  }
+}

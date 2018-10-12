@@ -17,14 +17,20 @@ class CreateSchedulesTable extends Migration
             $table->increments('id');
             $table->string('hour');
             $table->string('day');
-            $table->integer('pole')->unsigned();
-            $table->integer('category')->unsigned();
+            $table->integer('pole')->unsigned()->nullable();
+            $table->integer('category')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('schedules', function($table) {
-            $table->foreign('pole')->references('id')->on('schedules_poles');
-            $table->foreign('category')->references('id')->on('schedules_categories');
+            $table->foreign('pole')
+                ->references('id')
+                ->on('schedules_poles')
+                ->onDelete('set null');
+            $table->foreign('category')
+                ->references('id')
+                ->on('schedules_categories')
+                ->onDelete('set null');
         });
     }
 

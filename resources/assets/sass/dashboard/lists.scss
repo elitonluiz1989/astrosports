@@ -1,0 +1,125 @@
+&-list {
+  $dashboard-list-color-darken: darken($dashboard-list-color, $tabs-darken-percentage);
+  $list: &;
+  padding-top: 1rem;
+
+  @extend .container-fluid;
+
+  @include media-breakpoint-up(sm) {
+    width: 98%;
+    margin: 0 1% 1%;
+  }
+
+  &__controller {
+    margin-bottom: 1rem;
+
+    @extend .col-12;
+    @extend .col-sm-6;
+    @extend .col-md-5;
+    @extend .col-lg-4;
+    @extend .col-xl-3;
+  }
+
+  &__header {
+    background-color: lighten($dashboard-list-color-darken, 30%);
+    border: 1px solid $dashboard-list-color-darken;
+    color: darken($dashboard-list-color-darken, 25%);
+
+    @extend .row;
+
+    &-item {
+      cursor: pointer;
+
+      @extend .col-reset;
+    }
+  }
+
+  &__row {
+    border-width: 1px 1px 0;
+    border-style: solid;
+    border-color: $dashboard-list-color-darken;
+    margin-bottom: 1rem;
+
+    @extend .row;
+
+    @include media-breakpoint-up(sm) {
+      $padding: -($grid-gutter-width / 2);
+      border-top: 0;
+      margin-right: $padding !important;
+      margin-bottom: 0;
+      margin-left: $padding !important;
+
+      &:nth-child(even) {
+        background-color: lighten($dashboard-list-color-darken, 60%);
+      }
+
+      &:last-child {
+        border-bottom: 1px solid $dashboard-list-color-darken;
+      }
+    }
+
+    & > #{$list}__* {
+      @extend .col-sm-reset;
+    }
+  }
+
+  &__id {
+    @extend .col-12;
+    @extend .col-sm-1;
+  }
+
+  &--default {
+    @extend .col-12;
+    @extend .col-sm;
+  }
+
+  &--bordered {
+    @include media-breakpoint-up(sm) {
+      border-right: 1px solid $dashboard-list-color-darken;
+    }
+  }
+
+  &__control {
+    @extend .col-12;
+    @extend .col-sm-1;
+
+    @include media-breakpoint-up(sm) {
+      #{$list}__content {
+        border-bottom: 0;
+      }
+    }
+
+    button {
+      background-color: transparent;
+      border-width: 0 0 1px;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    @extend .text-center;
+
+    &--title {
+      background-color: $dashboard-list-color-darken;
+
+      @extend .text-white;
+      @extend .font-weight-bold;
+    }
+
+    &--text {
+      border-bottom: 1px solid $dashboard-list-color-darken;
+    }
+  }
+
+  &--empty {
+    @extend .dashboard-list__content;
+    @extend .dashboard-list__content--text;
+
+    @include media-breakpoint-up(sm) {
+      border-bottom: 0;
+    }
+  }
+}

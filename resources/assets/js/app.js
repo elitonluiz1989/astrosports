@@ -1,20 +1,32 @@
+require('./bootstrap');
+
 import {PhotosGallery} from "./components/Photos/PhotosGallery.js";
 import {HomeHistory} from "./components/Home/HomeHistory";
 import {VideosModal} from "./components/Videos/VideosModal";
 
-require('./bootstrap');
+import Vue from 'vue';
 
-Vue.component('main-mask', require('./components/Base/AppMask'));
+import { capitalize } from './helpers/utils';
+import VueUtils from './helpers/vue-utils';
+import VueRequest from './helpers/vue-request';
+import store from './store';
+import AppIcon from './components/Base/AppIcon';
+import RootComponents from './components';
 
-Vue.component('imc', require('./components/Imc/Imc'));
+Vue.use(VueUtils);
 
-Vue.component('contact-address', require('./components/Contact/ContactAddress'));
+Vue.use(VueRequest);
 
-Vue.component('contact-email', require('./components/Contact/ContactEmail'));
+/** Global filters */
+Vue.filter("Capitalize", capitalize);
 
-const appImc = new Vue({
-    el: "#app"
-});
+/** Global components */
+Vue.component("app-icon", AppIcon);
+
+const app = new Vue({
+    store,
+    components: RootComponents,
+}).$mount("#app");
 
 HomeHistory();
 

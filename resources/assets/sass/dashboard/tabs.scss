@@ -1,0 +1,15 @@
+$dashboard-tabs-color: #0675cd;
+$tabs-item-width: 100% / 3;
+
+@include tabs($dashboard-list-color, $tabs-item-width, 'sm');
+
+&-tabs {
+  .tab-content {
+    background-color: white;
+    border-width: 0 1px 1px;
+    border-style: solid;
+    padding-top: 1rem;
+
+    @extend .container-fluid;
+  }
+}

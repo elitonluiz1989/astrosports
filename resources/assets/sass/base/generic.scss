@@ -1,16 +1,22 @@
-body {
-  background: url('../images/background-lg.png') left bottom no-repeat #222;
-  font-size: 10px !important;
+html, body {
+  height: 100%;
+}
 
+body {
   @extend .position-relative;
+  //overflow-x: hidden; // Modal open trick
+
+  .app {
+    font-size: 14px !important;
+  }
+}
+
+.default #app {
+  background: url('../images/background-lg.png') left bottom no-repeat #222;
 
   @include media-breakpoint-up('lg') {
     background-image: url('../images/background-lg.png');
   }
-}
-
-.main {
-  font-size: 14px !important;
 }
 
 .row-reset {
@@ -18,9 +24,16 @@ body {
   margin-left: 0!important;
 }
 
-.col-reset {
+.col-reset{
   padding-right: 0;
   padding-left: 0;
+}
+
+.col-sm-reset {
+  @include media-breakpoint-up(md) {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 .pagination {
@@ -157,7 +170,15 @@ body {
 .modal-content {
   @extend .o-hidden;
 
-  .modal-header {
+  &.modal-sm {
+    @include media-breakpoint-up(md) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .modal-header,
+  .modal-footer {
     padding-top: 0.4rem;
     padding-bottom: 0.4rem;
   }
@@ -165,4 +186,8 @@ body {
   .modal-body {
     background-color: white;
   }
+}
+
+.btn-light {
+  border: 1px solid #888;
 }
