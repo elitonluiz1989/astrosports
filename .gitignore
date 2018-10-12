@@ -10,4 +10,6 @@ Homestead.yaml
 .env.production
 .ftpconfig
 .ftpignore
-public/js/*.js
+/public/css
+/public/fonts
+/public/js
