@@ -1,0 +1,37 @@
+.privacy {
+  $privacy-color: #0b8e59;
+
+  .privacy__item {
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+
+    @extend .col-11;
+    @extend .col-lg-10;
+    @extend .col-lg-9;
+  }
+
+  .privacy__title {
+    border-bottom: 1px solid $privacy-color;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+
+    &--color {
+      color: $privacy-color;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  .privacy__content {
+    color: #444 !important;
+    text-align: justify;
+
+    @include media-breakpoint-up(lg) {
+      text-align: left;
+    }
+  }
+}
