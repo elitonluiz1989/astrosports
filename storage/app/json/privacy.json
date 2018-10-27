@@ -1,0 +1,49 @@
+[
+  {
+    "section": "SEÇÃO 1 - O QUE FAREMOS COM ESTA INFORMAÇÃO?",
+    "content": [
+      "Quando você acessa nosso site, recebemos automaticamente o protocolo de internet do seu computador, endereço de IP, a fim de obter informações que nos ajudam a aprender sobre seu navegador e sistema operacional.",
+      "Email Marketing será realizado apenas caso você permita. Nestes emails você poderá receber notícia sobre nossa loja, novos produtos e outras atualizações."
+    ]
+  },
+  {
+    "section": "SEÇÃO 2 - CONSENTIMENTO",
+    "content": [
+      "Como vocês obtêm meu consentimento?",
+      "Quando você fornece informações pessoais como nome, telefone e endereço, por uma razão secundária, como marketing, vamos lhe pedir diretamente por seu consentimento, ou lhe fornecer a oportunidade de dizer não.",
+      "E caso você queira retirar seu consentimento, como proceder?",
+      "Se após você nos fornecer seus dados, você mudar de ideia, você pode retirar o seu consentimento para que possamos entrar em contato, para a coleção de dados contínua, uso ou divulgação de suas informações, a qualquer momento, entrando em contato conosco em elitonluiz1989@gmail.com ou nos enviando uma correspondência em: Escola de Futebol Astro Sport http://astrosports.hol.es"
+    ]
+  },
+  {
+    "section": "SEÇÃO 3 - DIVULGAÇÃO",
+    "content": [
+      "Podemos divulgar suas informações pessoais caso sejamos obrigados pela lei para fazê-lo ou se você violar nossos Termos de Serviço."
+      ]
+  },
+  {
+    "section": "SEÇÃO 4 - SERVIÇOS DE TERCEIROS",
+    "content": [
+      "No geral, os fornecedores terceirizados usados por nós irão apenas coletar, usar e divulgar suas informações na medida do necessário para permitir que eles realizem os serviços que eles nos fornecem.",
+      "Uma vez que você deixe o site da nossa loja ou seja redirecionado para um aplicativo ou site de terceiros, você não será mais regido por essa Política de Privacidade ou pelos Termos de Serviço do nosso site.",
+      {
+        "section": "Links",
+        "content": [
+          "Quando você clica em links na nossa loja, eles podem lhe direcionar para fora do nosso site. Não somos responsáveis pelas práticas de privacidade de outros sites e lhe incentivamos a ler as declarações de privacidade deles."
+        ]
+      }
+    ]
+  },
+  {
+    "section": "SEÇÃO 5 - SEGURANÇA",
+    "content": [
+      "Para proteger suas informações pessoais, tomamos precauções razoáveis e seguimos as melhores práticas da indústria para nos certificar que elas não serão perdidas inadequadamente, usurpadas, acessadas, divulgadas, alteradas ou destruídas."
+    ]
+  },
+  {
+    "section": "SEÇÃO 6 - ALTERAÇÕES PARA ESSA POLÍTICA DE PRIVACIDADE",
+    "content": [
+      "Reservamos o direito de modificar essa política de privacidade a qualquer momento, então por favor, revise-a com frequência. Alterações e esclarecimentos vão surtir efeito imediatamente após sua publicação no site. Se fizermos alterações de materiais para essa política, iremos notificá-lo aqui que eles foram atualizados, para que você tenha ciência sobre quais informações coletamos, como as usamos, e sob que circunstâncias, se alguma, usamos e/ou divulgamos elas.","Se nossa instituição for adquirida ou fundida com outra empresa, suas informações podem ser transferidas para os novos proprietários para que possamos continuar a fornecer nossos serviços  para você."
+    ]
+  }
+]
