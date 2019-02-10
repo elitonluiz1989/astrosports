@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Models\Privacy;
 use App\Repositories\CommissionRepository;
 use App\Repositories\DefaultRepository;
 
@@ -46,5 +47,13 @@ class AboutController extends Controller
         $this->data['commission'] = $this->commission->get();
 
         return view('about.index', $this->data);
+    }
+
+    public function privacy()
+    {
+        $this->data['sidebar'] = false;
+        $this->data['privacy'] = $this->repository->model(new Privacy)->get();
+
+        return view("privacy", $this->data);
     }
 }
