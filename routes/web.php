@@ -30,6 +30,8 @@ Route::get('/videos', 'VideosController@index');
 
 Route::get('/sobre/{display?}', 'AboutController@index');
 
+Route::get('/privacidade', 'AboutController@privacy');
+
 // Storage
 Route::prefix('storage')
     ->group(function () {
@@ -43,13 +45,6 @@ Route::prefix('storage')
                 Route::any('/delete', 'ImagesController@delete');
             });
     });
-
-// Json
-Route::get('/json/{jsonFile}', function ($jsonFile) {
-    $jsonPath = storage_path() . '/app/json/' . $jsonFile . '.json';
-
-    return \json_decode(\file_get_contents($jsonPath), true);
-});
 
 Route::namespace('Auth')
     ->group(function () {
