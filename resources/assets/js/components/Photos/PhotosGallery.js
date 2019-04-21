@@ -6,13 +6,11 @@ export function PhotosGallery() {
     $('.photos .photo:not(.is-album)').click(evt => {
         evt.preventDefault();
 
-        let src = evt.target.src.split('?')[0];
-
         modal.content = [{
             selector: 'img',
             attrs: {
                 alt: evt.target.alt,
-                src: src
+                src: evt.target.src
             }
         }];
 

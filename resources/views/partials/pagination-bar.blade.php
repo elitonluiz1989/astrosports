@@ -1,4 +1,4 @@
-@if (null != $links)
+@if (null != $links && !empty($links->toHtml()))
     @php
         $navClass = (isset($bottom) && $bottom) ?'pagination--bottom' : 'pagination--top';
         $navClass .= ' row row justify-content-center';

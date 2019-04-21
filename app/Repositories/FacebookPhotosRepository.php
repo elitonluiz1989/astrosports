@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Handlers\Facebook\FacebookResponseHandler;
 use App\Repositories\Abstracts\FacebookBase;
 use App\Repositories\Contracts\PhotosRepositoryInterface;
 use Facebook\GraphNodes\GraphEdge;
@@ -13,6 +14,11 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
      */
     public $fields;
 
+    /**
+     * @param $albumId
+     * @return \Facebook\GraphNodes\GraphAlbum
+     * @throws \Facebook\Exceptions\FacebookSDKException
+     */
     public function getAlbum($albumId)
     {
         $params = ['fields' => 'name'];
@@ -47,8 +53,6 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
      */
     public function getPhotos($albumId = null)
     {
-        $photos = collect([]);
-
         // Set fields to photos search
         $this->verifyFields(['id', 'name', 'source', 'album{id,name}']);
 
@@ -68,6 +72,10 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
 
         $values = $this->getResponseValues($uri);
 
+        $response = new FacebookResponseHandler();
+        $response->paging->data = $values->getMetaData()["paging"];
+        $response->paging->baseUrl = $this->path;
+
         foreach ($values as $value) {
             $proceed = true;
             $album = $value->getField('album');
@@ -80,13 +88,17 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
                 $photo = $this->populatePhoto($value);
                 $photo->link = $photo->source;
 
-                $photos->push($photo);
+                $response->items->push($photo);
             }
         }
 
-        return $this->paginateResult($photos);
+        return ($this->isOffsetPagination) ? $this->paginateResult($response->items) : $response;
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     */
     public function setSize(int $width, int $height)
     {
         $this->setFields('images');
@@ -142,6 +154,9 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
         }
     }
 
+    /**
+     * @param array $defaultFields
+     */
     private function verifyFields(array $defaultFields)
     {
         $fields = $this->fields ?? $defaultFields;

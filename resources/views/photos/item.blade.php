@@ -6,7 +6,7 @@
 
 @include('partials.pagination-bar', $pagination)
 
-<div class="row row-reset">
+<div class="photos-wrapper">
     @component('partials.modal')
         @slot('modalId', 'photos-modal')
 
