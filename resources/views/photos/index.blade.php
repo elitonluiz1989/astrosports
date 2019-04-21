@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section('page', 'photos')
-
 @section('content')
     <div class="photos page page--full">
         <header class="row">
@@ -24,6 +23,24 @@
             @endif
 
             @include('photos.item', $records)
+
+            @if (property_exists($records['records'], "paging"))
+                <nav aria-label="Page navigation" class="row row justify-content-center pagination--bottom">
+                    <ul class="pagination">
+                        @if (!$records['records']->paging->IsFirstPage())
+                            <li class="page-item">
+                                <a href="{{ $records['records']->paging->GetPrevUrl() }}" class="page-link">Anterior</a>
+                            </li>
+                        @endif
+
+                        @if (!$records['records']->paging->IsLastPage())
+                            <li class="page-item">
+                                <a href="{{ $records['records']->paging->GetNextUrl() }}" class="page-link">Próxima</a>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
+            @endif
         @else
             {!! $emptyMessage !!}
         @endif

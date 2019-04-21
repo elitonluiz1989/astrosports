@@ -6,6 +6,17 @@
     padding-top: 0.3rem;
   }
 
+  &-wrapper {
+    padding-top: 0.95rem;
+
+    @extend .row;
+    @extend .row-reset;
+
+    .pagination--top + & {
+      padding-top: 0;
+    }
+  }
+
   .modal {
     max-height: 100%;
 
@@ -59,7 +70,7 @@
   .album-title {
     background-color: lighten($theme-golden, 7%);
     border-width: 1px;
-    margin-top: 1.3rem;
+    margin-top: 1rem;
 
     @extend .col-10;
     @extend .col-sm-8;

@@ -11,6 +11,7 @@ services:
         ports:
             -   "80:80"
             -   "3000:3000"
+        #    -   "9000:9000"
 
         links:
             - astrosports_mysql
@@ -19,6 +20,21 @@ services:
             -   .:/var/www/html/
             -   ./docker/vhost.conf:/etc/apache2/sites-available/000-default.conf
 
+        environment:
+            - APPLICATION_ENV=development
+          #xDebug configs for 'development' environment
+         #   - XDEBUG_INSTALL="true"
+         #   - XDEBUG_CONFIG="remote_host=localhost"
+         #   - XDEBUG_REMOTE_ENABLE=on
+         #   - XDEBUG_REMOTE_AUTOSTART=on
+         #   - XDEBUG_REMOTE_CONNECT_BACK=off
+         #   - XDEBUG_REMOTE_HANDLER=dbgp
+         #   - XDEBUG_PROFILER_ENABLE=1
+         #   - XDEBUG_PROFILER_OUTPUT_DIR=/tmp/www/html
+         #   - XDEBUG_REMOTE_PORT=9000
+         #   - XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
+         #   - PHP_IDE_CONFIG="serverName=Test"
+
     astrosports_phpmyadmin:
         image: phpmyadmin/phpmyadmin
 
@@ -26,7 +42,7 @@ services:
 
         environment:
             - PMA_ARBITRARY=1
-            - PMA_HOST=astrosports_mysql
+            - PMA_HOST=127.0.0.1
 
         ports:
             - "8080:80"
@@ -46,7 +62,7 @@ services:
           - "9090:3306"
 
         environment:
-          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_ROOT_PASSWORD=5119191413
           - MYSQL_DATABASE=astrosports
           - MYSQL_USER=elitonluiz
           - MYSQL_PASSWORD=5119191413

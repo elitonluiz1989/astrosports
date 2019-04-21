@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
 main() {
     if [ "${1}" == 'reset' ]; then
         echo "Optimize class loader"
@@ -8,7 +9,7 @@ main() {
         php artisan cache:clear
 
         echo "Clear Route cache"
-        php artisan route:cache
+        php artisan route:clear
 
         echo "Clear View cache"
         php artisan view:clear

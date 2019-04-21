@@ -94,7 +94,7 @@ abstract class FacebookBase extends FacebookRequestHandler
      */
     public function paginateResult(Collection $items)
     {
-        if ($this->hasPagination) {
+        if ($this->isOffsetPagination) {
             $paginator = new LengthAwarePaginator($items, $this->totalItems, $this->limit);
 
             if (empty($this->path) || null === $this->path) {

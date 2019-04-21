@@ -11,7 +11,7 @@ abstract class FacebookRequestHandler
     /**
      * @var bool
      */
-    public $hasPagination = true;
+    public $isOffsetPagination = true;
 
     /**
      * @var int
@@ -22,6 +22,16 @@ abstract class FacebookRequestHandler
      * @var int
      */
     public $page = 1;
+
+    /**
+     * @var string
+     */
+    public $before;
+
+    /**
+     * @var string
+     */
+    public $after;
 
     /**
      * @var int
@@ -85,13 +95,16 @@ abstract class FacebookRequestHandler
             $requestParams['fields'] = $this->getFields()->implode(',');
         }
 
-        if ($this->hasPagination && $this->limit > 0) {
-            $offset = $this->page * $this->limit;
-            $offset -= $this->limit;
-
-            $requestParams['offset'] =  $offset;
-
+        if ($this->limit > 0) {
             $requestParams['limit'] = $this->limit;
+
+            if ($this->isOffsetPagination) {
+                $offset = ($this->page * $this->limit) - $this->limit;
+                $requestParams['offset'] = $offset;
+            } else {
+                $requestParams['before'] = $this->before;
+                $requestParams['after'] = $this->after;
+            }
         }
 
         return $requestParams;
