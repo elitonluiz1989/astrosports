@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\PhotosRepositoryInterface;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManagerStatic as Image;
-use Intervention\Image\Response as ImageResponse;
 
 /**
  * Class PhotosController
@@ -16,6 +14,8 @@ class PhotosController extends Controller
      * @var array
      */
     private $data;
+
+    private $imageController;
 
     /**
      * @var PhotosRepositoryInterface
@@ -35,9 +35,11 @@ class PhotosController extends Controller
 
     public function __construct(
         PhotosRepositoryInterface $photos,
+        ImagesController $imageController,
         Request $request
     ) {
         $this->photos = $photos;
+        $this->imageController = $imageController;
         $this->request = $request;
 
         $this->data = config('photos');
@@ -97,26 +99,13 @@ class PhotosController extends Controller
     /**
      * @param Request $request
      * @param $filename
-     * @return mixed
+     * @return \Intervention\Image\Response
      */
-    public function getPhoto(Request $request, $filename) {
-        $width = $request->get('width');
-        $height = $request->get('height');
+    public function getPhoto(Request $request, $filename)
+    {
+        $this->imageController->setImagePath('photos');
 
-        $path = storage_path('app/photos/' . $filename);
-
-        $img = Image::make($path);
-
-        if ($width || $height) {
-            $img->resize($width, $height, function ($contraint) {
-                $contraint->aspectRatio();
-                $contraint->upsize();
-            });
-        }
-
-        $format = $img->extension;
-
-        return $img->response($format);
+        return $this->imageController->image($request, $filename);
     }
 
     /**
