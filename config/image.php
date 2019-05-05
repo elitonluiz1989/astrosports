@@ -15,6 +15,8 @@ return array(
     |
     */
 
-    'driver' => 'gd'
+    'driver' => 'gd',
+
+    'path'  => 'images'
 
 );

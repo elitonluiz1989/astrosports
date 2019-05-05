@@ -9,6 +9,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class ImagesController extends Controller
 {
+
     /**
      * ImageRepository class
      * 
@@ -53,7 +54,7 @@ class ImagesController extends Controller
      */
     public function image(Request $request, string $image)
     {
-        $path = storage_path('app/images/' . $image); 
+        $path = $this->_image->getImageFullPath($image);
 
         $img = Image::make($path);
 
@@ -91,5 +92,10 @@ class ImagesController extends Controller
         $image = $request->validated()['images'];
 
         return $this->_image->upload($image);
+    }
+
+    public function setImagePath(string $path)
+    {
+        $this->_image->imagePath = $path;
     }
 }
