@@ -1,4 +1,4 @@
-import server  from '@js/api/users/userGrants';
+import api from '@js/api/users/userGrants';
 import base from '../base';
 
 export const userGrants = base.extend({
@@ -6,7 +6,7 @@ export const userGrants = base.extend({
         load({commit}) {
             commit('setStatus', ['load', 1]);
 
-            server.get()
+            api.get()
                 .then(response => {
                     commit('setRecords', response.data);
                     commit('setStatus', ['load', 2]);
@@ -20,7 +20,7 @@ export const userGrants = base.extend({
         add({commit, dispatch}, grant) {
             commit('setStatus', ['add', 1]);
 
-            server.add(grant)
+            api.add(grant)
                 .then(response => {
                     commit('setStatus', ['add', 2]);
                     dispatch("load");
@@ -33,7 +33,7 @@ export const userGrants = base.extend({
         edit({commit, dispatch}, grant) {
             commit('setStatus', ['edit', 1]);
 
-            server.edit(grant)
+            api.edit(grant)
                 .then(response => {
                     commit('setStatus', ['edit', 2]);
                     dispatch("load");
@@ -47,7 +47,7 @@ export const userGrants = base.extend({
         delete({commit, dispatch}, id) {
             commit('setStatus', ['delete', 1]);
             
-            server.del(id)
+            api.delete(id)
                 .then(response => {
                     commit('setStatus', ['delete', 2]);
                     dispatch("load");

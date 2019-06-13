@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Dashboard\Schedules;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,14 +25,14 @@ class SchedulesDefaultStoreRequest extends FormRequest
     {
         $table = (strpos($this->getRequestUri(), 'poles')) ? 'schedules_poles' : 'schedules_categories';
 
-        if ($this->method() == 'POST') {
-            return [
-                'name' => "string|unique:{$table},name|required"
-            ];
-        } else {
+        if ($this->has('id')) {
             return [
                 'id' => 'integer|required',
                 'name' => "string|unique:{$table},name,{$this->get('id')}|required"
+            ];
+        } else {
+            return [
+                'name' => "string|unique:{$table},name|required"
             ];
         }
     }

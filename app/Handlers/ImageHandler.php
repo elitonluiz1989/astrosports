@@ -47,6 +47,6 @@ trait ImageHandler
      */
     public function getFileName(string $image)
     {
-        return pathinfo($image, PATHINFO_FILENAME);
+        return basename($image);
     }
 }

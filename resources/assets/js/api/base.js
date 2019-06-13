@@ -1,41 +1,44 @@
 import {CONFIG} from "@js/config";
 
-const base = {    
-    serverUrl: CONFIG.API_URL,
-    url: CONFIG.API_URL + "/",
-
-    get(id)  {
-        let url = id ? this.url + "/" + id : this.url;
-        
-        return axios.get(url);
-    },
-
-    add(data) {
-        return axios.post(this.url, data);
-    },
-
-    edit(data) {
-        return axios.put(this.url, data);
-    },
-
-    delete(id) {
-        let url = this.url + "/delete/";
-    
-        let data = {
-            params: {
-                id: id
-            }
-        };
-    
-        return axios.delete(url, data);
-    }
-};
-
-
 export default {
     extend(obj) {
-        obj.url = base.url + obj.url;
+        return Object.assign(
+            {    
+                serverUrl: CONFIG.API_URL,
+                baseUrl: CONFIG.API_URL + "/",
+                endpoint: "",
+            
+                getUrl(params) {
+                    let url = this.baseUrl + this.endpoint;
 
-        return Object.assign(base, obj);
+                    if (params)
+                    {
+                        url = url + '/' + params;
+                    }
+
+                    return url;
+                },
+            
+                get(id)  {
+                    let url = this.getUrl(id);
+                    
+                    return axios.get(url);
+                },
+            
+                add(data) {
+                    return axios.post(this.getUrl(), data);
+                },
+            
+                edit(data) {
+                    return axios.post(this.getUrl(), data);
+                },
+            
+                delete(id) {
+                    let url = this.getUrl('delete/?id=' + id);
+
+                    return axios.get(url);
+                }
+            }, 
+            obj);
     }
 };
