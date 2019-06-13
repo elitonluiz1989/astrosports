@@ -35,11 +35,10 @@ class ImageRepository
 
         foreach ($images as $image) {
             $filename = $this->getFileName($image);
-            \array_push($files, $this->getImagePath() . '/' . $filename);
+            \array_push($files, $this->getImagePath() . DIRECTORY_SEPARATOR . $filename);
         }
 
         $deleted = Storage::disk(env('FILESYSTEM_DRIVER'))->delete($files);
-
         if (!$deleted) {
             AppLog::write('warning', '[images][not-deleted]', $files);
         }

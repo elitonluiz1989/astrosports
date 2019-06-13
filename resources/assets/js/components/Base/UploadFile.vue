@@ -23,7 +23,7 @@
 
         <div class="container-fluid" v-if="files.length > 0 && listUploaded">
             <div class="row">
-                <div :class="styles.uploadedItem" v-for="(file, key) in files">
+                <div :class="styles.uploadedItem" v-for="(file, key) in files" :key="key">
                     <div :class="uploadedItemStyle">
                         <img :src="file" class="img">
                     </div>

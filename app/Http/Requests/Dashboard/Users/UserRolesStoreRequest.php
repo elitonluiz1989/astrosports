@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Dashboard\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,18 +23,18 @@ class UserRolesStoreRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'POST') {
-            return [
-                'name' => "string|unique:user_roles,name|required",
-                'grant' => "integer|required"
-            ];
-        } else {
+        if ($this->has('id')) {
             $id = $this->get('id');
 
             return [
                 'id' => 'integer|required',
                 'name' => "string|unique:user_roles,name,{$id}|required_without:grant",
                 'grant' => "integer|required_without:name"
+            ];
+        } else {
+            return [
+                'name' => "string|unique:user_roles|required",
+                'grant' => "integer|required"
             ];
         }
     }
