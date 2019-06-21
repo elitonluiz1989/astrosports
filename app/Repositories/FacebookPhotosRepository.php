@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Handlers\Facebook\FacebookResponseHandler;
 use App\Repositories\Abstracts\FacebookBase;
 use App\Repositories\Contracts\PhotosRepositoryInterface;
+use App\Services\FacebookService;
 use Facebook\GraphNodes\GraphEdge;
 use Illuminate\Support\Collection;
 
@@ -13,6 +14,15 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
      * @var array
      */
     public $fields;
+
+    private $legacyPhotos;
+
+    public function __construct(FacebookService $facebook,
+                                LegacyPhotosRepository $legacyPhotos) {
+        parent::__construct($facebook);
+
+        $this->legacyPhotos = $legacyPhotos;
+    }
 
     /**
      * @param $albumId
@@ -113,9 +123,7 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
      */
     private function iterateAlbums(GraphEdge $values)
     {
-        $excludedAlbums = config('facebook.excluded_albums') ?? [];
-
-        $albums = $values->map(function($value) use ($excludedAlbums) {
+        $albums = $values->map(function($value) {
             $out = $this->outExcludedAlbums($value->getField('name'));
 
             if ($out) {
@@ -127,7 +135,12 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
 
         $result = array_values(array_filter($albums->asArray()));
 
-        return collect($result);
+        $legacyAlbums = $this->legacyPhotos->getAlbums();
+        $this->totalItems += $legacyAlbums->count();
+
+        $finalAlbums = $legacyAlbums->merge($result);
+
+        return $finalAlbums;
     }
 
     /**

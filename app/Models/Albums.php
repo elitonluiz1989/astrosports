@@ -19,4 +19,9 @@ class Albums extends PhotoBaseAbstract
     {
         return $this->hasMany('App\Models\Photos', 'id');
     }
+
+    public function getCoverAttribute($value)
+    {
+        return route("storage.images.folder.view", ['photos', $value]);
+    }
 }

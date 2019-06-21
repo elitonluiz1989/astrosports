@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'service' => 'photos',
+    'service' => 'facebook',
     'views' => [
         'index' => 'photos.index',
         'item' => 'photos.item'

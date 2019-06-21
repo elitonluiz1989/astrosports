@@ -1,6 +1,8 @@
 const {mix} = require("laravel-mix");
 let path = require("path");
 
+mix.disableNotifications();
+
 mix.webpackConfig({
     resolve: {
         alias: {

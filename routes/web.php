@@ -41,6 +41,8 @@ Route::prefix('storage')
             ->group(function () {
                 Route::get('/view/{image}', 'ImagesController@image')
                     ->name('storage.images.view');
+                Route::get('/{folder}/view/{image}', 'ImagesController@imageByFolder')
+                    ->name('storage.images.folder.view');
                 Route::post('/upload', 'ImagesController@upload');
                 Route::any('/delete', 'ImagesController@delete');
             });
