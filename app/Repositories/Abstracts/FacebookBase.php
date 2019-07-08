@@ -4,6 +4,7 @@ namespace App\Repositories\Abstracts;
 
 use App\Handlers\Facebook\FacebookPhotoDataHandler;
 use App\Handlers\Facebook\FacebookRequestHandler;
+use App\Handlers\Facebook\FacebookResponseHandler;
 use App\Models\FacebookPhoto;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -89,13 +90,13 @@ abstract class FacebookBase extends FacebookRequestHandler
     }
 
     /**
-     * @param Collection $items
-     * @return LengthAwarePaginator|Collection
+     * @param FacebookResponseHandler $response
+     * @return FacebookResponseHandler|LengthAwarePaginator
      */
-    public function paginateResult(Collection $items)
+    public function paginateResult(FacebookResponseHandler $response)
     {
         if ($this->isOffsetPagination) {
-            $paginator = new LengthAwarePaginator($items, $this->totalItems, $this->limit);
+            $paginator = new LengthAwarePaginator($response->items, $this->totalItems, $this->limit);
 
             if (empty($this->path) || null === $this->path) {
                 return $paginator;
@@ -103,7 +104,7 @@ abstract class FacebookBase extends FacebookRequestHandler
                 return $paginator->setPath($this->path);
             }
         } else {
-            return $items;
+            return $response;
         }
     }
 

@@ -6,7 +6,6 @@ use App\Repositories\Abstracts\FacebookBase;
 use App\Repositories\Contracts\PhotosRepositoryInterface;
 use App\Services\FacebookService;
 use Facebook\GraphNodes\GraphEdge;
-use Illuminate\Support\Collection;
 
 class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryInterface
 {
@@ -15,6 +14,9 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
      */
     public $fields;
 
+    /**
+     * @var LegacyPhotosRepository
+     */
     private $legacyPhotos;
 
     public function __construct(FacebookService $facebook,
@@ -37,28 +39,28 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator|Collection
+     * @return \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function getAlbums()
     {
         $this->verifyFields(['id', 'name']);
-
-        $uri = $this->pageId . '/albums';
-
-        $returnedValues = $this->getResponseValues($uri);
-
-        $this->totalItems = $returnedValues->count();
         $this->path = config('photos.url.albums');
 
-        $albums = $this->iterateAlbums($returnedValues);
+        $uri = $this->pageId . '/albums';
+        $values = $this->getResponseValues($uri);
 
-        return $this->paginateResult($albums);
+        $response = new FacebookResponseHandler();
+        $response->paging->data = $values->getMetaData()["paging"];
+        $response->paging->baseUrl = $this->path;
+        $response->items = $this->iterateAlbums($values);
+
+        return $this->paginateResult($response);
     }
 
     /**
      * @param null $albumId
-     * @return \Illuminate\Pagination\LengthAwarePaginator|Collection
+     * @return \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function getPhotos($albumId = null)
@@ -102,7 +104,7 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
             }
         }
 
-        return ($this->isOffsetPagination) ? $this->paginateResult($response->items) : $response;
+        return $this->paginateResult($response);
     }
 
     /**
@@ -119,7 +121,7 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
 
     /**
      * @param GraphEdge $values
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     private function iterateAlbums(GraphEdge $values)
     {
@@ -133,12 +135,14 @@ class FacebookPhotosRepository extends FacebookBase implements PhotosRepositoryI
             }
         });
 
-        $result = array_values(array_filter($albums->asArray()));
+        $finalAlbums = collect(array_values(array_filter($albums->asArray())));
 
         $legacyAlbums = $this->legacyPhotos->getAlbums();
-        $this->totalItems += $legacyAlbums->count();
+        if ($legacyAlbums->count()) {
+            $finalAlbums = $finalAlbums->merge($legacyAlbums->toArray());
+        }
 
-        $finalAlbums = $legacyAlbums->merge($result);
+        $this->totalItems = $finalAlbums->count();
 
         return $finalAlbums;
     }

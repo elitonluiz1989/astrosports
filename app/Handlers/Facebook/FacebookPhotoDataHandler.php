@@ -46,7 +46,6 @@ trait FacebookPhotoDataHandler
             }
         }
 
-
         if (empty($this->facebookPhoto->source)) {
             $this->facebookPhoto->source = $defaultSource;
         }
