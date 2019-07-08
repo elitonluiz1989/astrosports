@@ -22,6 +22,7 @@ class LegacyPhotosRepository
             $facebookPhoto->id = $album->id;
             $facebookPhoto->name = $album->name;
             $facebookPhoto->source = $album->cover;
+            $facebookPhoto->legacy = true;
 
             return $facebookPhoto;
         });

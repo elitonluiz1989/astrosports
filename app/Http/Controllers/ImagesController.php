@@ -69,7 +69,7 @@ class ImagesController extends Controller
      */
     public function imageByFolder(Request $request, string $folder, string $image)
     {
-        $path = storage_path("app/{$folder}/{$image}");
+        $path = storage_path("app/images/{$folder}/{$image}");
 
         return $this->renderImage($request, $path);
     }

@@ -16,8 +16,7 @@
                 @endforeach
             </ul>
         </header>
-        {{ dd($records['records']->items) }}
-        @if (count($records['records']) > 0)
+        @if ($records['records']->count() > 0)
             @if (isset($albumName) && null != $albumName)
                 @include('photos.album-title', ['name' => $albumName])
             @endif

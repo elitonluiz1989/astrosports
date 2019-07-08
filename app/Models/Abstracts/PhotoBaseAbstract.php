@@ -4,6 +4,8 @@ namespace App\Models\Abstracts;
 
 abstract class PhotoBaseAbstract extends ImageBaseAbstract
 {
+    protected $folder = 'photos';
+
     /**
      * @return mixed|string
      * @throws \ReflectionException
