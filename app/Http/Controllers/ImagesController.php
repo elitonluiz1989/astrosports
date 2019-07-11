@@ -14,7 +14,7 @@ class ImagesController extends Controller
      * 
      * @var ImageRepository
      */
-    private $_image;
+    private $image;
 
     /**
      * ImagesController constructor
@@ -25,8 +25,8 @@ class ImagesController extends Controller
     {
         $this->middleware(['web', 'auth'])->except('image', 'imageByFolder');
 
-        $this->_image = $image;
-        $this->_image->imageRoute = 'storage.images.view';
+        $this->image = $image;
+        $this->image->imageRoute = 'storage.images.view';
     }
 
     /**
@@ -40,7 +40,7 @@ class ImagesController extends Controller
     {
         $images = $request->validated()['images'];
 
-        return (string)$this->_image->delete($images);
+        return (string)$this->image->delete($images);
     }
 
     /**
@@ -53,7 +53,7 @@ class ImagesController extends Controller
      */
     public function image(Request $request, string $image)
     {
-        $path = $this->_image->getImageFullPath($image);
+        $path = $this->image->getImageFullPath($image);
 
         return $this->renderImage($request, $path);
     }
@@ -69,7 +69,9 @@ class ImagesController extends Controller
      */
     public function imageByFolder(Request $request, string $folder, string $image)
     {
-        $path = storage_path("app/images/{$folder}/{$image}");
+        $this->image->subPath = $folder;
+
+        $path = $this->image->getImageFullPath($image);;
 
         return $this->renderImage($request, $path);
     }
@@ -85,7 +87,7 @@ class ImagesController extends Controller
     {
         $image = $request->validated()['images'];
 
-        return $this->_image->upload($image);
+        return $this->image->upload($image);
     }
 
     /**
