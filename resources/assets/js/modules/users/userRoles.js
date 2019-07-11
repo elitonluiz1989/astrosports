@@ -1,4 +1,4 @@
-import server  from '@js/api/users/userRoles';
+import api from '@js/api/users/userRoles';
 import base from '../base';
 
 export const userRoles = base.extend({
@@ -6,7 +6,7 @@ export const userRoles = base.extend({
         load({commit}) {
             commit('setStatus', ['load', 1]);
 
-            server.get()
+            api.get()
                 .then(response => {
                     commit('setRecords', response.data);
                     commit('setStatus', ['load', 2]);
@@ -20,7 +20,7 @@ export const userRoles = base.extend({
         add({commit, dispatch}, role) {
             commit('setStatus', ['add', 1]);
 
-            server.add(role)
+            api.add(role)
                 .then(response => {
                     commit('setStatus', ['add', 2]);
                     dispatch("load");
@@ -33,7 +33,7 @@ export const userRoles = base.extend({
         edit({commit, dispatch}, role) {
             commit('setStatus', ['edit', 1]);
 
-            server.edit(role)
+            api.edit(role)
                 .then(response => {
                     commit('setStatus', ['edit', 2]);
                     dispatch("load");
@@ -47,7 +47,7 @@ export const userRoles = base.extend({
         delete({commit, dispatch}, id) {
             commit('setStatus', ['delete', 1]);
 
-            server.del(id)
+            api.delete(id)
                 .then(response => {
                     commit('setStatus', ['delete', 2]);
                     dispatch("load");

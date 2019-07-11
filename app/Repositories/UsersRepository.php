@@ -109,9 +109,9 @@ class UsersRepository
                             ->avatar;
 
 
-
         $deleted = User::destroy($id);
-        if ($deleted > 0) {
+
+        if ($deleted > 0 && null != $userAvatar && !empty($userAvatar)) {
             $this->imageRepo->delete($userAvatar);
         }
 

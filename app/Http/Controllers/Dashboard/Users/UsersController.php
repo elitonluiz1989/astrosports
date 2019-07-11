@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UsersStoreRequest;
+use App\Http\Requests\Dashboard\Users\UsersStoreRequest;
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
