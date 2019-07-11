@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Storage;
 trait ImageHandler
 {
     /**
-     * Image source path
+     * Image sub path
      *
      * @var string
      */
-    public $imagePath;
+    public $subPath;
 
     /**
      * @param string|null $image
@@ -19,7 +19,12 @@ trait ImageHandler
      */
     public function getImagePath(string $image = null)
     {
-        $path = $this->imagePath ?? config('image.path');
+        $path = config('image.path');
+        
+        if (null != $this->subPath)
+        {
+            $path .= DIRECTORY_SEPARATOR . $this->subPath;
+        }
 
         if (null != $image)
         {
