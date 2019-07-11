@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Dashboard\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,15 +23,7 @@ class UsersStoreRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'POST') {
-            return [
-                'avatar'   => 'string|nullable',
-                'username' => 'string|unique:users,username|required',
-                'name'     => 'string|nullable',
-                'role'     => 'integer|required',
-                'password' => 'string|confirmed|required',
-            ];
-        } else {
+        if ($this->has('id')) {
             $id = $this->get('id');
 
             return [
@@ -41,6 +33,14 @@ class UsersStoreRequest extends FormRequest
                 'name'     => 'string|required_without_all:avatar,username,role,password',
                 'role'     => 'integer|required_without_all:avatar,username,name,password',
                 'password' => 'string|confirmed|required_without_all:avatar,username,name,role',
+            ];
+        } else {
+            return [
+                'avatar'   => 'string|nullable',
+                'username' => 'string|unique:users,username|required',
+                'name'     => 'string|nullable',
+                'role'     => 'integer|required',
+                'password' => 'string|confirmed|required',
             ];
         }
     }

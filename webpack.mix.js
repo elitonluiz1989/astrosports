@@ -1,4 +1,4 @@
-const {mix} = require("laravel-mix");
+const mix = require("laravel-mix");
 let path = require("path");
 
 mix.disableNotifications();
@@ -15,5 +15,10 @@ mix.webpackConfig({
 
 mix.js("resources/assets/js/app.js", "public/js/app.js")
     .extract([ "vue", "jquery" ])
-    .sass("resources/assets/sass/app.scss", "public/css")
-    .browserSync("localhost");
+    .sass("resources/assets/sass/app.scss", "public/css", {
+        implementation: require('node-sass')
+      })
+    .browserSync({
+        proxy: "astrosports.test:81",
+        browser: "google chrome"
+    });

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Schedules;
 
-use App\Http\Requests\SchedulesDefaultStoreRequest;
+use App\Http\Requests\Dashboard\Schedules\SchedulesDefaultStoreRequest;
 use App\Repositories\SchedulesPolesRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -53,7 +53,7 @@ class ImagesController extends Controller
      */
     public function image(Request $request, string $image)
     {
-        $path = storage_path('app/images/' . $image);
+        $path = $this->_image->getImageFullPath($image);
 
         return $this->renderImage($request, $path);
     }
