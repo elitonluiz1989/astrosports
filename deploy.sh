@@ -33,3 +33,4 @@ main() {
 main $1
 
 exit
+:set fileformat=unix

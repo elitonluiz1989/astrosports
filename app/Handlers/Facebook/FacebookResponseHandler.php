@@ -78,12 +78,26 @@ class FacebookResponseHandler  implements Arrayable, IteratorAggregate
         $this->items = new Collection();
     }
 
+    /**
+     * @return array
+     */
     public function toArray() {
         return $this->items->toArray();
     }
 
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
     public function getIterator()
     {
         return $this->items->getIterator();
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->items->count();
     }
 }

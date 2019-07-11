@@ -9,14 +9,16 @@ abstract class ImageBaseAbstract extends Model
     /**
      * @var string
      */
-    protected $path = 'storage/photos/';
+    protected $folder;
 
     /**
      * @return string
      */
     public function getSourceAttribute()
     {
-        return $this->path . $this->setImg();
+        return $this->folder ?
+                route('storage.images.folder.view', [$this->folder, $this->setImg()]) :
+                route('storage.images.view', $this->setImg());
     }
 
     /**

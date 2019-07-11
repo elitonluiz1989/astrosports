@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Handlers\PhotosHandler;
 use App\Repositories\Contracts\PhotosRepositoryInterface;
+use App\Repositories\PhotosRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -10,65 +12,54 @@ use Illuminate\Http\Request;
  */
 class PhotosController extends Controller
 {
-    /**
-     * @var array
-     */
-    private $data;
-
-    private $imageController;
-
-    /**
-     * @var PhotosRepositoryInterface
-     */
-    private $photos;
-
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var string
-     */
-    private $view;
+    use PhotosHandler;
 
     public function __construct(
         PhotosRepositoryInterface $photos,
-        ImagesController $imageController,
+        PhotosRepository $legacyPhotos,
         Request $request
-    ) {
+    )
+    {
         $this->photos = $photos;
-        $this->imageController = $imageController;
+        $this->photos->limit = 12;
+        $this->legacyPhotos = $legacyPhotos;
+        $this->legacyPhotos->limit = 12;
         $this->request = $request;
 
         $this->data = config('photos');
         $this->view = $this->data['views']['index'];
         $this->photos->limit = $this->data['limit'];
     }
+
     public function album(int $id)
     {
-        $this->validatePage();
+        $isLegacy = $this->request->has('legacy');
 
-        if ($this->request->session()->has('albumId') && $this->request->session()->get('albumId') == $id)
-        {
+        $this->pagingParametersHandling();
+
+        if ($this->request->session()->has('albumId') && $this->request->session()->get('albumId') == $id) {
             $this->data['albumName'] = $this->request->session()->get('albumName');
         } else {
-            $this->data['albumName'] = $this->photos->getAlbum($id)['name'];
+            $currentAlbum =  $isLegacy ? $this->legacyPhotos->getAlbum($id) : $this->photos->getAlbum($id);
+            $this->data['albumName'] = $currentAlbum['name'];
             $this->request->session()->put('albumId', $id);
             $this->request->session()->put('albumName', $this->data['albumName']);
         }
 
-        $this->photos->isOffsetPagination = true;
-        $records = $this->photos->getPhotos($id);
+        if ($isLegacy) {
+            $records = $this->legacyPhotos->getPhotos($id);
+        } else {
+            $this->photos->isOffsetPagination = false;
+            $records = $this->photos->getPhotos($id);
+        }
 
-        $this->recordsHandler($records);
+        $this->recordsHandling($records);
         return view($this->view, $this->data);
     }
 
     public function albums()
     {
-        $this->validatePage();
+        $this->pagingParametersHandling();
 
         $this->data['display'] = 'albums';
         $this->data['records']['isAlbum'] = true;
@@ -76,7 +67,7 @@ class PhotosController extends Controller
         $this->photos->fields = ['id', 'name', 'cover_photo'];
         $records = $this->photos->getAlbums();
 
-        $this->recordsHandler($records);
+        $this->recordsHandling($records);
 
         return view($this->view, $this->data);
     }
@@ -86,66 +77,14 @@ class PhotosController extends Controller
      */
     public function photos()
     {
-        $this->validatePage();
+        $this->pagingParametersHandling();
 
         $this->photos->isOffsetPagination = false;
         $records = $this->photos->getPhotos();
 
-        $this->recordsHandler($records);
+        $this->recordsHandling($records);
 
         return view($this->view, $this->data);
     }
 
-    /**
-     * @param Request $request
-     * @param $filename
-     * @return \Intervention\Image\Response
-     */
-    public function getPhoto(Request $request, $filename)
-    {
-        $this->imageController->setImagePath('photos');
-
-        return $this->imageController->image($request, $filename);
-    }
-
-    /**
-     * @param mixed $records
-     */
-    private function recordsHandler($records)
-    {
-        $this->data['records']['records'] = $records;
-
-        if (method_exists($records, 'links')) {
-            // This array hierarchy is necessary for that the blade @includes, in the template files, work correctly
-            $this->data['records']['pagination']['links'] =  $records->links();
-        } else {
-            // Same of up
-            $this->data['records']['pagination']['links'] = [];
-        }
-    }
-
-    private function validatePage()
-    {
-        if ($this->request->has("page")) {
-            $page = $this->request->get('page');
-
-            if (null != $page) {
-                $this->photos->page = (int)$page;
-            }
-        }
-
-        if ($this->request->has("before") || $this->request->has("after")) {
-            $page = $this->request->get('before');
-
-            if (null != $page) {
-                $this->photos->before = $page;
-            }
-
-            $page = $this->request->get('after');
-
-            if (null != $page) {
-                $this->photos->after = $page;
-            }
-        }
-    }
 }

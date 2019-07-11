@@ -7,6 +7,11 @@ use App\Models\Abstracts\FacebookData;
 class FacebookPhoto extends FacebookData
 {
     /**
+     * @var bool
+     */
+    public $legacy;
+
+    /**
      * @return string
      */
     protected function getAltAttribute() {
@@ -20,7 +25,9 @@ class FacebookPhoto extends FacebookData
             return $this->link;
         } else {
             // It's a album
-            return config('photos.url.album') . $this->id;
+            $url = config('photos.url.album') . $this->id;
+
+            return $this->legacy ? $url . '?legacy=true' : $url;
         }
     }
 }
