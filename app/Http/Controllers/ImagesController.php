@@ -9,13 +9,12 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class ImagesController extends Controller
 {
-
     /**
      * ImageRepository class
      * 
      * @var ImageRepository
      */
-    private $_image;
+    private $image;
 
     /**
      * ImagesController constructor
@@ -24,10 +23,10 @@ class ImagesController extends Controller
      */
     public function __construct(ImageRepository $image)
     {
-        $this->middleware(['web', 'auth'])->except('image'); 
+        $this->middleware(['web', 'auth'])->except('image', 'imageByFolder');
 
-        $this->_image = $image;
-        $this->_image->imageRoute = 'storage.images.view';
+        $this->image = $image;
+        $this->image->imageRoute = 'storage.images.view';
     }
 
     /**
@@ -41,12 +40,12 @@ class ImagesController extends Controller
     {
         $images = $request->validated()['images'];
 
-        return (string)$this->_image->delete($images);
+        return (string)$this->image->delete($images);
     }
 
     /**
      * Format a stored image to show on browser
-     * 
+     *
      * @param Request $request - Request class
      * @param string  $image   - image source string
      *
@@ -54,30 +53,27 @@ class ImagesController extends Controller
      */
     public function image(Request $request, string $image)
     {
-        $path = $this->_image->getImageFullPath($image);
+        $path = $this->image->getImageFullPath($image);
 
-        $img = Image::make($path);
+        return $this->renderImage($request, $path);
+    }
 
-        if ($request->has('width') || $request->has('height')) {
-            $width = $request->get('width') ?? $request->get('height');
-            $height = $request->get('height') ?? $request->get('width');
+    /**
+     * Format a stored image to show on browser, defining a folder
+     *
+     * @param Request $request - Request class
+     * @param string $folder - images folder
+     * @param string  $image   - image source string
+     *
+     * @return \Intervention\Image\Response
+     */
+    public function imageByFolder(Request $request, string $folder, string $image)
+    {
+        $this->image->subPath = $folder;
 
-            $img->resize(
-                $width, 
-                $height, 
-                function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                }
-            );
-        }
-        $format = $img->extension;
+        $path = $this->image->getImageFullPath($image);;
 
-        /* Workaround to do the image appear. 
-           Before only show a 16x16 transparent square instead of image */
-        ob_end_clean();
-
-        return $img->response($format);
+        return $this->renderImage($request, $path);
     }
 
     /**
@@ -91,11 +87,40 @@ class ImagesController extends Controller
     {
         $image = $request->validated()['images'];
 
-        return $this->_image->upload($image);
+        return $this->image->upload($image);
     }
 
-    public function setImagePath(string $path)
+    /**
+     * Render a image by specified path, to showing on browser
+     *
+     * @param Request $request
+     * @param string $path
+     *
+     * @return \Intervention\Image\Response
+     */
+    private function renderImage(Request $request, string $path)
     {
-        $this->_image->imagePath = $path;
+        $img = Image::make($path);
+
+        if ($request->has('width') || $request->has('height')) {
+            $width = $request->get('width') ?? $request->get('height');
+            $height = $request->get('height') ?? $request->get('width');
+
+            $img->resize(
+                $width,
+                $height,
+                function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                }
+            );
+        }
+        $format = $img->extension;
+
+        /* Workaround to do the image appear.
+           Before only show a 16x16 transparent square instead of image */
+        ob_end_clean();
+
+        return $img->response($format);
     }
 }
