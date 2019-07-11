@@ -75,7 +75,7 @@ class PhotosRepository implements PhotosRepositoryInterface
 
         if (null != $albumId) {
             $query->where('album', '=', $albumId);
-            $this->path = config('photos.url.album') . $albumId;
+            $this->path = config('photos.url.album') . $albumId . '?legacy=true';
         }
 
         if (count($this->where) > 0) {
@@ -89,7 +89,6 @@ class PhotosRepository implements PhotosRepositoryInterface
         if ($this->path) {
             $photos->withPath($this->path);
         }
-
 
         return $photos;
     }
@@ -107,11 +106,5 @@ class PhotosRepository implements PhotosRepositoryInterface
         if ($height != $this->imgSize['height']) {
             config()->set('photos.cover.height', $height);
         }
-    }
-
-    public function __destruct()
-    {
-        //config()->set('photos.cover.width', $this->imgSize['width']);
-        //config()->set('photos.cover.height', $this->imgSize['height']);
     }
 }
