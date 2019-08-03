@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\OnShowLogin;
+use App\Handlers\LoginHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    use LoginHandler;
 
     public function __construct()
     {
@@ -20,6 +22,11 @@ class LoginController extends Controller
      */
     public function showLogin()
     {
+        $t = env('DB_HOST');
+        $d= env('WEBMASTER_USERNAME');
+
+        $this->hasWebmaster();
+
         $data = [
             'currentPage' => config('dashboard.defaultPage'),
         ];
