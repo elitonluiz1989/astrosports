@@ -8,6 +8,8 @@ class Commission extends TeamBaseAbstract
 {
     protected $table = 'commission';
 
+    protected $folder = 'photos';
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
