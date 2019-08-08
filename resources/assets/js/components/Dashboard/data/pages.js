@@ -1,6 +1,6 @@
+import DashboardCommission from '../Commission/Index';
 import DashboardUsers from '../Users/Index';
 import DashboardSchedules from '../Schedules/Index';
-
 
 export const pages =  {
     usuarios: {
@@ -9,6 +9,15 @@ export const pages =  {
         icon: 'users',
         link: '/dashboard/usuarios',
         text: 'Usuários',
+        userGrant: 2
+    },
+
+    comissao: {
+        active: true,
+        component: DashboardCommission,
+        icon: 'users',
+        link: '/dashboard/comissao',
+        text: 'Comissão',
         userGrant: 2
     },
 

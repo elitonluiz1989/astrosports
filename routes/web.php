@@ -74,6 +74,8 @@ Route::middleware(['web', 'auth'])
             ->group(function () {
                 require_once __DIR__ . '/dashboard/users.php';
 
+                require_once __DIR__ . '/dashboard/commission.php';
+
                 require_once __DIR__ . '/dashboard/schedules.php';
             });
     });
