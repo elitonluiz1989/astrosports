@@ -51,6 +51,7 @@
   .img {
     border-width: 1px;
     border-style: solid;
+    min-height: 100%;
 
     @extend .rounded-circle;
   }

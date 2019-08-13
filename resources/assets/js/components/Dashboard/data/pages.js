@@ -15,7 +15,7 @@ export const pages =  {
     comissao: {
         active: true,
         component: DashboardCommission,
-        icon: 'users',
+        icon: 'graduation-cap',
         link: '/dashboard/comissao',
         text: 'Comissão',
         userGrant: 2

@@ -23,16 +23,6 @@ class CommissionController extends Controller
     }
 
     /**
-     * Retrieve the authenticated user
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
-     */
-    public function user()
-    {
-        return $this->_repo->get(Auth::user()->id);
-    }
-
-    /**
      * Retrieve all Commission
      *
      * @return \Illuminate\Database\Eloquent\Collection

@@ -16,8 +16,6 @@
         <div class="dashboard__user-item" v-text="user.name"></div>
 
         <div class="dashboard__user-item" v-text="role"></div>
-
-        <div class="dashboard__user-item" v-text="grant"></div>
     </div>
 </template>
 
@@ -47,19 +45,11 @@
 
         computed: {
             user() {
-                return this.$store.state.users.records[this.userKey];
+                return this.$store.state.commission.records[this.userKey];
             },
 
             role() {
                 return this.validateUserInfo(this.user.role);
-            },
-
-            grant() {
-                if (!this.isNullOrUndefined(this.user.role)) {
-                    return this.validateUserInfo(this.user.role.grant)
-                } else {
-                    return this.validateUserInfo(null);
-                }
             }
         },
 

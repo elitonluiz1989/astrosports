@@ -15,6 +15,6 @@ class Commission extends TeamBaseAbstract
      */
     public function role()
     {
-        return $this->belongsTo('App\Models\CommissionRoles', 'id');
+        return $this->hasOne('App\Models\CommissionRoles', 'id');
     }
 }
