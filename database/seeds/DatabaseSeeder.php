@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Models\UserRole;
+use App\Models\UserGrant;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,9 +15,33 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+        // Create webmaster user        
+        if (!empty(env("WEBMASTER_USERNAME"))) {
+            $role = null;
 
-        // Create webmaster user
-        factory('App\Models\User')->create([
+            if (!empty(env("WEBMASTER_GRANT"))) {
+                $grantName = trim(env("WEBMASTER_GRANT"));
+                $grant = UserGRant::firstOrNew(['name' => $grantName]);
+                $grant->save();
+
+                if (!empty(env("WEBMASTER_ROLE"))) {
+                    $roleName = trim(env("WEBMASTER_ROLE"));
+                    $role = UserRole::firstOrNew(['name' => $grantName]);
+                    $role->grant_id = $grant->id;
+                    $role->save();
+                }    
+            }
+            
+            $user = User::firstOrNew(['username' => trim(env("WEBMASTER_USERNAME"))]);
+            $user->name = trim(env("WEBMASTER_NAME"));
+            $user->avatar = trim(env("WEBMASTER_AVATAR")) ?? null;
+            $user->password = bcrypt(trim(env("WEBMASTER_PASSWORD")));
+            if (null != $role) {
+                $user->role_id = $role->id; 
+            }
+            $user->save();
+        }
+        /*factory('App\Models\User')->create([
             'username' => trim(env("WEBMASTER_USERNAME")),
             'name' => trim(env("WEBMASTER_NAME")),
             'avatar' => trim(env("WEBMASTER_AVATAR")) ?? null,
@@ -33,6 +60,6 @@ class DatabaseSeeder extends Seeder
                     }
                 ])->id;
             },
-        ]);
+        ]);*/
     }
 }
