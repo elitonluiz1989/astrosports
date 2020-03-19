@@ -1,8 +1,8 @@
 require('./bootstrap');
 
-import {PhotosGallery} from "./components/Photos/PhotosGallery.js";
-import {HomeHistory} from "./components/Home/HomeHistory";
-import {VideosModal} from "./components/Videos/VideosModal";
+import { PhotosGallery } from "./components/Photos/PhotosGallery.js";
+import { HomeHistory } from "./components/Home/HomeHistory";
+import { VideosModal } from "./components/Videos/VideosModal";
 
 import Vue from 'vue';
 
@@ -24,8 +24,8 @@ Vue.filter("Capitalize", capitalize);
 Vue.component("app-icon", AppIcon);
 
 const app = new Vue({
-    store,
-    components: RootComponents,
+  store,
+  components: RootComponents,
 }).$mount("#app");
 
 HomeHistory();
