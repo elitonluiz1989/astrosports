@@ -12,7 +12,7 @@ services:
             - "80:80"
             - "9000:9000"
 
-        depends_on:
+        links:
             - astrosports.mysql
 
         volumes:
@@ -21,7 +21,7 @@ services:
 
         command: ["wait-for-it", "astrosports.mysql:3306 -t 0", "--", "sh", "./docker/entrypoint.sh"]
 
-        #environment:
+        environment:
           #xDebug configs for 'development' environment
          #   - XDEBUG_INSTALL="true"
          #   - XDEBUG_CONFIG="remote_host=localhost"
@@ -34,6 +34,49 @@ services:
          #   - XDEBUG_REMOTE_PORT=9000
          #   - XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
          #   - PHP_IDE_CONFIG="serverName=Test"
+
+   /astrosports.node:
+        image: node:alpine
+
+        container_name: astrosports.node
+
+        ports: 
+            - "8080:8080"
+            - "3000:3000"
+        volumes:
+            - .:/var/wwww/html/
+
+        command: tail -f /dev/null
+
+        working_dir: /var/wwww/html
+
+    astrosports.composer:
+        image: elitonluiz1989/composer
+
+        container_name: astrosports.composer
+
+        volumes:
+            - .:/var/www/html/
+
+        working_dir: /var/wwww/html
+
+    astrosports.phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+
+        container_name: astrosports.phpmyadmin
+
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=127.0.0.1
+
+        ports:
+            - "88:80"
+
+        depends_on:
+            - astrosports.mysql
+
+        volumes:
+            - /sessions
 
     astrosports.mysql:
         image: mysql:latest
