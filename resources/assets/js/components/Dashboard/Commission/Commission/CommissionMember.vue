@@ -10,27 +10,21 @@
         </div>
 
         <div class="dashboard__user-avatar">
-            <img :src="avatar" :alt="user.name" class="img">
+            <img :src="avatar" :alt="member.name" class="img">
         </div>
 
-        <div class="dashboard__user-item" v-text="user.name"></div>
+        <div class="dashboard__user-item" v-text="member.name"></div>
 
         <div class="dashboard__user-item" v-text="role"></div>
     </div>
 </template>
 
 <script>
-    import UserInfoMixin from '../Mixins/CommissionInfoMixin';
-
     export default {
-        name: "user-info",
-
-        mixins: [
-            UserInfoMixin
-        ],
+        name: "commission-member",
 
         props: {
-            userKey: {
+            commissionKey: {
                 type: Number,
                 required: true,
             }
@@ -43,8 +37,12 @@
             };
         },
 
-        computed: {
-            user() {
+        computed: {            
+            avatar() {
+                return this.user.avatar || CONFIG.PHOTOS.DEFAULT;
+            },
+            
+            member() {
                 return this.$store.state.commission.records[this.userKey];
             },
 
@@ -62,8 +60,8 @@
                 this.$emit("triggerShowEditForm", this.userKey);
             },
 
-            validateUserInfo(info) {
-                let result = info || "-";
+            validateCommissionMember(member) {
+                let result = member || "-";
                 result = result.name || "-";
 
                 return this.$options.filters.Capitalize(result);

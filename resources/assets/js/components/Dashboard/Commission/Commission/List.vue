@@ -23,9 +23,9 @@
             <div class="dashboard__users-item"
                 v-for="(user, key) in records"
                 :key="key">
-                <user-info :user-key="key"
-                            @triggerShowEditForm="showEditForm"
-                            @triggerShowDeleteForm="showDeleteMessage" />
+                <commission-member :user-key="key"
+                                    @triggerShowEditForm="showEditForm"
+                                    @triggerShowDeleteForm="showDeleteMessage" />
             </div>
 
             <insert-user-button @showInsertForm="showInsertForm" />
@@ -37,7 +37,7 @@
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import { mapState } from 'vuex';
     import InsertUserButton from './InsertUserButton.vue';
-    import UserInfo from './User';
+    import CommissionMember from './CommissionMember';
     import UserInsertForm from './Insert';
     import UserEditForm from './Edit';
     import UserDeleteModal from '../Delete';
@@ -47,7 +47,7 @@
 
         components: {
             InsertUserButton,
-            UserInfo,
+            CommissionMember,
             UserInsertForm,
             UserEditForm,
             UserDeleteModal
