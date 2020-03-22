@@ -28,10 +28,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="login-remember" class="login__remember-label control-label col-9 col-sm-10">Lembrar usuário</label>
-
-                        <div class="input-group col-3 col-sm-2">
-                            <input type="checkbox" id="login-remember" name="login-remember"  class="form-control" v-model="remember">
+                        <div class="input-group col-12 justify-content-end">
+                            <div class="form-check form-check-inline">
+                                <label class="login__remember-label form-check-label control-label" for="login-remember">Lembrar usuário</label>
+                                
+                                <input type="checkbox" id="login-remember" name="login-remember" class="form-check-input" v-model="remember">
+                            </div>
                         </div>
                     </div>
 
