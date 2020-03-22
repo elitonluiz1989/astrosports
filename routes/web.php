@@ -50,11 +50,7 @@ Route::prefix('storage')
 
 Route::namespace('Auth')
     ->group(function () {
-        Route::prefix('login')
-            ->group(function () {
-                Route::get('/', 'LoginController@showLogin')->name('login');
-                Route::post('/', 'LoginController@login')->name('doLogin');
-            });
+        Route::get('/login', 'LoginController@showLogin')->name('login');
 
         Route::get('/logout', 'LoginController@logout')->name('logout');
     });

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\OnShowLogin;
+use Illuminate\Http\Request;
 use App\Handlers\LoginHandler;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -22,11 +23,6 @@ class LoginController extends Controller
      */
     public function showLogin()
     {
-        $t = env('DB_HOST');
-        $d= env('WEBMASTER_USERNAME');
-
-        $this->hasWebmaster();
-
         $data = [
             'currentPage' => config('dashboard.defaultPage'),
         ];
@@ -41,16 +37,17 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
+        $remember = $request->input('remember') ?? false;
 
-        if (Auth::attempt($credentials, $request->has('remember'))) {
-            return response()->json(['login' => true], 200);
-        } else {
-            return response()->json(['login' => false], 401);
+        if (!Auth::attempt($credentials, $remember)) {
+            return response()->json(['login' => 0], 401);
         }
+
+        return response()->json(['login' => 1]);
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Routing\Redirector
      */
     public function logout()
     {

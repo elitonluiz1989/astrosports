@@ -92,18 +92,18 @@
                     this.showMask = true;
                     this.formMessageShow = false;
 
-                    let data = {
-                        username: this.username,
-                        password: this.password
-                    };
+                    let data = new FormData();
+                    data.set('username', this.username);
+                    data.set('password', this.password);
 
                     if (this.remember) {
-                        data.remember = this.remember;
+                        data.set('remember', this.remember);
                     }
+                    console.log(data)
 
-                    axios.post('/login', data)
+                    axios.post('/api/v1/login', data)
                         .then(response => {
-                            if (response.data.login) {
+                            if (response.data.login == 1) {
                                 window.location.href = '/dashboard';
                             } else {
                                 this.showMask = false;
