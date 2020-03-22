@@ -19,6 +19,7 @@ mix.js("resources/assets/js/app.js", "public/js/app.js")
         implementation: require('node-sass')
       })
     .browserSync({
-        proxy: "localhost",
-        browser: "google chrome"
+        proxy: "astrosports.web",
+        host: "localhost",
+        open: false
     });
