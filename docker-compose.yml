@@ -6,8 +6,6 @@ services:
 
         container_name: astrosports.web
 
-        working_dir: /var/wwww/html/
-
         ports:
             - "80:80"
             - "9000:9000"
@@ -19,9 +17,15 @@ services:
             - .:/var/wwww/html/
             - ./docker/vhost.conf:/etc/apache2/sites-available/000-default.conf
 
-        command: ["wait-for-it", "astrosports.mysql:3306 -t 0", "--", "sh", "./docker/entrypoint.sh"]
+        working_dir: /var/wwww/html/
 
-        environment:
+        command: ["wait-for-it", "--timeout=0", "astrosports.mysql:3306", "--", "sh", "./docker/scripts/astrosports.web.sh"]
+        
+        networks: 
+            - astrosports.front
+            - astrosports.back
+
+        #environment:
           #xDebug configs for 'development' environment
          #   - XDEBUG_INSTALL="true"
          #   - XDEBUG_CONFIG="remote_host=localhost"
@@ -30,12 +34,12 @@ services:
          #   - XDEBUG_REMOTE_CONNECT_BACK=off
          #   - XDEBUG_REMOTE_HANDLER=dbgp
          #   - XDEBUG_PROFILER_ENABLE=1
-         #   - XDEBUG_PROFILER_OUTPUT_DIR=/tmp/www/html
+         #   - XDEBUG_PROFILER_OUTPUT_DIR=/tmp/wwww/html
          #   - XDEBUG_REMOTE_PORT=9000
          #   - XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
          #   - PHP_IDE_CONFIG="serverName=Test"
 
-   /astrosports.node:
+    astrosports.node:
         image: node:alpine
 
         container_name: astrosports.node
@@ -46,9 +50,12 @@ services:
         volumes:
             - .:/var/wwww/html/
 
-        command: tail -f /dev/null
+        command: ["tail", "-f", "/dev/null"]
 
         working_dir: /var/wwww/html
+    
+        networks: 
+            - astrosports.front
 
     astrosports.composer:
         image: elitonluiz1989/composer
@@ -56,9 +63,12 @@ services:
         container_name: astrosports.composer
 
         volumes:
-            - .:/var/www/html/
+            - .:/var/wwww/html/
 
         working_dir: /var/wwww/html
+
+        networks: 
+            - astrosports.back
 
     astrosports.phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -67,16 +77,22 @@ services:
 
         environment:
             - PMA_ARBITRARY=1
-            - PMA_HOST=127.0.0.1
 
         ports:
-            - "88:80"
+            - "8888:80"
 
         depends_on:
             - astrosports.mysql
 
         volumes:
+            #- ./docker/scripts/:/docker
             - /sessions
+        
+        networks: 
+            - astrosports.front
+            - astrosports.back
+        
+        #command: ["/docker/wait-for-it.sh", "--timeout=0", "astrosports.mysql:3306", "--", "sh", "/docker/run-apache.sh"]
 
     astrosports.mysql:
         image: mysql:latest
@@ -86,8 +102,15 @@ services:
         ports:
           - "3306:3306"
 
+        networks: 
+            - astrosports.back
+
         environment:
           - MYSQL_ROOT_PASSWORD=5119191413
           - MYSQL_DATABASE=astrosports
           - MYSQL_USER=elitonluiz
           - MYSQL_PASSWORD=5119191413
+
+networks: 
+    astrosports.front:
+    astrosports.back:
