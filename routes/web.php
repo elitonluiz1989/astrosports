@@ -52,6 +52,8 @@ Route::namespace('Auth')
     ->group(function () {
         Route::get('/login', 'LoginController@showLogin')->name('login');
 
+        Route::post('/login', 'LoginController@login')->name('api.login');
+
         Route::get('/logout', 'LoginController@logout')->name('logout');
     });
 

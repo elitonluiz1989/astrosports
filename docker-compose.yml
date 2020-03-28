@@ -2,7 +2,7 @@ version: '3'
 
 services:
     astrosports.web:
-        image: elitonluiz1989/php
+        image: elitonluiz1989/php-apache
 
         container_name: astrosports.web
 
@@ -56,19 +56,6 @@ services:
     
         networks: 
             - astrosports.front
-
-    astrosports.composer:
-        image: elitonluiz1989/composer
-
-        container_name: astrosports.composer
-
-        volumes:
-            - .:/var/wwww/html/
-
-        working_dir: /var/wwww/html
-
-        networks: 
-            - astrosports.back
 
     astrosports.phpmyadmin:
         image: phpmyadmin/phpmyadmin
