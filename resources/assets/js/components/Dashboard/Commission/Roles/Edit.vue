@@ -24,20 +24,6 @@
                                     <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label :for="setFieldId('grant')" :class="styles.label">Permissão</label>
-
-                                <div :class="styles.selectGroup">
-                                    <select :id="setFieldId('grant')" class="form-control" v-model="fields.grant">
-                                        <option value="0">...</option>
-                                        <option :value="grant.id"
-                                                v-for="(grant, key) in grants"
-                                                v-if="grants.length > 0"
-                                                :key="key">{{ grant.name | Capitalize }}</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="modal-footer">
@@ -55,21 +41,21 @@
 <script>
     import DashboardModalMixin from '@components/Base/Mixins/ModalMixin';
     import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
-    import UserRolesMixin from "../Mixins/CommissionRolesMixin";
+    import CommissionRolesMixin from "../Mixins/CommissionRolesMixin";
 
     export default {
-        name: "user-role-edit-form",
+        name: "commission-role-edit-form",
 
         mixins: [
             DashboardModalMixin,
             DashboardFormEditMixin,
-            UserRolesMixin
+            CommissionRolesMixin
         ],
 
         data() {
             return {
-                modalId: "users-role-edit-modal",
-                formId: "users-role-edit-form",
+                modalId: "commission-role-edit-modal",
+                formId: "commission-role-edit-form",
                 formTitle: "Editar cargo",
                 formType: "edit",
                 submitMessages: {
@@ -80,20 +66,16 @@
         },
 
         computed: {
-            grants() {
-                return this.$store.state.userGrants.records;
-            },
-
             record() {
-                return this.$store.state.userRoles.records[this.recordKey];
+                return this.$store.state.commissionRoles.records[this.recordKey];
             },
 
             editStatus() {
-                return this.$store.getters['userRoles/getStatus']('edit');
+                return this.$store.getters['commissionRoles/getStatus']('edit');
             },
 
             loadStatus() {
-                return this.$store.getters['userRoles/getStatus']('load');
+                return this.$store.getters['commissionRoles/getStatus']('load');
             }
         },
 
@@ -108,7 +90,7 @@
 
                         this.disableForm();
 
-                        this.$store.dispatch("userRoles/edit", this.formData);
+                        this.$store.dispatch("commissionRoles/edit", this.formData);
                     }
                 }
             }

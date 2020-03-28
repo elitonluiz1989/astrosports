@@ -21,10 +21,7 @@ export default {
     methods: {
         validateForm() {
             if (this.isEmptyString(this.fields.name)) {
-                this.setFieldMessageError("name", "Preencha o nome do cargo de usuário");
-                return false;
-            } else if (this.fields.grant === 0) {
-                this.setFieldMessageError("grant", "Selecione a permissão do cargo.");
+                this.setFieldMessageError("name", "Preencha o nome do cargo");
                 return false;
             } else {
                  return true;

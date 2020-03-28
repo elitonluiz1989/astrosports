@@ -4,13 +4,13 @@
                                    :message="loadStatus.messages" />
 
         <dashboard-list-row row-type="control">
-            <user-role-insert-form />
+            <commission-role-insert-form />
 
-            <user-role-edit-form :record-key="recordKey"
+            <commission-role-edit-form :record-key="recordKey"
                                   :show="showEditModal"
                                   @hideModal="hideModal" />
 
-            <user-delete-modal type-record="user-role"
+            <commission-delete-modal type-record="commission-role"
                                :record-id="recordId"
                                :show="showDeleteModal"
                                @hideModal="hideModal" />
@@ -50,17 +50,17 @@
 <script>
     import { mapState } from 'vuex';
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
-    import UserRoleInsertForm from './Insert';
-    import UserRoleEditForm from "./Edit";
-    import UserDeleteModal from "../Delete";
+    import CommissionRoleInsertForm from './Insert';
+    import CommissionRoleEditForm from "./Edit";
+    import CommissionDeleteModal from "../Delete";
 
     export default {
         name: "commission-roles-list",
 
         components: {
-            UserDeleteModal,
-            UserRoleEditForm,
-            UserRoleInsertForm
+            CommissionDeleteModal,
+            CommissionRoleEditForm,
+            CommissionRoleInsertForm
         },
 
         mixins: [
@@ -77,10 +77,6 @@
                     role: {
                         title: "Cargo",
                         message: "Clique para ordernar pelo cargo"
-                    },
-                    grant: {
-                        title: "Permissão",
-                        message: "Clique para ordernar pela permissão"
                     }
                 }
             };

@@ -35,11 +35,4 @@ class CommissionRolesStoreRequest extends FormRequest
             ];
         }
     }
-
-    /**
-     * Get the validation messages.
-     *
-     * @return array
-     */
-    public function messages() { }
 }

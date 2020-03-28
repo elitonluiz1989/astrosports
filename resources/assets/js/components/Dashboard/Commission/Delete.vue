@@ -38,22 +38,17 @@
         data() {
             return {
                 modalText: {
-                    user: "Deseja remover o usuário?",
-                    "user-role": "Deseja remover o tipo função de usuário?",
-                    "user-grant": "Deseja remover o tipo privilégio de usuário?"
+                    commission: "Deseja remover este membro?",
+                    "commission-role": "Deseja remover este cargo?",
                 },
                 messages: {
-                    user: {
-                        2: "Usuário removido com sucesso.",
-                        3: "Não foi possível remover o usuário."
+                    commission: {
+                        2: "Membro removido com sucesso.",
+                        3: "Não foi possível remover o membro."
                     },
-                    "user-role": {
-                        2: "Cargo de usuário removida com sucesso.",
-                        3: "Não foi possível remover o cargo de usuário."
-                    },
-                    "user-grant": {
-                        2: "Tipo privilégio de usuário removido com sucesso.",
-                        3: "Não foi possível remover o tipo privilégio de usuário."
+                    "commission-role": {
+                        2: "Cargo de comissão removida com sucesso.",
+                        3: "Não foi possível remover o cargo de comissão."
                     }
                 }
             }
@@ -62,11 +57,9 @@
         computed: {
             deleteStatus() {
                 if (this.typeRecord === "user") {
-                    return this.$store.getters['users/getStatus']('delete');
-                } else if (this.typeRecord === "user-role") {
-                    return this.$store.getters['userRoles/getStatus']('delete');
-                } else if (this.typeRecord === "user-grant") {
-                    return this.$store.getters['userGrants/getStatus']('delete');
+                    return this.$store.getters['commission/getStatus']('delete');
+                } else if (this.typeRecord === "commission-role") {
+                    return this.$store.getters['commissionRoles/getStatus']('delete');
                 }
             }
         },
@@ -75,12 +68,10 @@
             deleteRecord() {
                 this.showMask = true;
 
-                if (this.typeRecord === "user") {
-                    this.$store.dispatch("users/delete", this.recordId);
-                } else if (this.typeRecord === "user-role") {
-                    this.$store.dispatch("userRoles/delete", this.recordId);
-                } else if (this.typeRecord === "user-grant") {
-                    this.$store.dispatch("userGrants/delete", this.recordId);
+                if (this.typeRecord === "commission") {
+                    this.$store.dispatch("commission/delete", this.recordId);
+                } else if (this.typeRecord === "commission-role") {
+                    this.$store.dispatch("commissionRoles/delete", this.recordId);
                 }
             }
         }
