@@ -24,8 +24,6 @@ class CommissionStoreRequest extends FormRequest
     public function rules()
     {
         if ($this->has('id')) {
-            $id = $this->get('id');
-
             return [
                 'id'       => 'integer|required',
                 'avatar'   => 'string|required_without_all:username,name,role,password',
@@ -40,11 +38,4 @@ class CommissionStoreRequest extends FormRequest
             ];
         }
     }
-
-    /**
-     * Get the validation messages.
-     *
-     * @return array
-     */
-    public function messages() { }
 }

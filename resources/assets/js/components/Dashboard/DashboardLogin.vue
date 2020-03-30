@@ -101,7 +101,6 @@
                     if (this.remember) {
                         data.set('remember', this.remember);
                     }
-                    console.log(data)
 
                     axios.post('/login', data)
                         .then(response => {

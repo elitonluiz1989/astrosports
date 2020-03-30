@@ -20,6 +20,8 @@
 </template>
 
 <script>
+    import { CONFIG } from "@js/config";
+
     export default {
         name: "commission-member",
 
@@ -39,28 +41,28 @@
 
         computed: {            
             avatar() {
-                return this.user.avatar || CONFIG.PHOTOS.DEFAULT;
+                return this.member.avatar || CONFIG.PHOTOS.DEFAULT;
             },
             
             member() {
-                return this.$store.state.commission.records[this.userKey];
+                return this.$store.state.commission.records[this.commissionKey];
             },
 
             role() {
-                return this.validateUserInfo(this.user.role);
+                return this.validateCommissionMemberRole(this.member.roles);
             }
         },
 
         methods: {
             triggerShowDeleteForm() {
-                this.$emit("triggerShowDeleteForm", this.user.id);
+                this.$emit("triggerShowDeleteForm", this.member.id);
             },
 
             triggerShowEditForm() {
-                this.$emit("triggerShowEditForm", this.userKey);
+                this.$emit("triggerShowEditForm", this.commissionKey);
             },
 
-            validateCommissionMember(member) {
+            validateCommissionMemberRole(member) {
                 let result = member || "-";
                 result = result.name || "-";
 

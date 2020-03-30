@@ -40,22 +40,9 @@
             </div>
 
             <div class="form-group row">
-              <label :for="setFieldId('username')" :class="userStyles.label">Nome de usuário</label>
+              <label :for="setFieldId('name')" :class="commissionStyles.label">Nome</label>
 
-              <div :class="userStyles.inputGroup">
-                <input
-                    type="text"
-                    :id="setFieldId('username')"
-                    class="form-control"
-                    v-model="fields.username"
-                >
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label :for="setFieldId('name')" :class="userStyles.label">Nome</label>
-
-              <div :class="userStyles.inputGroup">
+              <div :class="commissionStyles.inputGroup">
                 <input
                     type="text"
                     :id="setFieldId('name')"
@@ -66,9 +53,9 @@
             </div>
 
             <div class="form-group row">
-              <label :for="setFieldId('role')" :class="userStyles.label">Tipo de usuário</label>
+              <label :for="setFieldId('role')" :class="commissionStyles.label">Cargo</label>
 
-              <div :class="userStyles.selectGroup" v-if="roles.length > 0">
+              <div :class="commissionStyles.selectGroup" v-if="roles.length > 0">
                 <select :id="setFieldId('role')" class="form-control" v-model="fields.role">
                   <option value="0">...</option>
                   <option :value="role.id"
@@ -80,49 +67,7 @@
               </div>
 
               <div class="col" v-else>
-                <div class="alert alert-danger">Erro ao carregar tipo de usuário.</div>
-              </div>
-          </div>
-
-            <div class="form-group row">
-              <label :id="setFieldId('password-update')" class="control-label col-12">
-                <div class="pull-left">Deseja alterar a senha do usuário?</div>
-
-                <input
-                  type="checkbox"
-                  :id="setFieldId('password-update')"
-                  class="dashboard__users-password-update"
-                  v-model="allowPasswordUpdate"
-                >
-              </label>
-            </div>
-
-            <div class="form-group row" v-show="allowPasswordUpdate">
-              <label :for="setFieldId('password')" :class="userStyles.label">Senha</label>
-
-              <div :class="userStyles.inputGroup">
-                <input
-                  type="password"
-                  :id="setFieldId('password')"
-                  class="form-control"
-                  v-model="fields.password"
-                >
-              </div>
-            </div>
-
-            <div class="form-group row" v-show="allowPasswordUpdate">
-              <label
-                :for="setFieldId('password-confirmation')"
-                :class="userStyles.label"
-              >Confirme a senha</label>
-
-              <div :class="userStyles.inputGroup">
-                <input
-                  type="password"
-                  :id="setFieldId('password-confirmation')"
-                  class="form-control"
-                  v-model="fields.password_confirmation"
-                >
+                <div class="alert alert-danger">Erro ao carregar cargo.</div>
               </div>
             </div>
           </div>
@@ -147,18 +92,18 @@ import DashboardFormEditMixin from "@Dashboard/Mixins/DashboardFormEditMixin";
 import CommissionFormMixin from "../Mixins/CommissionFormMixin";
 
 export default {
-  name: "user-edit-form",
+  name: "commission-edit-form",
 
   mixins: [DashboardFormEditMixin, CommissionFormMixin],
 
   data() {
     return {
-      formId: "user-edit-form",
-      modalId: "user-edit-modal",
-      formTitle: "Editar usuário",
+      formId: "commission-edit-form",
+      modalId: "commission-edit-modal",
+      formTitle: "Editar membro da comissão",
       formType: "edit",
       submitMessages: {
-        error: "Houve um erro ao editar o usuário.",
+        error: "Houve um erro ao editar o membro da comissão.",
         success: "Alterações salvas com sucesso."
       }
     };
@@ -166,19 +111,20 @@ export default {
 
   computed: {
     editStatus() {
-      return this.$store.getters["users/getStatus"]("edit");
+      return this.$store.getters["commission/getStatus"]("edit");
     },
 
     loadStatus() {
-      return this.$store.getters["users/getStatus"]("edit");
+      return this.$store.getters["commission/getStatus"]("edit");
     },
 
     record() {
-      return this.$store.state.users.records[this.recordKey];
+      console.log(this.recordKey)
+      return this.$store.state.commission.records[this.recordKey];
     },
 
     roles() {
-      return this.$store.state.userRoles.records;
+      return this.$store.state.commissionRoles.records;
     }
   },
 
@@ -207,7 +153,7 @@ export default {
 
           this.disableForm();
 
-          this.$store.dispatch("users/edit", this.formData);
+          this.$store.dispatch("commission/edit", this.formData);
         }
       }
     }

@@ -13,8 +13,8 @@ class Commission extends TeamBaseAbstract
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function role()
+    public function roles()
     {
-        return $this->hasOne('App\Models\CommissionRoles', 'id');
+        return $this->hasOne('App\Models\CommissionRoles', 'id', 'role');
     }
 }

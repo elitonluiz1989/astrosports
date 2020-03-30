@@ -3,32 +3,32 @@
         <dashboard-request-message :code="loadStatus.code"
                                    :message="loadStatus.messages" />
         
-        <user-insert-form :show="showInsertModal" 
-                           @hideModal="hideModal" />
+        <commission-insert-form :show="showInsertModal" 
+                                @hideModal="hideModal" />
 
-        <user-edit-form :record-key="recordKey"
-                        :show="showEditModal"
-                        @hideModal="hideModal" />
+        <commission-edit-form :record-key="recordKey"
+                            :show="showEditModal"
+                            @hideModal="hideModal" />
 
-        <user-delete-modal type-record="user"
-                           :record-id="recordId"
-                           :show="showDeleteModal"
-                           @hideModal="hideModal" />
+        <commission-delete-modal type-record="commission"
+                                :record-id="recordId"
+                                :show="showDeleteModal"
+                                @hideModal="hideModal" />
 
-        <div :class="styles.usersRow" v-if="!dataLoaded && loadStatus.code === 2">
-            <insert-user-button @showInsertForm="showInsertForm" />
+        <div :class="styles.comissionRow" v-if="!dataLoaded && loadStatus.code === 2">
+            <insert-commission-member-button @showInsertForm="showInsertForm" />
         </div>
 
-        <div :class="styles.usersRow" v-if="dataLoaded">
+        <div :class="styles.comissionRow" v-if="dataLoaded">
             <div class="dashboard__users-item"
                 v-for="(user, key) in records"
                 :key="key">
-                <commission-member :user-key="key"
+                <commission-member :commission-key="key"
                                     @triggerShowEditForm="showEditForm"
                                     @triggerShowDeleteForm="showDeleteMessage" />
             </div>
 
-            <insert-user-button @showInsertForm="showInsertForm" />
+            <insert-commission-member-button @showInsertForm="showInsertForm" />
         </div>
     </div>
 </template>
@@ -36,21 +36,21 @@
 <script>
     import DashboardListMixin from '@Dashboard/Mixins/DashboardListMixin';
     import { mapState } from 'vuex';
-    import InsertUserButton from './InsertUserButton.vue';
+    import InsertCommissionMemberButton from './InsertComissionMemberButton';
     import CommissionMember from './CommissionMember';
-    import UserInsertForm from './Insert';
-    import UserEditForm from './Edit';
-    import UserDeleteModal from '../Delete';
+    import CommissionInsertForm from './Insert';
+    import CommissionEditForm from './Edit';
+    import CommissionDeleteModal from '../Delete';
 
     export default {
         name: "commission-lists",
 
         components: {
-            InsertUserButton,
+            InsertCommissionMemberButton,
             CommissionMember,
-            UserInsertForm,
-            UserEditForm,
-            UserDeleteModal
+            CommissionInsertForm,
+            CommissionEditForm,
+            CommissionDeleteModal
         },
 
         mixins: [
@@ -66,7 +66,7 @@
 
             styles() {
                 return {
-                    usersRow: 'row justify-content-center justify-content-sm-around justify-content-md-start'
+                 comissionRow: 'row justify-content-center justify-content-sm-around justify-content-md-start'
                 }
             },
 

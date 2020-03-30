@@ -56,7 +56,7 @@
 
         computed: {
             deleteStatus() {
-                if (this.typeRecord === "user") {
+                if (this.typeRecord === "commission") {
                     return this.$store.getters['commission/getStatus']('delete');
                 } else if (this.typeRecord === "commission-role") {
                     return this.$store.getters['commissionRoles/getStatus']('delete');

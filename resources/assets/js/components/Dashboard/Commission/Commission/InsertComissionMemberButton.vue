@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        name: "insert-user-button"
+        name: "insert-commission-member-button"
     }
 </script>
 

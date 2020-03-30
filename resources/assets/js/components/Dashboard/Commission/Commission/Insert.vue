@@ -38,25 +38,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label :for="setFieldId('username')" :class="userStyles.label">Nome de usuário</label>
+                            <label :for="setFieldId('name')" :class="commissionStyles.label">Nome</label>
 
-                            <div :class="userStyles.inputGroup">
-                                <input type="text" :id="setFieldId('username')" class="form-control" v-model="fields.username">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label :for="setFieldId('name')" :class="userStyles.label">Nome</label>
-
-                            <div :class="userStyles.inputGroup">
+                            <div :class="commissionStyles.inputGroup">
                                 <input type="text" :id="setFieldId('name')" class="form-control" v-model="fields.name">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label :for="setFieldId('role')" :class="userStyles.label">Tipo de usuário</label>
+                            <label :for="setFieldId('role')" :class="commissionStyles.label">Cargo</label>
 
-                            <div :class="userStyles.selectGroup">
+                            <div :class="commissionStyles.selectGroup">
                                 <select :id="setFieldId('role')" class="form-control" v-model="fields.role">
                                     <option value="0">...</option>
                                     <option :value="role.id"
@@ -65,22 +57,6 @@
                                             v-if="roles.length > 0"
                                             :key="key"></option>
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label :for="setFieldId('passowrd')" :class="userStyles.label">Senha</label>
-
-                            <div :class="userStyles.inputGroup">
-                                <input type="password" :id="setFieldId('password')" class="form-control" v-model="fields.password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label :for="setFieldId('password-confirmation')" :class="userStyles.label">Confirme a senha</label>
-
-                            <div :class="userStyles.inputGroup">
-                                <input type="password" :id="setFieldId('password-confirmation')" class="form-control" v-model="fields.password_confirmation">
                             </div>
                         </div>
                     </div>
@@ -96,34 +72,34 @@
 </template>
 
 <script>
-    import UsersFormMixin from "../Mixins/CommissionFormMixin";
+    import CommissionFormMixin from "../Mixins/CommissionFormMixin";
 
     export default {
-        name: "user-insert-form",
+        name: "commission-insert-form",
      
         mixins: [
-            UsersFormMixin
+            CommissionFormMixin
         ],
 
         data() {
             return {
-                formId: "user-insert-form",
-                modalId: "user-insert-modal",
+                formId: "commission-insert-form",
+                modalId: "commission-insert-modal",
                 formTitle: "Adicionar usuário",
                 submitMessages: {
-                    error: "Houve um erro ao adicionar o usuário.",
-                    success: "Usuário salvo com sucesso."
+                    error: "Houve um erro ao adicionar o membro da comissão.",
+                    success: "Membro da commissão salvo com sucesso."
                 }
             }
         },
 
         computed: {
             addStatus() {
-                return this.$store.getters["users/getStatus"]("add");
+                return this.$store.getters["commission/getStatus"]("add");
             },
 
             roles() {
-                return this.$store.state.userRoles.records;
+                return this.$store.state.commissionRoles.records;
             }
         },
 
@@ -143,7 +119,7 @@
                     this.setFormData();
 
                     this.showMask = true;
-                    this.$store.dispatch("users/add", this.formData);
+                    this.$store.dispatch("commission/add", this.formData);
                 }
             }
         }

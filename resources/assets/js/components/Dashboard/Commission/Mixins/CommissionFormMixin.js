@@ -16,12 +16,9 @@ export default {
     data() {
         return {
             fields: {
-                username: null,
                 name: null,
                 avatar: null,
                 role: 0,
-                password: null,
-                "password_confirmation": null
             },
             deleteUploaded: true,
             allowPasswordUpdate: false,
@@ -36,7 +33,7 @@ export default {
             return this.fields.avatar || CONFIG.PHOTOS.DEFAULT;
         },
 
-        userStyles() {
+        commissionStyles() {
             return {
                 label: "col-form-label col-12 col-md-5",
                 inputGroup: "input-group col-12 col-md-7",
@@ -47,14 +44,10 @@ export default {
 
     methods: {
         validateForm() {
-            if (this.isEmptyString(this.fields.username)) {
-                this.setFieldMessageError("username", "Informe o nome de usuário.");
+            if (this.isEmptyString(this.fields.name)) {
+                this.setFieldMessageError("name", "Informe o nome de usuário.");
             } else if (this.fields.role === 0) {
                 this.setFieldMessageError("role", "Informe o cargo de usuário.");
-            } else if (this.isEmptyString(this.fields.password === "")) {
-                this.setFieldMessageError("password", "Informe uma senha para o usuário.");
-            } else if (this.fields.password_confirmation !== this.fields.password) {
-                this.setFieldMessageError("confirm-password", "As senhas informadas diferem.");
             } else {
                 return true;
             }

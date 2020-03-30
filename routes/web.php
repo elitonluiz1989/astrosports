@@ -43,8 +43,10 @@ Route::prefix('storage')
                     ->name('storage.images.view');
                 Route::get('/{folder}/view/{image}', 'ImagesController@imageByFolder')
                     ->name('storage.images.folder.view');
-                Route::post('/upload', 'ImagesController@upload');
-                Route::any('/delete', 'ImagesController@delete');
+                Route::post('/upload', 'ImagesController@upload')
+                    ->name('storage.images.upload');
+                Route::any('/delete', 'ImagesController@delte')
+                    ->name('storage.images.delete');
             });
     });
 

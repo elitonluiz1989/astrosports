@@ -8,7 +8,7 @@ Route::namespace('Commission')
                 Route::get('/{id?}', 'CommissionController@commission')
                     ->where('id', '[0-9]+')
                     ->name('dashboard.commission');
-                Route::match(['post', 'put'], '/', 'CommissionController@store')
+                Route::post('/', 'CommissionController@store')
                     ->name('dashboard.commission.store');
                 Route::any('/delete/', 'CommissionController@delete')
                     ->name('dashboard.commission.delete');
