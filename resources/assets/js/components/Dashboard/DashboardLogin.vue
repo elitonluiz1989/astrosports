@@ -103,7 +103,7 @@
                     }
                     console.log(data)
 
-                    axios.post('/api/v1/login', data)
+                    axios.post('/login', data)
                         .then(response => {
                             if (response.data.login == 1) {
                                 window.location.href = '/dashboard';
