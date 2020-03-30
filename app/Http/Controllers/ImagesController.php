@@ -117,9 +117,6 @@ class ImagesController extends Controller
         }
         $format = $img->extension;
 
-        // Use only for docker
-        ob_clean();
-
         return $img->response($format);
     }
 }
