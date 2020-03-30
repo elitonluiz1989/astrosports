@@ -3,7 +3,7 @@
  */
 const api_url = window.location.origin + '/api';
 const google_key = "AIzaSyAAKp4YSno6--i2Bk5r9Hz2uiC4qcxS2Ok";
-const photos_path = 'storage/photos/';
+const photos_path = 'storage/images/view/';
 const photo_anonymous  = photos_path + 'anonymous.png';
 
 export const CONFIG = {

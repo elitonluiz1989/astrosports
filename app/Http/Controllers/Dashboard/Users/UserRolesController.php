@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Users;
 
 use App\Handlers\Dashboard\UserPermissionHandler;
-use App\Http\Requests\UserRolesStoreRequest;
+use App\Http\Requests\Dashboard\Users\UserRolesStoreRequest;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

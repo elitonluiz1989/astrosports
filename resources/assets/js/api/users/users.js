@@ -1,7 +1,7 @@
 import base from '../base';
 
 export default base.extend({
-    url: 'users',
+    endpoint: 'users',
 
     getAuthUser() {
         return axios.get(this.serverUrl + '/user');

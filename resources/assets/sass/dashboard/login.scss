@@ -37,10 +37,8 @@
   }
 
   &__remember-label {
+    margin-right: 0.5rem;
     font-size: 0.7rem;
-
-    @extend .text-right;
-    @extend .font-weight-bold;
   }
 
   &__btn-group {

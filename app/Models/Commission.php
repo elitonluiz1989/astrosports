@@ -8,11 +8,13 @@ class Commission extends TeamBaseAbstract
 {
     protected $table = 'commission';
 
+    protected $folder = 'photos';
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo('App\Models\CommissionRoles', 'id');
+        return $this->hasOne('App\Models\CommissionRoles', 'id', 'role');
     }
 }

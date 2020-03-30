@@ -36,11 +36,11 @@
 
     <body class="{{ $bodyClass }}">
         <div id="app" class="app">
-            @if ($authenticaded)
+            @auth
                 <dashboard current-page="{{ $currentPage }}"></dashboard>
             @else
                 <dashboard-login></dashboard-login>
-            @endif
+            @endauth
         </div>
 
         <script src="/js/manifest.js"></script>

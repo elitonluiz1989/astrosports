@@ -17,18 +17,12 @@ export default {
     },
 
     edit(pole) {
-        return axios.put(this.url, pole);
+        return axios.post(this.url, pole);
     },
 
     del(id) {
-        let url = this.url + '/delete/';
+        let url = this.url + '/delete/?id=' + id;
 
-        let data = {
-            params: {
-                id: id
-            }
-        };
-
-        return axios.delete(url, data);
+        return axios.get(url);
     }
 }

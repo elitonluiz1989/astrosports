@@ -1,4 +1,4 @@
-import server   from "@js/api/users/users";
+import api from "@js/api/users/users";
 import base from "../base";
 
 export const users = base.extend({
@@ -6,7 +6,7 @@ export const users = base.extend({
         load({commit}) {
             commit("setStatus", ["load", 1]);
 
-            server.get()
+            api.get()
                 .then(response => {
                     commit("setRecords", response.data.data);
                     commit("setPagination", response.data);
@@ -22,7 +22,7 @@ export const users = base.extend({
         add({commit, dispatch}, user) {
             commit("setStatus", ["add", 1]);
 
-            server.add(user)
+            api.add(user)
                 .then(response => {
                     commit("setStatus", ["add", 2]);
                     dispatch("load");
@@ -35,7 +35,7 @@ export const users = base.extend({
         edit({commit, dispatch}, user) {
             commit("setStatus", ["edit", 1]);
 
-            server.edit(user)
+            api.edit(user)
                 .then(response => {
                     commit("setStatus", ["edit", 2]);
                     dispatch("load");
@@ -48,7 +48,7 @@ export const users = base.extend({
         delete({commit, dispatch}, id) {
             commit("setStatus", ["delete", 1]);
 
-            server.delete(id)
+            api.delete(id)
                 .then(() => {
                     commit("setStatus", ["delete", 2]);
                     dispatch("load");

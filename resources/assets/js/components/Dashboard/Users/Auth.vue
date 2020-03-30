@@ -1,7 +1,7 @@
  <template>
     <div class="dashboard__auth">
         <div class="dashboard__auth-avatar">
-            <img :src="avatar" :alt="user.name" class="img">
+            <img :src="avatar" :alt="user.name" class="img" v-if="avatar !== ''">
         </div>
 
         <div class="dashboard__auth-popover">
