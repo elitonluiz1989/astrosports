@@ -117,10 +117,6 @@ class ImagesController extends Controller
         }
         $format = $img->extension;
 
-        /* Workaround to do the image appear.
-           Before only show a 16x16 transparent square instead of image */
-        ob_end_clean();
-
         return $img->response($format);
     }
 }

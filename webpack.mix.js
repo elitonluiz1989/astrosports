@@ -14,11 +14,12 @@ mix.webpackConfig({
 });
 
 mix.js("resources/assets/js/app.js", "public/js/app.js")
-  .extract(["vue", "jquery"])
-  .sass("resources/assets/sass/app.scss", "public/css", {
-    implementation: require('node-sass')
-  })
-  .browserSync({
-    proxy: "astrosports.test",
-    browser: "google chrome"
-  });
+    .extract([ "vue", "jquery" ])
+    .sass("resources/assets/sass/app.scss", "public/css", {
+        implementation: require('node-sass')
+      })
+    .browserSync({
+        proxy: "astrosports.web",
+        host: "localhost",
+        open: false
+    });
